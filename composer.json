@@ -1,18 +1,18 @@
 {
-    "name": ":vendor/:package_name",
+    "name": "NunoMaduro/Zero",
     "type": "library",
-    "description": ":package_description",
+    "description": "",
     "keywords": [
-        ":vendor",
-        ":package_name"
+        "NunoMaduro",
+        "Zero"
     ],
-    "homepage": "https://github.com/:vendor/:package_name",
+    "homepage": "https://github.com/NunoMaduro/Zero",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": ":author_email",
-            "homepage": ":author_website",
+            "name": "Nuno Maduro",
+            "email": "enunomaduro@gmail.com",
+            "homepage": "nunomaduro.com",
             "role": "Developer"
         }
     ],
@@ -25,12 +25,12 @@
     },
     "autoload": {
         "psr-4": {
-            ":vendor\\:package_name\\": "src"
+            "NunoMaduro\\Zero\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            ":vendor\\:package_name\\": "tests"
+            "NunoMaduro\\Zero\\": "tests"
         }
     },
     "scripts": {

@@ -20,7 +20,7 @@ Not obligatory, but suggest an idea for implementing addition or change.
 
 Include as many relevant details about the environment you experienced the bug in and how to reproduce it.
 
-* Version used (e.g. PHP 5.6, HHVM 3):
+* Version used (e.g. PHP 7.1, HHVM 3):
 * Operating system and version (e.g. Ubuntu 16.04, Windows 7):
 * Link to your project:
 * ...
