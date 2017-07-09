@@ -1,83 +1,98 @@
-# :package_name
+Laravel Zero
+================
 
-[![Latest Version on Packagist][ico-version]][link-packagist]
-[![Software License][ico-license]](LICENSE.md)
-[![Build Status][ico-travis]][link-travis]
-[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
-[![Quality Score][ico-code-quality]][link-code-quality]
-[![Total Downloads][ico-downloads]][link-downloads]
+Laravel Zero was created by, and is maintained by [Nuno Maduro](https://github.com/nunomaduro), and is a micro-framework that provides an elegant starting point for your next console application.
 
-**Note:** Replace ```:author_name``` ```:author_username``` ```:author_website``` ```:author_email``` ```:vendor``` ```:package_name``` ```:package_description``` with their correct values in [README.md](README.md), [CHANGELOG.md](CHANGELOG.md), [CONTRIBUTING.md](CONTRIBUTING.md), [LICENSE.md](LICENSE.md) and [composer.json](composer.json) files, then delete this line. You can run `$ php prefill.php` in the command line to make all replacements at once. Delete the file prefill.php as well.
+<p align="center">
+  <a href="https://styleci.io/repos/80149647"><img src="https://styleci.io/repos/80149647/shield" alt="StyleCI Status"></img></a>
+  <a href="https://travis-ci.org/nunomaduro/laravel-zero"><img src="https://img.shields.io/travis/nunomaduro/laravel-zero/stable.svg?style=flat-square" alt="Build Status"></img></a>
+  <a href="https://scrutinizer-ci.com/g/nunomaduro/laravel-zero"><img src="https://img.shields.io/scrutinizer/g/nunomaduro/laravel-zero.svg?style=flat-square" alt="Quality Score"></img></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square" alt="Software License"></img></a>
+  <a href="https://github.com/nunomaduro/laravel-zero/releases"><img src="https://img.shields.io/github/release/nunomaduro/laravel-zero.svg?style=flat-square" alt="Latest Version"></img></a>
+</p>
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what
-PSRs you support to avoid any confusion with users and contributors.
+> **Note:** This repository contains the core code of the Laravel Zero framework. If you want to build an application using Laravel Zero, visit the main [Laravel Zero repository](https://github.com/nunomaduro/laravel-zero).
 
-## Structure
+- Build on top of the [Laravel 5](http://laravel.com) components.
+- Built with [PHP 7](http://php.net) using modern coding standards.
+- Ships with a [standalone compiler](#build-an-standalone) and a [performance analyser](#performance-analyser).
+- Automatic Dependency Injection on commands and support of [Laravel 5](http://laravel.com) Service Providers.
+- Supports [desktop notifications](https://github.com/nunomaduro/laravel-zero) on Linux, Windows or MacOS.
 
-If any of the following are applicable to your project, then the directory structure should follow industry best practises by being named the following.
+<p align="center">
+    <img title="Terminal icon" src="https://raw.githubusercontent.com/nunomaduro/laravel-zero-docs/master/images/logo.png" />
+</p>
 
+Feel free to check out the [change log](CHANGELOG.md), [releases](nunomaduro/laravel-zero/releases), [license](LICENSE), and [contribution guidelines](CONTRIBUTING.md).
+
+## Installation
+
+[PHP](https://php.net) 7.1+
+
+To get the latest version of Laravel Zero, simply create a new project using [Composer](https://getcomposer.org):
+
+```bash
+$ composer create-project --prefer-dist nunomaduro/laravel-zero <application-name>
 ```
-bin/        
-config/
-src/
-tests/
-vendor/
-```
 
+<p align="center">
+    <img title="Installation" src="https://raw.githubusercontent.com/nunomaduro/laravel-zero-docs/master/images/install.gif" />
+</p>
 
-## Install
-
-Via Composer
-
-``` bash
-$ composer require :vendor/:package_name
-```
-
+<a name="usage"></a>
 ## Usage
 
-``` php
-$skeleton = new League\Skeleton();
-echo $skeleton->echoPhrase('Hello, League!');
+Laravel Zero provides a main command. That is the default one of your application, placed in app/Console/Commands/Main.php.
+
+You may review the documentation of the Artisan Console component [on Laravel Official Website](https://laravel.com/docs/5.4/artisan).
+
+<p align="center">
+    <img title="Installation" src="https://raw.githubusercontent.com/nunomaduro/laravel-zero-docs/master/images/commands.gif" />
+</p>
+
+<a name="build-an-standalone"></a>
+## Build an standalone
+
+Your Laravel Zero project, by default, allows you to build an standalone application.
+
+```sh
+$ php application build <name>
 ```
 
-## Change log
+The build will provide you can a single executable, ready to use, of your application.
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+<a name="performance-analyser"></a>
+## Performance Analyser
 
-## Testing
+Laravel Zero ships with a **performance analyser**. Check easily of your application commands are taking too much memory or if they are spending too much time.
 
-``` bash
-$ composer test
-```
+ <p align="center">
+     <img title="Performance" src="https://raw.githubusercontent.com/nunomaduro/laravel-zero-docs/master/images/performance.png" />
+ </p>
 
-## Contributing
+ ```sh
+ $ php application <command> --performance
+ ```
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) and [CONDUCT](CONDUCT.md) for details.
+## Git branching model
 
-## Security
+The git branching model used for development is the one described and assisted by `twgit` tool: [https://github.com/Twenga/twgit](https://github.com/Twenga/twgit).
 
-If you discover any security related issues, please email :author_email instead of using the issue tracker.
+## Stay In Touch
+
+For latest releases and announcements, follow on Twitter: [@enunomaduro](https://twitter.com/enunomaduro)
 
 ## Credits
 
-- [:author_name][link-author]
-- [All Contributors][link-contributors]
+This project uses code from several open source packages.
+
+- [Laravel](https://laravel.com)
+- [Symfony](http://symfony.com)
+- [PHP performance tool](https://github.com/bvanhoekelen/performance)
+- [JoliNotif - Send notifications to your desktop](https://github.com/jolicode/JoliNotif)
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+Laravel Zero is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
 
-[ico-version]: https://img.shields.io/packagist/v/:vendor/:package_name.svg?style=flat-square
-[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/:vendor/:package_name/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/:vendor/:package_name.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/:vendor/:package_name.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/:vendor/:package_name.svg?style=flat-square
-
-[link-packagist]: https://packagist.org/packages/:vendor/:package_name
-[link-travis]: https://travis-ci.org/:vendor/:package_name
-[link-scrutinizer]: https://scrutinizer-ci.com/g/:vendor/:package_name/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/:vendor/:package_name
-[link-downloads]: https://packagist.org/packages/:vendor/:package_name
-[link-author]: https://github.com/:author_username
-[link-contributors]: ../../contributors
+Copyright (c) 2017-2017 Nuno Maduro
