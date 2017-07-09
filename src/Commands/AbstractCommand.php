@@ -1,0 +1,103 @@
+<?php
+
+/**
+ * This file is part of Zero Framework.
+ *
+ * (c) Nuno Maduro <enunomaduro@gmail.com>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
+namespace NunoMaduro\ZeroFramework\Commands;
+
+use Performance\Performance;
+use Illuminate\Contracts\Container\Container;
+use Illuminate\Console\Command as BaseCommand;
+use NunoMaduro\LaravelDesktopNotifier\Contracts\Notifier;
+use NunoMaduro\LaravelDesktopNotifier\Contracts\Notification;
+
+/**
+ * The is the Zero Framework abstract command class.
+ *
+ * @author Nuno Maduro <enunomaduro@gmail.com>
+ */
+abstract class AbstractCommand extends BaseCommand
+{
+    /**
+     * Create a new console command instance.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        if ($this->isProfilingAvailable()) {
+            $this->addOption('performance');
+        }
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * Takes in consideration the performance argument.
+     */
+    public function handle(): void
+    {
+        if ($this->isProfilingAvailable() && $this->input->getOption('performance')) {
+            Performance::point('The command `'.$this->getName().'`');
+        }
+
+        $this->fire();
+
+        if ($this->isProfilingAvailable() && $this->input->getOption('performance')) {
+            Performance::results();
+        }
+    }
+
+    /**
+     * Returns the application container.
+     *
+     * @return \Illuminate\Contracts\Container\Container
+     */
+    public function getContainer(): Container
+    {
+        return $this->getLaravel();
+    }
+
+    /**
+     * @param string $text
+     * @param string $body
+     * @param string|null $icon
+     *
+     * @return void
+     */
+    public function notify(string $text, string $body, $icon = null): void
+    {
+        $notifier = $this->getContainer()->make(Notifier::class);
+
+        $notification = $this->getContainer()
+            ->make(Notification::class)
+            ->setTitle($text)
+            ->setBody($body)
+            ->setIcon($icon);
+
+        $notifier->send($notification);
+    }
+
+    /**
+     * Execute the console command.
+     */
+    public function fire(): void
+    {
+    }
+
+    /**
+     * Checks if the performance feature is available.
+     *
+     * @return bool
+     */
+    private function isProfilingAvailable(): bool
+    {
+        return class_exists('Performance\Performance');
+    }
+}
