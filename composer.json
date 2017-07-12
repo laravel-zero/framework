@@ -42,7 +42,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "NunoMaduro\\ZeroFramework\\": "tests"
+            "Tests\\": "tests"
         }
     },
     "scripts": {

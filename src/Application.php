@@ -13,15 +13,16 @@ namespace NunoMaduro\ZeroFramework;
 
 use ArrayAccess;
 use BadMethodCallException;
+
 use Illuminate\Config\Repository;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Container\Container;
-use Illuminate\Events\EventServiceProvider;
+use Illuminate\Support\Traits\Macroable;
+use Illuminate\Support\Traits\CapsuleManagerTrait;
 use Symfony\Component\Console\Input\InputInterface;
 use Illuminate\Console\Application as BaseApplication;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Contracts\Container\Container as ContainerContract;
-use NunoMaduro\LaravelDesktopNotifier\LaravelDesktopNotifierServiceProvider;
 
 /**
  * The is the Zero Framework application class.
@@ -30,37 +31,17 @@ use NunoMaduro\LaravelDesktopNotifier\LaravelDesktopNotifierServiceProvider;
  */
 class Application extends BaseApplication implements ArrayAccess
 {
-    /**
-     * The application version.
-     */
-    const VERSION = '3.00';
+    use CapsuleManagerTrait, ContainerProxy;
 
     /**
-     * The application container.
-     *
-     * @var \Illuminate\Contracts\Container\Container
-     */
-    protected $container;
-
-    /**
-     * The event dispatcher.
+     * The application event dispatcher.
      *
      * @var \Illuminate\Contracts\Events\Dispatcher
      */
     protected $dispatcher;
 
     /**
-     * All of the registered service providers.
-     *
-     * @var array
-     */
-    protected $serviceProviders = [
-        EventServiceProvider::class,
-        LaravelDesktopNotifierServiceProvider::class,
-    ];
-
-    /**
-     * All the container aliases.
+     * The application core aliases.
      *
      * @var array
      */
@@ -71,131 +52,24 @@ class Application extends BaseApplication implements ArrayAccess
     ];
 
     /**
-     * Create a new application.
+     * Creates a new instance of the application class.
      *
      * @param \Illuminate\Contracts\Container\Container|null $container
      * @param \Illuminate\Contracts\Events\Dispatcher|null $dispatcher
      */
     public function __construct(ContainerContract $container = null, DispatcherContract $dispatcher = null)
     {
-        $this->container = $container ?: new Container;
+        $this->setupContainer($container);
         $this->dispatcher = $dispatcher ?: new Dispatcher($this->container);
 
-        parent::__construct($this->container, $this->dispatcher, self::VERSION);
+        parent::__construct($this->container, $this->dispatcher, '');
 
         $this->setCatchExceptions(true);
 
         $this->registerBindings()
             ->registerServiceProviders()
             ->registerContainerAliases()
-            ->registerCommands();
-    }
-
-    /**
-     * Sets the application container.
-     *
-     * @param \Illuminate\Contracts\Container\Container $container
-     *
-     * @return $this
-     */
-    public function setContainer(ContainerContract $container): Application
-    {
-        $this->container = $container;
-
-        return $this;
-    }
-
-    /**
-     * Proxies calls into the container.
-     *
-     * @param string $method
-     * @param array $parameters
-     *
-     * @throws \BadMethodCallException
-     *
-     * @return mixed
-     */
-    public function __call(string $method, array $parameters)
-    {
-        if (is_callable([$this->container, $method])) {
-            return call_user_func_array([$this->container, $method], $parameters);
-        }
-
-        throw new BadMethodCallException("Method [{$method}] does not exist.");
-    }
-
-    /**
-     * Determine if a given offset exists.
-     *
-     * @param string $key
-     *
-     * @return bool
-     */
-    public function offsetExists($key): bool
-    {
-        return isset($this->container[$key]);
-    }
-
-    /**
-     * Get the value at a given offset.
-     *
-     * @param string $key
-     *
-     * @return mixed
-     */
-    public function offsetGet($key)
-    {
-        return $this->container[$key];
-    }
-
-    /**
-     * Set the value at a given offset.
-     *
-     * @param string $key
-     * @param mixed $value
-     *
-     * @return void
-     */
-    public function offsetSet($key, $value): void
-    {
-        $this->container[$key] = $value;
-    }
-
-    /**
-     * Unset the value at a given offset.
-     *
-     * @param string $key
-     *
-     * @return void
-     */
-    public function offsetUnset($key): void
-    {
-        unset($this->container[$key]);
-    }
-
-    /**
-     * Dynamically access container services.
-     *
-     * @param string $key
-     *
-     * @return mixed
-     */
-    public function __get($key)
-    {
-        return $this->container->{$key};
-    }
-
-    /**
-     * Dynamically set container services.
-     *
-     * @param string $key
-     * @param mixed $value
-     *
-     * @return void
-     */
-    public function __set($key, $value): void
-    {
-        $this->container->{$key} = $value;
+            ->configure();
     }
 
     /**
@@ -209,40 +83,30 @@ class Application extends BaseApplication implements ArrayAccess
     {
         $name = parent::getCommandName($input);
 
-        $command = $this->container->make('config')->get('app.default-command');
+        $command = $this->config->get('app.default-command');
 
-        $command = $this->container->make($command);
+        $command = $this->make($command);
 
         return $name ?: $command->getName();
     }
 
     /**
-     * Register the basic commands into the app.
+     * Configures the console application.
      *
      * @return $this
      */
-    protected function registerCommands(): Application
+    protected function configure(): Application
     {
-        $commands = array_merge(
-            [$this->container->make('config')->get('app.default-command')],
-            $this->getCommands()
-        );
+        $this->setName($this->config->get('app.name'));
+        $this->setVersion($this->config->get('app.version'));
 
-        array_walk(
-            $commands,
-            function ($command) {
-                $this->add($this->container->make($command));
-            }
-        );
+        collect($this->config->get('app.commands'))->push(
+            $this->config->get('app.default-command')
+        )->each(function($command) {
+            $this->add($this->make($command));
+        });
 
         return $this;
-    }
-
-    protected function getCommands()
-    {
-        return $this->container
-            ->make('config')
-            ->get('app.commands');
     }
 
     /**
@@ -254,11 +118,11 @@ class Application extends BaseApplication implements ArrayAccess
     {
         Container::setInstance($this->container);
 
-        $this->container->instance('app', $this->container);
+        $this->instance('app', $this);
 
-        $this->container->instance(Container::class, $this->container);
+        $this->instance(Container::class, $this);
 
-        $this->container->instance(
+        $this->instance(
             'config',
             new Repository(
                 require BASE_PATH.'/'.'config/config.php'
@@ -275,16 +139,13 @@ class Application extends BaseApplication implements ArrayAccess
      */
     protected function registerServiceProviders(): Application
     {
-        array_walk(
-            $this->serviceProviders,
-            function ($serviceProvider) {
-                $instance = (new $serviceProvider($this))->register();
+        collect($this->config->get('app.providers'))->each(function($serviceProvider) {
+            $instance = (new $serviceProvider($this))->register();
 
-                if (method_exists($instance, 'boot')) {
-                    $instance->boot();
-                }
+            if (method_exists($instance, 'boot')) {
+                $instance->boot();
             }
-        );
+        });
 
         return $this;
     }
@@ -298,7 +159,7 @@ class Application extends BaseApplication implements ArrayAccess
     {
         foreach ($this->aliases as $key => $aliases) {
             foreach ($aliases as $alias) {
-                $this->container->alias($key, $alias);
+                $this->alias($key, $alias);
             }
         }
 
