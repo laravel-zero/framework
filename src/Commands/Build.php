@@ -63,7 +63,7 @@ class Build extends AbstractCommand
     /**
      * Execute the console command.
      */
-    public function fire(): void
+    public function handle(): void
     {
         if (Phar::canWrite()) {
             $this->build($this->input->getArgument('name') ?: self::BUILD_NAME);

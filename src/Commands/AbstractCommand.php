@@ -25,34 +25,9 @@ use NunoMaduro\LaravelDesktopNotifier\Contracts\Notification;
 abstract class AbstractCommand extends BaseCommand
 {
     /**
-     * Create a new console command instance.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        if ($this->isProfilingAvailable()) {
-            $this->addOption('performance');
-        }
-    }
-
-    /**
      * Execute the console command.
-     *
-     * Takes in consideration the performance argument.
      */
-    public function handle(): void
-    {
-        if ($this->isProfilingAvailable() && $this->input->getOption('performance')) {
-            Performance::point('The command `'.$this->getName().'`');
-        }
-
-        $this->fire();
-
-        if ($this->isProfilingAvailable() && $this->input->getOption('performance')) {
-            Performance::results();
-        }
-    }
+    public abstract function handle(): void;
 
     /**
      * Returns the application container.
@@ -82,22 +57,5 @@ abstract class AbstractCommand extends BaseCommand
             ->setIcon($icon);
 
         $notifier->send($notification);
-    }
-
-    /**
-     * Execute the console command.
-     */
-    public function fire(): void
-    {
-    }
-
-    /**
-     * Checks if the performance feature is available.
-     *
-     * @return bool
-     */
-    private function isProfilingAvailable(): bool
-    {
-        return class_exists('Performance\Performance');
     }
 }

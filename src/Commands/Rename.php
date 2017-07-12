@@ -46,7 +46,7 @@ class Rename extends AbstractCommand
     /**
      * Execute the console command.
      */
-    public function fire(): void
+    public function handle(): void
     {
         $this->style = new SymfonyStyle($this->input, $this->output);
 
