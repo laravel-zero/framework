@@ -13,7 +13,6 @@ namespace NunoMaduro\ZeroFramework;
 
 use ArrayAccess;
 use BadMethodCallException;
-
 use Illuminate\Config\Repository;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Container\Container;
@@ -59,7 +58,7 @@ class Application extends BaseApplication implements ArrayAccess
      */
     public function __construct(ContainerContract $container = null, DispatcherContract $dispatcher = null)
     {
-        $this->setupContainer($container);
+        $this->setupContainer($container ?: new Container);
         $this->dispatcher = $dispatcher ?: new Dispatcher($this->container);
 
         parent::__construct($this->container, $this->dispatcher, '');
@@ -81,13 +80,12 @@ class Application extends BaseApplication implements ArrayAccess
      */
     protected function getCommandName(InputInterface $input): string
     {
-        $name = parent::getCommandName($input);
+        if ($name = parent::getCommandName($input)) {
+            return $name;
+        }
 
-        $command = $this->config->get('app.default-command');
-
-        $command = $this->make($command);
-
-        return $name ?: $command->getName();
+        return $this->make($this->config->get('app.default-command'))
+            ->getName();
     }
 
     /**
@@ -100,11 +98,13 @@ class Application extends BaseApplication implements ArrayAccess
         $this->setName($this->config->get('app.name'));
         $this->setVersion($this->config->get('app.version'));
 
-        collect($this->config->get('app.commands'))->push(
-            $this->config->get('app.default-command')
-        )->each(function($command) {
-            $this->add($this->make($command));
-        });
+        collect($this->config->get('app.commands'))
+            ->push($this->config->get('app.default-command'))
+            ->each(
+                function ($command) {
+                    $this->add($this->make($command));
+                }
+            );
 
         return $this;
     }
@@ -139,13 +139,15 @@ class Application extends BaseApplication implements ArrayAccess
      */
     protected function registerServiceProviders(): Application
     {
-        collect($this->config->get('app.providers'))->each(function($serviceProvider) {
-            $instance = (new $serviceProvider($this))->register();
+        collect($this->config->get('app.providers'))->each(
+            function ($serviceProvider) {
+                $instance = (new $serviceProvider($this))->register();
 
-            if (method_exists($instance, 'boot')) {
-                $instance->boot();
+                if (method_exists($instance, 'boot')) {
+                    $instance->boot();
+                }
             }
-        });
+        );
 
         return $this;
     }
