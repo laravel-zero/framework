@@ -95,7 +95,7 @@ trait ContainerProxy
      *
      * @return mixed
      */
-    public function __get($key)
+    public function __get(string $key)
     {
         return $this->container->{$key};
     }
@@ -108,7 +108,7 @@ trait ContainerProxy
      *
      * @return void
      */
-    public function __set($key, $value): void
+    public function __set(string $key, $value): void
     {
         $this->container->{$key} = $value;
     }
