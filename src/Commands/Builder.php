@@ -21,7 +21,7 @@ use Symfony\Component\Console\Input\InputArgument;
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
-class Build extends AbstractCommand
+class Builder extends AbstractCommand
 {
     /**
      * The directory that contains your application builds.

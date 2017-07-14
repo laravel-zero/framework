@@ -20,7 +20,7 @@ use Symfony\Component\Console\Input\InputArgument;
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
-class Rename extends AbstractCommand
+class Renamer extends AbstractCommand
 {
     /**
      * The name and signature of the console command.

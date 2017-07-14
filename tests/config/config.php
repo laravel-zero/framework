@@ -3,8 +3,8 @@
 return [
     'app' => [
         'commands' => [
-            \NunoMaduro\ZeroFramework\Commands\Build::class,
-            \NunoMaduro\ZeroFramework\Commands\Rename::class,
+            \NunoMaduro\ZeroFramework\Commands\Builder::class,
+            \NunoMaduro\ZeroFramework\Commands\Renamer::class,
         ],
     ],
 ];
