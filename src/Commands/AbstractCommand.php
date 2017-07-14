@@ -11,7 +11,6 @@
 
 namespace NunoMaduro\ZeroFramework\Commands;
 
-use Performance\Performance;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Console\Command as BaseCommand;
 use NunoMaduro\LaravelDesktopNotifier\Contracts\Notifier;
@@ -27,7 +26,7 @@ abstract class AbstractCommand extends BaseCommand
     /**
      * Execute the console command.
      */
-    public abstract function handle(): void;
+    abstract public function handle(): void;
 
     /**
      * Returns the application container.
