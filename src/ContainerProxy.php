@@ -40,6 +40,31 @@ trait ContainerProxy
     }
 
     /**
+     * Dynamically access container services.
+     *
+     * @param string $key
+     *
+     * @return mixed
+     */
+    public function __get(string $key)
+    {
+        return $this->container->{$key};
+    }
+
+    /**
+     * Dynamically set container services.
+     *
+     * @param string $key
+     * @param mixed $value
+     *
+     * @return void
+     */
+    public function __set(string $key, $value): void
+    {
+        $this->container->{$key} = $value;
+    }
+
+    /**
      * Determine if a given offset exists.
      *
      * @param string $key
@@ -86,30 +111,5 @@ trait ContainerProxy
     public function offsetUnset($key): void
     {
         unset($this->container[$key]);
-    }
-
-    /**
-     * Dynamically access container services.
-     *
-     * @param string $key
-     *
-     * @return mixed
-     */
-    public function __get(string $key)
-    {
-        return $this->container->{$key};
-    }
-
-    /**
-     * Dynamically set container services.
-     *
-     * @param string $key
-     * @param mixed $value
-     *
-     * @return void
-     */
-    public function __set(string $key, $value): void
-    {
-        $this->container->{$key} = $value;
     }
 }
