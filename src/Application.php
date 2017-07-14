@@ -74,9 +74,12 @@ class Application extends BaseApplication implements ArrayAccess
     /**
      * Gets the name of the command based on input.
      *
+     * Proxies to the Laravel default command if there is no app
+     * default command.
+     *
      * @param \Symfony\Component\Console\Input\InputInterface $input The input interface
      *
-     * @return string The command name
+     * @return string With the command name that should be executed.
      */
     protected function getCommandName(InputInterface $input): string
     {
@@ -84,25 +87,36 @@ class Application extends BaseApplication implements ArrayAccess
             return $name;
         }
 
-        return $this->make($this->config->get('app.default-command'))
-            ->getName();
+        $command = $this->make($this->config->get('app.default-command'));
+
+        return $command ? $command->getName() : $name;
     }
 
     /**
      * Configures the console application.
      *
+     * Takes in consideration the app name and the app version. Also
+     * adds all the application commands.
+     *
      * @return $this
      */
     protected function configure(): Application
     {
-        $this->setName($this->config->get('app.name'));
-        $this->setVersion($this->config->get('app.version'));
+        if ($name = $this->config->get('app.name')) {
+            $this->setName($name);
+        }
+
+        if ($version = $this->config->get('app.version')) {
+            $this->setName($version);
+        }
 
         collect($this->config->get('app.commands'))
             ->push($this->config->get('app.default-command'))
             ->each(
                 function ($command) {
-                    $this->add($this->make($command));
+                    if ($command) {
+                        $this->add($this->make($command));
+                    }
                 }
             );
 
