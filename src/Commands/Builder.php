@@ -61,7 +61,7 @@ class Builder extends AbstractCommand
     protected $description = 'The build app command';
 
     /**
-     * Execute the console command.
+     * {@inheritdoc}
      */
     public function handle(): void
     {
@@ -78,9 +78,7 @@ class Builder extends AbstractCommand
     }
 
     /**
-     * Configure the command options.
-     *
-     * Ask for the name of the build.
+     * {@inheritdoc}
      */
     protected function configure(): void
     {

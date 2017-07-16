@@ -24,7 +24,8 @@ use NunoMaduro\LaravelDesktopNotifier\Contracts\Notification;
 abstract class AbstractCommand extends BaseCommand
 {
     /**
-     * Execute the console command.
+     * Execute the console command. Here goes the command
+     * code.
      */
     abstract public function handle(): void;
 

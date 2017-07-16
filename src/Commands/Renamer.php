@@ -27,7 +27,7 @@ class Renamer extends AbstractCommand
      *
      * @var string
      */
-    protected $signature = 'install';
+    protected $signature = 'rename';
 
     /**
      * The console command description.
@@ -44,20 +44,18 @@ class Renamer extends AbstractCommand
     protected $style;
 
     /**
-     * Execute the console command.
+     * {@inheritdoc}
      */
     public function handle(): void
     {
         $this->style = new SymfonyStyle($this->input, $this->output);
 
         $this->displayWelcomeMessage()
-            ->install();
+            ->rename();
     }
 
     /**
-     * Configure the command options.
-     *
-     * Ask for the name of the build.
+     * {@inheritdoc}
      */
     protected function configure(): void
     {
@@ -70,11 +68,11 @@ class Renamer extends AbstractCommand
      *
      * @return $this
      */
-    protected function install(): Rename
+    protected function rename(): Renamer
     {
         $name = $this->asksForApplicationName();
 
-        return $this->rename($name)
+        return $this->renameBinary($name)
             ->updateComposer($name);
     }
 
@@ -83,7 +81,7 @@ class Renamer extends AbstractCommand
      *
      * @return $this
      */
-    protected function displayWelcomeMessage(): Rename
+    protected function displayWelcomeMessage(): Renamer
     {
         $this->style->title('Crafting application...');
 
@@ -117,7 +115,7 @@ class Renamer extends AbstractCommand
      *
      * @return $this
      */
-    protected function updateComposer(string $name): Rename
+    protected function updateComposer(string $name): Renamer
     {
         $this->setComposer(
             Str::replaceFirst(
@@ -139,7 +137,7 @@ class Renamer extends AbstractCommand
      *
      * @return $this
      */
-    protected function rename(string $name): Rename
+    protected function renameBinary(string $name): Renamer
     {
         rename(BASE_PATH.'/'.$this->getCurrentBinaryName(), BASE_PATH.'/'.$name);
 
@@ -155,7 +153,7 @@ class Renamer extends AbstractCommand
      *
      * @return $this
      */
-    protected function setComposer(string $composer): Rename
+    protected function setComposer(string $composer): Renamer
     {
         file_put_contents(BASE_PATH.'/composer.json', $composer);
 
@@ -184,7 +182,7 @@ class Renamer extends AbstractCommand
         $file = BASE_PATH.'/composer.json';
 
         if (! file_exists($file)) {
-            $this->error("You can't perform a install.");
+            $this->error("You can't perform a rename.");
             exit(0);
         }
 
