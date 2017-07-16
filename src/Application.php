@@ -38,6 +38,13 @@ class Application extends BaseApplication implements ArrayAccess
     protected $dispatcher;
 
     /**
+     * The application configuration.
+     *
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    protected $config;
+
+    /**
      * The application core aliases.
      *
      * @var array
@@ -85,7 +92,7 @@ class Application extends BaseApplication implements ArrayAccess
             return $name;
         }
 
-        $command = $this->container->make($this->container->make('config')->get('app.default-command'));
+        $command = $this->container->make($this->config->get('app.default-command'));
 
         return $command ? $command->getName() : $name;
     }
@@ -100,16 +107,16 @@ class Application extends BaseApplication implements ArrayAccess
      */
     protected function configure(): Application
     {
-        if ($name = $this->container->make('config')->get('app.name')) {
+        if ($name = $this->config->get('app.name')) {
             $this->setName($name);
         }
 
-        if ($version = $this->container->make('config')->get('app.version')) {
+        if ($version = $this->config->get('app.version')) {
             $this->setName($version);
         }
 
-        collect($this->container->make('config')->get('app.commands'))
-            ->push($this->container->make('config')->get('app.default-command'))
+        collect($this->config->get('app.commands'))
+            ->push($this->config->get('app.default-command'))
             ->each(
                 function ($command) {
                     if ($command) {
@@ -141,6 +148,8 @@ class Application extends BaseApplication implements ArrayAccess
             )
         );
 
+        $this->config = $this->container->make('config');
+
         return $this;
     }
 
@@ -151,7 +160,7 @@ class Application extends BaseApplication implements ArrayAccess
      */
     protected function registerServiceProviders(): Application
     {
-        collect($this->container->make('config')->get('app.providers'))->each(
+        collect($this->config->get('app.providers'))->each(
             function ($serviceProvider) {
                 $instance = (new $serviceProvider($this))->register();
 
