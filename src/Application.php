@@ -85,7 +85,7 @@ class Application extends BaseApplication implements ArrayAccess
             return $name;
         }
 
-        $command = $this->make($this->config->get('app.default-command'));
+        $command = $this->container->make($this->config->get('app.default-command'));
 
         return $command ? $command->getName() : $name;
     }
@@ -113,7 +113,7 @@ class Application extends BaseApplication implements ArrayAccess
             ->each(
                 function ($command) {
                     if ($command) {
-                        $this->add($this->make($command));
+                        $this->add($this->container->make($command));
                     }
                 }
             );
@@ -130,11 +130,11 @@ class Application extends BaseApplication implements ArrayAccess
     {
         Container::setInstance($this->container);
 
-        $this->instance('app', $this);
+        $this->container->instance('app', $this);
 
-        $this->instance(Container::class, $this);
+        $this->container->instance(Container::class, $this);
 
-        $this->instance(
+        $this->container->instance(
             'config',
             new Repository(
                 require BASE_PATH.'/'.'config/config.php'
@@ -173,7 +173,7 @@ class Application extends BaseApplication implements ArrayAccess
     {
         foreach ($this->aliases as $key => $aliases) {
             foreach ($aliases as $alias) {
-                $this->alias($key, $alias);
+                $this->container->alias($key, $alias);
             }
         }
 
