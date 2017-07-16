@@ -25,7 +25,7 @@ Laravel Zero was created by, and is maintained by [Nuno Maduro](https://github.c
 
 Feel free to check out the [change log](CHANGELOG.md), [releases](nunomaduro/laravel-zero/releases), [license](LICENSE), and [contribution guidelines](CONTRIBUTING.md).
 
-## Installation
+## Installation && Usage
 
 [PHP](https://php.net) 7.1+
 
@@ -35,14 +35,13 @@ To get the latest version of Laravel Zero, simply create a new project using [Co
 $ composer create-project --prefer-dist nunomaduro/laravel-zero <application-name>
 ```
 
-<p align="center">
-    <img title="Installation" src="https://raw.githubusercontent.com/nunomaduro/laravel-zero-docs/master/images/install.gif" />
-</p>
+Place yourself into the application folder, and execute the application:
 
-<a name="usage"></a>
-## Usage
+```bash
+$ php <application-name>
+```
 
-Laravel Zero provides a default command placed in app/DefaultCommand.php.
+Laravel Zero provides a default command placed in app/DefaultCommand.php
 
 You may review the documentation of the Artisan Console component [on Laravel Official Website](https://laravel.com/docs/5.4/artisan).
 
