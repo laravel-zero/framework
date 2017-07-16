@@ -40,7 +40,7 @@ abstract class AbstractCommand extends BaseCommand
 
     /**
      * Gets the concrete implementation of the notifier. Then
-     * creates a new notification and send it with the notifier.
+     * creates a new notification and send it through the notifier.
      *
      * @param string $text
      * @param string $body
