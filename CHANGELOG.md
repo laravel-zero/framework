@@ -1,22 +1,12 @@
 # Changelog
+All notable changes to this project will be documented in this file.
 
-All Notable changes to `Zero Framework` will be documented in this file.
+The format is based on [Keep a Changelog](http://keepachangelog.com/)
+and this project adheres to [Semantic Versioning](http://semver.org/).
 
-Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
-
-## NEXT - YYYY-MM-DD
-
+## [Unreleased]
 ### Added
-- Nothing
+- Splits core framework from the project.
 
-### Deprecated
-- Nothing
-
-### Fixed
-- Nothing
-
-### Removed
-- Nothing
-
-### Security
-- Nothing
+### Changed
+- Removes performance analyser.
