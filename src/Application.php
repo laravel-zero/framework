@@ -112,7 +112,7 @@ class Application extends BaseApplication implements ArrayAccess
         }
 
         if ($version = $this->config->get('app.version')) {
-            $this->setName($version);
+            $this->setVersion($version);
         }
 
         collect($this->config->get('app.commands'))
