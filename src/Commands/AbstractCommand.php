@@ -39,11 +39,12 @@ abstract class AbstractCommand extends BaseCommand
     }
 
     /**
+     * Gets the concrete implementation of the notifier. Then
+     * creates a new notification and send it with the notifier.
+     *
      * @param string $text
      * @param string $body
      * @param string|null $icon
-     *
-     * @return void
      */
     public function notify(string $text, string $body, $icon = null): void
     {

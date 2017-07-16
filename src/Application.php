@@ -85,7 +85,7 @@ class Application extends BaseApplication implements ArrayAccess
             return $name;
         }
 
-        $command = $this->container->make($this->config->get('app.default-command'));
+        $command = $this->container->make($this->container->make('config')->get('app.default-command'));
 
         return $command ? $command->getName() : $name;
     }
@@ -100,16 +100,16 @@ class Application extends BaseApplication implements ArrayAccess
      */
     protected function configure(): Application
     {
-        if ($name = $this->config->get('app.name')) {
+        if ($name = $this->container->make('config')->get('app.name')) {
             $this->setName($name);
         }
 
-        if ($version = $this->config->get('app.version')) {
+        if ($version = $this->container->make('config')->get('app.version')) {
             $this->setName($version);
         }
 
-        collect($this->config->get('app.commands'))
-            ->push($this->config->get('app.default-command'))
+        collect($this->container->make('config')->get('app.commands'))
+            ->push($this->container->make('config')->get('app.default-command'))
             ->each(
                 function ($command) {
                     if ($command) {
@@ -151,7 +151,7 @@ class Application extends BaseApplication implements ArrayAccess
      */
     protected function registerServiceProviders(): Application
     {
-        collect($this->config->get('app.providers'))->each(
+        collect($this->container->make('config')->get('app.providers'))->each(
             function ($serviceProvider) {
                 $instance = (new $serviceProvider($this))->register();
 
