@@ -26,6 +26,8 @@ abstract class AbstractCommand extends BaseCommand
     /**
      * Execute the console command. Here goes the command
      * code.
+     *
+     * @return void
      */
     abstract public function handle(): void;
 

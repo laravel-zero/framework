@@ -23,6 +23,8 @@ class ApplicationTest extends TestCase
     /**
      * Tests if the application proxies correctly unknown methods
      * into the application container.
+     *
+     * @return void
      */
     public function testProxyCall(): void
     {
@@ -54,6 +56,8 @@ class ApplicationTest extends TestCase
     /**
      * Tests if the application proxies correctly is array access.
      * into the application container.
+     *
+     * @return void
      */
     public function testProxyArrayAccess(): void
     {
