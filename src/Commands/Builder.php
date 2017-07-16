@@ -92,7 +92,7 @@ class Builder extends AbstractCommand
      *
      * @return $this
      */
-    protected function build(string $name): Build
+    protected function build(string $name): Builder
     {
         $this->comment("Building: $name");
         $this->compile($name)
@@ -110,7 +110,7 @@ class Builder extends AbstractCommand
      *
      * @return $this
      */
-    protected function compile(string $name): Build
+    protected function compile(string $name): Builder
     {
         $compiler = $this->makeFolder()
             ->getCompiler($name);
@@ -147,7 +147,7 @@ class Builder extends AbstractCommand
      *
      * @return $this
      */
-    protected function makeFolder(): Build
+    protected function makeFolder(): Builder
     {
         if (! file_exists(self::BUILD_PATH)) {
             mkdir(self::BUILD_PATH);
@@ -163,7 +163,7 @@ class Builder extends AbstractCommand
      *
      * @return $this
      */
-    protected function cleanUp(string $name): Build
+    protected function cleanUp(string $name): Builder
     {
         $file = self::BUILD_PATH."/$name";
         rename("$file.phar", $file);

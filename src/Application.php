@@ -84,17 +84,17 @@ class Application extends BaseApplication implements ArrayAccess
      *
      * @param \Symfony\Component\Console\Input\InputInterface $input The input interface
      *
-     * @return string With the command name that should be executed.
+     * @return string|null With the command name that should be executed.
      */
-    protected function getCommandName(InputInterface $input): string
+    protected function getCommandName(InputInterface $input)
     {
-        if ($name = parent::getCommandName($input)) {
+        if (($name = parent::getCommandName($input))
+            || (! $defaultCommand = $this->config->get('app.default-command'))
+        ) {
             return $name;
         }
 
-        $command = $this->container->make($this->config->get('app.default-command'));
-
-        return $command ? $command->getName() : $name;
+        return $this->container->make($defaultCommand)->getName();
     }
 
     /**
