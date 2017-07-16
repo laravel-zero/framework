@@ -18,7 +18,7 @@ use BadMethodCallException;
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
-trait ContainerProxy
+trait ContainerProxyTrait
 {
     /**
      * Proxies calls into the container.

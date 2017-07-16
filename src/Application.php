@@ -28,7 +28,7 @@ use Illuminate\Contracts\Container\Container as ContainerContract;
  */
 class Application extends BaseApplication implements ArrayAccess
 {
-    use CapsuleManagerTrait, ContainerProxy;
+    use CapsuleManagerTrait, ContainerProxyTrait;
 
     /**
      * The application event dispatcher.
