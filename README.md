@@ -45,6 +45,41 @@ Laravel Zero provides a default command placed in app/DefaultCommand.php
 
 You may review the documentation of the Artisan Console component [on Laravel Official Website](https://laravel.com/docs/5.4/artisan).
 
+<a name="configuration"></a>
+
+## Elegant configuration
+
+The configuration of your console application goes on `config\config.php`. On this file, you should
+define your application list of commands and your Laravel Service Providers configuration.
+
+```php
+        /*
+         * Here goes the application name.
+         */
+        'name' => 'Laravel Zero',
+        /*
+         * Here goes the application version.
+         */
+        'version' => '1.0.0',
+        /*
+         * Here goes the application default command.
+         *
+         * You may want to remove this line in order to ask the user what command he
+         * wants to execute.
+         */
+        'default-command' => App\DefaultCommand::class,
+        /*
+         * Here goes the application list of commands.
+         *
+         * Besides the default command the user can also call
+         * any of the commands specified below.
+         */
+        'commands' => [
+            ZeroFramework\Commands\Builder::class,
+            ZeroFramework\Commands\Renamer::class,
+        ],
+```
+
 <a name="build-an-standalone"></a>
 ## Build an standalone
 
