@@ -45,17 +45,13 @@ Laravel Zero provides a default command placed in app/DefaultCommand.php
 
 You may review the documentation of the Artisan Console component [on Laravel Official Website](https://laravel.com/docs/5.4/artisan).
 
-<p align="center">
-    <img title="Installation" src="https://raw.githubusercontent.com/nunomaduro/laravel-zero-docs/master/images/commands.gif" />
-</p>
-
 <a name="build-an-standalone"></a>
 ## Build an standalone
 
 Your Laravel Zero project, by default, allows you to build an standalone application.
 
 ```sh
-$ php application build <name>
+$ php <application-name> build <name>
 ```
 
 The build will provide you can a single executable, ready to use, of your application.
