@@ -137,9 +137,9 @@ class Application extends BaseApplication implements ArrayAccess
     {
         Container::setInstance($this->container);
 
-        $this->container->instance('app', $this);
+        $this->container->instance('app', $this->container);
 
-        $this->container->instance(Container::class, $this);
+        $this->container->instance(Container::class, $this->container);
 
         $this->container->instance(
             'config',
