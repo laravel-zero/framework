@@ -2,6 +2,7 @@ Laravel Zero Framework
 ================
 
 Laravel Zero was created by, and is maintained by [Nuno Maduro](https://github.com/nunomaduro), and is a micro-framework that provides an elegant starting point for your next console application.
+**Unofficial** and customized version of Laravel optimized for building console/shell/command-line applications.
 
 > **Note:** This repository contains the core code of the Laravel Zero framework. If you want to build an application using Laravel Zero, visit the main [Laravel Zero repository](https://github.com/nunomaduro/laravel-zero).
 
