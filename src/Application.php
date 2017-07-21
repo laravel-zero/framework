@@ -162,7 +162,11 @@ class Application extends BaseApplication implements ArrayAccess
     {
         collect($this->config->get('app.providers'))->each(
             function ($serviceProvider) {
-                $instance = (new $serviceProvider($this))->register();
+                $instance = new $serviceProvider($this);
+
+                if (method_exists($instance, 'register')) {
+                    $instance->register();
+                }
 
                 if (method_exists($instance, 'boot')) {
                     $instance->boot();
