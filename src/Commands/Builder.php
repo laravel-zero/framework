@@ -116,7 +116,7 @@ class Builder extends AbstractCommand
             ->getCompiler($name);
 
         $compiler->buildFromDirectory(BASE_PATH, '#'.implode('|', $this->structure).'#');
-        $compiler->setStub($compiler->createDefaultStub('bootstrap/init.php'));
+        $compiler->setStub("#!/usr/bin/env php \n" . $compiler->createDefaultStub('bootstrap/init.php'));
 
         return $this;
     }
