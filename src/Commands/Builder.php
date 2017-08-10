@@ -183,6 +183,7 @@ class Builder extends AbstractCommand
     {
         $file = self::BUILD_PATH."/$name";
         chmod($file, 0755);
+
         return $this;
     }
 }
