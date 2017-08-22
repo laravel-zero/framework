@@ -96,7 +96,8 @@ class Builder extends AbstractCommand
     {
         $this->comment("Building: $name");
         $this->compile($name)
-            ->cleanUp($name);
+            ->cleanUp($name)
+            ->setPermissions($name);
 
         $this->info("Standalone application compiled into: builds/$name");
 
@@ -116,7 +117,7 @@ class Builder extends AbstractCommand
             ->getCompiler($name);
 
         $compiler->buildFromDirectory(BASE_PATH, '#'.implode('|', $this->structure).'#');
-        $compiler->setStub($compiler->createDefaultStub('bootstrap/init.php'));
+        $compiler->setStub("#!/usr/bin/env php \n".$compiler->createDefaultStub('bootstrap/init.php'));
 
         return $this;
     }
@@ -167,6 +168,21 @@ class Builder extends AbstractCommand
     {
         $file = self::BUILD_PATH."/$name";
         rename("$file.phar", $file);
+
+        return $this;
+    }
+
+    /**
+     * Sets the executable mode on the standalone application file.
+     *
+     * @param string $name
+     *
+     * @return $this
+     */
+    protected function setPermissions($name): Builder
+    {
+        $file = self::BUILD_PATH."/$name";
+        chmod($file, 0755);
 
         return $this;
     }
