@@ -1,4 +1,6 @@
-<p align="center"><img title="Laravel Zero" height="100" src="https://raw.githubusercontent.com/nunomaduro/laravel-zero-docs/master/images/logo/1024x1024/Round/2.png" /></p>
+<p align="center">
+	<img title="Laravel Zero" height="100" src="https://raw.githubusercontent.com/nunomaduro/laravel-zero-docs/master/images/logo/1024x1024/Round/2.png" />
+</p>
 
 About Laravel Zero
 ================
