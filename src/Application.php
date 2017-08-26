@@ -56,6 +56,16 @@ class Application extends BaseApplication implements ArrayAccess
     ];
 
     /**
+     * The application's core commands.
+     *
+     * @var array
+     */
+    protected $coreCommands = [
+        NunoMaduro\ZeroFramework\Commands\Builder::class,
+        NunoMaduro\ZeroFramework\Commands\Renamer::class,
+    ];
+
+    /**
      * Creates a new instance of the application class.
      *
      * @param \Illuminate\Contracts\Container\Container|null $container
@@ -115,9 +125,14 @@ class Application extends BaseApplication implements ArrayAccess
             $this->setVersion($version);
         }
 
-        collect($this->config->get('app.commands'))
-            ->push($this->config->get('app.default-command'))
-            ->each(
+        $commands = collect($this->config->get('app.commands'));
+
+        if ($this->config->get('app.production')) {
+            $commands->push($this->coreCommands);
+        }
+
+        $commands->push($this->config->get('app.default-command'))
+                 ->each(
                 function ($command) {
                     if ($command) {
                         $this->add($this->container->make($command));
