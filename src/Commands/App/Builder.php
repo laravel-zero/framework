@@ -62,6 +62,13 @@ class Builder extends AbstractCommand
     protected $description = 'Perform an application build';
 
     /**
+     * Holds the configuration on is original state.
+     *
+     * @var string
+     */
+    static protected $config;
+
+    /**
      * {@inheritdoc}
      */
     public function handle(): void
@@ -69,9 +76,7 @@ class Builder extends AbstractCommand
         $this->alert('Building the application...');
 
         if (Phar::canWrite()) {
-            // file_put_contents($file, str_replace("production => false", "production => true", file_get_contents($file)));
             $this->build($this->input->getArgument('name') ?: self::BUILD_NAME);
-            // file_put_contents($file, str_replace("production => true", "production => false", file_get_contents($file)));
         } else {
             $this->error(
                 'Unable to compile a phar because of php\'s security settings. '.'phar.readonly must be disabled in php.ini. '.PHP_EOL.PHP_EOL.'You will need to edit '.php_ini_loaded_file(
@@ -97,9 +102,11 @@ class Builder extends AbstractCommand
      */
     protected function build(string $name): Builder
     {
-        $this->compile($name)
+        $this->prepare()
+            ->compile($name)
             ->cleanUp($name)
-            ->setPermissions($name);
+            ->setPermissions($name)
+            ->finish();
 
         $this->info("Standalone application compiled into: builds/$name");
 
@@ -115,6 +122,8 @@ class Builder extends AbstractCommand
      */
     protected function compile(string $name): Builder
     {
+        $this->info('Compiling code...');
+
         $compiler = $this->makeFolder()
             ->getCompiler($name);
 
@@ -187,5 +196,49 @@ class Builder extends AbstractCommand
         chmod($file, 0755);
 
         return $this;
+    }
+
+    /**
+     * Prepares the application for build.
+     *
+     * @return $this
+     */
+    protected function prepare(): Builder
+    {
+        $file = BASE_PATH.'/config/config.php';
+        static::$config = file_get_contents($file);
+        $config = include $file;
+
+        $config['app']['production'] = true;
+        file_put_contents($file, '<?php return '.var_export($config, true).';'.PHP_EOL);
+
+        $this->info("Moving configuration to production mode...");
+
+        return $this;
+    }
+
+    /**
+     * Prepares the application for build.
+     *
+     * @return $this
+     */
+    protected function finish(): Builder
+    {
+        file_put_contents(BASE_PATH.'/config/config.php', static::$config);
+
+        static::$config = null;
+
+        return $this;
+    }
+
+    /**
+     * Makes sure that the finish is performed even
+     * if the command fails.
+     */
+    public function __destruct()
+    {
+        if (static::$config !== null) {
+            file_put_contents(BASE_PATH.'/config/config.php', static::$config);
+        }
     }
 }
