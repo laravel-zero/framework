@@ -9,15 +9,16 @@
  *  file that was distributed with this source code.
  */
 
-namespace NunoMaduro\ZeroFramework\Commands;
+namespace NunoMaduro\ZeroFramework\Commands\App;
 
 use Phar;
 use FilesystemIterator;
 use UnexpectedValueException;
 use Symfony\Component\Console\Input\InputArgument;
+use NunoMaduro\ZeroFramework\Commands\AbstractCommand;
 
 /**
- * The is the Zero Framework build command class.
+ * The is the Zero Framework builder command class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
@@ -47,32 +48,39 @@ class Builder extends AbstractCommand
     ];
 
     /**
-     * The name and signature of the console command.
+     * The name of the console command.
      *
      * @var string
      */
-    protected $signature = 'build';
+    protected $name = 'app:build';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'The build app command';
+    protected $description = 'Perform an application build';
+
+    /**
+     * Holds the configuration on is original state.
+     *
+     * @var string
+     */
+    static protected $config;
 
     /**
      * {@inheritdoc}
      */
     public function handle(): void
     {
+        $this->alert('Building the application...');
+
         if (Phar::canWrite()) {
             $this->build($this->input->getArgument('name') ?: self::BUILD_NAME);
         } else {
-            $this->error('Unable to compile a phar because of php\'s security settings. '
-                .'phar.readonly must be disabled in php.ini. '.PHP_EOL.PHP_EOL
-                .'You will need to edit '.php_ini_loaded_file().' and add or set'
-                .PHP_EOL.PHP_EOL.'    phar.readonly = Off'.PHP_EOL.PHP_EOL
-                .'to continue. Details here: http://php.net/manual/en/phar.configuration.php'
+            $this->error(
+                'Unable to compile a phar because of php\'s security settings. '.'phar.readonly must be disabled in php.ini. '.PHP_EOL.PHP_EOL.'You will need to edit '.php_ini_loaded_file(
+                ).' and add or set'.PHP_EOL.PHP_EOL.'    phar.readonly = Off'.PHP_EOL.PHP_EOL.'to continue. Details here: http://php.net/manual/en/phar.configuration.php'
             );
         }
     }
@@ -94,10 +102,11 @@ class Builder extends AbstractCommand
      */
     protected function build(string $name): Builder
     {
-        $this->comment("Building: $name");
-        $this->compile($name)
+        $this->prepare()
+            ->compile($name)
             ->cleanUp($name)
-            ->setPermissions($name);
+            ->setPermissions($name)
+            ->finish();
 
         $this->info("Standalone application compiled into: builds/$name");
 
@@ -113,6 +122,8 @@ class Builder extends AbstractCommand
      */
     protected function compile(string $name): Builder
     {
+        $this->info('Compiling code...');
+
         $compiler = $this->makeFolder()
             ->getCompiler($name);
 
@@ -185,5 +196,49 @@ class Builder extends AbstractCommand
         chmod($file, 0755);
 
         return $this;
+    }
+
+    /**
+     * Prepares the application for build.
+     *
+     * @return $this
+     */
+    protected function prepare(): Builder
+    {
+        $file = BASE_PATH.'/config/config.php';
+        static::$config = file_get_contents($file);
+        $config = include $file;
+
+        $config['app']['production'] = true;
+        file_put_contents($file, '<?php return '.var_export($config, true).';'.PHP_EOL);
+
+        $this->info("Moving configuration to production mode...");
+
+        return $this;
+    }
+
+    /**
+     * Prepares the application for build.
+     *
+     * @return $this
+     */
+    protected function finish(): Builder
+    {
+        file_put_contents(BASE_PATH.'/config/config.php', static::$config);
+
+        static::$config = null;
+
+        return $this;
+    }
+
+    /**
+     * Makes sure that the finish is performed even
+     * if the command fails.
+     */
+    public function __destruct()
+    {
+        if (static::$config !== null) {
+            file_put_contents(BASE_PATH.'/config/config.php', static::$config);
+        }
     }
 }

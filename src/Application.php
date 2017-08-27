@@ -15,6 +15,8 @@ use ArrayAccess;
 use Illuminate\Config\Repository;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Container\Container;
+use NunoMaduro\ZeroFramework\Commands;
+use NunoMaduro\ZeroFramework\Commands\Component;
 use Illuminate\Support\Traits\CapsuleManagerTrait;
 use Symfony\Component\Console\Input\InputInterface;
 use Illuminate\Console\Application as BaseApplication;
@@ -43,6 +45,35 @@ class Application extends BaseApplication implements ArrayAccess
      * @var \Illuminate\Contracts\Config\Repository
      */
     protected $config;
+
+    /**
+     * The application's core commands.
+     *
+     * @var string[]
+     */
+    protected $commands = [
+        Commands\App\Builder::class,
+        Commands\App\Renamer::class,
+        Commands\Component\Installer::class,
+    ];
+
+    /**
+     * The application's core providers.
+     *
+     * @var string[]
+     */
+    protected $providers = [
+        \Illuminate\Events\EventServiceProvider::class,
+    ];
+
+    /**
+     * The application's core components.
+     *
+     * @var string[]
+     */
+    protected $components = [
+        Component\Illuminate\Database\ComponentProvider::class,
+    ];
 
     /**
      * The application core aliases.
@@ -115,9 +146,14 @@ class Application extends BaseApplication implements ArrayAccess
             $this->setVersion($version);
         }
 
-        collect($this->config->get('app.commands'))
-            ->push($this->config->get('app.default-command'))
-            ->each(
+        $commands = collect($this->config->get('app.commands'));
+
+        if (! $this->config->get('app.production')) {
+            $commands = $commands->merge($this->commands);
+        }
+
+        $commands->push($this->config->get('app.default-command'))
+                 ->each(
                 function ($command) {
                     if ($command) {
                         $this->add($this->container->make($command));
@@ -160,10 +196,11 @@ class Application extends BaseApplication implements ArrayAccess
      */
     protected function registerServiceProviders(): Application
     {
-        collect($this->config->get('app.providers'))->each(
-            function ($serviceProvider) {
+        collect($this->providers)
+            ->merge($this->components)
+            ->merge($this->config->get('app.providers'))
+            ->each(function ($serviceProvider) {
                 $instance = new $serviceProvider($this);
-
                 if (method_exists($instance, 'register')) {
                     $instance->register();
                 }

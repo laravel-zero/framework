@@ -9,49 +9,41 @@
  *  file that was distributed with this source code.
  */
 
-namespace NunoMaduro\ZeroFramework\Commands;
+namespace NunoMaduro\ZeroFramework\Commands\App;
 
 use Illuminate\Support\Str;
-use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Input\InputArgument;
+use NunoMaduro\ZeroFramework\Commands\AbstractCommand;
 
 /**
- * The is the Zero Framework rename command class.
+ * The is the Zero Framework renamer command class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
 class Renamer extends AbstractCommand
 {
     /**
-     * The name and signature of the console command.
+     * The name of the console command.
      *
      * @var string
      */
-    protected $signature = 'rename';
+    protected $name = 'app:rename';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Rename your application';
-
-    /**
-     * Holds an instance of SymfonyStyle.
-     *
-     * @var \Symfony\Component\Console\Style\SymfonyStyle;
-     */
-    protected $style;
+    protected $description = 'Perform an application rename';
 
     /**
      * {@inheritdoc}
      */
     public function handle(): void
     {
-        $this->style = new SymfonyStyle($this->input, $this->output);
+        $this->alert('Renaming the application...');
 
-        $this->displayWelcomeMessage()
-            ->rename();
+        $this->rename();
     }
 
     /**
@@ -83,7 +75,7 @@ class Renamer extends AbstractCommand
      */
     protected function displayWelcomeMessage(): Renamer
     {
-        $this->style->title('Crafting application...');
+
 
         return $this;
     }
@@ -182,7 +174,7 @@ class Renamer extends AbstractCommand
         $file = BASE_PATH.'/composer.json';
 
         if (! file_exists($file)) {
-            $this->error("You can't perform a rename.");
+            $this->error("composer.json not found.");
             exit(0);
         }
 

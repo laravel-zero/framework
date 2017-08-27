@@ -51,7 +51,8 @@ abstract class AbstractCommand extends BaseCommand
      */
     public function notify(string $text, string $body, $icon = null): void
     {
-        $notifier = $this->getContainer()->make(Notifier::class);
+        $notifier = $this->getContainer()
+            ->make(Notifier::class);
 
         $notification = $this->getContainer()
             ->make(Notification::class)
