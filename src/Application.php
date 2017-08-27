@@ -15,6 +15,7 @@ use ArrayAccess;
 use Illuminate\Config\Repository;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Container\Container;
+use NunoMaduro\ZeroFramework\Commands\Component;
 use Illuminate\Support\Traits\CapsuleManagerTrait;
 use Symfony\Component\Console\Input\InputInterface;
 use Illuminate\Console\Application as BaseApplication;
@@ -43,6 +44,24 @@ class Application extends BaseApplication implements ArrayAccess
      * @var \Illuminate\Contracts\Config\Repository
      */
     protected $config;
+
+    /**
+     * The application core providers.
+     *
+     * @var string[]
+     */
+    protected $providers = [
+        \Illuminate\Events\EventServiceProvider::class,
+    ];
+
+    /**
+     * The application core components.
+     *
+     * @var string[]
+     */
+    protected $components = [
+        Component\Illuminate\Database\ComponentProvider::class,
+    ];
 
     /**
      * The application core aliases.
@@ -160,10 +179,11 @@ class Application extends BaseApplication implements ArrayAccess
      */
     protected function registerServiceProviders(): Application
     {
-        collect($this->config->get('app.providers'))->each(
-            function ($serviceProvider) {
+        collect($this->providers)
+            ->merge($this->components)
+            ->merge($this->config->get('app.providers'))
+            ->each(function ($serviceProvider) {
                 $instance = new $serviceProvider($this);
-
                 if (method_exists($instance, 'register')) {
                     $instance->register();
                 }

@@ -13,6 +13,7 @@ namespace NunoMaduro\ZeroFramework\Commands;
 
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Console\Command as BaseCommand;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use NunoMaduro\LaravelDesktopNotifier\Contracts\Notifier;
 use NunoMaduro\LaravelDesktopNotifier\Contracts\Notification;
 

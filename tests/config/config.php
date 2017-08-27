@@ -1,10 +1,13 @@
 <?php
 
+use NunoMaduro\ZeroFramework\Commands;
+
 return [
     'app' => [
         'commands' => [
-            \NunoMaduro\ZeroFramework\Commands\Builder::class,
-            \NunoMaduro\ZeroFramework\Commands\Renamer::class,
+            Commands\App\Builder::class,
+            Commands\App\Renamer::class,
+            Commands\Component\Installer::class,
         ],
     ],
 ];
