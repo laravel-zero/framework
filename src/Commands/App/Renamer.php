@@ -133,7 +133,7 @@ class Renamer extends AbstractCommand
     {
         rename(BASE_PATH.'/'.$this->getCurrentBinaryName(), BASE_PATH.'/'.$name);
 
-        $this->output->writeln('Renaming application: <info>✔</info>');
+        $this->output->writeln("Renaming application to: <info>$name</info>");
 
         return $this;
     }
