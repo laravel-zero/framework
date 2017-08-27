@@ -47,7 +47,7 @@ class Finder implements FinderContract
      */
     private function folders(string $dir): array
     {
-        return glob($dir."/*", GLOB_ONLYDIR);
+        return glob($dir.'/*', GLOB_ONLYDIR);
     }
 
     /**

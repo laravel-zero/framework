@@ -28,10 +28,10 @@ class Installer implements InstallerContract
     {
         $command->require('illuminate/database');
 
-        $command->info("Creating (database/database.sqlite)...");
+        $command->info('Creating (database/database.sqlite)...');
         shell_exec('cd '.BASE_PATH.'&& mkdir database && touch database/database.sqlite');
 
-        $command->info("Component installed! Usage:");
+        $command->info('Component installed! Usage:');
         $command->comment(
             '
 

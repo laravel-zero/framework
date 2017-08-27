@@ -66,7 +66,7 @@ class Builder extends AbstractCommand
      *
      * @var string
      */
-    static protected $config;
+    protected static $config;
 
     /**
      * {@inheritdoc}
@@ -212,7 +212,7 @@ class Builder extends AbstractCommand
         $config['app']['production'] = true;
         file_put_contents($file, '<?php return '.var_export($config, true).';'.PHP_EOL);
 
-        $this->info("Moving configuration to production mode...");
+        $this->info('Moving configuration to production mode...');
 
         return $this;
     }
