@@ -69,7 +69,9 @@ class Builder extends AbstractCommand
         $this->alert('Building the application...');
 
         if (Phar::canWrite()) {
+            // file_put_contents($file, str_replace("production => false", "production => true", file_get_contents($file)));
             $this->build($this->input->getArgument('name') ?: self::BUILD_NAME);
+            // file_put_contents($file, str_replace("production => true", "production => false", file_get_contents($file)));
         } else {
             $this->error(
                 'Unable to compile a phar because of php\'s security settings. '.'phar.readonly must be disabled in php.ini. '.PHP_EOL.PHP_EOL.'You will need to edit '.php_ini_loaded_file(
