@@ -34,9 +34,15 @@ class Installer implements InstallerContract
         $command->info("Component installed! Usage:");
         $command->comment(
             '
-            
+
             use Illuminate\Database\Capsule\Manager as DB;
-            
+
+            DB::schema()->create(\'users\', function ($table) {
+                $table->increments(\'id\');
+                $table->string(\'email\')->unique();
+                $table->timestamps();
+            });
+
             DB::table(\'users\')->insert(
                 [\'email\' => \'enunomaduro@gmail.com\']
             );
