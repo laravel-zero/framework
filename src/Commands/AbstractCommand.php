@@ -13,7 +13,6 @@ namespace NunoMaduro\ZeroFramework\Commands;
 
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Console\Command as BaseCommand;
-use Symfony\Component\Console\Style\SymfonyStyle;
 use NunoMaduro\LaravelDesktopNotifier\Contracts\Notifier;
 use NunoMaduro\LaravelDesktopNotifier\Contracts\Notification;
 
@@ -52,7 +51,8 @@ abstract class AbstractCommand extends BaseCommand
      */
     public function notify(string $text, string $body, $icon = null): void
     {
-        $notifier = $this->getContainer()->make(Notifier::class);
+        $notifier = $this->getContainer()
+            ->make(Notifier::class);
 
         $notification = $this->getContainer()
             ->make(Notification::class)
