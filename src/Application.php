@@ -15,6 +15,7 @@ use ArrayAccess;
 use Illuminate\Config\Repository;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Container\Container;
+use NunoMaduro\ZeroFramework\Commands;
 use Illuminate\Support\Traits\CapsuleManagerTrait;
 use Symfony\Component\Console\Input\InputInterface;
 use Illuminate\Console\Application as BaseApplication;
@@ -58,11 +59,11 @@ class Application extends BaseApplication implements ArrayAccess
     /**
      * The application's core commands.
      *
-     * @var array
+     * @var string[]
      */
-    protected $coreCommands = [
-        NunoMaduro\ZeroFramework\Commands\Builder::class,
-        NunoMaduro\ZeroFramework\Commands\Renamer::class,
+    protected $commands = [
+        Commands\Builder::class,
+        Commands\Renamer::class,
     ];
 
     /**
@@ -127,8 +128,9 @@ class Application extends BaseApplication implements ArrayAccess
 
         $commands = collect($this->config->get('app.commands'));
 
-        if ($this->config->get('app.production')) {
-            $commands->push($this->coreCommands);
+        if (! $this->config->get('app.production')) {
+            $commands->push($this->commands[0]);
+            $commands->push($this->commands[1]);
         }
 
         $commands->push($this->config->get('app.default-command'))
