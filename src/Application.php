@@ -129,8 +129,7 @@ class Application extends BaseApplication implements ArrayAccess
         $commands = collect($this->config->get('app.commands'));
 
         if (! $this->config->get('app.production')) {
-            $commands->push($this->commands[0]);
-            $commands->push($this->commands[1]);
+            $commands = $commands->merge($this->commands);
         }
 
         $commands->push($this->config->get('app.default-command'))
