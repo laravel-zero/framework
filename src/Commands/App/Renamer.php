@@ -75,8 +75,6 @@ class Renamer extends AbstractCommand
      */
     protected function displayWelcomeMessage(): Renamer
     {
-
-
         return $this;
     }
 
@@ -174,7 +172,7 @@ class Renamer extends AbstractCommand
         $file = BASE_PATH.'/composer.json';
 
         if (! file_exists($file)) {
-            $this->error("composer.json not found.");
+            $this->error('composer.json not found.');
             exit(0);
         }
 

@@ -15,7 +15,6 @@ use ArrayAccess;
 use Illuminate\Config\Repository;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Container\Container;
-use NunoMaduro\ZeroFramework\Commands;
 use NunoMaduro\ZeroFramework\Commands\Component;
 use Illuminate\Support\Traits\CapsuleManagerTrait;
 use Symfony\Component\Console\Input\InputInterface;

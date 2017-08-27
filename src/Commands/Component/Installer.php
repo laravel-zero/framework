@@ -11,7 +11,6 @@
 
 namespace NunoMaduro\ZeroFramework\Commands\Component;
 
-use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Input\InputArgument;
 use NunoMaduro\ZeroFramework\Commands\AbstractCommand;
 
@@ -57,7 +56,7 @@ class Installer extends AbstractCommand
     {
         $this->info("Pulling $package...");
 
-        exec("cd ".BASE_PATH." && composer require $package");
+        exec('cd '.BASE_PATH." && composer require $package");
 
         return $this;
     }
