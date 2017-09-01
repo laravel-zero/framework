@@ -27,7 +27,7 @@ class Installer implements InstallerContract
      */
     public function install(InstallCommand $command, ComposerContract $composer): bool
     {
-        $command->info("Pulling illuminate/database...");
+        $command->info('Pulling illuminate/database...');
 
         $composer->require('illuminate/database');
 
