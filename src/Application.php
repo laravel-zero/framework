@@ -16,7 +16,6 @@ use Illuminate\Config\Repository;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Container\Container;
 use NunoMaduro\ZeroFramework\Commands\Component;
-use NunoMaduro\ZeroFramework\Providers;
 use Illuminate\Support\Traits\CapsuleManagerTrait;
 use Symfony\Component\Console\Input\InputInterface;
 use Illuminate\Console\Application as BaseApplication;
@@ -64,7 +63,7 @@ class Application extends BaseApplication implements ArrayAccess
      */
     protected $providers = [
         \Illuminate\Events\EventServiceProvider::class,
-        Providers\Composer\ServiceProvider::class
+        Providers\Composer\ServiceProvider::class,
     ];
 
     /**
