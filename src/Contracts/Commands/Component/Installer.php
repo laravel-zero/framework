@@ -12,6 +12,7 @@
 namespace NunoMaduro\ZeroFramework\Contracts\Commands\Component;
 
 use NunoMaduro\ZeroFramework\Commands\Component\Installer as InstallCommand;
+use NunoMaduro\ZeroFramework\Contracts\Providers\Composer as ComposerContract;
 
 /**
  * The is the Zero Framework component install contract.
@@ -25,8 +26,9 @@ interface Installer
      * of the installation.
      *
      * @param \NunoMaduro\ZeroFramework\Commands\Component\Installer $command
+     * @param \NunoMaduro\ZeroFramework\Contracts\Providers\Comops $command
      *
      * @return bool
      */
-    public function install(InstallCommand $command): bool;
+    public function install(InstallCommand $command, ComposerContract $composer): bool;
 }

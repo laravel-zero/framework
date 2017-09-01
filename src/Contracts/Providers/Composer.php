@@ -25,5 +25,5 @@ interface Composer
      *
      * @return $this
      */
-    public function require(string $package): ComposerContract
+    public function require(string $package): Composer;
 }

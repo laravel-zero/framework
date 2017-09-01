@@ -11,6 +11,7 @@
 
 namespace NunoMaduro\ZeroFramework\Providers\Composer;
 
+use NunoMaduro\ZeroFramework\Providers\Composer\Composer;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use NunoMaduro\ZeroFramework\Contracts\Providers\Composer as ComposerContract;
 
@@ -32,6 +33,6 @@ class ServiceProvider extends BaseServiceProvider
             return new Composer;
         });
 
-        $this->app->alias('composer', [ComposerContract::class]);
+        $this->app->alias('composer', ComposerContract::class);
     }
 }

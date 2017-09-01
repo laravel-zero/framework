@@ -9,9 +9,9 @@
  *  file that was distributed with this source code.
  */
 
-namespace NunoMaduro\ZeroFramework\Providers;
+namespace NunoMaduro\ZeroFramework\Providers\Composer;
 
-use NunoMaduro\ZeroFramework\Contracts\Composer as ComposerContract;
+use NunoMaduro\ZeroFramework\Contracts\Providers\Composer as ComposerContract;
 
 /**
  * The is the Zero Framework composer class.
@@ -25,8 +25,6 @@ class Composer implements ComposerContract
      */
     public function require(string $package): ComposerContract
     {
-        $this->info("Pulling $package...");
-
         exec('cd '.BASE_PATH." && composer require $package");
 
         return $this;

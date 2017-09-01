@@ -13,7 +13,7 @@ namespace NunoMaduro\ZeroFramework\Commands\Component;
 
 use Symfony\Component\Console\Input\InputArgument;
 use NunoMaduro\ZeroFramework\Commands\AbstractCommand;
-use NunoMaduro\ZeroFramework\Contract\Services\ComposerContract;
+use NunoMaduro\ZeroFramework\Contracts\Providers\Composer as ComposerContract;
 
 /**
  * The is the Zero Framework component installer command class.

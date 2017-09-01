@@ -12,8 +12,8 @@
 namespace NunoMaduro\ZeroFramework\Commands\Component\Illuminate\Database;
 
 use NunoMaduro\ZeroFramework\Commands\Component\Installer as InstallCommand;
-use NunoMaduro\ZeroFramework\Contracts\Commands\Component\Installer as InstallerContract;
 use NunoMaduro\ZeroFramework\Contracts\Providers\Composer as ComposerContract;
+use NunoMaduro\ZeroFramework\Contracts\Commands\Component\Installer as InstallerContract;
 
 /**
  * The is the Zero Framework illuminate/database install class.
@@ -27,6 +27,8 @@ class Installer implements InstallerContract
      */
     public function install(InstallCommand $command, ComposerContract $composer): bool
     {
+        $command->info("Pulling illuminate/database...");
+
         $composer->require('illuminate/database');
 
         $command->info('Creating (database/database.sqlite)...');
