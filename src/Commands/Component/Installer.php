@@ -13,6 +13,7 @@ namespace NunoMaduro\ZeroFramework\Commands\Component;
 
 use Symfony\Component\Console\Input\InputArgument;
 use NunoMaduro\ZeroFramework\Commands\AbstractCommand;
+use NunoMaduro\ZeroFramework\Contract\Services\ComposerContract;
 
 /**
  * The is the Zero Framework component installer command class.
@@ -46,22 +47,6 @@ class Installer extends AbstractCommand
     }
 
     /**
-     * Pulls the provided package via composer.
-     *
-     * @param  string $package
-     *
-     * @return $this
-     */
-    public function require(string $package): Installer
-    {
-        $this->info("Pulling $package...");
-
-        exec('cd '.BASE_PATH." && composer require $package");
-
-        return $this;
-    }
-
-    /**
      * {@inheritdoc}
      */
     protected function configure(): void
@@ -87,7 +72,10 @@ class Installer extends AbstractCommand
 
         $installerClass = __NAMESPACE__.'\\'.str_replace('/', '\\', ucwords($component, ' / ')).'\Installer';
 
-        if ((new $installerClass)->install($this)) {
+        $composer = $this->getContainer()
+            ->make(ComposerContract::class);
+
+        if ((new $installerClass)->install($this, $composer)) {
             $this->output->writeln("The component $component installation: <info>✔</info>");
         }
 
