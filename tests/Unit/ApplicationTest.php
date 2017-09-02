@@ -14,7 +14,7 @@ namespace Tests\Unit;
 use Tests\TestCase;
 
 /**
- * The is the Zero Framework application test class.
+ * This is the Zero Framework application test class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */

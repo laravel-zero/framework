@@ -14,7 +14,7 @@ namespace NunoMaduro\ZeroFramework\Commands\Component;
 use NunoMaduro\ZeroFramework\Contracts\Commands\Component\Finder as FinderContract;
 
 /**
- * The is the Zero Framework component finder class.
+ * This is the Zero Framework component finder class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */

@@ -16,7 +16,7 @@ use NunoMaduro\ZeroFramework\Contracts\Providers\Composer as ComposerContract;
 use NunoMaduro\ZeroFramework\Contracts\Commands\Component\Installer as InstallerContract;
 
 /**
- * The is the Zero Framework illuminate/database install class.
+ * This is the Zero Framework illuminate/database install class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */

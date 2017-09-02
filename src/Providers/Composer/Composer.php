@@ -14,7 +14,7 @@ namespace NunoMaduro\ZeroFramework\Providers\Composer;
 use NunoMaduro\ZeroFramework\Contracts\Providers\Composer as ComposerContract;
 
 /**
- * The is the Zero Framework composer class.
+ * This is the Zero Framework composer class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */

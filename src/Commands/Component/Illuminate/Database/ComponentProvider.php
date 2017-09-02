@@ -14,7 +14,7 @@ namespace NunoMaduro\ZeroFramework\Commands\Component\Illuminate\Database;
 use NunoMaduro\ZeroFramework\Commands\Component\AbstractComponentProvider;
 
 /**
- * The is the Zero Framework illuminate/database component provider class.
+ * This is the Zero Framework illuminate/database component provider class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */

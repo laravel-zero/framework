@@ -23,7 +23,7 @@ use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Contracts\Container\Container as ContainerContract;
 
 /**
- * The is the Zero Framework application class.
+ * This is the Zero Framework application class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */

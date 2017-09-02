@@ -12,7 +12,7 @@
 namespace NunoMaduro\ZeroFramework\Contracts\Commands\Component;
 
 /**
- * The is the Zero Framework component finder contract.
+ * This is the Zero Framework component finder contract.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */

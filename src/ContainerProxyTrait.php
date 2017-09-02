@@ -14,7 +14,7 @@ namespace NunoMaduro\ZeroFramework;
 use BadMethodCallException;
 
 /**
- * The is the Zero Framework container proxy class.
+ * This is the Zero Framework container proxy class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */

@@ -15,7 +15,7 @@ use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use NunoMaduro\ZeroFramework\Contracts\Providers\Composer as ComposerContract;
 
 /**
- * The is the Zero Framework composer service provider class.
+ * This is the Zero Framework composer service provider class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */

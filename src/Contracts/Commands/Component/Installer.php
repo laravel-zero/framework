@@ -15,7 +15,7 @@ use NunoMaduro\ZeroFramework\Commands\Component\Installer as InstallCommand;
 use NunoMaduro\ZeroFramework\Contracts\Providers\Composer as ComposerContract;
 
 /**
- * The is the Zero Framework component install contract.
+ * This is the Zero Framework component install contract.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */

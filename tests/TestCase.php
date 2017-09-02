@@ -15,7 +15,7 @@ use NunoMaduro\ZeroFramework\Application;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
 /**
- * The is the Zero Framework test case class.
+ * This is the Zero Framework test case class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */

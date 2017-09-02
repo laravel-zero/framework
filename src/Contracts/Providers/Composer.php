@@ -12,7 +12,7 @@
 namespace NunoMaduro\ZeroFramework\Contracts\Providers;
 
 /**
- * The is the Zero Framework composer contract.
+ * This is the Zero Framework composer contract.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
