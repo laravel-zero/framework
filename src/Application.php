@@ -63,6 +63,7 @@ class Application extends BaseApplication implements ArrayAccess
      */
     protected $providers = [
         \Illuminate\Events\EventServiceProvider::class,
+        Providers\Composer\ServiceProvider::class,
     ];
 
     /**
