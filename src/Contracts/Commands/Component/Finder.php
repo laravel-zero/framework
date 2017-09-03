@@ -9,7 +9,7 @@
  *  file that was distributed with this source code.
  */
 
-namespace NunoMaduro\ZeroFramework\Contracts\Commands\Component;
+namespace LaravelZero\Framework\Contracts\Commands\Component;
 
 /**
  * The is the Zero Framework component finder contract.

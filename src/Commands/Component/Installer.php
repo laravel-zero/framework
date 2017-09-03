@@ -9,10 +9,10 @@
  *  file that was distributed with this source code.
  */
 
-namespace NunoMaduro\ZeroFramework\Commands\Component;
+namespace LaravelZero\Framework\Commands\Component;
 
 use Symfony\Component\Console\Input\InputArgument;
-use NunoMaduro\ZeroFramework\Commands\AbstractCommand;
+use LaravelZero\Framework\Commands\AbstractCommand;
 
 /**
  * The is the Zero Framework component installer command class.

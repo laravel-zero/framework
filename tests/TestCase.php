@@ -11,7 +11,7 @@
 
 namespace Tests;
 
-use NunoMaduro\ZeroFramework\Application;
+use LaravelZero\Framework\Application;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
 /**

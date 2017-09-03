@@ -9,7 +9,7 @@
  *  file that was distributed with this source code.
  */
 
-namespace NunoMaduro\ZeroFramework\Commands\Component;
+namespace LaravelZero\Framework\Commands\Component;
 
 use Illuminate\Support\ServiceProvider;
 

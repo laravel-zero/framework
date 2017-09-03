@@ -9,9 +9,9 @@
  *  file that was distributed with this source code.
  */
 
-namespace NunoMaduro\ZeroFramework\Commands\Component;
+namespace LaravelZero\Framework\Commands\Component;
 
-use NunoMaduro\ZeroFramework\Contracts\Commands\Component\Finder as FinderContract;
+use LaravelZero\Framework\Contracts\Commands\Component\Finder as FinderContract;
 
 /**
  * The is the Zero Framework component finder class.

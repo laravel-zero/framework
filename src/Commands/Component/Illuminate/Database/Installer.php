@@ -9,10 +9,10 @@
  *  file that was distributed with this source code.
  */
 
-namespace NunoMaduro\ZeroFramework\Commands\Component\Illuminate\Database;
+namespace LaravelZero\Framework\Commands\Component\Illuminate\Database;
 
-use NunoMaduro\ZeroFramework\Commands\Component\Installer as InstallCommand;
-use NunoMaduro\ZeroFramework\Contracts\Commands\Component\Installer as InstallerContract;
+use LaravelZero\Framework\Commands\Component\Installer as InstallCommand;
+use LaravelZero\Framework\Contracts\Commands\Component\Installer as InstallerContract;
 
 /**
  * The is the Zero Framework illuminate/database install class.
