@@ -20,5 +20,3 @@ Laravel Zero was created by [Nuno Maduro](https://github.com/nunomaduro) and it 
 ## License
 
 Laravel Zero is an open-sourced software licensed under the [MIT license](LICENSE.md).
-
-Copyright (c) 2017 Nuno Maduro
