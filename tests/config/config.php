@@ -1,6 +1,6 @@
 <?php
 
-use NunoMaduro\ZeroFramework\Commands;
+use LaravelZero\Framework\Commands;
 
 return [
     'app' => [

@@ -9,11 +9,11 @@
  *  file that was distributed with this source code.
  */
 
-namespace NunoMaduro\ZeroFramework\Commands\App;
+namespace LaravelZero\Framework\Commands\App;
 
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputArgument;
-use NunoMaduro\ZeroFramework\Commands\AbstractCommand;
+use LaravelZero\Framework\Commands\AbstractCommand;
 
 /**
  * The is the Zero Framework renamer command class.

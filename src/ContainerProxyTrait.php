@@ -9,7 +9,7 @@
  *  file that was distributed with this source code.
  */
 
-namespace NunoMaduro\ZeroFramework;
+namespace LaravelZero\Framework;
 
 use BadMethodCallException;
 
