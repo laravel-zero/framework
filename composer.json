@@ -1,9 +1,7 @@
 {
-    "name": "nunomaduro/zero-framework",
+    "name": "laravel-zero/framework",
     "description": "Laravel Zero provides the perfect starting point for your next Laravel Console Application.",
     "keywords": [
-        "Nuno Maduro",
-        "NunoMaduro",
         "Laravel Zero",
         "Zero",
         "Laravel",
@@ -11,11 +9,11 @@
         "Cli",
         "Commands"
     ],
-    "homepage": "https://github.com/nunomaduro/zero-framework",
+    "homepage": "https://github.com/laravel-zero/framework",
     "license": "MIT",
     "support": {
-        "issues": "https://github.com/nunomaduro/zero-framework/issues",
-        "source": "https://github.com/nunomaduro/zero-framework"
+        "issues": "https://github.com/laravel-zero/framework/issues",
+        "source": "https://github.com/laravel-zero/framework"
     },
     "authors": [
         {
@@ -37,7 +35,7 @@
     },
     "autoload": {
         "psr-4": {
-            "NunoMaduro\\ZeroFramework\\": "src"
+            "LaravelZero\\Framework\\": "src"
         }
     },
     "autoload-dev": {

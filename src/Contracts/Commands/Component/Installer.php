@@ -9,9 +9,9 @@
  *  file that was distributed with this source code.
  */
 
-namespace NunoMaduro\ZeroFramework\Contracts\Commands\Component;
+namespace LaravelZero\Framework\Contracts\Commands\Component;
 
-use NunoMaduro\ZeroFramework\Commands\Component\Installer as InstallCommand;
+use LaravelZero\Framework\Commands\Component\Installer as InstallCommand;
 
 /**
  * The is the Zero Framework component install contract.
@@ -24,7 +24,7 @@ interface Installer
      * Installs the component and returns the result
      * of the installation.
      *
-     * @param \NunoMaduro\ZeroFramework\Commands\Component\Installer $command
+     * @param \LaravelZero\Framework\Commands\Component\Installer $command
      *
      * @return bool
      */

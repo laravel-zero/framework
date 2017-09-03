@@ -9,13 +9,13 @@
  *  file that was distributed with this source code.
  */
 
-namespace NunoMaduro\ZeroFramework\Commands\App;
+namespace LaravelZero\Framework\Commands\App;
 
 use Phar;
 use FilesystemIterator;
 use UnexpectedValueException;
 use Symfony\Component\Console\Input\InputArgument;
-use NunoMaduro\ZeroFramework\Commands\AbstractCommand;
+use LaravelZero\Framework\Commands\AbstractCommand;
 
 /**
  * The is the Zero Framework builder command class.
