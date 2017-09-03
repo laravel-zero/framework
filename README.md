@@ -3,9 +3,9 @@
 </p>
 <p align="center">
   <a href="https://styleci.io/repos/96572957"><img src="https://styleci.io/repos/96572957/shield" alt="StyleCI Status"></img></a>
-  <a href="https://travis-ci.org/nunomaduro/zero-framework"><img src="https://img.shields.io/travis/nunomaduro/zero-framework/stable.svg?style=flat-square" alt="Build Status"></img></a>
-  <a href="https://scrutinizer-ci.com/g/nunomaduro/zero-framework"><img src="https://img.shields.io/scrutinizer/g/nunomaduro/zero-framework.svg?style=flat-square" alt="Quality Score"></img></a>
-  <a href="https://packagist.org/packages/nunomaduro/zero-framework"><img src="https://poser.pugx.org/nunomaduro/zero-framework/v/stable.svg" alt="Latest Stable Version"></a>
+  <a href="https://travis-ci.org/laravel-zero/framework"><img src="https://img.shields.io/travis/laravel-zero/framework/stable.svg?style=flat-square" alt="Build Status"></img></a>
+  <a href="https://scrutinizer-ci.com/g/laravel-zero/framework"><img src="https://img.shields.io/scrutinizer/g/laravel-zero/framework.svg?style=flat-square" alt="Quality Score"></img></a>
+  <a href="https://packagist.org/packages/laravel-zero/framework"><img src="https://poser.pugx.org/laravel-zero/framework/v/stable.svg" alt="Latest Stable Version"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square" alt="Software License"></img></a>
 </p>
 
