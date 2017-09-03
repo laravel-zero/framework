@@ -12,13 +12,13 @@
 About Laravel Zero
 ================
 
-Laravel Zero was created by, and is maintained by [Nuno Maduro](https://github.com/nunomaduro), and is a micro-framework that provides an elegant starting point for your next console application.
+Laravel Zero was created by [Nuno Maduro](https://github.com/nunomaduro) and it is maintained by [Nuno Maduro](https://github.com/nunomaduro) & [Harish Toshniwal](https://github.com/introwit). Laravel Zero is a micro-framework that provides an elegant starting point for your next console application.
 **Unofficial** and customized version of Laravel optimized for building console/shell/command-line applications.
 
-> **Note:** This repository contains the core code of the Laravel Zero framework. If you want to build an application using Laravel Zero, visit the main [Laravel Zero repository](https://github.com/nunomaduro/laravel-zero).
+> **Note:** This repository contains the core code of the Laravel Zero framework. If you want to build an application using Laravel Zero, visit the main [Laravel Zero repository](https://github.com/laravel-zero/laravel-zero).
 
 ## License
 
-Laravel Zero is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+Laravel Zero is an open-sourced software licensed under the [MIT license](LICENSE.md).
 
 Copyright (c) 2017 Nuno Maduro
