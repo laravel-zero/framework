@@ -9,10 +9,10 @@
  *  file that was distributed with this source code.
  */
 
-namespace NunoMaduro\ZeroFramework\Providers\Composer;
+namespace LaravelZero\Framework\Providers\Composer;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
-use NunoMaduro\ZeroFramework\Contracts\Providers\Composer as ComposerContract;
+use LaravelZero\Framework\Contracts\Providers\Composer as ComposerContract;
 
 /**
  * This is the Zero Framework composer service provider class.

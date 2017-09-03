@@ -9,7 +9,7 @@
  *  file that was distributed with this source code.
  */
 
-namespace NunoMaduro\ZeroFramework\Contracts\Providers;
+namespace LaravelZero\Framework\Contracts\Providers;
 
 /**
  * This is the Zero Framework composer contract.

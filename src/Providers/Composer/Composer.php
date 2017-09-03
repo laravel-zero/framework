@@ -9,9 +9,9 @@
  *  file that was distributed with this source code.
  */
 
-namespace NunoMaduro\ZeroFramework\Providers\Composer;
+namespace LaravelZero\Framework\Providers\Composer;
 
-use NunoMaduro\ZeroFramework\Contracts\Providers\Composer as ComposerContract;
+use LaravelZero\Framework\Contracts\Providers\Composer as ComposerContract;
 
 /**
  * This is the Zero Framework composer class.

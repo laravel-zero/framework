@@ -9,13 +9,13 @@
  *  file that was distributed with this source code.
  */
 
-namespace NunoMaduro\ZeroFramework;
+namespace LaravelZero\Framework;
 
 use ArrayAccess;
 use Illuminate\Config\Repository;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Container\Container;
-use NunoMaduro\ZeroFramework\Commands\Component;
+use LaravelZero\Framework\Commands\Component;
 use Illuminate\Support\Traits\CapsuleManagerTrait;
 use Symfony\Component\Console\Input\InputInterface;
 use Illuminate\Console\Application as BaseApplication;

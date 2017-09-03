@@ -11,7 +11,7 @@
 
 namespace Tests;
 
-use NunoMaduro\ZeroFramework\Application;
+use LaravelZero\Framework\Application;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
 /**
@@ -24,7 +24,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * The application instance.
      *
-     * @var \NunoMaduro\ZeroFramework\Application
+     * @var \LaravelZero\Framework\Application
      */
     protected $app;
 
@@ -45,7 +45,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * Creates a new instance of the application.
      *
-     * @return \NunoMaduro\ZeroFramework\Application
+     * @return \LaravelZero\Framework\Application
      */
     protected function createApplication(): Application
     {

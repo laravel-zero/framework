@@ -9,9 +9,9 @@
  *  file that was distributed with this source code.
  */
 
-namespace NunoMaduro\ZeroFramework\Commands\Component\Illuminate\Database;
+namespace LaravelZero\Framework\Commands\Component\Illuminate\Database;
 
-use NunoMaduro\ZeroFramework\Commands\Component\AbstractComponentProvider;
+use LaravelZero\Framework\Commands\Component\AbstractComponentProvider;
 
 /**
  * This is the Zero Framework illuminate/database component provider class.
