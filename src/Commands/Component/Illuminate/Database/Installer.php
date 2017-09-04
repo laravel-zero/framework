@@ -12,10 +12,11 @@
 namespace LaravelZero\Framework\Commands\Component\Illuminate\Database;
 
 use LaravelZero\Framework\Commands\Component\Installer as InstallCommand;
+use LaravelZero\Framework\Contracts\Providers\Composer as ComposerContract;
 use LaravelZero\Framework\Contracts\Commands\Component\Installer as InstallerContract;
 
 /**
- * The is the Zero Framework illuminate/database install class.
+ * This is the Zero Framework illuminate/database install class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
@@ -24,9 +25,10 @@ class Installer implements InstallerContract
     /**
      * {@inheritdoc}
      */
-    public function install(InstallCommand $command): bool
+    public function install(InstallCommand $command, ComposerContract $composer): bool
     {
-        $command->require('illuminate/database "5.4.*"');
+        $command->info('Pulling illuminate/database...');
+        $composer->require('illuminate/database "5.5.*');
 
         $command->info('Creating (database/database.sqlite)...');
         shell_exec('cd '.BASE_PATH.'&& mkdir database && touch database/database.sqlite');

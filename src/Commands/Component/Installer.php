@@ -13,9 +13,10 @@ namespace LaravelZero\Framework\Commands\Component;
 
 use Symfony\Component\Console\Input\InputArgument;
 use LaravelZero\Framework\Commands\AbstractCommand;
+use LaravelZero\Framework\Contracts\Providers\Composer as ComposerContract;
 
 /**
- * The is the Zero Framework component installer command class.
+ * This is the Zero Framework component installer command class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
@@ -46,22 +47,6 @@ class Installer extends AbstractCommand
     }
 
     /**
-     * Pulls the provided package via composer.
-     *
-     * @param  string $package
-     *
-     * @return $this
-     */
-    public function require(string $package): Installer
-    {
-        $this->info("Pulling $package...");
-
-        exec('cd '.BASE_PATH." && composer require $package");
-
-        return $this;
-    }
-
-    /**
      * {@inheritdoc}
      */
     protected function configure(): void
@@ -87,7 +72,10 @@ class Installer extends AbstractCommand
 
         $installerClass = __NAMESPACE__.'\\'.str_replace('/', '\\', ucwords($component, ' / ')).'\Installer';
 
-        if ((new $installerClass)->install($this)) {
+        $composer = $this->getContainer()
+            ->make(ComposerContract::class);
+
+        if ((new $installerClass)->install($this, $composer)) {
             $this->output->writeln("The component $component installation: <info>✔</info>");
         }
 

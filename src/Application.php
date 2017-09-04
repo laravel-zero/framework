@@ -23,7 +23,7 @@ use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Contracts\Container\Container as ContainerContract;
 
 /**
- * The is the Zero Framework application class.
+ * This is the Zero Framework application class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
@@ -63,6 +63,7 @@ class Application extends BaseApplication implements ArrayAccess
      */
     protected $providers = [
         \Illuminate\Events\EventServiceProvider::class,
+        Providers\Composer\ServiceProvider::class,
     ];
 
     /**

@@ -14,7 +14,7 @@ namespace LaravelZero\Framework\Commands\Component;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * The is the Zero Framework illuminate/database component provider class.
+ * This is the Zero Framework illuminate/database component provider class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */

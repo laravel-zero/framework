@@ -9,19 +9,21 @@
  *  file that was distributed with this source code.
  */
 
-namespace LaravelZero\Framework\Contracts\Commands\Component;
+namespace LaravelZero\Framework\Contracts\Providers;
 
 /**
- * This is the Zero Framework component finder contract.
+ * This is the Zero Framework composer contract.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
-interface Finder
+interface Composer
 {
     /**
-     * Finds all the available components.
+     * Pulls the provided package.
      *
-     * @return string[]
+     * @param  string $package
+     *
+     * @return $this
      */
-    public function find(): array;
+    public function require(string $package): Composer;
 }

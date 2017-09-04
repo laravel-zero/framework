@@ -18,7 +18,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use LaravelZero\Framework\Commands\AbstractCommand;
 
 /**
- * The is the Zero Framework builder command class.
+ * This is the Zero Framework builder command class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
