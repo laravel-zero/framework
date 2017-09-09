@@ -21,6 +21,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Illuminate\Console\Application as BaseApplication;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Contracts\Container\Container as ContainerContract;
+use NunoMaduro\LaravelDesktopNotifier\LaravelDesktopNotifierServiceProvider;
 
 /**
  * This is the Zero Framework application class.
@@ -64,6 +65,7 @@ class Application extends BaseApplication implements ArrayAccess
     protected $providers = [
         \Illuminate\Events\EventServiceProvider::class,
         Providers\Composer\ServiceProvider::class,
+        LaravelDesktopNotifierServiceProvider::class,
     ];
 
     /**
