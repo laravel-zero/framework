@@ -1,0 +1,80 @@
+<?php
+
+namespace LaravelZero\Framework\Bootstrappers;
+
+use LaravelZero\Framework\Commands;
+use Illuminate\Console\Scheduling\ScheduleRunCommand;
+
+/**
+ * This is the Zero Framework Bootstrapper Configuration class.
+ *
+ * Configures the console application.
+ *
+ * Takes in consideration the app name and the app version. Also
+ * adds all the application commands.
+ *
+ * @author Nuno Maduro <enunomaduro@gmail.com>
+ */
+class Configuration extends Bootstrapper
+{
+    /**
+     * The application's core commands.
+     *
+     * @var string[]
+     */
+    protected $commands = [
+        ScheduleRunCommand::class,
+    ];
+
+    /**
+     * The application's development commands.
+     *
+     * @var string[]
+     */
+    protected $developmentCommands = [
+        Commands\App\Builder::class,
+        Commands\App\Renamer::class,
+        Commands\Component\Installer::class,
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
+    public function bootstrap(): void
+    {
+        $config = $this->container->make('config');
+
+        if ($name = $config->get('app.name')) {
+            $this->application->setName($name);
+        }
+
+        if ($version = $config->get('app.version')) {
+            $this->application->setVersion($version);
+        }
+
+        $commands = collect(
+            array_merge(
+                $config->get('app.commands'),
+                $this->commands
+            )
+        );
+
+        if (! $config->get('app.production')) {
+            $commands = $commands->merge($this->developmentCommands);
+        }
+
+        $commands->push($config->get('app.default-command'))
+            ->each(
+                function ($command) {
+                    if ($command) {
+                        $commandInstance = $this->container->make($command);
+                        $this->application->add($commandInstance);
+
+                        if (method_exists($commandInstance, 'schedule')) {
+                            $this->container->call("$command@schedule");
+                        }
+                    }
+                }
+            );
+    }
+}

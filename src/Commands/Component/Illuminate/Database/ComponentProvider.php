@@ -22,6 +22,10 @@ class ComponentProvider extends AbstractComponentProvider
 
         $this->registerServiceProvider(\Illuminate\Database\DatabaseServiceProvider::class);
 
+        $this->app->alias('db', \Illuminate\Database\DatabaseManager::class);
+        $this->app->alias('db.connection', \Illuminate\Database\DatabaseManager::class);
+        $this->app->alias('db.connection', \Illuminate\Database\ConnectionInterface::class);
+
         // Make this Capsule instance available globally via static methods
         $this->app->make(\Illuminate\Database\Capsule\Manager::class)
             ->setAsGlobal();
