@@ -32,7 +32,7 @@ class ComponentProvider extends AbstractComponentProvider
                 'array' => [
                     'driver' => 'array',
                 ],
-            ]
+            ],
         ]);
     }
 }

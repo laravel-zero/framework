@@ -15,7 +15,7 @@ class Constants extends Bootstrapper
     public function bootstrap(): void
     {
         if (! defined('ARTISAN_BINARY')) {
-            define('ARTISAN_BINARY', BASE_PATH . '/' . basename($_SERVER["SCRIPT_FILENAME"]));
+            define('ARTISAN_BINARY', BASE_PATH.'/'.basename($_SERVER['SCRIPT_FILENAME']));
         }
     }
 }
