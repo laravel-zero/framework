@@ -2,9 +2,8 @@
 
 namespace LaravelZero\Framework\Bootstrappers;
 
-use Illuminate\Container\Container;
-use NunoMaduro\LaravelDesktopNotifier\LaravelDesktopNotifierServiceProvider;
 use LaravelZero\Framework\Commands\Component;
+use NunoMaduro\LaravelDesktopNotifier\LaravelDesktopNotifierServiceProvider;
 
 /**
  * This is the Zero Framework Bootstrapper ServiceProviders class.

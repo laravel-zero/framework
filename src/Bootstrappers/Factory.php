@@ -30,7 +30,7 @@ class Factory
      */
     public function make(): array
     {
-        return array_map(function($bootstrapper) {
+        return array_map(function ($bootstrapper) {
             return function (ApplicationContract $application) use ($bootstrapper) {
                 return (new $bootstrapper($application))->bootstrap();
             };

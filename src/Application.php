@@ -7,10 +7,10 @@ use Illuminate\Events\Dispatcher;
 use Illuminate\Container\Container;
 use Illuminate\Support\Traits\CapsuleManagerTrait;
 use Symfony\Component\Console\Input\InputInterface;
-use LaravelZero\Framework\Contracts\Application as ApplicationContract;
 use Illuminate\Console\Application as BaseApplication;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Contracts\Container\Container as ContainerContract;
+use LaravelZero\Framework\Contracts\Application as ApplicationContract;
 
 /**
  * This is the Zero Framework application class.
