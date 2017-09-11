@@ -23,7 +23,6 @@
     ],
     "require": {
         "php": ">=7.1",
-        "league/flysystem": "~1.0",
         "illuminate/config": "5.5.*",
         "illuminate/console": "5.5.*",
         "illuminate/container": "5.5.*",

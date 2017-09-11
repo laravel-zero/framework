@@ -73,6 +73,7 @@ class Application extends BaseApplication implements ArrayAccess
      */
     protected $components = [
         Component\Illuminate\Database\ComponentProvider::class,
+        Component\Illuminate\Filesystem\ComponentProvider::class,
     ];
 
     /**
