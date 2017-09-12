@@ -1,14 +1,5 @@
 <?php
 
-/**
- * This file is part of Zero Framework.
- *
- * (c) Nuno Maduro <enunomaduro@gmail.com>
- *
- *  For the full copyright and license information, please view the LICENSE
- *  file that was distributed with this source code.
- */
-
 namespace LaravelZero\Framework\Commands\Component;
 
 use Symfony\Component\Console\Input\InputArgument;
@@ -72,11 +63,15 @@ class Installer extends AbstractCommand
 
         $installerClass = __NAMESPACE__.'\\'.str_replace('/', '\\', ucwords($component, ' / ')).'\Installer';
 
-        $composer = $this->getContainer()
-            ->make(ComposerContract::class);
+        if (! class_exists($installerClass)) {
+            $this->error('Component not found!');
+        } else {
+            $composer = $this->getContainer()
+                ->make(ComposerContract::class);
 
-        if ((new $installerClass)->install($this, $composer)) {
-            $this->output->writeln("The component $component installation: <info>✔</info>");
+            if ((new $installerClass)->install($this, $composer)) {
+                $this->output->writeln("The component $component installation: <info>✔</info>");
+            }
         }
 
         return $this;

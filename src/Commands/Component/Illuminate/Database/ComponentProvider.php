@@ -1,14 +1,5 @@
 <?php
 
-/**
- * This file is part of Zero Framework.
- *
- * (c) Nuno Maduro <enunomaduro@gmail.com>
- *
- *  For the full copyright and license information, please view the LICENSE
- *  file that was distributed with this source code.
- */
-
 namespace LaravelZero\Framework\Commands\Component\Illuminate\Database;
 
 use LaravelZero\Framework\Commands\Component\AbstractComponentProvider;
@@ -30,6 +21,10 @@ class ComponentProvider extends AbstractComponentProvider
         }
 
         $this->registerServiceProvider(\Illuminate\Database\DatabaseServiceProvider::class);
+
+        $this->app->alias('db', \Illuminate\Database\DatabaseManager::class);
+        $this->app->alias('db.connection', \Illuminate\Database\DatabaseManager::class);
+        $this->app->alias('db.connection', \Illuminate\Database\ConnectionInterface::class);
 
         // Make this Capsule instance available globally via static methods
         $this->app->make(\Illuminate\Database\Capsule\Manager::class)
