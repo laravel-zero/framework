@@ -2,6 +2,7 @@
 
 namespace LaravelZero\Framework\Commands;
 
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Console\Command as BaseCommand;
 use NunoMaduro\LaravelDesktopNotifier\Contracts\Notifier;

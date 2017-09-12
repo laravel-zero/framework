@@ -22,9 +22,7 @@ class Configuration extends Bootstrapper
      *
      * @var string[]
      */
-    protected $commands = [
-        ScheduleRunCommand::class,
-    ];
+    protected $commands = [];
 
     /**
      * The application's development commands.
@@ -69,10 +67,6 @@ class Configuration extends Bootstrapper
                     if ($command) {
                         $commandInstance = $this->container->make($command);
                         $this->application->add($commandInstance);
-
-                        if (method_exists($commandInstance, 'schedule')) {
-                            $this->container->call("$command@schedule");
-                        }
                     }
                 }
             );
