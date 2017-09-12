@@ -30,9 +30,5 @@ class ComponentProvider extends AbstractComponentProvider
         }
 
         $this->registerServiceProvider(\Illuminate\Filesystem\FilesystemServiceProvider::class);
-
-        // Make this Filesystem instance available globally via static methods
-        $this->app->make(\Illuminate\Filesystem\Filesystem::class)
-            ->setAsGlobal();
     }
 }
