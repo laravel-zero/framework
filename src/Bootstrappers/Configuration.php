@@ -3,7 +3,6 @@
 namespace LaravelZero\Framework\Bootstrappers;
 
 use LaravelZero\Framework\Commands;
-use Illuminate\Console\Scheduling\ScheduleRunCommand;
 
 /**
  * This is the Zero Framework Bootstrapper Configuration class.
