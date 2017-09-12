@@ -63,11 +63,15 @@ class Installer extends AbstractCommand
 
         $installerClass = __NAMESPACE__.'\\'.str_replace('/', '\\', ucwords($component, ' / ')).'\Installer';
 
-        $composer = $this->getContainer()
-            ->make(ComposerContract::class);
+        if (! class_exists($installerClass)) {
+            $this->error('Component not found!');
+        } else {
+            $composer = $this->getContainer()
+                ->make(ComposerContract::class);
 
-        if ((new $installerClass)->install($this, $composer)) {
-            $this->output->writeln("The component $component installation: <info>✔</info>");
+            if ((new $installerClass)->install($this, $composer)) {
+                $this->output->writeln("The component $component installation: <info>✔</info>");
+            }
         }
 
         return $this;
