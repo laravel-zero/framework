@@ -43,9 +43,9 @@ class Application extends BaseApplication implements ApplicationContract, ArrayA
         $this->setupContainer($container ?: new Container);
         $this->dispatcher = $dispatcher ?: new Dispatcher($this->container);
         static::$bootstrappers = ($bootstrappersFactory ?: new Bootstrappers\Factory)->make();
-        $this->setCatchExceptions(true);
-
         parent::__construct($this->container, $this->dispatcher, '');
+
+        $this->setCatchExceptions(true);
     }
 
     /**
