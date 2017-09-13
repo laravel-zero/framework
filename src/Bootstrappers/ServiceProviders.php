@@ -51,18 +51,22 @@ class ServiceProviders extends Bootstrapper
     {
         collect($this->providers)
             ->merge($this->components)
-            ->merge($this->container->make('config')->get('app.providers'))
-            ->each(function ($serviceProvider) {
-                $instance = new $serviceProvider($this->application);
-                if (method_exists($instance, 'register')) {
-                    $instance->register();
-                }
+            ->merge(
+                $this->container->make('config')
+                    ->get('app.providers')
+            )
+            ->each(
+                function ($serviceProvider) {
+                    $instance = new $serviceProvider($this->application);
+                    if (method_exists($instance, 'register')) {
+                        $instance->register();
+                    }
 
-                if (method_exists($instance, 'boot')) {
-                    $instance->boot();
+                    if (method_exists($instance, 'boot')) {
+                        $instance->boot();
+                    }
                 }
-            }
-        );
+            );
 
         foreach ($this->aliases as $key => $aliases) {
             foreach ($aliases as $alias) {

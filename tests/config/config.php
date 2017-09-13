@@ -1,13 +1,31 @@
 <?php
 
-use LaravelZero\Framework\Commands;
-
 return [
     'app' => [
+
+        'name' => 'Test name',
+
+        'version' => 'Test version',
+
+        'production' => false,
+
+        'default-command' => Tests\FakeDefaultCommand::class,
+
         'commands' => [
-            Commands\App\Builder::class,
-            Commands\App\Renamer::class,
-            Commands\Component\Installer::class,
+            Tests\FakeExtraCommand::class,
+        ],
+
+        'providers' => [
+            Tests\FakeServiceProvider::class,
+        ],
+    ],
+
+    'database' => [
+        'connections' => [
+            'default' => [
+                'driver' => 'sqlite',
+                'database' => __DIR__.'/../database/database.sqlite',
+            ],
         ],
     ],
 ];

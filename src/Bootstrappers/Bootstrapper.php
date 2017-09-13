@@ -29,7 +29,7 @@ abstract class Bootstrapper
     /**
      * Creates a new instance of the bootstrapper.
      *
-     * @param \Illuminate\Contracts\Console\Application $application
+     * @param \LaravelZero\Framework\Contracts\Application $application
      * @param \Illuminate\Contracts\Container\Container $container
      */
     public function __construct(Application $application, Container $container = null)
