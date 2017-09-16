@@ -20,4 +20,20 @@ class Composer implements ComposerContract
 
         return $this;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function createProject(string $package, string $name, array $options): ComposerContract
+    {
+        $line = "composer create-project $package $name";
+
+        collect($options)->each(function($option) use (&$line) {
+            $line .= " $option";
+        });
+
+        exec("$line");
+
+        return $this;
+    }
 }
