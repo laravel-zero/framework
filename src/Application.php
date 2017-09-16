@@ -56,12 +56,13 @@ class Application extends BaseApplication implements ApplicationContract, ArrayA
      *
      * @param \Symfony\Component\Console\Input\InputInterface $input The input interface
      *
-     * @return string With the command name that should be executed.
+     * @return string|null
      */
-    protected function getCommandName(InputInterface $input): string
+    protected function getCommandName(InputInterface $input)
     {
-        if (($name = parent::getCommandName($input)) || (! $defaultCommand = $this->container->make('config')
-                ->get('app.default-command'))) {
+        if (($name = parent::getCommandName($input))
+            || ($defaultCommand = $this->container->make('config')
+                ->get('app.default-command')) === null) {
             return $name;
         }
 

@@ -17,4 +17,21 @@ interface Composer
      * @return $this
      */
     public function require(string $package): Composer;
+
+    /**
+     * Creates an project.
+     *
+     * Usage: createProject(
+     *     'laravel-zero/laravel-zero',
+     *     'my-project-name',
+     *     [--prefer-dist]
+     * )
+     *
+     * @param  string $package
+     * @param  string $name
+     * @param  array $options
+     *
+     * @return $this
+     */
+    public function createProject(string $package, string $name, array $options): Composer;
 }
