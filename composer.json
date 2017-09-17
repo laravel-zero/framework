@@ -36,7 +36,10 @@
     "autoload": {
         "psr-4": {
             "LaravelZero\\Framework\\": "src"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
