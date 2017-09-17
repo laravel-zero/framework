@@ -28,7 +28,7 @@ class Composer implements ComposerContract
     {
         $line = "composer create-project $package $name";
 
-        collect($options)->each(function($option) use (&$line) {
+        collect($options)->each(function ($option) use (&$line) {
             $line .= " $option";
         });
 
