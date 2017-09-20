@@ -2,8 +2,8 @@
 
 namespace LaravelZero\Framework\Commands\Component;
 
-use Symfony\Component\Console\Input\InputArgument;
 use LaravelZero\Framework\Commands\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use LaravelZero\Framework\Contracts\Providers\Composer as ComposerContract;
 
 /**
