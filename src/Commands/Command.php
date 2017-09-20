@@ -2,6 +2,7 @@
 
 namespace LaravelZero\Framework\Commands;
 
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Console\Command as BaseCommand;
 use NunoMaduro\LaravelDesktopNotifier\Contracts\Notifier;
@@ -12,7 +13,7 @@ use NunoMaduro\LaravelDesktopNotifier\Contracts\Notification;
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
-abstract class AbstractCommand extends BaseCommand
+abstract class Command extends BaseCommand
 {
     /**
      * Execute the console command. Here goes the command
@@ -30,6 +31,17 @@ abstract class AbstractCommand extends BaseCommand
     public function getContainer(): Container
     {
         return $this->getLaravel();
+    }
+
+    /**
+     * Define the command's schedule.
+     *
+     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     *
+     * @return void
+     */
+    public function schedule(Schedule $schedule): void
+    {
     }
 
     /**
