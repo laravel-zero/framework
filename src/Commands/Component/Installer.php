@@ -3,7 +3,7 @@
 namespace LaravelZero\Framework\Commands\Component;
 
 use Symfony\Component\Console\Input\InputArgument;
-use LaravelZero\Framework\Commands\AbstractCommand;
+use LaravelZero\Framework\Commands\Command;
 use LaravelZero\Framework\Contracts\Providers\Composer as ComposerContract;
 
 /**
@@ -11,7 +11,7 @@ use LaravelZero\Framework\Contracts\Providers\Composer as ComposerContract;
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
-class Installer extends AbstractCommand
+class Installer extends Command
 {
     /**
      * The name of the console command.

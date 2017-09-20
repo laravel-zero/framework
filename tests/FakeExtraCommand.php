@@ -2,9 +2,9 @@
 
 namespace Tests;
 
-use LaravelZero\Framework\Commands\AbstractCommand;
+use LaravelZero\Framework\Commands\Command;
 
-class FakeExtraCommand extends AbstractCommand
+class FakeExtraCommand extends Command
 {
     /**
      * The name of the console command.

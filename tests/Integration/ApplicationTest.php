@@ -11,35 +11,6 @@ use Illuminate\Contracts\Config\Repository;
 class ApplicationTest extends TestCase
 {
     /** @test */
-    public function it_proxies_all_calls_into_container(): void
-    {
-        $app = $this->createApplication();
-
-        $app->bind(
-            'foo',
-            function () {
-                return 'bar';
-            }
-        );
-
-        $this->assertTrue('bar' === $app->make('foo'));
-    }
-
-    /** @test */
-    public function it_proxies_array_access_into_container(): void
-    {
-        $app = $this->createApplication();
-
-        $app['bar'] = function () {
-            return 'foo';
-        };
-        $this->assertTrue(isset($app['bar']));
-        $this->assertEquals('foo', $app['bar']);
-        unset($app['bar']);
-        $this->assertFalse(isset($app['bar']));
-    }
-
-    /** @test */
     public function it_binds_core_alias(): void
     {
         $container = $this->createApplication()

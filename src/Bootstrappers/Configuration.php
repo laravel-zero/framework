@@ -2,6 +2,7 @@
 
 namespace LaravelZero\Framework\Bootstrappers;
 
+use Illuminate\Console\Scheduling;
 use LaravelZero\Framework\Commands;
 
 /**
@@ -21,7 +22,10 @@ class Configuration extends Bootstrapper
      *
      * @var string[]
      */
-    protected $commands = [];
+    protected $commands = [
+        Scheduling\ScheduleRunCommand::class,
+        Scheduling\ScheduleFinishCommand::class,
+    ];
 
     /**
      * The application's development commands.
@@ -65,6 +69,11 @@ class Configuration extends Bootstrapper
                 function ($command) {
                     if ($command) {
                         $commandInstance = $this->container->make($command);
+
+                        if ($commandInstance instanceof Commands\Command) {
+                            $this->container->call([$commandInstance, 'schedule']);
+                        }
+
                         $this->application->add($commandInstance);
                     }
                 }

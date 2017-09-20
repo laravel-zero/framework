@@ -5,15 +5,15 @@ namespace LaravelZero\Framework\Commands\App;
 use Phar;
 use FilesystemIterator;
 use UnexpectedValueException;
+use LaravelZero\Framework\Commands\Command;
 use Symfony\Component\Console\Input\InputArgument;
-use LaravelZero\Framework\Commands\AbstractCommand;
 
 /**
  * This is the Zero Framework builder command class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
-class Builder extends AbstractCommand
+class Builder extends Command
 {
     /**
      * The directory that contains your application builds.

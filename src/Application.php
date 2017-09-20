@@ -4,7 +4,6 @@ namespace LaravelZero\Framework;
 
 use ArrayAccess;
 use Illuminate\Events\Dispatcher;
-use Illuminate\Container\Container;
 use Illuminate\Support\Traits\CapsuleManagerTrait;
 use Symfony\Component\Console\Input\InputInterface;
 use Illuminate\Console\Application as BaseApplication;
@@ -17,9 +16,9 @@ use LaravelZero\Framework\Contracts\Application as ApplicationContract;
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
-class Application extends BaseApplication implements ApplicationContract, ArrayAccess
+class Application extends BaseApplication implements ApplicationContract
 {
-    use CapsuleManagerTrait, ContainerProxyTrait;
+    use CapsuleManagerTrait;
 
     /**
      * The application event dispatcher.
@@ -60,8 +59,7 @@ class Application extends BaseApplication implements ApplicationContract, ArrayA
      */
     protected function getCommandName(InputInterface $input)
     {
-        if (($name = parent::getCommandName($input))
-            || ($defaultCommand = $this->container->make('config')
+        if (($name = parent::getCommandName($input)) || ($defaultCommand = $this->container->make('config')
                 ->get('app.default-command')) === null) {
             return $name;
         }

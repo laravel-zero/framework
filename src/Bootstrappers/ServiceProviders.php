@@ -2,6 +2,9 @@
 
 namespace LaravelZero\Framework\Bootstrappers;
 
+use LaravelZero\Framework\Providers;
+use Illuminate\Cache\CacheServiceProvider;
+use Illuminate\Events\EventServiceProvider;
 use LaravelZero\Framework\Commands\Component;
 use NunoMaduro\LaravelDesktopNotifier\LaravelDesktopNotifierServiceProvider;
 
@@ -18,8 +21,10 @@ class ServiceProviders extends Bootstrapper
      * @var string[]
      */
     protected $providers = [
-        \Illuminate\Events\EventServiceProvider::class,
-        \LaravelZero\Framework\Providers\Composer\ServiceProvider::class,
+        EventServiceProvider::class,
+        CacheServiceProvider::class,
+        Providers\Composer\ServiceProvider::class,
+        Providers\Scheduler\ServiceProvider::class,
         LaravelDesktopNotifierServiceProvider::class,
     ];
 
@@ -30,7 +35,6 @@ class ServiceProviders extends Bootstrapper
      */
     protected $components = [
         Component\Illuminate\Database\ComponentProvider::class,
-        Component\Illuminate\Cache\ComponentProvider::class,
     ];
 
     /**
@@ -42,6 +46,8 @@ class ServiceProviders extends Bootstrapper
         'app' => [\Illuminate\Contracts\Container\Container::class],
         'events' => [\Illuminate\Events\Dispatcher::class, \Illuminate\Contracts\Events\Dispatcher::class],
         'config' => [\Illuminate\Config\Repository::class, \Illuminate\Contracts\Config\Repository::class],
+        'cache' => [\Illuminate\Cache\CacheManager::class, \Illuminate\Contracts\Cache\Factory::class],
+        'cache.store' => [\Illuminate\Cache\Repository::class, \Illuminate\Contracts\Cache\Repository::class]
     ];
 
     /**
@@ -57,7 +63,7 @@ class ServiceProviders extends Bootstrapper
             )
             ->each(
                 function ($serviceProvider) {
-                    $instance = new $serviceProvider($this->application);
+                    $instance = new $serviceProvider($this->container);
                     if (method_exists($instance, 'register')) {
                         $instance->register();
                     }
