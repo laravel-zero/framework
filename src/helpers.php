@@ -70,5 +70,3 @@ if (! function_exists('base_path')) {
         return app()->basePath().($path ? DIRECTORY_SEPARATOR.$path : $path);
     }
 }
-
-

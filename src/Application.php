@@ -2,7 +2,6 @@
 
 namespace LaravelZero\Framework;
 
-use ArrayAccess;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Traits\CapsuleManagerTrait;
 use Symfony\Component\Console\Input\InputInterface;
