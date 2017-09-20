@@ -21,6 +21,7 @@ class Factory
         Bindings::class,
         ServiceProviders::class,
         Configuration::class,
+        Facade::class,
     ];
 
     /**
