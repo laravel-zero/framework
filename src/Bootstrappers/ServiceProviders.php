@@ -47,7 +47,7 @@ class ServiceProviders extends Bootstrapper
         'events' => [\Illuminate\Events\Dispatcher::class, \Illuminate\Contracts\Events\Dispatcher::class],
         'config' => [\Illuminate\Config\Repository::class, \Illuminate\Contracts\Config\Repository::class],
         'cache' => [\Illuminate\Cache\CacheManager::class, \Illuminate\Contracts\Cache\Factory::class],
-        'cache.store' => [\Illuminate\Cache\Repository::class, \Illuminate\Contracts\Cache\Repository::class]
+        'cache.store' => [\Illuminate\Cache\Repository::class, \Illuminate\Contracts\Cache\Repository::class],
     ];
 
     /**
