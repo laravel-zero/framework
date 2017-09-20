@@ -25,22 +25,26 @@ class Installer implements InstallerContract
         shell_exec('cd '.BASE_PATH.'&& mkdir database && touch database/database.sqlite');
 
         $command->info('Component installed! Usage:');
-        $command->comment("
-            use Illuminate\Support\Facades\DB;
-            use Illuminate\Support\Facades\Schema;
+        $command->comment('
 
-            Schema::create('users', function ($table) {
-                $table->increments('id');
-                $table->string('email')->unique();
-                $table->timestamps();
-            });
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
-            DB::table('users')->insert(
-                ['email' => 'enunomaduro@gmail.com']
-            );
+Schema::create(\'users\', function ($table) {
+    $table->increments(\'id\');
+    $table->string(\'email\')->unique();
+    $table->timestamps();
+});
 
-            $users = DB::table('users')->get();
-        ");
+DB::table(\'users\')->insert(
+    [\'email\' => \'enunomaduro@gmail.com\']
+);
+
+$users = DB::table(\'users\')->get();
+
+dd($users);
+
+        ');
 
         return true;
     }
