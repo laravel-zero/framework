@@ -28,4 +28,13 @@ return [
             ],
         ],
     ],
+
+    'cache' => [
+        'default' => 'array',
+        'stores' => [
+            'array' => [
+                'driver' => 'array',
+            ],
+        ],
+    ],
 ];
