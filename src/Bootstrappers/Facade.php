@@ -2,8 +2,6 @@
 
 namespace LaravelZero\Framework\Bootstrappers;
 
-use I;
-
 /**
  * This is the Zero Framework Bootstrapper Facade class.
  *
