@@ -35,6 +35,7 @@ class ServiceProviders extends Bootstrapper
      */
     protected $components = [
         Component\Illuminate\Database\ComponentProvider::class,
+        Component\Illuminate\Filesystem\ComponentProvider::class,
     ];
 
     /**
