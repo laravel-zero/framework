@@ -20,8 +20,8 @@ class Factory
         Constants::class,
         Bindings::class,
         ServiceProviders::class,
-        Configuration::class,
-        Facade::class,
+        Configurations::class,
+        Facades::class,
     ];
 
     /**
