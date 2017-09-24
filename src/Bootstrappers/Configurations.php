@@ -15,7 +15,7 @@ use LaravelZero\Framework\Commands;
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
-class Configuration extends Bootstrapper
+class Configurations extends Bootstrapper
 {
     /**
      * The application's core commands.

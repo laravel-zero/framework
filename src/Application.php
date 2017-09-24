@@ -5,7 +5,9 @@ namespace LaravelZero\Framework;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Traits\CapsuleManagerTrait;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 use Illuminate\Console\Application as BaseApplication;
+use Symfony\Component\Console\Command\Command;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Contracts\Container\Container as ContainerContract;
 use LaravelZero\Framework\Contracts\Application as ApplicationContract;
@@ -25,6 +27,13 @@ class Application extends BaseApplication implements ApplicationContract
      * @var \Illuminate\Contracts\Events\Dispatcher
      */
     protected $dispatcher;
+
+    /**
+     * The current running command.
+     *
+     * @var \Symfony\Component\Console\Command\Command
+     */
+    protected $runningCommand;
 
     /**
      * Creates a new instance of the application.
@@ -65,5 +74,22 @@ class Application extends BaseApplication implements ApplicationContract
 
         return $this->container->make($defaultCommand)
             ->getName();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function doRunCommand(Command $command, InputInterface $input, OutputInterface $output)
+    {
+
+        return parent::doRunCommand($this->runningCommand = $command, $input, $output);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getRunningCommand(): Command
+    {
+        return $this->runningCommand;
     }
 }

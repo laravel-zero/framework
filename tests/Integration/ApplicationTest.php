@@ -7,18 +7,20 @@ use Tests\FakeExtraCommand;
 use Tests\FakeDefaultCommand;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Config\Repository;
+use LaravelZero\Framework\Contracts\Application as ApplicationContract;
 
 class ApplicationTest extends TestCase
 {
     /** @test */
     public function it_binds_core_alias(): void
     {
-        $container = $this->createApplication()
+        $container = ($application = $this->createApplication())
             ->getContainer();
 
         $this->assertTrue(Container::getInstance() === $container);
         $this->assertTrue($container->make('app') === $container);
         $this->assertTrue($container->make(Container::class) === $container);
+        $this->assertTrue($container->make(ApplicationContract::class) === $application);
         $this->assertInstanceOf(Repository::class, $container->make('config'));
     }
 

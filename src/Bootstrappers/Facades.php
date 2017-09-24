@@ -7,7 +7,7 @@ namespace LaravelZero\Framework\Bootstrappers;
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
-class Facade extends Bootstrapper
+class Facades extends Bootstrapper
 {
     /**
      * {@inheritdoc}
