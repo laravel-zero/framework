@@ -3,11 +3,11 @@
 namespace LaravelZero\Framework;
 
 use Illuminate\Events\Dispatcher;
+use Symfony\Component\Console\Command\Command;
 use Illuminate\Support\Traits\CapsuleManagerTrait;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Illuminate\Console\Application as BaseApplication;
-use Symfony\Component\Console\Command\Command;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Contracts\Container\Container as ContainerContract;
 use LaravelZero\Framework\Contracts\Application as ApplicationContract;
@@ -81,7 +81,6 @@ class Application extends BaseApplication implements ApplicationContract
      */
     protected function doRunCommand(Command $command, InputInterface $input, OutputInterface $output)
     {
-
         return parent::doRunCommand($this->runningCommand = $command, $input, $output);
     }
 
