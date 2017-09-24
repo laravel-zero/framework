@@ -43,4 +43,11 @@ interface Application extends ApplicationContract
      * @return void
      */
     public function add(Command $command);
+
+    /**
+     * Returns the current running command.
+     *
+     * @return \Symfony\Component\Console\Command\Command $command
+     */
+    public function getRunningCommand(): Command;
 }

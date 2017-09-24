@@ -4,6 +4,7 @@ namespace LaravelZero\Framework\Bootstrappers;
 
 use Illuminate\Config\Repository;
 use Illuminate\Container\Container;
+use LaravelZero\Framework\Contracts\Application as ApplicationContract;
 
 /**
  * This is the Zero Framework Bootstrapper Bindings class.
@@ -24,6 +25,8 @@ class Bindings extends Bootstrapper
         $this->container->instance('app', $this->container);
 
         $this->container->instance(Container::class, $this->container);
+
+        $this->container->instance(ApplicationContract::class, $this->application);
 
         $this->container->instance(
             'config',
