@@ -75,3 +75,16 @@ if (! function_exists('base_path')) {
         return app()->basePath().($path ? DIRECTORY_SEPARATOR.$path : $path);
     }
 }
+
+if (! function_exists('config_path')) {
+    /**
+     * Get the configuration path.
+     *
+     * @param  string  $path
+     * @return string
+     */
+    function config_path($path = '')
+    {
+        return app()->basePath().DIRECTORY_SEPARATOR.'config'.($path ? DIRECTORY_SEPARATOR.$path : $path);
+    }
+}
