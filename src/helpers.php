@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Container\Container;
-use LaravelZero\Framework\Contracts\Application as ApplicationContract;
 
 if (! function_exists('app')) {
     /**
