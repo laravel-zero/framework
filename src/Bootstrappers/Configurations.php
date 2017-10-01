@@ -55,7 +55,7 @@ class Configurations extends Bootstrapper
 
         $commands = collect(
             array_merge(
-                $config->get('app.commands'),
+                $config->get('app.commands') ?: [],
                 $this->commands
             )
         );
