@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.6.11] - 2017-10-01
+### Added
+- Core: Adds `config_path` helper.
+
+## [3.6.6] - 2017-09-29
+### Added
+- Core: Removes output global helpers.
+
 ## [3.6.5] - 2017-09-24
 ### Added
 - Core: Adds output global helpers.
