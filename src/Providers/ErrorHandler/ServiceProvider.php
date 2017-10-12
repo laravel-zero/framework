@@ -13,7 +13,7 @@ use LaravelZero\Framework\Contracts\Providers\ErrorHandler as ErrorHandlerContra
 class ServiceProvider extends BaseServiceProvider
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function boot(ErrorHandlerContract $errorHandler): void
     {
@@ -21,11 +21,11 @@ class ServiceProvider extends BaseServiceProvider
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function register(): void
     {
-        $this->app->singleton(ErrorHandlerContract::class, function() {
+        $this->app->singleton(ErrorHandlerContract::class, function () {
             return new ErrorHandler;
         });
     }

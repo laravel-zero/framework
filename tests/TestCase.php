@@ -20,7 +20,7 @@ abstract class TestCase extends BaseTestCase
     protected $app;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function setUp(): void
     {

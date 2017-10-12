@@ -30,7 +30,7 @@ class ErrorHandler implements ErrorHandlerContract
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function register(): void
     {
@@ -38,7 +38,7 @@ class ErrorHandler implements ErrorHandlerContract
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setOutput(OutputInterface $output): void
     {
