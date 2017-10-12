@@ -11,6 +11,7 @@ use Illuminate\Console\Application as BaseApplication;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Contracts\Container\Container as ContainerContract;
 use LaravelZero\Framework\Contracts\Application as ApplicationContract;
+use LaravelZero\Framework\Contracts\Providers\ErrorHandler as ErrorHandlerContract;
 
 /**
  * This is the Zero Framework application class.
@@ -81,6 +82,8 @@ class Application extends BaseApplication implements ApplicationContract
      */
     protected function doRunCommand(Command $command, InputInterface $input, OutputInterface $output)
     {
+        $this->container->make(ErrorHandlerContract::class)->setOutput($output);
+
         return parent::doRunCommand($this->runningCommand = $command, $input, $output);
     }
 

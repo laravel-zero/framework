@@ -21,6 +21,7 @@ class ServiceProviders extends Bootstrapper
      * @var string[]
      */
     protected $providers = [
+        Providers\ErrorHandler\ServiceProvider::class,
         EventServiceProvider::class,
         CacheServiceProvider::class,
         Providers\Composer\ServiceProvider::class,
@@ -64,13 +65,17 @@ class ServiceProviders extends Bootstrapper
             )
             ->each(
                 function ($serviceProvider) {
-                    $instance = new $serviceProvider($this->container);
-                    if (method_exists($instance, 'register')) {
-                        $instance->register();
+                    $provider = new $serviceProvider($this->container);
+                    if (method_exists($provider, 'register')) {
+                        $provider->register();
                     }
-
-                    if (method_exists($instance, 'boot')) {
-                        $instance->boot();
+                }
+            )
+            ->each(
+                function ($serviceProvider) {
+                    $provider = new $serviceProvider($this->container);
+                    if (method_exists($provider, 'boot')) {
+                        $this->container->call([$provider, 'boot']);
                     }
                 }
             );
