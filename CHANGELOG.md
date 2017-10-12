@@ -6,8 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [3.7.0] - 2017-10-12
 ### Added
-- Added Collision listener to `phpunit.xml`.
-- Core: Adds Collision.
+- Adds Collision to composer `require-dev`.
+- Adds Collision listener to `phpunit.xml`.
+- Core: Auto registers collision.
 
 ## [3.6.11] - 2017-10-01
 ### Added
