@@ -20,9 +20,7 @@ abstract class TestCase extends BaseTestCase
     protected $app;
 
     /**
-     * Setup the test environment.
-     *
-     * @return void
+     * {@inheritdoc}
      */
     protected function setUp(): void
     {
