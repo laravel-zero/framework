@@ -20,9 +20,11 @@ class Installer implements InstallerContract
     {
         $command->info('Pulling illuminate/database...');
         $composer->require('illuminate/database "5.5.*"');
+        $composer->require('illuminate/filesystem "5.5.*"');
 
         $command->info('Creating (database/database.sqlite)...');
         shell_exec('cd '.BASE_PATH.'&& mkdir database && touch database/database.sqlite');
+        shell_exec('cd '.BASE_PATH.'/database && mkdir migrations');
 
         $command->info('Component installed! Usage:');
         $command->comment('

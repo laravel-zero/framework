@@ -32,6 +32,14 @@ class Container extends BaseContainer implements LaravelApplication
     /**
      * {@inheritdoc}
      */
+    public function databasePath()
+    {
+        return config('database.path') ?: (BASE_PATH . '/database');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function environment()
     {
         return config('app.production') ? 'production' : 'development';

@@ -48,11 +48,13 @@ class Installer extends Command
     /**
      * Installs the desired component on the application.
      *
-     * @return $this
+     * @param string|null $name
+     *
+     * @return \LaravelZero\Framework\Commands\Component\Installer
      */
-    protected function install(): Installer
+    public function install(string $name = null): Installer
     {
-        if (! $component = $this->argument('name')) {
+        if (! $component = $name ?: $this->argument('name')) {
             $component = $this->choice(
                 'Please choose the component',
                 $this->getContainer()

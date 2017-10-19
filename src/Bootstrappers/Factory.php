@@ -2,10 +2,10 @@
 
 namespace LaravelZero\Framework\Bootstrappers;
 
-use Illuminate\Contracts\Console\Application as ApplicationContract;
+use LaravelZero\Framework\Contracts\Application as ApplicationContract;
 
 /**
- * This is the Zero Framework Bootstrappers factory class.
+ * This is the Laravel Zero Framework Bootstrappers factory class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
@@ -27,7 +27,7 @@ class Factory
     /**
      * Returns all core bootstrappers.
      *
-     * @return []string
+     * @return array
      */
     public function make(): array
     {
