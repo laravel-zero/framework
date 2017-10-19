@@ -2,7 +2,6 @@
 
 namespace LaravelZero\Framework\Bootstrappers;
 
-use Illuminate\Support\ServiceProvider;
 use LaravelZero\Framework\Providers;
 use Illuminate\Cache\CacheServiceProvider;
 use Illuminate\Events\EventServiceProvider;
