@@ -54,13 +54,13 @@ class ComponentProvider extends AbstractComponentProvider
      */
     protected function registerMigrationService(): void
     {
-        $this->app->make('config')
-            ->set('database.migrations', 'migrations');
+        $config = $this->app->make('config');
+        $config->set('database.migrations', $config->get('database.migrations') ?: 'migrations');
         $this->registerServiceProvider(\Illuminate\Database\MigrationServiceProvider::class);
         $this->app->alias('migration.repository', \Illuminate\Database\Migrations\MigrationRepositoryInterface::class);
 
         if ($this->app->make('config')
-            ->get('database.migrations')) {
+            ->get('database.with-migrations')) {
             $this->commands(
                 [
                     \Illuminate\Database\Console\Migrations\FreshCommand::class,
