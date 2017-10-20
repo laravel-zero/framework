@@ -6,7 +6,7 @@ use Symfony\Component\Console\Command\Command;
 use Illuminate\Contracts\Console\Application as ApplicationContract;
 
 /**
- * This is the Zero Framework application contract.
+ * This is the Laravel Zero Framework application contract.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */

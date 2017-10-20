@@ -10,7 +10,7 @@ use LaravelZero\Framework\Commands\Component;
 use NunoMaduro\LaravelDesktopNotifier\LaravelDesktopNotifierServiceProvider;
 
 /**
- * This is the Zero Framework Bootstrapper ServiceProviders class.
+ * This is the Laravel Zero Framework Bootstrapper ServiceProviders class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */

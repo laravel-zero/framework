@@ -6,7 +6,7 @@ use Illuminate\Contracts\Container\Container;
 use LaravelZero\Framework\Contracts\Application;
 
 /**
- * This is the Zero Framework abstract bootstrapper class.
+ * This is the Laravel Zero Framework abstract bootstrapper class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */

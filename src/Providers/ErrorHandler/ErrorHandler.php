@@ -8,7 +8,7 @@ use NunoMaduro\Collision\Contracts\Provider as ProviderContract;
 use LaravelZero\Framework\Contracts\Providers\ErrorHandler as ErrorHandlerContract;
 
 /**
- * This is the Zero Framework Error Handler class.
+ * This is the Laravel Zero Framework error handler class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */

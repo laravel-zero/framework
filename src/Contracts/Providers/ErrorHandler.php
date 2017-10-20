@@ -5,7 +5,7 @@ namespace LaravelZero\Framework\Contracts\Providers;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * This is the Zero Framework ErrorHandler Contract.
+ * This is the Laravel Zero Framework error handler contract.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */

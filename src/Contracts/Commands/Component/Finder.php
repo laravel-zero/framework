@@ -3,7 +3,7 @@
 namespace LaravelZero\Framework\Contracts\Commands\Component;
 
 /**
- * This is the Zero Framework component finder contract.
+ * This is the Laravel Zero Framework component finder contract.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */

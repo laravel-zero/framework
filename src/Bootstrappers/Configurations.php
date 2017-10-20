@@ -6,7 +6,7 @@ use Illuminate\Console\Scheduling;
 use LaravelZero\Framework\Commands;
 
 /**
- * This is the Zero Framework Bootstrapper Configuration class.
+ * This is the Laravel Zero Framework Bootstrapper Configuration class.
  *
  * Configures the console application.
  *

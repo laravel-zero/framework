@@ -3,7 +3,7 @@
 namespace LaravelZero\Framework\Bootstrappers;
 
 /**
- * This is the Zero Framework Bootstrapper Constants class.
+ * This is the Laravel Zero Framework Bootstrapper Constants class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */

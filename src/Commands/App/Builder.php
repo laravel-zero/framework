@@ -9,7 +9,7 @@ use LaravelZero\Framework\Commands\Command;
 use Symfony\Component\Console\Input\InputArgument;
 
 /**
- * This is the Zero Framework builder command class.
+ * This is the Laravel Zero Framework builder command class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */

@@ -7,7 +7,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use LaravelZero\Framework\Contracts\Providers\Composer as ComposerContract;
 
 /**
- * This is the Zero Framework component installer command class.
+ * This is the Laravel Zero Framework component installer command class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */

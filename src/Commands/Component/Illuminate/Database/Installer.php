@@ -7,7 +7,7 @@ use LaravelZero\Framework\Contracts\Providers\Composer as ComposerContract;
 use LaravelZero\Framework\Contracts\Commands\Component\Installer as InstallerContract;
 
 /**
- * This is the Zero Framework illuminate/database install class.
+ * This is the Laravel Zero Framework illuminate/database install class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */

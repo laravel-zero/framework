@@ -3,7 +3,7 @@
 namespace LaravelZero\Framework\Contracts\Providers;
 
 /**
- * This is the Zero Framework composer contract.
+ * This is the Laravel Zero Framework composer contract.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
