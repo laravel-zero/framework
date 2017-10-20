@@ -34,7 +34,7 @@ class Container extends BaseContainer implements LaravelApplication
      */
     public function databasePath()
     {
-        return config('database.path') ?: (BASE_PATH . '/database');
+        return config('database.path') ?: (BASE_PATH.'/database');
     }
 
     /**
