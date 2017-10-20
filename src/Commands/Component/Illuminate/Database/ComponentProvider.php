@@ -5,7 +5,7 @@ namespace LaravelZero\Framework\Commands\Component\Illuminate\Database;
 use LaravelZero\Framework\Commands\Component\AbstractComponentProvider;
 
 /**
- * This is the Zero Framework illuminate/database component provider class.
+ * This is the Laravel Zero Framework illuminate/database component provider class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
@@ -22,6 +22,20 @@ class ComponentProvider extends AbstractComponentProvider
             return;
         }
 
+        $this->registerDatabaseService();
+
+        $this->registerMigrationService();
+    }
+
+    /**
+     * Registers the database service.
+     *
+     * Makes this Capsule instance available globally via static methods.
+     *
+     * @return void
+     */
+    protected function registerDatabaseService(): void
+    {
         $this->registerServiceProvider(\Illuminate\Database\DatabaseServiceProvider::class);
 
         $this->app->alias('db', \Illuminate\Database\DatabaseManager::class);
@@ -29,10 +43,19 @@ class ComponentProvider extends AbstractComponentProvider
         $this->app->alias('db.connection', \Illuminate\Database\DatabaseManager::class);
         $this->app->alias('db.connection', \Illuminate\Database\ConnectionInterface::class);
 
-        // Make this Capsule instance available globally via static methods
         $this->app->make(\Illuminate\Database\Capsule\Manager::class)
             ->setAsGlobal();
+    }
 
+    /**
+     * Registers the migration service.
+     *
+     * @return void
+     */
+    protected function registerMigrationService(): void
+    {
+        $this->app->make('config')
+            ->set('database.migrations', 'migrations');
         $this->registerServiceProvider(\Illuminate\Database\MigrationServiceProvider::class);
         $this->app->alias('migration.repository', \Illuminate\Database\Migrations\MigrationRepositoryInterface::class);
 
