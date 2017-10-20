@@ -14,7 +14,7 @@ use LaravelZero\Framework\Contracts\Application as ApplicationContract;
 use LaravelZero\Framework\Contracts\Providers\ErrorHandler as ErrorHandlerContract;
 
 /**
- * This is the Zero Framework application class.
+ * This is the Laravel Zero Framework application class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
@@ -37,6 +37,13 @@ class Application extends BaseApplication implements ApplicationContract
     protected $runningCommand;
 
     /**
+     * Holds an instance of the bootstrapper factory.
+     *
+     * @var \LaravelZero\Framework\Bootstrappers\Factory
+     */
+    protected $bootstrappersFactory;
+
+    /**
      * Creates a new instance of the application.
      *
      * @param \Illuminate\Contracts\Container\Container|null $container
@@ -50,10 +57,22 @@ class Application extends BaseApplication implements ApplicationContract
     ) {
         $this->setupContainer($container ?: new Container);
         $this->dispatcher = $dispatcher ?: new Dispatcher($this->container);
-        static::$bootstrappers = ($bootstrappersFactory ?: new Bootstrappers\Factory)->make();
+        $this->bootstrappersFactory = $bootstrappersFactory ?: new Bootstrappers\Factory;
         parent::__construct($this->container, $this->dispatcher, '');
 
         $this->setCatchExceptions(true);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function bootstrap()
+    {
+        foreach ($this->bootstrappersFactory->make() as $bootstrapper) {
+            $bootstrapper($this);
+        }
+
+        parent::bootstrap();
     }
 
     /**

@@ -5,7 +5,7 @@ namespace LaravelZero\Framework\Providers\Composer;
 use LaravelZero\Framework\Contracts\Providers\Composer as ComposerContract;
 
 /**
- * This is the Zero Framework composer class.
+ * This is the Laravel Zero Framework composer class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */

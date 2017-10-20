@@ -5,7 +5,7 @@ namespace Tests;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * This is the Zero Framework composer service provider class.
+ * This is the Laravel Zero Framework fake service provider class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */

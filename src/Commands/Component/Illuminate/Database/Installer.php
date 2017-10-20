@@ -7,7 +7,7 @@ use LaravelZero\Framework\Contracts\Providers\Composer as ComposerContract;
 use LaravelZero\Framework\Contracts\Commands\Component\Installer as InstallerContract;
 
 /**
- * This is the Zero Framework illuminate/database install class.
+ * This is the Laravel Zero Framework illuminate/database install class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
@@ -20,9 +20,11 @@ class Installer implements InstallerContract
     {
         $command->info('Pulling illuminate/database...');
         $composer->require('illuminate/database "5.5.*"');
+        $composer->require('illuminate/filesystem "5.5.*"');
 
         $command->info('Creating (database/database.sqlite)...');
         shell_exec('cd '.BASE_PATH.'&& mkdir database && touch database/database.sqlite');
+        shell_exec('cd '.BASE_PATH.'/database && mkdir migrations');
 
         $command->info('Component installed! Usage:');
         $command->comment('

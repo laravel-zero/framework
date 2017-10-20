@@ -7,7 +7,7 @@ use LaravelZero\Framework\Commands\Command;
 use Symfony\Component\Console\Input\InputArgument;
 
 /**
- * This is the Zero Framework renamer command class.
+ * This is the Laravel Zero Framework renamer command class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */

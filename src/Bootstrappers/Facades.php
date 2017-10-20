@@ -3,7 +3,7 @@
 namespace LaravelZero\Framework\Bootstrappers;
 
 /**
- * This is the Zero Framework Bootstrapper Facade class.
+ * This is the Laravel Zero Framework Bootstrapper Facade class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */

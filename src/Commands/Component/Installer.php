@@ -7,7 +7,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use LaravelZero\Framework\Contracts\Providers\Composer as ComposerContract;
 
 /**
- * This is the Zero Framework component installer command class.
+ * This is the Laravel Zero Framework component installer command class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
@@ -48,11 +48,13 @@ class Installer extends Command
     /**
      * Installs the desired component on the application.
      *
-     * @return $this
+     * @param string|null $name
+     *
+     * @return \LaravelZero\Framework\Commands\Component\Installer
      */
-    protected function install(): Installer
+    public function install(string $name = null): Installer
     {
-        if (! $component = $this->argument('name')) {
+        if (! $component = $name ?: $this->argument('name')) {
             $component = $this->choice(
                 'Please choose the component',
                 $this->getContainer()

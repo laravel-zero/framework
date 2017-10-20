@@ -7,7 +7,7 @@ use LaravelZero\Framework\Exceptions\NotImplementedException;
 use Illuminate\Contracts\Foundation\Application as LaravelApplication;
 
 /**
- * This is the Zero Framework container class.
+ * This is the Laravel Zero Framework container class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
@@ -27,6 +27,14 @@ class Container extends BaseContainer implements LaravelApplication
     public function basePath()
     {
         return BASE_PATH;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function databasePath()
+    {
+        return config('database.path') ?: (BASE_PATH . '/database');
     }
 
     /**

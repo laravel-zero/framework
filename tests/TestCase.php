@@ -6,7 +6,7 @@ use LaravelZero\Framework\Application;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
 /**
- * This is the Zero Framework test case class.
+ * This is the Laravel Zero Framework test case class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */

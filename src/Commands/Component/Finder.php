@@ -5,7 +5,7 @@ namespace LaravelZero\Framework\Commands\Component;
 use LaravelZero\Framework\Contracts\Commands\Component\Finder as FinderContract;
 
 /**
- * This is the Zero Framework component finder class.
+ * This is the Laravel Zero Framework component finder class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */

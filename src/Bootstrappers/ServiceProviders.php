@@ -2,6 +2,7 @@
 
 namespace LaravelZero\Framework\Bootstrappers;
 
+use Illuminate\Support\ServiceProvider;
 use LaravelZero\Framework\Providers;
 use Illuminate\Cache\CacheServiceProvider;
 use Illuminate\Events\EventServiceProvider;
@@ -9,7 +10,7 @@ use LaravelZero\Framework\Commands\Component;
 use NunoMaduro\LaravelDesktopNotifier\LaravelDesktopNotifierServiceProvider;
 
 /**
- * This is the Zero Framework Bootstrapper ServiceProviders class.
+ * This is the Laravel Zero Framework Bootstrapper ServiceProviders class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
@@ -64,19 +65,13 @@ class ServiceProviders extends Bootstrapper
                     ->get('app.providers')
             )
             ->each(
-                function ($serviceProvider) {
-                    $provider = new $serviceProvider($this->container);
-                    if (method_exists($provider, 'register')) {
-                        $provider->register();
-                    }
+                function ($serviceProviderClass) {
+                    $this->call($serviceProviderClass, 'register');
                 }
             )
             ->each(
-                function ($serviceProvider) {
-                    $provider = new $serviceProvider($this->container);
-                    if (method_exists($provider, 'boot')) {
-                        $this->container->call([$provider, 'boot']);
-                    }
+                function ($serviceProviderClass) {
+                    $this->call($serviceProviderClass, 'boot');
                 }
             );
 
@@ -84,6 +79,21 @@ class ServiceProviders extends Bootstrapper
             foreach ($aliases as $alias) {
                 $this->container->alias($key, $alias);
             }
+        }
+    }
+
+    /**
+     * Creates a new instance of the service provider an
+     * calls the provided method.
+     *
+     * @param string $serviceProviderClass
+     * @param string $method
+     */
+    private function call(string $serviceProviderClass, string $method): void
+    {
+        $provider = new $serviceProviderClass($this->container);
+        if (method_exists($provider, $method)) {
+            $this->container->call([$provider, $method]);
         }
     }
 }

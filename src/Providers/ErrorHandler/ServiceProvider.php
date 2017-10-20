@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use LaravelZero\Framework\Contracts\Providers\ErrorHandler as ErrorHandlerContract;
 
 /**
- * This is the Zero Framework composer service provider class.
+ * This is the Laravel Zero Framework error handler service provider class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
@@ -25,8 +25,11 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(ErrorHandlerContract::class, function () {
-            return new ErrorHandler;
-        });
+        $this->app->singleton(
+            ErrorHandlerContract::class,
+            function () {
+                return new ErrorHandler;
+            }
+        );
     }
 }

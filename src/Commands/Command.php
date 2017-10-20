@@ -9,7 +9,7 @@ use NunoMaduro\LaravelDesktopNotifier\Contracts\Notifier;
 use NunoMaduro\LaravelDesktopNotifier\Contracts\Notification;
 
 /**
- * This is the Zero Framework abstract command class.
+ * This is the Laravel Zero Framework abstract command class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */

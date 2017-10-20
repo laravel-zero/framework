@@ -7,7 +7,7 @@ use Illuminate\Container\Container;
 use LaravelZero\Framework\Contracts\Application as ApplicationContract;
 
 /**
- * This is the Zero Framework Bootstrapper Bindings class.
+ * This is the Laravel Zero Framework Bootstrapper Bindings class.
  *
  * Register the basic bindings into the container.
  *
