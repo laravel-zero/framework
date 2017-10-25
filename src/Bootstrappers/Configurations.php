@@ -18,27 +18,6 @@ use LaravelZero\Framework\Commands;
 class Configurations extends Bootstrapper
 {
     /**
-     * The application's core commands.
-     *
-     * @var string[]
-     */
-    protected $commands = [
-        Scheduling\ScheduleRunCommand::class,
-        Scheduling\ScheduleFinishCommand::class,
-    ];
-
-    /**
-     * The application's development commands.
-     *
-     * @var string[]
-     */
-    protected $developmentCommands = [
-        Commands\App\Builder::class,
-        Commands\App\Renamer::class,
-        Commands\Component\Installer::class,
-    ];
-
-    /**
      * {@inheritdoc}
      */
     public function bootstrap(): void
@@ -53,30 +32,29 @@ class Configurations extends Bootstrapper
             $this->application->setVersion($version);
         }
 
-        $commands = collect(
-            array_merge(
-                $config->get('app.commands') ?: [],
-                $this->commands
-            )
-        );
-
-        if (! $config->get('app.production')) {
-            $commands = $commands->merge($this->developmentCommands);
+        if ($config->get('cache') === null) {
+            $config->set('cache', $this->getCacheConfig());
         }
+    }
 
-        $commands->push($config->get('app.default-command'))
-            ->each(
-                function ($command) {
-                    if ($command) {
-                        $commandInstance = $this->container->make($command);
-
-                        if ($commandInstance instanceof Commands\Command) {
-                            $this->container->call([$commandInstance, 'schedule']);
-                        }
-
-                        $this->application->add($commandInstance);
-                    }
-                }
-            );
+    /**
+     * Returns the default application cache config.
+     *
+     * In order to keep it simple we use the `array` driver. Feel free
+     * to use another driver, be sure to check the cache component
+     * documentation.
+     *
+     * @return array
+     */
+    protected function getCacheConfig(): array
+    {
+        return [
+            'default' => 'array',
+            'stores' => [
+                'array' => [
+                    'driver' => 'array',
+                ],
+            ],
+        ];
     }
 }

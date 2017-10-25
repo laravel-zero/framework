@@ -55,8 +55,14 @@ class Renamer extends Command
     {
         $name = $this->asksForApplicationName();
 
-        return $this->renameBinary($name)
-            ->updateComposer($name);
+        if (file_exists(BASE_PATH.'/'.$name)) {
+            $this->error("Could't rename: Folder or file already exists.");
+        } else {
+            $this->renameBinary($name)
+                ->updateComposer($name);
+        }
+
+        return $this;
     }
 
     /**
