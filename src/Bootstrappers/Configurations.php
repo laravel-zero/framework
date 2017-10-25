@@ -2,7 +2,6 @@
 
 namespace LaravelZero\Framework\Bootstrappers;
 
-use Illuminate\Console\Scheduling;
 use LaravelZero\Framework\Commands;
 
 /**
