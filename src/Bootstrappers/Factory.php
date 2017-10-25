@@ -19,8 +19,9 @@ class Factory
     private $bootstrappers = [
         Constants::class,
         Bindings::class,
-        ServiceProviders::class,
         Configurations::class,
+        ServiceProviders::class,
+        LoadCommands::class,
         Facades::class,
     ];
 
@@ -31,10 +32,13 @@ class Factory
      */
     public function make(): array
     {
-        return array_map(function ($bootstrapper) {
-            return function (ApplicationContract $application) use ($bootstrapper) {
-                return (new $bootstrapper($application))->bootstrap();
-            };
-        }, $this->bootstrappers);
+        return array_map(
+            function ($bootstrapper) {
+                return function (ApplicationContract $application) use ($bootstrapper) {
+                    return (new $bootstrapper($application))->bootstrap();
+                };
+            },
+            $this->bootstrappers
+        );
     }
 }
