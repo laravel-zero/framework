@@ -3,8 +3,8 @@
 namespace LaravelZero\Framework\Bootstrappers;
 
 use Illuminate\Console\Scheduling;
-use Illuminate\Contracts\Config\Repository;
 use LaravelZero\Framework\Commands;
+use Illuminate\Contracts\Config\Repository;
 
 /**
  * This is the Laravel Zero Framework Bootstrapper Configuration class.
@@ -89,12 +89,12 @@ class LoadCommands extends Bootstrapper
         $namespaces = $config->get('commands-namespaces') ?: ["App\Commands"];
 
         foreach ($namespaces as $namespace) {
-            $parts = explode("\\", $namespace);
+            $parts = explode('\\', $namespace);
             $path = base_path(implode(DIRECTORY_SEPARATOR, $parts));
 
             foreach (glob("$path/*.php") as $commandFile) {
                 $commandClass = pathinfo($commandFile)['filename'];
-                $commands[] = $namespace."\\".$commandClass;
+                $commands[] = $namespace.'\\'.$commandClass;
             }
         }
 
