@@ -3,6 +3,7 @@
 namespace LaravelZero\Framework\Bootstrappers;
 
 use Illuminate\Console\Scheduling;
+use Illuminate\Contracts\Config\Repository;
 use LaravelZero\Framework\Commands;
 
 /**
@@ -48,7 +49,8 @@ class LoadCommands extends Bootstrapper
         $commands = collect(
             array_merge(
                 $config->get('app.commands') ?: [],
-                $this->commands
+                $this->commands,
+                $this->getDetectedCommands($config)
             )
         );
 
@@ -57,6 +59,7 @@ class LoadCommands extends Bootstrapper
         }
 
         $commands->push($config->get('app.default-command'))
+            ->unique()
             ->each(
                 function ($command) {
                     if ($command) {
@@ -70,5 +73,31 @@ class LoadCommands extends Bootstrapper
                     }
                 }
             );
+    }
+
+    /**
+     * Returns the detected commands.
+     *
+     * @param \Illuminate\Contracts\Config\Repository $config
+     *
+     * @return array
+     */
+    protected function getDetectedCommands(Repository $config): array
+    {
+        $commands = [];
+
+        $namespaces = $config->get('commands-namespaces') ?: ["App\Commands"];
+
+        foreach ($namespaces as $namespace) {
+            $parts = explode("\\", $namespace);
+            $path = base_path(implode(DIRECTORY_SEPARATOR, $parts));
+
+            foreach (glob("$path/*.php") as $commandFile) {
+                $commandClass = pathinfo($commandFile)['filename'];
+                $commands[] = $namespace."\\".$commandClass;
+            }
+        }
+
+        return $commands;
     }
 }
