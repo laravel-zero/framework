@@ -2,7 +2,7 @@
 
 namespace LaravelZero\Framework\Providers\Scheduler;
 
-use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Console\Scheduling;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 /**
@@ -20,10 +20,19 @@ class ServiceProvider extends BaseServiceProvider
     public function register(): void
     {
         $this->app->singleton(
-            Schedule::class,
+            Scheduling\Schedule::class,
             function ($app) {
-                return new Schedule;
+                return new Scheduling\Schedule;
             }
         );
+
+        if (config('app.with-scheduler')) {
+            $this->commands(
+                [
+                    Scheduling\ScheduleRunCommand::class,
+                    Scheduling\ScheduleFinishCommand::class,
+                ]
+            );
+        }
     }
 }
