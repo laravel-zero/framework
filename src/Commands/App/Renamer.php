@@ -15,7 +15,7 @@ class Renamer extends Command
     /**
      * {@inheritdoc}
      */
-    protected $signature = 'app:rename {name : The new name}';
+    protected $signature = 'app:rename {name? : The new name}';
 
     /**
      * {@inheritdoc}
