@@ -14,12 +14,16 @@ class ComponentProvider extends AbstractComponentProvider
     /**
      * {@inheritdoc}
      */
+    public function isAvailable(): bool
+    {
+        return class_exists(\Illuminate\Filesystem\FilesystemServiceProvider::class);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function register(): void
     {
-        if (! class_exists(\Illuminate\Filesystem\FilesystemServiceProvider::class)) {
-            return;
-        }
-
         $this->registerServiceProvider(\Illuminate\Filesystem\FilesystemServiceProvider::class);
     }
 }

@@ -26,6 +26,9 @@ class Installer implements InstallerContract
         shell_exec('cd '.BASE_PATH.'&& mkdir database && touch database/database.sqlite');
         shell_exec('cd '.BASE_PATH.'/database && mkdir migrations');
 
+        $command->info('Copying default config...');
+        shell_exec('cp -n ' . __DIR__ . '/config/database.php ' . config_path('database.php'));
+
         $command->info('Component installed! Usage:');
         $command->comment('
 

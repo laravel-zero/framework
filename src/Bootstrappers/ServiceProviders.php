@@ -58,7 +58,15 @@ class ServiceProviders extends Bootstrapper
     public function bootstrap(): void
     {
         collect($this->providers)
-            ->merge($this->components)
+            ->merge(
+                collect($this->components)
+                    ->filter(
+                        function ($component) {
+                            return (new $component($this->application))->isAvailable();
+                        }
+                    )
+                    ->toArray()
+            )
             ->merge(
                 $this->container->make('config')
                     ->get('app.providers')
