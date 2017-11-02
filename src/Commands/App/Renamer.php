@@ -14,16 +14,12 @@ use Symfony\Component\Console\Input\InputArgument;
 class Renamer extends Command
 {
     /**
-     * The name of the console command.
-     *
-     * @var string
+     * {@inheritdoc}
      */
-    protected $name = 'app:rename';
+    protected $signature = 'app:rename {name : The new name}';
 
     /**
-     * The console command description.
-     *
-     * @var string
+     * {@inheritdoc}
      */
     protected $description = 'Perform an application rename';
 
@@ -35,14 +31,6 @@ class Renamer extends Command
         $this->alert('Renaming the application...');
 
         $this->rename();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function configure(): void
-    {
-        $this->addArgument('name', InputArgument::OPTIONAL);
     }
 
     /**
