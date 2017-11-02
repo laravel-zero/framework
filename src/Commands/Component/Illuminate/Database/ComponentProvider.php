@@ -16,8 +16,9 @@ class ComponentProvider extends AbstractComponentProvider
      */
     public function isAvailable(): bool
     {
-        return class_exists(\Illuminate\Database\DatabaseServiceProvider::class)
-            && class_exists(\Illuminate\Filesystem\FilesystemServiceProvider::class);
+        return class_exists(\Illuminate\Database\DatabaseServiceProvider::class) && class_exists(
+                \Illuminate\Filesystem\FilesystemServiceProvider::class
+            );
     }
 
     /**
@@ -25,7 +26,9 @@ class ComponentProvider extends AbstractComponentProvider
      */
     public function register(): void
     {
-        $this->mergeConfigFrom(config_path('database.php'), 'database');
+        if (file_exists(config_path('database.php'))) {
+            $this->mergeConfigFrom(config_path('database.php'), 'database');
+        }
 
         $this->registerDatabaseService();
 

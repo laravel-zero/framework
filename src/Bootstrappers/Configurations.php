@@ -23,6 +23,12 @@ class Configurations extends Bootstrapper
     {
         $config = $this->container->make('config');
 
+        foreach ($this->getDetectedConfigs() as $configFile) {
+            $configFilename = pathinfo($configFile)['filename'];
+
+            $config->set($configFilename, require $configFile);
+        }
+
         if ($name = $config->get('app.name')) {
             $this->application->setName($name);
         }
@@ -34,6 +40,18 @@ class Configurations extends Bootstrapper
         if ($config->get('cache') === null) {
             $config->set('cache', $this->getCacheConfig());
         }
+    }
+
+    /**
+     * Returns detected configs.
+     *
+     * @return array
+     */
+    protected function getDetectedConfigs(): array
+    {
+        $configPath = config_path();
+
+        return glob("$configPath/*.php");
     }
 
     /**
