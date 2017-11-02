@@ -16,9 +16,7 @@ class ComponentProvider extends AbstractComponentProvider
      */
     public function isAvailable(): bool
     {
-        return class_exists(\Illuminate\Database\DatabaseServiceProvider::class) && class_exists(
-                \Illuminate\Filesystem\FilesystemServiceProvider::class
-            );
+        return class_exists(\Illuminate\Database\DatabaseServiceProvider::class);
     }
 
     /**

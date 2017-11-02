@@ -2,6 +2,7 @@
 
 namespace LaravelZero\Framework\Bootstrappers;
 
+use Illuminate\Filesystem\FilesystemServiceProvider;
 use LaravelZero\Framework\Providers;
 use Illuminate\Cache\CacheServiceProvider;
 use Illuminate\Events\EventServiceProvider;
@@ -24,6 +25,7 @@ class ServiceProviders extends Bootstrapper
         Providers\ErrorHandler\ServiceProvider::class,
         EventServiceProvider::class,
         CacheServiceProvider::class,
+        FilesystemServiceProvider::class,
         Providers\Composer\ServiceProvider::class,
         Providers\Scheduler\ServiceProvider::class,
         LaravelDesktopNotifierServiceProvider::class,
@@ -36,7 +38,6 @@ class ServiceProviders extends Bootstrapper
      */
     protected $components = [
         Component\Illuminate\Database\ComponentProvider::class,
-        Component\Illuminate\Filesystem\ComponentProvider::class,
     ];
 
     /**

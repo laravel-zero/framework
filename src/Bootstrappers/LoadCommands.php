@@ -36,7 +36,7 @@ class LoadCommands extends Bootstrapper
     protected $developmentCommands = [
         Commands\App\Builder::class,
         Commands\App\Renamer::class,
-        Commands\Component\Installer::class,
+        Commands\Component\Illuminate\Database\Installer::class,
     ];
 
     /**

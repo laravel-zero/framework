@@ -28,6 +28,7 @@
         "illuminate/container": "5.5.*",
         "illuminate/events": "5.5.*",
         "illuminate/cache": "5.5.*",
+        "illuminate/filesystem": "5.5.*",
         "nunomaduro/laravel-desktop-notifier": "1.3.*",
         "mtdowling/cron-expression": "^1.2"
     },

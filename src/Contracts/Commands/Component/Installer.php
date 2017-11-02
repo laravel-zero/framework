@@ -13,13 +13,17 @@ use LaravelZero\Framework\Contracts\Providers\Composer as ComposerContract;
 interface Installer
 {
     /**
+     * Returns the component name.
+     *
+     * @return string
+     */
+    public function getComponentName(): string;
+
+    /**
      * Installs the component and returns the result
      * of the installation.
      *
-     * @param \LaravelZero\Framework\Commands\Component\Installer $command
-     * @param \LaravelZero\Framework\Contracts\Providers\Composer $command
-     *
      * @return bool
      */
-    public function install(InstallCommand $command, ComposerContract $composer): bool;
+    public function install(): bool;
 }

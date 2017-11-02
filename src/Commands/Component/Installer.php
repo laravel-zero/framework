@@ -3,79 +3,26 @@
 namespace LaravelZero\Framework\Commands\Component;
 
 use LaravelZero\Framework\Commands\Command;
-use Symfony\Component\Console\Input\InputArgument;
-use LaravelZero\Framework\Contracts\Providers\Composer as ComposerContract;
+use LaravelZero\Framework\Contracts\Commands\Component\Installer as InstallerContract;
 
 /**
  * This is the Laravel Zero Framework component installer command class.
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
-class Installer extends Command
+abstract class Installer extends Command implements InstallerContract
 {
-    /**
-     * The name of the console command.
-     *
-     * @var string
-     */
-    protected $name = 'component:install';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Install component';
-
     /**
      * {@inheritdoc}
      */
     public function handle(): void
     {
-        $this->alert('Installing a new component...');
+        $component = $this->getComponentName();
+
+        $this->alert("Installing $component component...");
 
         $this->install();
-    }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function configure(): void
-    {
-        $this->addArgument('name', InputArgument::OPTIONAL);
-    }
-
-    /**
-     * Installs the desired component on the application.
-     *
-     * @param string|null $name
-     *
-     * @return \LaravelZero\Framework\Commands\Component\Installer
-     */
-    public function install(string $name = null): Installer
-    {
-        if (! $component = $name ?: $this->argument('name')) {
-            $component = $this->choice(
-                'Please choose the component',
-                $this->getContainer()
-                    ->make(Finder::class)
-                    ->find()
-            );
-        }
-
-        $installerClass = __NAMESPACE__.'\\'.str_replace('/', '\\', ucwords($component, ' / ')).'\Installer';
-
-        if (! class_exists($installerClass)) {
-            $this->error('Component not found!');
-        } else {
-            $composer = $this->getContainer()
-                ->make(ComposerContract::class);
-
-            if ((new $installerClass)->install($this, $composer)) {
-                $this->output->writeln("The component $component installation: <info>✔</info>");
-            }
-        }
-
-        return $this;
+        $this->output->writeln("The component $component installed: <info>✔</info>");
     }
 }
