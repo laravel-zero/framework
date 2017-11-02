@@ -26,10 +26,9 @@ class Builder extends Command
     const BUILD_NAME = 'application';
 
     /**
-     * Contains the application structure
-     * needed for the build.
+     * Contains the default app structure.
      *
-     * @var array
+     * @var []string
      */
     protected $structure = [
         'app/',
@@ -39,16 +38,12 @@ class Builder extends Command
     ];
 
     /**
-     * The name of the console command.
-     *
-     * @var string
+     * {@inheritdoc}
      */
-    protected $name = 'app:build';
+    protected $signature = 'app:build {name? : The build name}';
 
     /**
-     * The console command description.
-     *
-     * @var string
+     * {@inheritdoc}
      */
     protected $description = 'Perform an application build';
 
@@ -74,14 +69,6 @@ class Builder extends Command
                 ).' and add or set'.PHP_EOL.PHP_EOL.'    phar.readonly = Off'.PHP_EOL.PHP_EOL.'to continue. Details here: http://php.net/manual/en/phar.configuration.php'
             );
         }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function configure(): void
-    {
-        $this->addArgument('name', InputArgument::OPTIONAL);
     }
 
     /**
@@ -118,7 +105,9 @@ class Builder extends Command
         $compiler = $this->makeFolder()
             ->getCompiler($name);
 
-        $compiler->buildFromDirectory(BASE_PATH, '#'.implode('|', $this->structure).'#');
+        $structure = config('app.structure') ?: $this->structure;
+
+        $compiler->buildFromDirectory(BASE_PATH, '#'.implode('|', $structure).'#');
         $compiler->setStub("#!/usr/bin/env php \n".$compiler->createDefaultStub('bootstrap/init.php'));
 
         return $this;
@@ -196,11 +185,11 @@ class Builder extends Command
      */
     protected function prepare(): Builder
     {
-        $file = BASE_PATH.'/config/config.php';
+        $file = BASE_PATH.'/config/app.php';
         static::$config = file_get_contents($file);
         $config = include $file;
 
-        $config['app']['production'] = true;
+        $config['production'] = true;
         file_put_contents($file, '<?php return '.var_export($config, true).';'.PHP_EOL);
 
         $this->info('Moving configuration to production mode...');
@@ -215,7 +204,7 @@ class Builder extends Command
      */
     protected function finish(): Builder
     {
-        file_put_contents(BASE_PATH.'/config/config.php', static::$config);
+        file_put_contents(BASE_PATH.'/config/app.php', static::$config);
 
         static::$config = null;
 
@@ -229,7 +218,7 @@ class Builder extends Command
     public function __destruct()
     {
         if (static::$config !== null) {
-            file_put_contents(BASE_PATH.'/config/config.php', static::$config);
+            file_put_contents(BASE_PATH.'/config/app.php', static::$config);
         }
     }
 }
