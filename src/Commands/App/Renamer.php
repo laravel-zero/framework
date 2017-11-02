@@ -4,7 +4,6 @@ namespace LaravelZero\Framework\Commands\App;
 
 use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
-use Symfony\Component\Console\Input\InputArgument;
 
 /**
  * This is the Laravel Zero Framework renamer command class.
