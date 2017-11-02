@@ -21,11 +21,6 @@ class Builder extends Command
     const BUILD_PATH = BASE_PATH.'/builds';
 
     /**
-     * The default build name.
-     */
-    const BUILD_NAME = 'application';
-
-    /**
      * Contains the default app structure.
      *
      * @var []string
@@ -40,7 +35,7 @@ class Builder extends Command
     /**
      * {@inheritdoc}
      */
-    protected $signature = 'app:build {name? : The build name}';
+    protected $signature = 'app:build {name=application : The build name}';
 
     /**
      * {@inheritdoc}
