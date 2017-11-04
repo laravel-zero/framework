@@ -56,6 +56,14 @@ class Container extends BaseContainer implements LaravelApplication
     /**
      * {@inheritdoc}
      */
+    public function getNamespace()
+    {
+        return 'App';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function isDownForMaintenance()
     {
         return false;

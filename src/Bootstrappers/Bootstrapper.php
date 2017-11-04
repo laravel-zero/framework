@@ -15,14 +15,14 @@ abstract class Bootstrapper
     /**
      * Holds an instance of application.
      *
-     * @var \Illuminate\Contracts\Console\Application
+     * @var \LaravelZero\Framework\Contracts\Application
      */
     protected $application;
 
     /**
      * Holds an instance of the container.
      *
-     * @var \Illuminate\Contracts\Container\Container
+     * @var \Illuminate\Contracts\Foundation\Application
      */
     protected $container;
 
