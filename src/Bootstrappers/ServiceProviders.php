@@ -2,11 +2,11 @@
 
 namespace LaravelZero\Framework\Bootstrappers;
 
-use Illuminate\Filesystem\FilesystemServiceProvider;
 use LaravelZero\Framework\Providers;
 use Illuminate\Cache\CacheServiceProvider;
 use Illuminate\Events\EventServiceProvider;
 use LaravelZero\Framework\Commands\Component;
+use Illuminate\Filesystem\FilesystemServiceProvider;
 use NunoMaduro\LaravelDesktopNotifier\LaravelDesktopNotifierServiceProvider;
 
 /**

@@ -2,9 +2,6 @@
 
 namespace LaravelZero\Framework\Contracts\Commands\Component;
 
-use LaravelZero\Framework\Commands\Component\Installer as InstallCommand;
-use LaravelZero\Framework\Contracts\Providers\Composer as ComposerContract;
-
 /**
  * This is the Laravel Zero Framework component install contract.
  *
