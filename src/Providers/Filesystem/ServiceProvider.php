@@ -4,6 +4,7 @@ namespace LaravelZero\Framework\Providers\Filesystem;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Filesystem\FilesystemServiceProvider as BaseServiceProvider;
+
 /**
  * This is the Laravel Zero Framework Filesystem service provider class.
  *
