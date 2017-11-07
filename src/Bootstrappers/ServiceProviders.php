@@ -6,7 +6,6 @@ use LaravelZero\Framework\Providers;
 use Illuminate\Cache\CacheServiceProvider;
 use Illuminate\Events\EventServiceProvider;
 use LaravelZero\Framework\Commands\Component;
-use LaravelZero\Framework\Providers\Filesystem\ServiceProvider as FilesystemServiceProvider;
 use NunoMaduro\LaravelDesktopNotifier\LaravelDesktopNotifierServiceProvider;
 
 /**
