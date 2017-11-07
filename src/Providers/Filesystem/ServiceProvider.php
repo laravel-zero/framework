@@ -22,7 +22,7 @@ class ServiceProvider extends BaseServiceProvider
 
         $this->app->alias('filesystem.disk', Filesystem::class);
 
-        $config = $this->container->make('config');
+        $config = $this->app->make('config');
 
         if ($config->get('filesystems.default') === null) {
             $config->set('filesystems.default', 'local');
