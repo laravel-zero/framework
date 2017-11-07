@@ -6,7 +6,7 @@ use LaravelZero\Framework\Providers;
 use Illuminate\Cache\CacheServiceProvider;
 use Illuminate\Events\EventServiceProvider;
 use LaravelZero\Framework\Commands\Component;
-use Illuminate\Filesystem\FilesystemServiceProvider;
+use LaravelZero\Framework\Providers\Filesystem\ServiceProvider as FilesystemServiceProvider;
 use NunoMaduro\LaravelDesktopNotifier\LaravelDesktopNotifierServiceProvider;
 
 /**
@@ -25,9 +25,9 @@ class ServiceProviders extends Bootstrapper
         Providers\ErrorHandler\ServiceProvider::class,
         EventServiceProvider::class,
         CacheServiceProvider::class,
-        FilesystemServiceProvider::class,
         Providers\Composer\ServiceProvider::class,
         Providers\Scheduler\ServiceProvider::class,
+        Providers\Filesystem\ServiceProvider::class,
         LaravelDesktopNotifierServiceProvider::class,
     ];
 
