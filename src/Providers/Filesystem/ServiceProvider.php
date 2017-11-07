@@ -20,6 +20,6 @@ class ServiceProvider extends BaseServiceProvider
     {
         parent::register();
 
-        $this->app->alias('files', Filesystem::class);
+        $this->app->alias('filesystem.disk', Filesystem::class);
     }
 }
