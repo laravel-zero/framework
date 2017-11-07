@@ -4,6 +4,7 @@ namespace LaravelZero\Framework\Providers\Filesystem;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Filesystem\FilesystemServiceProvider as BaseServiceProvider;
+
 /**
  * This is the Laravel Zero Framework Filesystem service provider class.
  *
@@ -27,5 +28,27 @@ class ServiceProvider extends BaseServiceProvider
         if ($config->get('filesystems.default') === null) {
             $config->set('filesystems.default', 'local');
         }
+    }
+
+    /**
+     * Returns the default application filesystems config.
+     *
+     * In order to keep it simple we use the `local` driver. Feel free
+     * to use another driver, be sure to check the filesysyem
+     * component documentation.
+     *
+     * @return array
+     */
+    protected function getCacheConfig(): array
+    {
+        return [
+            'default' => 'local',
+            'disks' => [
+                'local' => [
+                    'driver' => 'local',
+                    'root' => storage_path('app'),
+                ],
+            ],
+        ];
     }
 }

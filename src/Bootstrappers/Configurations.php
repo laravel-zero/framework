@@ -36,10 +36,6 @@ class Configurations extends Bootstrapper
         if ($version = $config->get('app.version')) {
             $this->application->setVersion($version);
         }
-
-        if ($config->get('cache') === null) {
-            $config->set('cache', $this->getCacheConfig());
-        }
     }
 
     /**
@@ -52,26 +48,5 @@ class Configurations extends Bootstrapper
         $configPath = config_path();
 
         return glob("$configPath/*.php");
-    }
-
-    /**
-     * Returns the default application cache config.
-     *
-     * In order to keep it simple we use the `array` driver. Feel free
-     * to use another driver, be sure to check the cache component
-     * documentation.
-     *
-     * @return array
-     */
-    protected function getCacheConfig(): array
-    {
-        return [
-            'default' => 'array',
-            'stores' => [
-                'array' => [
-                    'driver' => 'array',
-                ],
-            ],
-        ];
     }
 }
