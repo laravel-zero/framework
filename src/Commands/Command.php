@@ -48,18 +48,18 @@ abstract class Command extends BaseCommand
      * Gets the concrete implementation of the notifier. Then
      * creates a new notification and send it through the notifier.
      *
-     * @param string $text
+     * @param string $title
      * @param string $body
      * @param string|null $icon
      */
-    public function notify(string $text, string $body, $icon = null): void
+    public function notify(string $title, string $body, $icon = null): void
     {
         $notifier = $this->getContainer()
             ->make(Notifier::class);
 
         $notification = $this->getContainer()
             ->make(Notification::class)
-            ->setTitle($text)
+            ->setTitle($title)
             ->setBody($body)
             ->setIcon($icon);
 
