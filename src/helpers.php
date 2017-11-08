@@ -80,7 +80,8 @@ if (! function_exists('config_path')) {
     /**
      * Get the configuration path.
      *
-     * @param  string  $path
+     * @param  string $path
+     *
      * @return string
      */
     function config_path($path = '')
@@ -88,3 +89,18 @@ if (! function_exists('config_path')) {
         return app()->basePath().DIRECTORY_SEPARATOR.'config'.($path ? DIRECTORY_SEPARATOR.$path : $path);
     }
 }
+
+if (! function_exists('storage_path')) {
+    /**
+     * Get the path to the storage folder.
+     *
+     * @param  string $path
+     *
+     * @return string
+     */
+    function storage_path($path = '')
+    {
+        return app('path.storage').($path ? DIRECTORY_SEPARATOR.$path : $path);
+    }
+}
+

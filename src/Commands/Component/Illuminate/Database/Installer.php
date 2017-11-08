@@ -2,7 +2,7 @@
 
 namespace LaravelZero\Framework\Commands\Component\Illuminate\Database;
 
-use LaravelZero\Framework\Commands\Component\Installer as InstallCommand;
+use LaravelZero\Framework\Commands\Component\Installer as BaseInstaller;
 use LaravelZero\Framework\Contracts\Providers\Composer as ComposerContract;
 use LaravelZero\Framework\Contracts\Commands\Component\Installer as InstallerContract;
 
@@ -11,23 +11,48 @@ use LaravelZero\Framework\Contracts\Commands\Component\Installer as InstallerCon
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
-class Installer implements InstallerContract
+class Installer extends BaseInstaller implements InstallerContract
 {
     /**
      * {@inheritdoc}
      */
-    public function install(InstallCommand $command, ComposerContract $composer): bool
+    protected $name = 'install:database';
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $description = 'Installs illuminate/database - Eloquent';
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getComponentName(): string
     {
-        $command->info('Pulling illuminate/database...');
+        return 'database';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function install(): bool
+    {
+        $composer = $this->getContainer()
+            ->make(ComposerContract::class);
+
+        $this->info('Pulling illuminate/database...');
         $composer->require('illuminate/database "5.5.*"');
         $composer->require('illuminate/filesystem "5.5.*"');
 
-        $command->info('Creating (database/database.sqlite)...');
+        $this->info('Creating (database/database.sqlite)...');
         shell_exec('cd '.BASE_PATH.'&& mkdir database && touch database/database.sqlite');
         shell_exec('cd '.BASE_PATH.'/database && mkdir migrations');
 
-        $command->info('Component installed! Usage:');
-        $command->comment('
+        $this->info('Copying default config...');
+        shell_exec('cp -n '.__DIR__.'/config/database.php '.config_path('database.php'));
+
+        $this->info('Component installed! Usage:');
+        $this->comment(
+            '
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -46,7 +71,8 @@ $users = DB::table(\'users\')->get();
 
 dd($users);
 
-        ');
+        '
+        );
 
         return true;
     }

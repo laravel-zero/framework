@@ -14,12 +14,18 @@ class ComponentProvider extends AbstractComponentProvider
     /**
      * {@inheritdoc}
      */
+    public function isAvailable(): bool
+    {
+        return class_exists(\Illuminate\Database\DatabaseServiceProvider::class);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function register(): void
     {
-        if (! class_exists(\Illuminate\Database\DatabaseServiceProvider::class) || ! class_exists(
-                \Illuminate\Filesystem\FilesystemServiceProvider::class
-            )) {
-            return;
+        if (file_exists(config_path('database.php'))) {
+            $this->mergeConfigFrom(config_path('database.php'), 'database');
         }
 
         $this->registerDatabaseService();

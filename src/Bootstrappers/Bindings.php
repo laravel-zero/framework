@@ -28,11 +28,11 @@ class Bindings extends Bootstrapper
 
         $this->container->instance(ApplicationContract::class, $this->application);
 
-        $this->container->instance(
-            'config',
-            new Repository(
-                require BASE_PATH.'/'.'config/config.php'
-            )
-        );
+        $this->container->instance('config', new Repository());
+
+        $this->container->instance('path', $this->container->basePath().'/app');
+
+        $this->container->instance('path.storage', $this->container->basePath().'/storage');
+
     }
 }

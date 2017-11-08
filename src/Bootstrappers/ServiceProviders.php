@@ -3,7 +3,6 @@
 namespace LaravelZero\Framework\Bootstrappers;
 
 use LaravelZero\Framework\Providers;
-use Illuminate\Cache\CacheServiceProvider;
 use Illuminate\Events\EventServiceProvider;
 use LaravelZero\Framework\Commands\Component;
 use NunoMaduro\LaravelDesktopNotifier\LaravelDesktopNotifierServiceProvider;
@@ -23,9 +22,10 @@ class ServiceProviders extends Bootstrapper
     protected $providers = [
         Providers\ErrorHandler\ServiceProvider::class,
         EventServiceProvider::class,
-        CacheServiceProvider::class,
+        Providers\Cache\ServiceProvider::class,
         Providers\Composer\ServiceProvider::class,
         Providers\Scheduler\ServiceProvider::class,
+        Providers\Filesystem\ServiceProvider::class,
         LaravelDesktopNotifierServiceProvider::class,
     ];
 
@@ -36,7 +36,6 @@ class ServiceProviders extends Bootstrapper
      */
     protected $components = [
         Component\Illuminate\Database\ComponentProvider::class,
-        Component\Illuminate\Filesystem\ComponentProvider::class,
     ];
 
     /**
@@ -58,7 +57,15 @@ class ServiceProviders extends Bootstrapper
     public function bootstrap(): void
     {
         collect($this->providers)
-            ->merge($this->components)
+            ->merge(
+                collect($this->components)
+                    ->filter(
+                        function ($component) {
+                            return (new $component($this->application))->isAvailable();
+                        }
+                    )
+                    ->toArray()
+            )
             ->merge(
                 $this->container->make('config')
                     ->get('app.providers')

@@ -21,6 +21,13 @@ abstract class AbstractComponentProvider extends ServiceProvider
     abstract public function register(): void;
 
     /**
+     * Checks if the component is available.
+     *
+     * @return bool
+     */
+    abstract public function isAvailable(): bool;
+
+    /**
      * Register the service provider.
      *
      * @param string $providerClass

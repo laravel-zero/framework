@@ -23,6 +23,12 @@ class Configurations extends Bootstrapper
     {
         $config = $this->container->make('config');
 
+        foreach ($this->getDetectedConfigs() as $configFile) {
+            $configFilename = pathinfo($configFile)['filename'];
+
+            $config->set($configFilename, require $configFile);
+        }
+
         if ($name = $config->get('app.name')) {
             $this->application->setName($name);
         }
@@ -30,30 +36,17 @@ class Configurations extends Bootstrapper
         if ($version = $config->get('app.version')) {
             $this->application->setVersion($version);
         }
-
-        if ($config->get('cache') === null) {
-            $config->set('cache', $this->getCacheConfig());
-        }
     }
 
     /**
-     * Returns the default application cache config.
-     *
-     * In order to keep it simple we use the `array` driver. Feel free
-     * to use another driver, be sure to check the cache component
-     * documentation.
+     * Returns detected configs.
      *
      * @return array
      */
-    protected function getCacheConfig(): array
+    protected function getDetectedConfigs(): array
     {
-        return [
-            'default' => 'array',
-            'stores' => [
-                'array' => [
-                    'driver' => 'array',
-                ],
-            ],
-        ];
+        $configPath = config_path();
+
+        return glob("$configPath/*.php");
     }
 }

@@ -2,7 +2,6 @@
 
 namespace LaravelZero\Framework\Bootstrappers;
 
-use Illuminate\Console\Scheduling;
 use LaravelZero\Framework\Commands;
 use Illuminate\Contracts\Config\Repository;
 
@@ -19,16 +18,6 @@ use Illuminate\Contracts\Config\Repository;
 class LoadCommands extends Bootstrapper
 {
     /**
-     * The application's core commands.
-     *
-     * @var string[]
-     */
-    protected $commands = [
-        Scheduling\ScheduleRunCommand::class,
-        Scheduling\ScheduleFinishCommand::class,
-    ];
-
-    /**
      * The application's development commands.
      *
      * @var string[]
@@ -36,7 +25,8 @@ class LoadCommands extends Bootstrapper
     protected $developmentCommands = [
         Commands\App\Builder::class,
         Commands\App\Renamer::class,
-        Commands\Component\Installer::class,
+        Commands\App\CommandMaker::class,
+        Commands\Component\Illuminate\Database\Installer::class,
     ];
 
     /**
@@ -49,7 +39,6 @@ class LoadCommands extends Bootstrapper
         $commands = collect(
             array_merge(
                 $config->get('app.commands') ?: [],
-                $this->commands,
                 $this->getDetectedCommands($config)
             )
         );
