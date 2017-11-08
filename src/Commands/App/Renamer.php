@@ -38,7 +38,7 @@ class Renamer extends Command
      *
      * @return $this
      */
-    protected function rename(): Renamer
+    protected function rename(): self
     {
         $name = $this->asksForApplicationName();
 
@@ -57,7 +57,7 @@ class Renamer extends Command
      *
      * @return $this
      */
-    protected function displayWelcomeMessage(): Renamer
+    protected function displayWelcomeMessage(): self
     {
         return $this;
     }
@@ -89,7 +89,7 @@ class Renamer extends Command
      *
      * @return $this
      */
-    protected function updateComposer(string $name): Renamer
+    protected function updateComposer(string $name): self
     {
         $this->setComposer(
             Str::replaceFirst(
@@ -111,7 +111,7 @@ class Renamer extends Command
      *
      * @return $this
      */
-    protected function renameBinary(string $name): Renamer
+    protected function renameBinary(string $name): self
     {
         rename(BASE_PATH.'/'.$this->getCurrentBinaryName(), BASE_PATH.'/'.$name);
 
@@ -127,7 +127,7 @@ class Renamer extends Command
      *
      * @return $this
      */
-    protected function setComposer(string $composer): Renamer
+    protected function setComposer(string $composer): self
     {
         file_put_contents(BASE_PATH.'/composer.json', $composer);
 
