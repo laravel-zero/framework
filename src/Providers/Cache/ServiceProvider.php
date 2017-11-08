@@ -2,8 +2,7 @@
 
 namespace LaravelZero\Framework\Providers\Cache;
 
-use Illuminate\Contracts\Filesystem\Filesystem;
-use Illuminate\Cache\Cache as BaseServiceProvider;
+use Illuminate\Cache\CacheServiceProvider as BaseServiceProvider;
 
 /**
  * This is the Laravel Zero Framework Filesystem service provider class.
@@ -24,7 +23,7 @@ class ServiceProvider extends BaseServiceProvider
         $config = $this->app->make('config');
 
         if ($config->get('cache') === null) {
-            $config->set('cache', $this->getCacheConfig());
+            $config->set('cache', $this->getDefaultConfig());
         }
     }
 
@@ -37,7 +36,7 @@ class ServiceProvider extends BaseServiceProvider
      *
      * @return array
      */
-    protected function getCacheConfig(): array
+    protected function getDefaultConfig(): array
     {
         return [
             'default' => 'array',

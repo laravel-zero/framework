@@ -26,7 +26,7 @@ class ServiceProvider extends BaseServiceProvider
         $config = $this->app->make('config');
 
         if ($config->get('filesystems.default') === null) {
-            $config->set('filesystems.default', 'local');
+            $config->set('filesystems', $this->getDefaultConfig());
         }
     }
 
@@ -39,7 +39,7 @@ class ServiceProvider extends BaseServiceProvider
      *
      * @return array
      */
-    protected function getCacheConfig(): array
+    protected function getDefaultConfig(): array
     {
         return [
             'default' => 'local',
