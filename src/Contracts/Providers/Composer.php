@@ -16,7 +16,7 @@ interface Composer
      *
      * @return $this
      */
-    public function require(string $package): Composer;
+    public function require(string $package): self;
 
     /**
      * Creates an project.
@@ -33,5 +33,5 @@ interface Composer
      *
      * @return $this
      */
-    public function createProject(string $package, string $name, array $options): Composer;
+    public function createProject(string $package, string $name, array $options): self;
 }
