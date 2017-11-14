@@ -2,7 +2,8 @@
 
 namespace LaravelZero\Framework\Bootstrappers;
 
-use LaravelZero\Framework\Commands;
+use Iterator;
+use Symfony\Component\Finder\Finder;
 
 /**
  * This is the Laravel Zero Framework Bootstrapper Configuration class.
@@ -41,12 +42,12 @@ class Configurations extends Bootstrapper
     /**
      * Returns detected configs.
      *
-     * @return array
+     * @return \Iterator
      */
-    protected function getDetectedConfigs(): array
+    protected function getDetectedConfigs(): Iterator
     {
-        $configPath = config_path();
-
-        return glob("$configPath/*.php");
+        return (new Finder)->in(config_path())
+            ->files()
+            ->getIterator();
     }
 }
