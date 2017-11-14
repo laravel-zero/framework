@@ -79,7 +79,7 @@ class LoadCommands extends Bootstrapper
     {
         $commands = [];
 
-        $paths = collect($config->get('app.commands-paths', ["Commands"]))
+        $paths = collect($config->get('app.commands-paths', ['Commands']))
             ->filter(
                 function ($path) {
                     return file_exists(base_path('app'.DIRECTORY_SEPARATOR.$path));

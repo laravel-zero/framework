@@ -79,7 +79,7 @@ class Builder extends Command
             ->setPermissions($name)
             ->finish();
 
-        $this->info("Standalone application compiled into: builds".DIRECTORY_SEPARATOR.$name);
+        $this->info('Standalone application compiled into: builds'.DIRECTORY_SEPARATOR.$name);
 
         return $this;
     }
