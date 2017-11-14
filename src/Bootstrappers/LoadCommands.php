@@ -2,7 +2,11 @@
 
 namespace LaravelZero\Framework\Bootstrappers;
 
+use ReflectionClass;
+use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands;
+use Symfony\Component\Finder\Finder;
+use LaravelZero\Framework\Commands\Command;
 use Illuminate\Contracts\Config\Repository;
 
 /**
@@ -75,15 +79,24 @@ class LoadCommands extends Bootstrapper
     {
         $commands = [];
 
-        $namespaces = $config->get('commands-namespaces') ?: ["App\Commands"];
+        $paths = is_array($config->get('app.commands-paths')) ? $config->get('app.commands-paths') : [
+            base_path(
+                "app/Commands"
+            ),
+        ];
 
-        foreach ($namespaces as $namespace) {
-            $parts = explode('\\', $namespace);
-            $path = base_path(implode(DIRECTORY_SEPARATOR, $parts));
-
-            foreach (glob("$path/*.php") as $commandFile) {
-                $commandClass = pathinfo($commandFile)['filename'];
-                $commands[] = $namespace.'\\'.$commandClass;
+        $namespace = app()->getNamespace()."\\";
+        if (! empty($paths)) {
+            foreach ((new Finder)->in($paths)
+                         ->files() as $command) {
+                $command = $namespace.str_replace(
+                        ['/', '.php'],
+                        ['\\', ''],
+                        Str::after($command->getPathname(), base_path('app').DIRECTORY_SEPARATOR)
+                    );
+                if (is_subclass_of($command, Command::class) && ! (new ReflectionClass($command))->isAbstract()) {
+                    $commands[] = $command;
+                }
             }
         }
 

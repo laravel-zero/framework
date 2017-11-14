@@ -5,6 +5,7 @@ return [
     'version' => 'Test version',
     'production' => false,
     'default-command' => Tests\FakeDefaultCommand::class,
+    'commands-paths' => [],
     'commands' => [
         Tests\FakeExtraCommand::class,
     ],
