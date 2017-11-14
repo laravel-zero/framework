@@ -1,23 +1,24 @@
 <?php
 
-use Illuminate\Container\Container;
+use LaravelZero\Framework\Container;
 
 if (! function_exists('app')) {
     /**
      * Get the available container instance.
      *
-     * @param  string $make
+     * @param  string $abstract
+     * @param  array $parameters
      *
-     * @return mixed|\Laravel\Lumen\Application
+     * @return mixed|\LaravelZero\Framework\Container
      */
-    function app($make = null)
+    function app($abstract = null, array $parameters = [])
     {
-        if (is_null($make)) {
+        if (is_null($abstract)) {
             return Container::getInstance();
         }
 
         return Container::getInstance()
-            ->make($make);
+            ->make($abstract, $parameters);
     }
 }
 
@@ -30,14 +31,13 @@ if (! function_exists('config')) {
      * @param  array|string $key
      * @param  mixed $default
      *
-     * @return mixed
+     * @return mixed|\Illuminate\Config\Repository
      */
     function config($key = null, $default = null)
     {
         if (is_null($key)) {
             return app('config');
         }
-
         if (is_array($key)) {
             return app('config')->set($key);
         }
@@ -48,17 +48,17 @@ if (! function_exists('config')) {
 
 if (! function_exists('event')) {
     /**
-     * Fire an event and call the listeners.
+     * Dispatch an event and call the listeners.
      *
-     * @param  object|string $event
+     * @param  mixed $event
      * @param  mixed $payload
      * @param  bool $halt
      *
      * @return array|null
      */
-    function event($event, $payload = [], $halt = false)
+    function event(...$args)
     {
-        return app('events')->fire($event, $payload, $halt);
+        return app('events')->dispatch(...$args);
     }
 }
 
@@ -72,7 +72,7 @@ if (! function_exists('base_path')) {
      */
     function base_path($path = '')
     {
-        return app()->basePath().($path ? DIRECTORY_SEPARATOR.$path : $path);
+        return app()->basePath($path);
     }
 }
 
@@ -86,7 +86,7 @@ if (! function_exists('config_path')) {
      */
     function config_path($path = '')
     {
-        return app()->basePath().DIRECTORY_SEPARATOR.'config'.($path ? DIRECTORY_SEPARATOR.$path : $path);
+        return app()->configPath($path);
     }
 }
 
@@ -94,7 +94,8 @@ if (! function_exists('database_path')) {
     /**
      * Get the database path.
      *
-     * @param  string  $path
+     * @param  string $path
+     *
      * @return string
      */
     function database_path($path = '')
@@ -107,7 +108,8 @@ if (! function_exists('resource_path')) {
     /**
      * Get the path to the resources folder.
      *
-     * @param  string  $path
+     * @param  string $path
+     *
      * @return string
      */
     function resource_path($path = '')
@@ -126,7 +128,7 @@ if (! function_exists('storage_path')) {
      */
     function storage_path($path = '')
     {
-        return app('path.storage').($path ? DIRECTORY_SEPARATOR.$path : $path);
+        return app()->storagePath().($path ? DIRECTORY_SEPARATOR.$path : $path);
     }
 }
 

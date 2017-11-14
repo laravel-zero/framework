@@ -32,10 +32,6 @@ class ContainerTest extends TestCase
 
         $this->assertEquals(BASE_PATH.'/database', $container->databasePath());
         $this->assertEquals(BASE_PATH.'/database/migrations', $container->databasePath('migrations'));
-
-        // config settings take precedence
-        config(['database.path' => 'some/other/path']);
-        $this->assertEquals('some/other/path', $container->databasePath());
     }
 
     /** @test */

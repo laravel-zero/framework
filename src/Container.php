@@ -18,40 +18,43 @@ class Container extends BaseContainer implements LaravelApplication
      */
     public function version()
     {
-        return config('app.name');
+        return config('app.version');
     }
 
     /**
      * Get the base path of the Laravel installation.
      *
-     * @param  string  $path
+     * @param  string $path
+     *
      * @return string
      */
     public function basePath($path = '')
     {
-        return BASE_PATH.($path ? "/$path" : $path);
+        return BASE_PATH.($path ? DIRECTORY_SEPARATOR.$path : $path);
     }
 
     /**
      * Get the path to the application configuration files.
      *
-     * @param  string  $path
+     * @param  string $path
+     *
      * @return string
      */
     public function configPath($path = '')
     {
-        return BASE_PATH.'/config'.($path ? "/$path" : $path);
+        return BASE_PATH.DIRECTORY_SEPARATOR.'config'.($path ? DIRECTORY_SEPARATOR.$path : $path);
     }
 
     /**
      * Get the path to the database directory.
      *
-     * @param  string  $path
+     * @param  string $path
+     *
      * @return string
      */
     public function databasePath($path = '')
     {
-        return config('database.path') ?: (BASE_PATH.'/database'.($path ? "/$path" : $path));
+        return (BASE_PATH.DIRECTORY_SEPARATOR.'database').($path ? DIRECTORY_SEPARATOR.$path : $path);
     }
 
     /**
@@ -67,12 +70,13 @@ class Container extends BaseContainer implements LaravelApplication
     /**
      * Get the path to the resources directory.
      *
-     * @param  string  $path
+     * @param  string $path
+     *
      * @return string
      */
     public function resourcePath($path = '')
     {
-        return BASE_PATH.'/resources'.($path ? "/$path" : $path);
+        return BASE_PATH.DIRECTORY_SEPARATOR.'resources'.($path ? DIRECTORY_SEPARATOR.$path : $path);
     }
 
     /**
@@ -82,7 +86,7 @@ class Container extends BaseContainer implements LaravelApplication
      */
     public function storagePath()
     {
-        return BASE_PATH.'/storage';
+        return BASE_PATH.DIRECTORY_SEPARATOR.'storage';
     }
 
     /**
