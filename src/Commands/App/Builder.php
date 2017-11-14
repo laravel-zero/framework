@@ -75,6 +75,7 @@ class Builder extends Command
     protected function build(string $name): Builder
     {
         $this->prepare()
+            ->compile($name)
             ->cleanUp($name)
             ->setPermissions($name)
             ->finish();
