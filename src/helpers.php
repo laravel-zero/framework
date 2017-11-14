@@ -90,6 +90,32 @@ if (! function_exists('config_path')) {
     }
 }
 
+if (! function_exists('database_path')) {
+    /**
+     * Get the database path.
+     *
+     * @param  string  $path
+     * @return string
+     */
+    function database_path($path = '')
+    {
+        return app()->databasePath($path);
+    }
+}
+
+if (! function_exists('resource_path')) {
+    /**
+     * Get the path to the resources folder.
+     *
+     * @param  string  $path
+     * @return string
+     */
+    function resource_path($path = '')
+    {
+        return app()->resourcePath($path);
+    }
+}
+
 if (! function_exists('storage_path')) {
     /**
      * Get the path to the storage folder.
