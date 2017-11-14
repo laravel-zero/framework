@@ -33,6 +33,5 @@ class Bindings extends Bootstrapper
         $this->container->instance('path', $this->container->basePath().'/app');
 
         $this->container->instance('path.storage', $this->container->basePath().'/storage');
-
     }
 }
