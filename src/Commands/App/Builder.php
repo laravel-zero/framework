@@ -17,7 +17,7 @@ class Builder extends Command
     /**
      * The directory that contains your application builds.
      */
-    const BUILD_PATH = BASE_PATH.'/builds';
+    const BUILD_PATH = BASE_PATH.DIRECTORY_SEPARATOR.'builds';
 
     /**
      * Contains the default app structure.
@@ -25,10 +25,10 @@ class Builder extends Command
      * @var []string
      */
     protected $structure = [
-        'app/',
-        'bootstrap/',
-        'vendor/',
-        'config/',
+        'app'.DIRECTORY_SEPARATOR,
+        'bootstrap'.DIRECTORY_SEPARATOR,
+        'vendor'.DIRECTORY_SEPARATOR,
+        'config'.DIRECTORY_SEPARATOR,
     ];
 
     /**
@@ -80,7 +80,7 @@ class Builder extends Command
             ->setPermissions($name)
             ->finish();
 
-        $this->info("Standalone application compiled into: builds/$name");
+        $this->info("Standalone application compiled into: builds".DIRECTORY_SEPARATOR.$name);
 
         return $this;
     }
@@ -102,7 +102,9 @@ class Builder extends Command
         $structure = config('app.structure') ?: $this->structure;
 
         $compiler->buildFromDirectory(BASE_PATH, '#'.implode('|', $structure).'#');
-        $compiler->setStub("#!/usr/bin/env php \n".$compiler->createDefaultStub('bootstrap/init.php'));
+        $compiler->setStub(
+            "#!/usr/bin/env php \n".$compiler->createDefaultStub('bootstrap'.DIRECTORY_SEPARATOR.'init.php')
+        );
 
         return $this;
     }
@@ -118,7 +120,7 @@ class Builder extends Command
     {
         try {
             return new Phar(
-                self::BUILD_PATH.'/'.$name.'.phar',
+                self::BUILD_PATH.DIRECTORY_SEPARATOR.$name.'.phar',
                 FilesystemIterator::CURRENT_AS_FILEINFO | FilesystemIterator::KEY_AS_FILENAME,
                 $name
             );
@@ -151,7 +153,7 @@ class Builder extends Command
      */
     protected function cleanUp(string $name): Builder
     {
-        $file = self::BUILD_PATH."/$name";
+        $file = self::BUILD_PATH.DIRECTORY_SEPARATOR.$name;
         rename("$file.phar", $file);
 
         return $this;
@@ -166,7 +168,7 @@ class Builder extends Command
      */
     protected function setPermissions($name): Builder
     {
-        $file = self::BUILD_PATH."/$name";
+        $file = self::BUILD_PATH.DIRECTORY_SEPARATOR.$name;
         chmod($file, 0755);
 
         return $this;
@@ -179,14 +181,15 @@ class Builder extends Command
      */
     protected function prepare(): Builder
     {
-        $file = BASE_PATH.'/config/app.php';
+        $file = BASE_PATH.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'app.php';
         static::$config = file_get_contents($file);
         $config = include $file;
 
         $config['production'] = true;
-        file_put_contents($file, '<?php return '.var_export($config, true).';'.PHP_EOL);
 
         $this->info('Moving configuration to production mode...');
+
+        file_put_contents($file, '<?php return '.var_export($config, true).';'.PHP_EOL);
 
         return $this;
     }
@@ -198,7 +201,7 @@ class Builder extends Command
      */
     protected function finish(): Builder
     {
-        file_put_contents(BASE_PATH.'/config/app.php', static::$config);
+        file_put_contents(BASE_PATH.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'app.php', static::$config);
 
         static::$config = null;
 
@@ -212,7 +215,7 @@ class Builder extends Command
     public function __destruct()
     {
         if (static::$config !== null) {
-            file_put_contents(BASE_PATH.'/config/app.php', static::$config);
+            file_put_contents(BASE_PATH.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'app.php', static::$config);
         }
     }
 }
