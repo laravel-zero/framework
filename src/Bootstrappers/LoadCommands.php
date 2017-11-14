@@ -91,12 +91,6 @@ class LoadCommands extends Bootstrapper
                 }
             )->toArray();
 
-        $paths = is_array($config->get('app.commands-paths')) ? $config->get('app.commands-paths') : [
-            base_path(
-                'app/Commands'
-            ),
-        ];
-
         $namespace = app()->getNamespace().'\\';
         if (! empty($paths)) {
             foreach ((new Finder)->in($paths)
