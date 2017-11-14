@@ -10,12 +10,18 @@
   <a href="LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square" alt="Software License"></img></a>
 </p>
 
-<h4><center>This is a <bold>community project</bold> and not an official Laravel one </center></h4>
+<h4> <center>This is a <bold>community project</bold> and not an official Laravel one </center></h4>
 
 Laravel Zero was created and maintained by [Nuno Maduro](https://github.com/nunomaduro). Laravel Zero is a micro-framework that provides an elegant starting point for your console application. **Unofficial** and customized version of Laravel optimized for building command-line applications.
 
 > **Note:** This repository contains the core code of the Laravel Zero framework. If you want to build an application using Laravel Zero, visit the main [Laravel Zero repository](https://github.com/laravel-zero/laravel-zero).
 
+------
+
+## Documentation
+
+For full documentation, visit [laravel-zero.com](http://laravel-zero.com/).
+
 ## License
 
-Laravel Zero is an open-sourced software licensed under the [MIT license](LICENSE.md).
+Laravel Zero is an open-sourced software licensed under the [MIT license](https://github.com/laravel-zero/laravel-zero/blob/stable/LICENSE.md).
