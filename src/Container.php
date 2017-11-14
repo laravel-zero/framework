@@ -22,19 +22,67 @@ class Container extends BaseContainer implements LaravelApplication
     }
 
     /**
-     * {@inheritdoc}
+     * Get the base path of the Laravel installation.
+     *
+     * @param  string  $path
+     * @return string
      */
-    public function basePath()
+    public function basePath($path = '')
     {
-        return BASE_PATH;
+        return BASE_PATH.($path ? "/$path" : $path);
     }
 
     /**
-     * {@inheritdoc}
+     * Get the path to the application configuration files.
+     *
+     * @param  string  $path
+     * @return string
      */
-    public function databasePath()
+    public function configPath($path = '')
     {
-        return config('database.path') ?: (BASE_PATH.'/database');
+        return BASE_PATH.'/config'.($path ? "/$path" : $path);
+    }
+
+    /**
+     * Get the path to the database directory.
+     *
+     * @param  string  $path
+     * @return string
+     */
+    public function databasePath($path = '')
+    {
+        return config('database.path') ?: (BASE_PATH.'/database'.($path ? "/$path" : $path));
+    }
+
+    /**
+     * Get the path to the language files.
+     *
+     * @return string
+     */
+    public function langPath()
+    {
+        return $this->resourcePath('lang');
+    }
+
+    /**
+     * Get the path to the resources directory.
+     *
+     * @param  string  $path
+     * @return string
+     */
+    public function resourcePath($path = '')
+    {
+        return BASE_PATH.'/resources'.($path ? "/$path" : $path);
+    }
+
+    /**
+     * Get the path to the storage directory.
+     *
+     * @return string
+     */
+    public function storagePath()
+    {
+        return BASE_PATH.'/storage';
     }
 
     /**
