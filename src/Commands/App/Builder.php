@@ -72,7 +72,7 @@ class Builder extends Command
      *
      * @return $this
      */
-    protected function build(string $name): Builder
+    protected function build(string $name): self
     {
         $this->prepare()
             ->compile($name)
@@ -92,7 +92,7 @@ class Builder extends Command
      *
      * @return $this
      */
-    protected function compile(string $name): Builder
+    protected function compile(string $name): self
     {
         $this->info('Compiling code...');
 
@@ -133,7 +133,7 @@ class Builder extends Command
      *
      * @return $this
      */
-    protected function makeFolder(): Builder
+    protected function makeFolder(): self
     {
         if (! file_exists(self::BUILD_PATH)) {
             mkdir(self::BUILD_PATH);
@@ -149,7 +149,7 @@ class Builder extends Command
      *
      * @return $this
      */
-    protected function cleanUp(string $name): Builder
+    protected function cleanUp(string $name): self
     {
         $file = self::BUILD_PATH."/$name";
         rename("$file.phar", $file);
@@ -164,7 +164,7 @@ class Builder extends Command
      *
      * @return $this
      */
-    protected function setPermissions($name): Builder
+    protected function setPermissions($name): self
     {
         $file = self::BUILD_PATH."/$name";
         chmod($file, 0755);
@@ -177,7 +177,7 @@ class Builder extends Command
      *
      * @return $this
      */
-    protected function prepare(): Builder
+    protected function prepare(): self
     {
         $file = BASE_PATH.'/config/app.php';
         static::$config = file_get_contents($file);
@@ -196,7 +196,7 @@ class Builder extends Command
      *
      * @return $this
      */
-    protected function finish(): Builder
+    protected function finish(): self
     {
         file_put_contents(BASE_PATH.'/config/app.php', static::$config);
 
