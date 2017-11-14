@@ -79,7 +79,6 @@ class LoadCommands extends Bootstrapper
     {
         $commands = [];
 
-<<<<<<< HEAD
         $paths = collect($config->get('app.commands-paths', ["Commands"]))
             ->filter(
                 function ($path) {
@@ -91,13 +90,12 @@ class LoadCommands extends Bootstrapper
                     return base_path('app'.DIRECTORY_SEPARATOR.$path);
                 }
             )->toArray();
-=======
+
         $paths = is_array($config->get('app.commands-paths')) ? $config->get('app.commands-paths') : [
             base_path(
                 'app/Commands'
             ),
         ];
->>>>>>> 8a391faefb224f68ab81faf2b1ccf7dabdc22f07
 
         $namespace = app()->getNamespace().'\\';
         if (! empty($paths)) {
