@@ -131,4 +131,3 @@ if (! function_exists('storage_path')) {
         return app()->storagePath().($path ? DIRECTORY_SEPARATOR.$path : $path);
     }
 }
-
