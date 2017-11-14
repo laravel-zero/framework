@@ -18,23 +18,75 @@ class Container extends BaseContainer implements LaravelApplication
      */
     public function version()
     {
-        return config('app.name');
+        return config('app.version');
     }
 
     /**
-     * {@inheritdoc}
+     * Get the base path of the Laravel installation.
+     *
+     * @param  string $path
+     *
+     * @return string
      */
-    public function basePath()
+    public function basePath($path = '')
     {
-        return BASE_PATH;
+        return BASE_PATH.($path ? DIRECTORY_SEPARATOR.$path : $path);
     }
 
     /**
-     * {@inheritdoc}
+     * Get the path to the application configuration files.
+     *
+     * @param  string $path
+     *
+     * @return string
      */
-    public function databasePath()
+    public function configPath($path = '')
     {
-        return config('database.path') ?: (BASE_PATH.'/database');
+        return BASE_PATH.DIRECTORY_SEPARATOR.'config'.($path ? DIRECTORY_SEPARATOR.$path : $path);
+    }
+
+    /**
+     * Get the path to the database directory.
+     *
+     * @param  string $path
+     *
+     * @return string
+     */
+    public function databasePath($path = '')
+    {
+        return (BASE_PATH.DIRECTORY_SEPARATOR.'database').($path ? DIRECTORY_SEPARATOR.$path : $path);
+    }
+
+    /**
+     * Get the path to the language files.
+     *
+     * @return string
+     */
+    public function langPath()
+    {
+        return $this->resourcePath('lang');
+    }
+
+    /**
+     * Get the path to the resources directory.
+     *
+     * @param  string $path
+     *
+     * @return string
+     */
+    public function resourcePath($path = '')
+    {
+        return BASE_PATH.DIRECTORY_SEPARATOR.'resources'.($path ? DIRECTORY_SEPARATOR.$path : $path);
+    }
+
+    /**
+     * Get the path to the storage directory.
+     *
+     * @return string
+     */
+    public function storagePath()
+    {
+        return BASE_PATH.DIRECTORY_SEPARATOR.'storage';
     }
 
     /**
