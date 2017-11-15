@@ -59,8 +59,6 @@ class Application extends BaseApplication implements ApplicationContract
         $this->dispatcher = $dispatcher ?: new Dispatcher($this->container);
         $this->bootstrappersFactory = $bootstrappersFactory ?: new Bootstrappers\Factory;
         parent::__construct($this->container, $this->dispatcher, '');
-
-        $this->setCatchExceptions(true);
     }
 
     /**
