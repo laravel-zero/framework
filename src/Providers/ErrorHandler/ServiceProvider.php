@@ -3,6 +3,7 @@
 namespace LaravelZero\Framework\Providers\ErrorHandler;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use LaravelZero\Framework\Contracts\Application as ApplicationContract;
 use LaravelZero\Framework\Contracts\Providers\ErrorHandler as ErrorHandlerContract;
 
 /**
@@ -17,7 +18,12 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function boot(ErrorHandlerContract $errorHandler): void
     {
-        $errorHandler->register();
+        if ($this->app->environment() === 'production') {
+            $this->app->make(ApplicationContract::class)
+                ->setCatchExceptions(true);
+        } else {
+            $errorHandler->register();
+        }
     }
 
     /**
