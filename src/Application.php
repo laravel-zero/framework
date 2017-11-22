@@ -99,7 +99,8 @@ class Application extends BaseApplication implements ApplicationContract
      */
     protected function doRunCommand(Command $command, InputInterface $input, OutputInterface $output)
     {
-        $this->container->make(ErrorHandlerContract::class)->setOutput($output);
+        $this->container->make(ErrorHandlerContract::class)
+            ->setOutput($output);
 
         return parent::doRunCommand($this->runningCommand = $command, $input, $output);
     }
