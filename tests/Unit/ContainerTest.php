@@ -13,7 +13,7 @@ class ContainerTest extends TestCase
         $container = new Container;
 
         $this->assertEquals(BASE_PATH, $container->basePath());
-        $this->assertEquals(BASE_PATH.'/Unit', $container->basePath('Unit'));
+        $this->assertEquals(BASE_PATH.DIRECTORY_SEPARATOR.'Unit', $container->basePath('Unit'));
     }
 
     /** @test */
@@ -21,8 +21,11 @@ class ContainerTest extends TestCase
     {
         $container = new Container;
 
-        $this->assertEquals(BASE_PATH.'/config', $container->configPath());
-        $this->assertEquals(BASE_PATH.'/config/custom.php', $container->configPath('custom.php'));
+        $this->assertEquals(BASE_PATH.DIRECTORY_SEPARATOR.'config', $container->configPath());
+        $this->assertEquals(
+            BASE_PATH.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'custom.php',
+            $container->configPath('custom.php')
+        );
     }
 
     /** @test */
@@ -30,20 +33,26 @@ class ContainerTest extends TestCase
     {
         $container = new Container;
 
-        $this->assertEquals(BASE_PATH.'/database', $container->databasePath());
-        $this->assertEquals(BASE_PATH.'/database/migrations', $container->databasePath('migrations'));
+        $this->assertEquals(BASE_PATH.DIRECTORY_SEPARATOR.'database', $container->databasePath());
+        $this->assertEquals(
+            BASE_PATH.DIRECTORY_SEPARATOR.'database'.DIRECTORY_SEPARATOR.'migrations',
+            $container->databasePath('migrations')
+        );
     }
 
     /** @test */
     public function it_has_a_lang_path_getter()
     {
-        $this->assertEquals(BASE_PATH.'/resources/lang', (new Container)->langPath());
+        $this->assertEquals(
+            BASE_PATH.DIRECTORY_SEPARATOR.'resources'.DIRECTORY_SEPARATOR.'lang',
+            (new Container)->langPath()
+        );
     }
 
     /** @test */
     public function it_has_a_storage_path_getter()
     {
-        $this->assertEquals(BASE_PATH.'/storage', (new Container)->storagePath());
+        $this->assertEquals(BASE_PATH.DIRECTORY_SEPARATOR.'storage', (new Container)->storagePath());
     }
 
     /** @test */
@@ -51,8 +60,14 @@ class ContainerTest extends TestCase
     {
         $container = new Container;
 
-        $this->assertEquals(BASE_PATH.'/resources', $container->resourcePath());
-        $this->assertEquals(BASE_PATH.'/resources/assets/js', $container->resourcePath('assets/js'));
-        $this->assertEquals(BASE_PATH.'/resources/assets/js/app.php', $container->resourcePath('assets/js/app.php'));
+        $this->assertEquals(BASE_PATH.DIRECTORY_SEPARATOR.'resources', $container->resourcePath());
+        $this->assertEquals(
+            BASE_PATH.DIRECTORY_SEPARATOR.'resources'.DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'js',
+            $container->resourcePath('assets'.DIRECTORY_SEPARATOR.'js')
+        );
+        $this->assertEquals(
+            BASE_PATH.DIRECTORY_SEPARATOR.'resources'.DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'js'.DIRECTORY_SEPARATOR.'app.php',
+            $container->resourcePath('assets'.DIRECTORY_SEPARATOR.'js'.DIRECTORY_SEPARATOR.'app.php')
+        );
     }
 }
