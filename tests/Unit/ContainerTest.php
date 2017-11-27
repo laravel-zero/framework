@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 use LaravelZero\Framework\Container;
 
 class ContainerTest extends TestCase
