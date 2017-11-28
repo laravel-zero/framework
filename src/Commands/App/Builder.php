@@ -101,7 +101,7 @@ class Builder extends Command
 
         $structure = config('app.structure') ?: $this->structure;
 
-        $compiler->buildFromDirectory(BASE_PATH, preg_quote('#'.implode('|', $structure).'#'));
+        $compiler->buildFromDirectory(BASE_PATH, '#'.implode('|', $structure).'#');
         $compiler->setStub(
             "#!/usr/bin/env php \n".$compiler->createDefaultStub('bootstrap'.DIRECTORY_SEPARATOR.'init.php')
         );
