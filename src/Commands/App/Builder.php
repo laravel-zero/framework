@@ -100,8 +100,14 @@ class Builder extends Command
             ->getCompiler($name);
 
         $structure = config('app.structure') ?: $this->structure;
-
-        $compiler->buildFromDirectory(BASE_PATH, '#'.implode('|', $structure).'#');
+        
+        // See - https://github.com/laravel-zero/framework/pull/102
+        if (stristr(PHP_OS, "WINNT") != FALSE ) {
+            $compiler->buildFromDirectory(BASE_PATH, preg_quote('#'.implode('|', $structure).'#'));
+        } else {
+            // Linux, OS X
+            $compiler->buildFromDirectory(BASE_PATH, '#'.implode('|', $structure).'#');
+        }
         $compiler->setStub(
             "#!/usr/bin/env php \n".$compiler->createDefaultStub('bootstrap'.DIRECTORY_SEPARATOR.'init.php')
         );
