@@ -12,6 +12,11 @@ return [
     'with-migrations' => true,
 
     /*
+     * If true, seeds commands will be available.
+     */
+    'with-seeds' => true,
+
+    /*
      * Here goes the application database connection configuration. By
      * default, we use `sqlite` as a driver. Feel free to use another
      * driver, be sure to check the database component documentation.
