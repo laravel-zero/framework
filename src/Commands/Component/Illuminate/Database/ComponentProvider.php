@@ -51,6 +51,16 @@ class ComponentProvider extends AbstractComponentProvider
 
         $this->app->make(\Illuminate\Database\Capsule\Manager::class)
             ->setAsGlobal();
+
+        if ($this->app->make('config')
+            ->get('database.with-seeds')) {
+            $this->commands(
+                [
+                    \Illuminate\Database\Console\Seeds\SeedCommand::class,
+                    \Illuminate\Database\Console\Seeds\SeederMakeCommand::class,
+                ]
+            );
+        }
     }
 
     /**
@@ -63,7 +73,10 @@ class ComponentProvider extends AbstractComponentProvider
         $config = $this->app->make('config');
         $config->set('database.migrations', $config->get('database.migrations') ?: 'migrations');
         $this->registerServiceProvider(\Illuminate\Database\MigrationServiceProvider::class);
-        $this->app->alias('migration.repository', \Illuminate\Database\Migrations\MigrationRepositoryInterface::class);
+        $this->app->alias(
+            'migration.repository',
+            \Illuminate\Database\Migrations\MigrationRepositoryInterface::class
+        );
 
         if ($this->app->make('config')
             ->get('database.with-migrations')) {

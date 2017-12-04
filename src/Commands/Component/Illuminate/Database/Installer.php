@@ -44,11 +44,15 @@ class Installer extends BaseInstaller implements InstallerContract
         $composer->require('illuminate/filesystem "5.5.*"');
 
         $this->info('Creating (database/database.sqlite)...');
-        shell_exec('cd '.BASE_PATH.'&& mkdir database && touch database/database.sqlite');
-        shell_exec('cd '.BASE_PATH.'/database && mkdir migrations');
+        shell_exec('cd '.BASE_PATH.'&& mkdir database && touch database' . DIRECTORY_SEPARATOR . 'database.sqlite');
+        shell_exec('cd '.BASE_PATH.DIRECTORY_SEPARATOR.'database && mkdir migrations');
+        shell_exec('cd '.BASE_PATH.DIRECTORY_SEPARATOR.'database && mkdir seeds');
 
         $this->info('Copying default config...');
-        shell_exec('cp -n '.__DIR__.'/config/database.php '.config_path('database.php'));
+        shell_exec('cp -n '.__DIR__.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'database.php '.config_path('database.php'));
+
+        $this->info('Create database seeder...');
+        shell_exec('cp -n '.__DIR__.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php '.database_path('seeds').DIRECTORY_SEPARATOR.'DatabaseSeeder.php');
 
         $this->info('Component installed! Usage:');
         $this->comment(
