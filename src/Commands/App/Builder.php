@@ -104,7 +104,7 @@ class Builder extends Command
         // See - https://github.com/laravel-zero/framework/pull/102
         $regex = '#'.implode('|', $structure).'#';
 
-        if (stristr(PHP_OS, "WINNT") != FALSE) {
+        if (stristr(PHP_OS, 'WINNT') !== false) {
             $compiler->buildFromDirectory(BASE_PATH, str_replace('\\', '/', $regex));
         } else {
             // Linux, OS X
