@@ -100,7 +100,7 @@ class Builder extends Command
             ->getCompiler($name);
 
         $structure = config('app.structure') ?: $this->structure;
-        
+
         $regex = '#'.implode('|', $structure).'#';
 
         if (stristr(PHP_OS, 'WINNT') !== false) {

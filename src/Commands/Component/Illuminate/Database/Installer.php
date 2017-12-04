@@ -44,7 +44,7 @@ class Installer extends BaseInstaller implements InstallerContract
         $composer->require('illuminate/filesystem "5.5.*"');
 
         $this->info('Creating (database/database.sqlite)...');
-        shell_exec('cd '.BASE_PATH.'&& mkdir database && touch database' . DIRECTORY_SEPARATOR . 'database.sqlite');
+        shell_exec('cd '.BASE_PATH.'&& mkdir database && touch database'.DIRECTORY_SEPARATOR.'database.sqlite');
         shell_exec('cd '.BASE_PATH.DIRECTORY_SEPARATOR.'database && mkdir migrations');
         shell_exec('cd '.BASE_PATH.DIRECTORY_SEPARATOR.'database && mkdir seeds');
 
