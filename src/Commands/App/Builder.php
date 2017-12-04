@@ -101,7 +101,6 @@ class Builder extends Command
 
         $structure = config('app.structure') ?: $this->structure;
         
-        // See - https://github.com/laravel-zero/framework/pull/102
         $regex = '#'.implode('|', $structure).'#';
 
         if (stristr(PHP_OS, 'WINNT') !== false) {
