@@ -100,8 +100,15 @@ class Builder extends Command
             ->getCompiler($name);
 
         $structure = config('app.structure') ?: $this->structure;
+        
+        $regex = '#'.implode('|', $structure).'#';
 
-        $compiler->buildFromDirectory(BASE_PATH, '#'.implode('|', $structure).'#');
+        if (stristr(PHP_OS, 'WINNT') !== false) {
+            $compiler->buildFromDirectory(BASE_PATH, str_replace('\\', '/', $regex));
+        } else {
+            // Linux, OS X
+            $compiler->buildFromDirectory(BASE_PATH, $regex);
+        }
         $compiler->setStub(
             "#!/usr/bin/env php \n".$compiler->createDefaultStub('bootstrap'.DIRECTORY_SEPARATOR.'init.php')
         );
