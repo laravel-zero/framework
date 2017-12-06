@@ -14,6 +14,13 @@ use Illuminate\Contracts\Foundation\Application as LaravelApplication;
 class Container extends BaseContainer implements LaravelApplication
 {
     /**
+     * A custom callback used to configure Monolog.
+     *
+     * @var callable|null
+     */
+    protected $monologConfigurator;
+
+    /**
      * {@inheritdoc}
      */
     public function version()
@@ -183,5 +190,39 @@ class Container extends BaseContainer implements LaravelApplication
     public function getCachedPackagesPath()
     {
         throw new NotImplementedException;
+    }
+
+    /**
+     * Define a callback to be used to configure Monolog.
+     *
+     * @param  callable $callback
+     *
+     * @return $this
+     */
+    public function configureMonologUsing(callable $callback)
+    {
+        $this->monologConfigurator = $callback;
+
+        return $this;
+    }
+
+    /**
+     * Determine if the application has a custom Monolog configurator.
+     *
+     * @return bool
+     */
+    public function hasMonologConfigurator()
+    {
+        return ! is_null($this->monologConfigurator);
+    }
+
+    /**
+     * Get the custom Monolog configurator for the application.
+     *
+     * @return callable
+     */
+    public function getMonologConfigurator()
+    {
+        return $this->monologConfigurator;
     }
 }
