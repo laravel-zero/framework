@@ -36,7 +36,7 @@ abstract class Command extends BaseCommand
     /**
      * Define the command's schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @param  \Illuminate\Console\Scheduling\Schedule $schedule
      *
      * @return void
      */
@@ -64,5 +64,23 @@ abstract class Command extends BaseCommand
             ->setIcon($icon);
 
         $notifier->send($notification);
+    }
+
+    /**
+     * Performs the given task and outputs
+     * the result.
+     *
+     * @param string $title
+     * @param callable $task
+     *
+     * @return $this
+     */
+    public function task(string $title, callable $task)
+    {
+        $this->output->writeln(
+            "$title: ".($task() ? "<info>✔</info>" : "<error>failed</error>")
+        );
+
+        return $this;
     }
 }
