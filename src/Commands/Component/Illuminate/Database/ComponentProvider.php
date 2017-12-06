@@ -60,6 +60,16 @@ class ComponentProvider extends AbstractComponentProvider
                     \Illuminate\Database\Console\Seeds\SeederMakeCommand::class,
                 ]
             );
+
+            collect(
+                $this->app->make('files')
+                    ->files(database_path('seeds'))
+            )->each(
+                function ($file) {
+                    $this->app->make('files')
+                        ->requireOnce($file);
+                }
+            );
         }
     }
 
