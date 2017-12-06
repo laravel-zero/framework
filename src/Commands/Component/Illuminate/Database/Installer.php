@@ -3,7 +3,6 @@
 namespace LaravelZero\Framework\Commands\Component\Illuminate\Database;
 
 use LaravelZero\Framework\Commands\Component\Installer as BaseInstaller;
-use LaravelZero\Framework\Contracts\Providers\Composer as ComposerContract;
 use LaravelZero\Framework\Contracts\Commands\Component\Installer as InstallerContract;
 
 /**
@@ -24,6 +23,11 @@ class Installer extends BaseInstaller implements InstallerContract
     protected $description = 'Installs illuminate/database - Eloquent';
 
     /**
+     * The config file path.
+     */
+    const CONFIG_FILE = __DIR__.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'database.php';
+
+    /**
      * {@inheritdoc}
      */
     public function getComponentName(): string
@@ -36,32 +40,48 @@ class Installer extends BaseInstaller implements InstallerContract
      */
     public function install(): bool
     {
-        $composer = $this->getContainer()
-            ->make(ComposerContract::class);
+        $this->require('illuminate/database "5.5.*"');
+        $this->task(
+            'Creating directories and files under database folder',
+            function () {
+                $this->files->makeDirectory(database_path('migrations'), 0755, true, true);
+                if (! $this->files->exists(database_path('database.sqlite'))) {
+                    $this->files->put(database_path('database.sqlite'), '');
+                }
+                $this->files->makeDirectory(database_path('seeds'), 0755, false, true);
+                if (! $this->files->exists(database_path('seeds').DIRECTORY_SEPARATOR.'DatabaseSeeder.php')) {
+                    $this->files->copy(
+                        __DIR__.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php',
+                        database_path('seeds').DIRECTORY_SEPARATOR.'DatabaseSeeder.php'
+                    );
+                }
 
-        $this->info('Pulling illuminate/database...');
-        $composer->require('illuminate/database "5.5.*"');
-        $composer->require('illuminate/filesystem "5.5.*"');
+                return true;
+            }
+        );
 
-        $this->info('Creating (database/database.sqlite)...');
-        shell_exec('cd '.BASE_PATH.'&& mkdir database && touch database/database.sqlite');
-        shell_exec('cd '.BASE_PATH.'/database && mkdir migrations');
+        $this->task(
+            'Creating default config',
+            function () {
+                if (! $this->files->exists(static::CONFIG_FILE)) {
+                    $this->files->copy(
+                        static::CONFIG_FILE,
+                        config_path('database.php')
+                    );
+                }
 
-        $this->info('Copying default config...');
-        shell_exec('cp -n '.__DIR__.'/config/database.php '.config_path('database.php'));
+                return true;
+            }
+        );
 
-        $this->info('Component installed! Usage:');
+        $this->info('Usage:');
         $this->comment(
             '
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
+$ php <your-application-name> make:migration create_users_table
+$ php <your-application-name> migrate
 
-Schema::create(\'users\', function ($table) {
-    $table->increments(\'id\');
-    $table->string(\'email\')->unique();
-    $table->timestamps();
-});
+use Illuminate\Support\Facades\DB;
 
 DB::table(\'users\')->insert(
     [\'email\' => \'enunomaduro@gmail.com\']

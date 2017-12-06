@@ -30,6 +30,7 @@ class LoadCommands extends Bootstrapper
         Commands\App\Builder::class,
         Commands\App\Renamer::class,
         Commands\App\CommandMaker::class,
+        Commands\Component\Illuminate\Log\Installer::class,
         Commands\Component\Illuminate\Database\Installer::class,
     ];
 
