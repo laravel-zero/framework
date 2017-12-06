@@ -61,15 +61,17 @@ class ComponentProvider extends AbstractComponentProvider
                 ]
             );
 
-            collect(
-                $this->app->make('files')
-                    ->files(database_path('seeds'))
-            )->each(
-                function ($file) {
+            if (is_dir(database_path('seeds'))) {
+                collect(
                     $this->app->make('files')
-                        ->requireOnce($file);
-                }
-            );
+                        ->files(database_path('seeds'))
+                )->each(
+                    function ($file) {
+                        $this->app->make('files')
+                            ->requireOnce($file);
+                    }
+                );
+            }
         }
     }
 
