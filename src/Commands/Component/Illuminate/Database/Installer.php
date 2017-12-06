@@ -63,7 +63,7 @@ class Installer extends BaseInstaller implements InstallerContract
         $this->task(
             'Creating default config',
             function () {
-                if (! $this->files->exists(static::CONFIG_FILE)) {
+                if (! $this->files->exists(config_path('database.php'))) {
                     $this->files->copy(
                         static::CONFIG_FILE,
                         config_path('database.php')
