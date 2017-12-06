@@ -45,12 +45,16 @@ class Installer extends BaseInstaller implements InstallerContract
             'Creating directories and files under database folder',
             function () {
                 $this->files->makeDirectory(database_path('migrations'), 0755, true, true);
-                $this->files->put(database_path('database.sqlite'), '');
+                if (! $this->files->exists(database_path('database.sqlite'))) {
+                    $this->files->put(database_path('database.sqlite'), '');
+                }
                 $this->files->makeDirectory(database_path('seeds'), 0755, false, true);
-                $this->files->copy(
-                    __DIR__.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php',
-                    database_path('seeds').DIRECTORY_SEPARATOR.'DatabaseSeeder.php'
-                );
+                if (! $this->files->exists(database_path('seeds').DIRECTORY_SEPARATOR.'DatabaseSeeder.php')) {
+                    $this->files->copy(
+                        __DIR__.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php',
+                        database_path('seeds').DIRECTORY_SEPARATOR.'DatabaseSeeder.php'
+                    );
+                }
 
                 return true;
             }
