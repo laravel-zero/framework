@@ -16,7 +16,7 @@ class Constants extends Bootstrapper
      */
     public function bootstrap(): void
     {
-        if (!empty($pharPath = Phar::running(false))) {
+        if (! empty($pharPath = Phar::running(false))) {
             $basePath = dirname($pharPath);
         } else {
             $basePath = defined('BASE_PATH') ? BASE_PATH : '';
