@@ -25,7 +25,7 @@ abstract class TestCase extends BaseTestCase
     protected function setUp(): void
     {
         if (! defined('BASE_PATH')) {
-            define('BASE_PATH', __DIR__ . DIRECTORY_SEPARATOR . 'Application');
+            define('BASE_PATH', __DIR__.DIRECTORY_SEPARATOR.'Application');
         }
 
         $this->app = $this->createApplication();
