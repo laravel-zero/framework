@@ -3,8 +3,8 @@
 namespace Tests\Integration;
 
 use Tests\TestCase;
-use Tests\FakeExtraCommand;
-use Tests\FakeDefaultCommand;
+use Tests\Application\FakeExtraCommand;
+use Tests\Application\FakeDefaultCommand;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Config\Repository;
 use LaravelZero\Framework\Contracts\Application as ApplicationContract;

@@ -1,17 +1,17 @@
 <?php
 
-namespace Tests;
+namespace Tests\Application;
 
 use LaravelZero\Framework\Commands\Command;
 
-class FakeDefaultCommand extends Command
+class FakeExtraCommand extends Command
 {
     /**
      * The name of the console command.
      *
      * @var string
      */
-    protected $name = 'fake:default';
+    protected $name = 'fake:extra';
 
     /**
      * {@inheritdoc}
