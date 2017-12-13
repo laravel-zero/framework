@@ -2,6 +2,7 @@
 
 namespace LaravelZero\Framework;
 
+use RuntimeException;
 use Illuminate\Container\Container as BaseContainer;
 use LaravelZero\Framework\Exceptions\NotImplementedException;
 use Illuminate\Contracts\Foundation\Application as LaravelApplication;
@@ -19,6 +20,13 @@ class Container extends BaseContainer implements LaravelApplication
      * @var callable|null
      */
     protected $monologConfigurator;
+
+    /**
+     * The application namespace.
+     *
+     * @var string
+     */
+    protected $namespace;
 
     /**
      * {@inheritdoc}
@@ -117,7 +125,18 @@ class Container extends BaseContainer implements LaravelApplication
      */
     public function getNamespace()
     {
-        return 'App';
+        if (! is_null($this->namespace)) {
+            return $this->namespace;
+        }
+        $composer = json_decode(file_get_contents(base_path('composer.json')), true);
+        foreach ((array) data_get($composer, 'autoload.psr-4') as $namespace => $path) {
+            foreach ((array) $path as $pathChoice) {
+                if (realpath(app_path()) == realpath(base_path().'/'.$pathChoice)) {
+                    return $this->namespace = $namespace;
+                }
+            }
+        }
+        throw new RuntimeException('Unable to detect application namespace.');
     }
 
     /**
