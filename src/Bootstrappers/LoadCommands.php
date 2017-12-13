@@ -92,7 +92,7 @@ class LoadCommands extends Bootstrapper
                 }
             )->toArray();
 
-        $namespace = app()->getNamespace().'\\';
+        $namespace = app()->getNamespace();
         if (! empty($paths)) {
             foreach ((new Finder)->in($paths)
                          ->files() as $command) {
