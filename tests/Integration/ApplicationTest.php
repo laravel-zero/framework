@@ -17,10 +17,10 @@ class ApplicationTest extends TestCase
         $container = ($application = $this->createApplication())
             ->getContainer();
 
-        $this->assertTrue(Container::getInstance() === $container);
-        $this->assertTrue($container->make('app') === $container);
-        $this->assertTrue($container->make(Container::class) === $container);
-        $this->assertTrue($container->make(ApplicationContract::class) === $application);
+        $this->assertSame($container, Container::getInstance());
+        $this->assertSame($container, $container->make('app'));
+        $this->assertSame($container, $container->make(Container::class));
+        $this->assertSame($application, $container->make(ApplicationContract::class));
         $this->assertInstanceOf(Repository::class, $container->make('config'));
     }
 
@@ -30,8 +30,8 @@ class ApplicationTest extends TestCase
         // @todo Test production config.
         $app = $this->createApplication();
 
-        $this->assertTrue($app->getName() === 'Test name');
-        $this->assertTrue($app->getVersion() === 'Test version');
+        $this->assertSame('Test name', $app->getName());
+        $this->assertSame('Test version', $app->getVersion());
 
         $commands = [
             FakeDefaultCommand::class,
@@ -47,7 +47,7 @@ class ApplicationTest extends TestCase
             ->toArray();
 
         foreach ($commands as $command) {
-            $this->assertTrue(in_array($command, $appCommands));
+            $this->assertContains($command, $appCommands);
         }
     }
 
@@ -56,9 +56,6 @@ class ApplicationTest extends TestCase
     {
         $app = $this->createApplication();
 
-        $this->assertTrue(
-            $app->getContainer()
-                ->make('foo') === 'bar'
-        );
+        $this->assertSame('bar', $app->getContainer()->make('foo'));
     }
 }
