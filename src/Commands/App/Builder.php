@@ -29,7 +29,7 @@ class Builder extends Command
         'bootstrap'.DIRECTORY_SEPARATOR,
         'vendor'.DIRECTORY_SEPARATOR,
         'config'.DIRECTORY_SEPARATOR,
-        'composer.json'
+        'composer.json',
     ];
 
     /**
