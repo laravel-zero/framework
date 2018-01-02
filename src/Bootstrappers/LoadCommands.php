@@ -30,6 +30,7 @@ class LoadCommands extends Bootstrapper
         Commands\App\Builder::class,
         Commands\App\Renamer::class,
         Commands\App\CommandMaker::class,
+        Commands\Component\Illuminate\Events\Installer::class,
         Commands\Component\Illuminate\Log\Installer::class,
         Commands\Component\Illuminate\Database\Installer::class,
     ];
@@ -97,10 +98,10 @@ class LoadCommands extends Bootstrapper
             foreach ((new Finder)->in($paths)
                          ->files() as $command) {
                 $command = $namespace.str_replace(
-                        ['/', '.php'],
-                        ['\\', ''],
-                        Str::after($command->getPathname(), base_path('app').DIRECTORY_SEPARATOR)
-                    );
+                    ['/', '.php'],
+                    ['\\', ''],
+                    Str::after($command->getPathname(), base_path('app').DIRECTORY_SEPARATOR)
+                );
                 if (is_subclass_of($command, Command::class) && ! (new ReflectionClass($command))->isAbstract()) {
                     $commands[] = $command;
                 }
