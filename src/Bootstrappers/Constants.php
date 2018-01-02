@@ -23,7 +23,7 @@ class Constants extends Bootstrapper
         }
 
         if (! defined('ARTISAN_BINARY')) {
-            define('ARTISAN_BINARY', $basePath.'/'.basename($_SERVER['SCRIPT_FILENAME']));
+            define('ARTISAN_BINARY', $basePath.DIRECTORY_SEPARATOR.basename($_SERVER['SCRIPT_FILENAME']));
         }
     }
 }

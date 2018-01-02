@@ -4,11 +4,11 @@ return [
     'name' => 'Test name',
     'version' => 'Test version',
     'production' => false,
-    'default-command' => Tests\Application\FakeDefaultCommand::class,
+    'default-command' => Tests\Application\App\Commands\FakeDefaultCommand::class,
     'commands' => [
-        Tests\Application\FakeExtraCommand::class,
+        Tests\Application\App\OtherCommands\FakeOtherCommand::class,
     ],
     'providers' => [
-        Tests\Application\FakeServiceProvider::class,
+        Tests\Application\App\Providers\FakeServiceProvider::class,
     ],
 ];
