@@ -33,7 +33,7 @@ interface Application extends ApplicationContract
     /**
      * Returns the application's container.
      *
-     * @return \Illuminate\Contracts\Container\Container
+     * @return \Illuminate\Contracts\Foundation\Application
      */
     public function getContainer();
 
