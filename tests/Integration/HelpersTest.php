@@ -3,11 +3,50 @@
 namespace Tests\Integration;
 
 use Tests\TestCase;
+use LaravelZero\Framework\Container;
 
 class HelpersTest extends TestCase
 {
     /** @test */
-    public function base_path_helper_function()
+    public function app_helper(): void
+    {
+        $this->assertSame(app(), Container::getInstance());
+
+        Container::getInstance()->bind('foo', function () {
+            return 'bar';
+        });
+
+        $this->assertEquals(app('foo'), 'bar');
+    }
+
+    /** @test */
+    public function app_path_helper(): void
+    {
+        $this->assertSame(app_path(), app('path'));
+
+        $this->assertEquals(app_path('foo'), app('path') . DIRECTORY_SEPARATOR . 'foo');
+    }
+
+    /** @test */
+    public function config_helper(): void
+    {
+        $this->assertSame(config(), app('config'));
+
+        config(['foo' => 'bar']);
+
+        $this->assertEquals(app('config')->get('foo'), 'bar');
+
+        $this->assertEquals(app('config')->get('foo2', 2), 2);
+    }
+
+    /** @test */
+    public function event_helper(): void
+    {
+        // @todo ...
+    }
+
+    /** @test */
+    public function base_path_helper(): void
     {
         $this->assertEquals(BASE_PATH, base_path());
         $this->assertEquals(
@@ -17,7 +56,7 @@ class HelpersTest extends TestCase
     }
 
     /** @test */
-    public function config_path_helper_function()
+    public function config_path_helper(): void
     {
         $this->assertEquals(BASE_PATH.DIRECTORY_SEPARATOR.'config', config_path());
         $this->assertEquals(
@@ -31,7 +70,7 @@ class HelpersTest extends TestCase
     }
 
     /** @test */
-    public function database_path_helper_function()
+    public function database_path_helper(): void
     {
         $this->assertEquals(BASE_PATH.DIRECTORY_SEPARATOR.'database', database_path());
         $this->assertEquals(
@@ -45,7 +84,7 @@ class HelpersTest extends TestCase
     }
 
     /** @test */
-    public function resource_path_helper_function()
+    public function resource_path_helper(): void
     {
         $this->assertEquals(BASE_PATH.DIRECTORY_SEPARATOR.'resources', resource_path());
         $this->assertEquals(
@@ -59,7 +98,7 @@ class HelpersTest extends TestCase
     }
 
     /** @test */
-    public function storage_path_helper_function()
+    public function storage_path_helper(): void
     {
         $this->assertEquals(BASE_PATH.DIRECTORY_SEPARATOR.'storage', storage_path());
         $this->assertEquals(
