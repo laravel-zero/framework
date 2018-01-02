@@ -24,7 +24,7 @@ class HelpersTest extends TestCase
     {
         $this->assertSame(app_path(), app('path'));
 
-        $this->assertEquals(app_path('foo'), app('path') . DIRECTORY_SEPARATOR . 'foo');
+        $this->assertEquals(app_path('foo'), app('path').DIRECTORY_SEPARATOR.'foo');
     }
 
     /** @test */
