@@ -2,9 +2,9 @@
 
 namespace Tests\Unit;
 
-use Illuminate\Contracts\Config\Repository;
 use Tests\TestCase;
 use LaravelZero\Framework\Container;
+use Illuminate\Contracts\Config\Repository;
 
 class ContainerTest extends TestCase
 {
