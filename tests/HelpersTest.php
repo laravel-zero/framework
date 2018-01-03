@@ -2,7 +2,6 @@
 
 namespace Tests;
 
-use Tests\TestCase;
 use LaravelZero\Framework\Container;
 
 class HelpersTest extends TestCase
