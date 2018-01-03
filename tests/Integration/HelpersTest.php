@@ -43,6 +43,7 @@ class HelpersTest extends TestCase
     public function event_helper(): void
     {
         // @todo ...
+        $this->assertTrue(true);
     }
 
     /** @test */

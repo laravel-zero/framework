@@ -124,7 +124,8 @@ class ContainerTest extends TestCase
     /** @test */
     public function it_has_namespace_getter()
     {
-        // @todo
+        // @todo ...
+        $this->assertTrue(true);
     }
 
     /** @test */
