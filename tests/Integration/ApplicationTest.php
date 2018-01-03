@@ -3,12 +3,12 @@
 namespace Tests\Integration;
 
 use Tests\TestCase;
-use Illuminate\Container\Container;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Contracts\Config\Repository;
 use App\Commands\FakeFooCommand;
+use Illuminate\Container\Container;
 use App\Commands\FakeDefaultCommand;
+use Illuminate\Support\Facades\Config;
 use App\OtherCommands\FakeOtherCommand;
+use Illuminate\Contracts\Config\Repository;
 use LaravelZero\Framework\Contracts\Application as ApplicationContract;
 
 class ApplicationTest extends TestCase
