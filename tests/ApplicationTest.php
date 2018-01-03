@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Integration;
+namespace Tests;
 
 use Tests\TestCase;
 use Illuminate\Container\Container;
@@ -30,8 +30,6 @@ class ApplicationTest extends TestCase
     /** @test */
     public function it_reads_configuration_files()
     {
-        // @todo Test production config.
-
         $this->assertSame('Test name', $this->app->getName());
         $this->assertSame('Test version', $this->app->getVersion());
         $this->assertEquals(

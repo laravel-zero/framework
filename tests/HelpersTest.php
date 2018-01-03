@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Integration;
+namespace Tests;
 
 use Tests\TestCase;
 use LaravelZero\Framework\Container;
