@@ -6,9 +6,9 @@ use Tests\TestCase;
 use Illuminate\Container\Container;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Contracts\Config\Repository;
-use Tests\Application\App\Commands\FakeFooCommand;
-use Tests\Application\App\Commands\FakeDefaultCommand;
-use Tests\Application\App\OtherCommands\FakeOtherCommand;
+use App\Commands\FakeFooCommand;
+use App\Commands\FakeDefaultCommand;
+use App\OtherCommands\FakeOtherCommand;
 use LaravelZero\Framework\Contracts\Application as ApplicationContract;
 
 class ApplicationTest extends TestCase
