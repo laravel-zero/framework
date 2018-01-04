@@ -3,8 +3,8 @@
 namespace Tests;
 
 use LaravelZero\Framework\Commands\Command;
-use NunoMaduro\LaravelDesktopNotifier\Contracts\Notifier;
 use Symfony\Component\Console\Output\OutputInterface;
+use NunoMaduro\LaravelDesktopNotifier\Contracts\Notifier;
 
 class BaseCommandTest extends TestCase
 {
@@ -50,8 +50,8 @@ class BaseCommandTest extends TestCase
 
         $command->task(
             'foo', function () {
-            return true;
-        });
+                return true;
+            });
     }
 
     /** @test */
@@ -68,14 +68,13 @@ class BaseCommandTest extends TestCase
 
         $command->task(
             'bar', function () {
-            return false;
-        });
+                return false;
+            });
     }
 
     private function makeCommand()
     {
-        $command = new class extends Command
-        {
+        $command = new class extends Command {
             protected $name = 'foo:bar';
 
             public function handle(): void
