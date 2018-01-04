@@ -8,7 +8,7 @@ class CommandMakerTest extends TestCase
 {
     public function tearDown()
     {
-        File::delete(app_path('commands' . DIRECTORY_SEPARATOR . 'FooCommand.php'));
+        File::delete(app_path('commands'.DIRECTORY_SEPARATOR.'FooCommand.php'));
     }
 
     /** @test */
