@@ -2,8 +2,8 @@
 
 namespace LaravelZero\Framework\Commands\App;
 
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Commands\Command;
 
 /**
