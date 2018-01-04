@@ -12,5 +12,4 @@ script:
     - vendor/bin/phpunit
 
 after_success:
-    - composer require illuminate/database illuminate/log
     - php -d phar.readonly=0 ./vendor/bin/phpunit --coverage-clover=coverage.xml
