@@ -13,5 +13,4 @@ script:
 
 after_success:
     - composer require illuminate/database illuminate/log
-    - vendor/bin/phpunit --coverage-clover=coverage.xml
-    - bash <(curl -s https://codecov.io/bash)
+    - php -d phar.readonly=0 ./vendor/bin/phpunit --coverage-clover=coverage.xml
