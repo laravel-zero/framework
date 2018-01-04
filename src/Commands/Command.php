@@ -73,14 +73,14 @@ abstract class Command extends BaseCommand
      * @param string $title
      * @param callable $task
      *
-     * @return $this
+     * @return bool
      */
     public function task(string $title, callable $task)
     {
-        $this->output->writeln(
-            "$title: ".($task() ? '<info>✔</info>' : '<error>failed</error>')
-        );
-
-        return $this;
+        return tap($task(), function ($result) use ($title) {
+            $this->output->writeln(
+                "$title: ".($result ? '<info>✔</info>' : '<error>failed</error>')
+            );
+        });
     }
 }
