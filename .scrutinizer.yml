@@ -10,7 +10,7 @@ build:
     tests:
         override:
             -
-                command: 'composer require illuminate/database illuminate/log && php vendor/bin/phpunit --coverage-clover=coverage.clover'
+                command: 'composer require illuminate/database illuminate/log && php -d phar.readonly=0 ./vendor/bin/phpunit --coverage-clover=coverage.clover'
                 coverage:
                     file: 'coverage.clover'
                     format: 'clover'
