@@ -16,7 +16,7 @@ class RenamerTest extends TestCase
     /** @test */
     public function it_renames_the_binary(): void
     {
-        $this->app->call('app:rename', ['name' => "zonda"]);
+        $this->app->call('app:rename', ['name' => 'zonda']);
 
         $this->assertTrue(File::exists(base_path('zonda')));
         $this->assertContains('"bin": ["zonda"]', File::get(base_path('composer.json')));
