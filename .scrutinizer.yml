@@ -4,10 +4,13 @@ checks:
         duplication: true
 
 build:
+    environment:
+        php:
+            version: '7.1'
     tests:
         override:
             -
-                command: 'php vendor/bin/phpunit --coverage-clover=coverage.clover'
+                command: 'php -d phar.readonly=0 ./vendor/bin/phpunit --coverage-clover=coverage.clover'
                 coverage:
                     file: 'coverage.clover'
                     format: 'clover'

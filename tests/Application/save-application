@@ -1,0 +1,11 @@
+#!/usr/bin/env php
+<?php
+
+/**
+ * Laravel Zero - An elegant starting point for your Laravel Console Application
+ *
+ * @package  Laravel Zero
+ * @author   Nuno Maduro <enunomaduro@gmail.com>
+ */
+
+require_once __DIR__ . '/bootstrap/init.php';

@@ -16,11 +16,8 @@
          verbose="true"
 >
     <testsuites>
-        <testsuite name="Integration">
-            <directory suffix="Test.php">./tests/Integration</directory>
-        </testsuite>
-        <testsuite name="Unit">
-            <directory suffix="Test.php">./tests/Unit</directory>
+        <testsuite>
+            <directory suffix="Test.php">./tests</directory>
         </testsuite>
     </testsuites>
     <listeners>
@@ -28,7 +25,7 @@
     </listeners>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./app</directory>
+            <directory suffix=".php">./src</directory>
         </whitelist>
     </filter>
 </phpunit>

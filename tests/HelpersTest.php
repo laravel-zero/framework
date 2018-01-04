@@ -1,8 +1,7 @@
 <?php
 
-namespace Tests\Integration;
+namespace Tests;
 
-use Tests\TestCase;
 use LaravelZero\Framework\Container;
 
 class HelpersTest extends TestCase
@@ -43,6 +42,7 @@ class HelpersTest extends TestCase
     public function event_helper(): void
     {
         // @todo ...
+        $this->assertTrue(true);
     }
 
     /** @test */

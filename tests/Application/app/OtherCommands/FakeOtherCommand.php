@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Application\App\OtherCommands;
+namespace App\OtherCommands;
 
 use LaravelZero\Framework\Commands\Command;
 

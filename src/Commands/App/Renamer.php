@@ -3,6 +3,7 @@
 namespace LaravelZero\Framework\Commands\App;
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Commands\Command;
 
 /**
@@ -42,11 +43,10 @@ class Renamer extends Command
     {
         $name = $this->asksForApplicationName();
 
-        if (file_exists(BASE_PATH.'/'.$name)) {
+        if (File::exists(base_path($name))) {
             $this->error("Could't rename: Folder or file already exists.");
         } else {
-            $this->renameBinary($name)
-                ->updateComposer($name);
+            $this->renameBinary($name)->updateComposer($name);
         }
 
         return $this;
@@ -93,9 +93,7 @@ class Renamer extends Command
     {
         $this->setComposer(
             Str::replaceFirst(
-                '"bin": ["'.$this->getCurrentBinaryName().'"]',
-                '"bin": ["'.$name.'"]',
-                $this->getComposer()
+                '"bin": ["'.$this->getCurrentBinaryName().'"]', '"bin": ["'.$name.'"]', $this->getComposer()
             )
         );
 
@@ -113,7 +111,7 @@ class Renamer extends Command
      */
     protected function renameBinary(string $name): Renamer
     {
-        rename(BASE_PATH.'/'.$this->getCurrentBinaryName(), BASE_PATH.'/'.$name);
+        File::move(base_path($this->getCurrentBinaryName()), base_path($name));
 
         $this->output->writeln("Renaming application to: <info>$name</info>");
 
@@ -129,7 +127,7 @@ class Renamer extends Command
      */
     protected function setComposer(string $composer): Renamer
     {
-        file_put_contents(BASE_PATH.'/composer.json', $composer);
+        File::put(base_path('composer.json'), $composer);
 
         return $this;
     }
@@ -153,13 +151,13 @@ class Renamer extends Command
      */
     protected function getComposer(): string
     {
-        $file = BASE_PATH.'/composer.json';
+        $file = base_path('composer.json');
 
-        if (! file_exists($file)) {
+        if (! File::exists($file)) {
             $this->error('composer.json not found.');
             exit(0);
         }
 
-        return file_get_contents($file);
+        return File::get($file);
     }
 }

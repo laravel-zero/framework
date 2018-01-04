@@ -1,14 +1,13 @@
 <?php
 
-namespace Tests\Integration;
+namespace Tests;
 
-use Tests\TestCase;
+use App\Commands\FakeFooCommand;
 use Illuminate\Container\Container;
+use App\Commands\FakeDefaultCommand;
 use Illuminate\Support\Facades\Config;
+use App\OtherCommands\FakeOtherCommand;
 use Illuminate\Contracts\Config\Repository;
-use Tests\Application\App\Commands\FakeFooCommand;
-use Tests\Application\App\Commands\FakeDefaultCommand;
-use Tests\Application\App\OtherCommands\FakeOtherCommand;
 use LaravelZero\Framework\Contracts\Application as ApplicationContract;
 
 class ApplicationTest extends TestCase
@@ -30,8 +29,6 @@ class ApplicationTest extends TestCase
     /** @test */
     public function it_reads_configuration_files()
     {
-        // @todo Test production config.
-
         $this->assertSame('Test name', $this->app->getName());
         $this->assertSame('Test version', $this->app->getVersion());
         $this->assertEquals(

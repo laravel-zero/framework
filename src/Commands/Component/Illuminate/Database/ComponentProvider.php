@@ -53,7 +53,7 @@ class ComponentProvider extends AbstractComponentProvider
             ->setAsGlobal();
 
         if ($this->app->make('config')
-            ->get('database.with-seeds')) {
+            ->get('database.with-seeds', true)) {
             $this->commands(
                 [
                     \Illuminate\Database\Console\Seeds\SeedCommand::class,
@@ -91,7 +91,7 @@ class ComponentProvider extends AbstractComponentProvider
         );
 
         if ($this->app->make('config')
-            ->get('database.with-migrations')) {
+            ->get('database.with-migrations', true)) {
             $this->commands(
                 [
                     \Illuminate\Database\Console\Migrations\FreshCommand::class,
