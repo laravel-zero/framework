@@ -16,10 +16,10 @@ class BuilderTest extends TestCase
     {
         $this->app->call('app:build');
 
-        $this->assertTrue(File::exists(base_path('builds' . DIRECTORY_SEPARATOR . 'application')));
+        $this->assertTrue(File::exists(base_path('builds'.DIRECTORY_SEPARATOR.'application')));
 
         $this->app->call('app:build', ['name' => 'zonda']);
 
-        $this->assertTrue(File::exists(base_path('builds' . DIRECTORY_SEPARATOR . 'zonda')));
+        $this->assertTrue(File::exists(base_path('builds'.DIRECTORY_SEPARATOR.'zonda')));
     }
 }
