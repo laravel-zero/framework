@@ -2,9 +2,12 @@
 
 namespace LaravelZero\Framework;
 
+use LaravelZero\Framework\Exceptions\ConsoleException;
 use RuntimeException;
 use Illuminate\Container\Container as BaseContainer;
+use Symfony\Component\Console\Exception\LogicException;
 use LaravelZero\Framework\Exceptions\NotImplementedException;
+use Symfony\Component\Console\Exception\CommandNotFoundException;
 use Illuminate\Contracts\Foundation\Application as LaravelApplication;
 
 /**
@@ -145,6 +148,26 @@ class Container extends BaseContainer implements LaravelApplication
     public function isDownForMaintenance()
     {
         return false;
+    }
+
+    /**
+     * Throw an Console Exception with the given data unless the given condition is true.
+     *
+     * @param  int $code
+     * @param  string $message
+     * @param  array $headers
+     * @return void
+     *
+     * @throws \Symfony\Component\Console\Exception\CommandNotFoundException
+     * @throws \LaravelZero\Framework\Contracts\Exceptions\ConsoleException
+     */
+    public function abort($code, $message = '', array $headers = [])
+    {
+        if ($code == 404) {
+            throw new CommandNotFoundException($message);
+        }
+
+        throw new ConsoleException($code, $message, $headers);
     }
 
     /**
