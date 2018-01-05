@@ -3,6 +3,8 @@
 namespace Tests;
 
 use LaravelZero\Framework\Exceptions\NotImplementedException;
+use LaravelZero\Framework\Contracts\Exceptions\ConsoleException;
+use Symfony\Component\Console\Exception\CommandNotFoundException;
 
 class ContainerTest extends TestCase
 {
@@ -105,6 +107,28 @@ class ContainerTest extends TestCase
         $this->assertFalse(
             $this->app->getContainer()->isDownForMaintenance()
         );
+    }
+
+    /** @test */
+    public function it_can_abort(): void
+    {
+        try {
+            $this->app->getContainer()->abort(404, 'Foo');
+        } catch (CommandNotFoundException $notFoundException) {
+        }
+
+        $this->assertInstanceOf(CommandNotFoundException::class, $notFoundException);
+        $this->assertEquals($notFoundException->getMessage(), 'Foo');
+
+        try {
+            abort(200, 'Bar', ['Foo' => 'Bar']);
+        } catch (ConsoleException $consoleException) {
+        }
+
+        $this->assertInstanceOf(ConsoleException::class, $consoleException);
+        $this->assertEquals($consoleException->getExitCode(), 200);
+        $this->assertEquals($consoleException->getMessage(), 'Bar');
+        $this->assertEquals($consoleException->getHeaders(), ['Foo' => 'Bar']);
     }
 
     /** @test */

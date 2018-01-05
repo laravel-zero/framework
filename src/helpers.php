@@ -2,6 +2,64 @@
 
 use LaravelZero\Framework\Container;
 
+if (! function_exists('abort')) {
+    /**
+     * Throw an Console Exception with the given data.
+     *
+     * @param  int $code
+     * @param  string $message
+     * @param  array $headers
+     * @return void
+     *
+     * @throws \Symfony\Component\Console\Exception\CommandNotFoundException
+     * @throws \LaravelZero\Framework\Contracts\Exceptions\ConsoleException
+     */
+    function abort($code, $message = '', array $headers = [])
+    {
+        app()->abort($code, $message, $headers);
+    }
+}
+if (! function_exists('abort_if')) {
+    /**
+     * Throw an Console Exception with the given data if the given condition is true.
+     *
+     * @param  bool $boolean
+     * @param  int $code
+     * @param  string $message
+     * @param  array $headers
+     * @return void
+     *
+     * @throws \Symfony\Component\Console\Exception\CommandNotFoundException
+     * @throws \LaravelZero\Framework\Contracts\Exceptions\ConsoleException
+     */
+    function abort_if($boolean, $code, $message = '', array $headers = [])
+    {
+        if ($boolean) {
+            abort($code, $message, $headers);
+        }
+    }
+}
+if (! function_exists('abort_unless')) {
+    /**
+     * Throw an Console Exception with the given data unless the given condition is true.
+     *
+     * @param  bool $boolean
+     * @param  int $code
+     * @param  string $message
+     * @param  array $headers
+     * @return void
+     *
+     * @throws \Symfony\Component\Console\Exception\CommandNotFoundException
+     * @throws \LaravelZero\Framework\Contracts\Exceptions\ConsoleException
+     */
+    function abort_unless($boolean, $code, $message = '', array $headers = [])
+    {
+        if (! $boolean) {
+            abort($code, $message, $headers);
+        }
+    }
+}
+
 if (! function_exists('app')) {
     /**
      * Get the available container instance.
@@ -17,8 +75,7 @@ if (! function_exists('app')) {
             return Container::getInstance();
         }
 
-        return Container::getInstance()
-            ->make($abstract, $parameters);
+        return Container::getInstance()->make($abstract, $parameters);
     }
 }
 
@@ -26,7 +83,7 @@ if (! function_exists('app_path')) {
     /**
      * Get the path to the application folder.
      *
-     * @param  string  $path
+     * @param  string $path
      * @return string
      */
     function app_path($path = '')

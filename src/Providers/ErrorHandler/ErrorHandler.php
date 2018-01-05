@@ -45,4 +45,12 @@ class ErrorHandler implements ErrorHandlerContract
         $this->provider->getHandler()
             ->setOutput($output);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getProvider(): ProviderContract
+    {
+        return $this->provider;
+    }
 }
