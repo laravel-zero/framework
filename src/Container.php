@@ -4,6 +4,7 @@ namespace LaravelZero\Framework;
 
 use RuntimeException;
 use Illuminate\Container\Container as BaseContainer;
+use Illuminate\Support\Arr;
 use LaravelZero\Framework\Exceptions\NotImplementedException;
 use Illuminate\Contracts\Foundation\Application as LaravelApplication;
 
@@ -243,5 +244,19 @@ class Container extends BaseContainer implements LaravelApplication
     public function getMonologConfigurator()
     {
         return $this->monologConfigurator;
+    }
+
+    /**
+     * Get the registered service provider instances if any exist.
+     *
+     * @param  \Illuminate\Support\ServiceProvider|string  $provider
+     * @return array
+     */
+    public function getProviders($provider)
+    {
+        $name = is_string($provider) ? $provider : get_class($provider);
+        return Arr::where($this->serviceProviders, function ($value) use ($name) {
+            return $value instanceof $name;
+        });
     }
 }

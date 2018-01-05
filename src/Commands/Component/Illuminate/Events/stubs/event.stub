@@ -1,0 +1,21 @@
+<?php
+
+namespace DummyNamespace;
+
+use Illuminate\Queue\SerializesModels;
+use LaravelZero\Framework\Commands\Component\Illuminate\Events\Dispatchable;
+
+class DummyClass
+{
+    use Dispatchable, SerializesModels;
+
+    /**
+     * Create a new event instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //
+    }
+}
