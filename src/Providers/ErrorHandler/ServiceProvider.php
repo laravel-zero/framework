@@ -49,8 +49,8 @@ class ServiceProvider extends BaseServiceProvider
     {
         $this->app->singleton(
             ErrorHandlerContract::class, function () {
-            return new ErrorHandler;
-        }
+                return new ErrorHandler;
+            }
         );
     }
 }
