@@ -23,6 +23,7 @@
     ],
     "require": {
         "php": ">=7.1",
+        "laravel-zero/foundation": "5.5.*",
         "illuminate/config": "5.5.*",
         "illuminate/console": "5.5.*",
         "illuminate/container": "5.5.*",

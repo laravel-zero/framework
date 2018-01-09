@@ -51,7 +51,8 @@ class ContainerTest extends TestCase
     public function it_has_a_lang_path_getter()
     {
         $this->assertEquals(
-            BASE_PATH.DIRECTORY_SEPARATOR.'resources'.DIRECTORY_SEPARATOR.'lang', $this->app->getContainer()->langPath()
+            BASE_PATH.DIRECTORY_SEPARATOR.'resources'.DIRECTORY_SEPARATOR.'lang',
+            $this->app->getContainer()->langPath()
         );
     }
 
@@ -129,6 +130,38 @@ class ContainerTest extends TestCase
         $this->assertEquals($consoleException->getExitCode(), 200);
         $this->assertEquals($consoleException->getMessage(), 'Bar');
         $this->assertEquals($consoleException->getHeaders(), ['Foo' => 'Bar']);
+    }
+
+    /** @test */
+    public function it_haves_an_environment_path(): void
+    {
+        $this->assertSame($this->app->getContainer()->environmentPath(), base_path());
+
+        $this->app->getContainer()->useEnvironmentPath('foo');
+
+        $this->assertSame($this->app->getContainer()->environmentPath(), 'foo');
+    }
+
+    /** @test */
+    public function it_haves_an_environment_file(): void
+    {
+        $this->assertSame($this->app->getContainer()->environmentFile(), '.env');
+
+        $this->app->getContainer()->loadEnvironmentFrom('foo');
+
+        $this->assertSame($this->app->getContainer()->environmentFile(), 'foo');
+    }
+
+    /** @test */
+    public function it_get_an_environment_file_path(): void
+    {
+        $this->assertSame($this->app->getContainer()->environmentFilePath(), base_path('.env'));
+    }
+
+    /** @test */
+    public function it_dont_cache_configuration(): void
+    {
+        $this->assertFalse($this->app->getContainer()->configurationIsCached());
     }
 
     /** @test */

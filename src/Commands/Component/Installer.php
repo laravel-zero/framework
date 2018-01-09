@@ -51,7 +51,7 @@ abstract class Installer extends Command implements InstallerContract
         $component = $this->getComponentName();
 
         $this->task(
-            "The component $component database installation",
+            "The component $component installation",
             function () {
                 return $this->install();
             }
@@ -68,7 +68,7 @@ abstract class Installer extends Command implements InstallerContract
     protected function require(string $package): InstallerContract
     {
         $this->task(
-            "Pulling $package...",
+            "Require package via composer",
             function () use ($package) {
                 return $this->composer->require($package);
             }
