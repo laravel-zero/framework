@@ -3,7 +3,6 @@
 namespace Tests;
 
 use LaravelZero\Framework\Container;
-use LaravelZero\Framework\Contracts\Exceptions\ConsoleException;
 
 class HelpersTest extends TestCase
 {
@@ -18,6 +17,7 @@ class HelpersTest extends TestCase
 
         abort(404, 'Foo');
     }
+
     /** @test */
     public function abort_if_helper(): void
     {

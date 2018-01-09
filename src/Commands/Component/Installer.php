@@ -68,7 +68,7 @@ abstract class Installer extends Command implements InstallerContract
     protected function require(string $package): InstallerContract
     {
         $this->task(
-            "Require package via composer",
+            'Require package via composer',
             function () use ($package) {
                 return $this->composer->require($package);
             }

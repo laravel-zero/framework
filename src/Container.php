@@ -2,10 +2,9 @@
 
 namespace LaravelZero\Framework;
 
-use LaravelZero\Framework\Exceptions\ConsoleException;
 use RuntimeException;
 use Illuminate\Container\Container as BaseContainer;
-use Symfony\Component\Console\Exception\LogicException;
+use LaravelZero\Framework\Exceptions\ConsoleException;
 use LaravelZero\Framework\Exceptions\NotImplementedException;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
 use Illuminate\Contracts\Foundation\Application as LaravelApplication;
