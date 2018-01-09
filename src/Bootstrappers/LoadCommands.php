@@ -31,6 +31,7 @@ class LoadCommands extends Bootstrapper
         Commands\App\Renamer::class,
         Commands\App\CommandMaker::class,
         Commands\Component\Illuminate\Log\Installer::class,
+        Commands\Component\Vlucas\Phpdotenv\Installer::class,
         Commands\Component\Illuminate\Database\Installer::class,
     ];
 

@@ -17,6 +17,7 @@ class Factory
      * @var string[]
      */
     private $bootstrappers = [
+        LoadEnvironmentVariables::class,
         Constants::class,
         Bindings::class,
         Configurations::class,
