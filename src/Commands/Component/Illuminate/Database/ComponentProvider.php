@@ -49,26 +49,22 @@ class ComponentProvider extends AbstractComponentProvider
         $this->app->alias('db.connection', \Illuminate\Database\DatabaseManager::class);
         $this->app->alias('db.connection', \Illuminate\Database\ConnectionInterface::class);
 
-        $this->app->make(\Illuminate\Database\Capsule\Manager::class)
-            ->setAsGlobal();
+        $this->app->make(\Illuminate\Database\Capsule\Manager::class)->setAsGlobal();
 
-        if ($this->app->make('config')
-            ->get('database.with-seeds', true)) {
-            $this->commands(
-                [
-                    \Illuminate\Database\Console\Seeds\SeedCommand::class,
-                    \Illuminate\Database\Console\Seeds\SeederMakeCommand::class,
-                ]
-            );
+        if (config('database.with-seeds', true)) {
+
+            if ($this->app->environment() !== 'production') {
+                $this->commands([\Illuminate\Database\Console\Seeds\SeederMakeCommand::class]);
+            }
+
+            $this->commands([\Illuminate\Database\Console\Seeds\SeedCommand::class]);
 
             if (is_dir(database_path('seeds'))) {
                 collect(
-                    $this->app->make('files')
-                        ->files(database_path('seeds'))
+                    $this->app->make('files')->files(database_path('seeds'))
                 )->each(
                     function ($file) {
-                        $this->app->make('files')
-                            ->requireOnce($file);
+                        $this->app->make('files')->requireOnce($file);
                     }
                 );
             }
@@ -90,14 +86,17 @@ class ComponentProvider extends AbstractComponentProvider
             \Illuminate\Database\Migrations\MigrationRepositoryInterface::class
         );
 
-        if ($this->app->make('config')
-            ->get('database.with-migrations', true)) {
+        if (config('database.with-migrations', true)) {
+
+            if ($this->app->environment() !== 'production') {
+                $this->commands([\Illuminate\Database\Console\Migrations\MigrateMakeCommand::class]);
+            }
+
             $this->commands(
                 [
                     \Illuminate\Database\Console\Migrations\FreshCommand::class,
                     \Illuminate\Database\Console\Migrations\InstallCommand::class,
                     \Illuminate\Database\Console\Migrations\MigrateCommand::class,
-                    \Illuminate\Database\Console\Migrations\MigrateMakeCommand::class,
                     \Illuminate\Database\Console\Migrations\RefreshCommand::class,
                     \Illuminate\Database\Console\Migrations\ResetCommand::class,
                     \Illuminate\Database\Console\Migrations\RollbackCommand::class,
