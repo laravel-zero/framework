@@ -52,7 +52,6 @@ class ComponentProvider extends AbstractComponentProvider
         $this->app->make(\Illuminate\Database\Capsule\Manager::class)->setAsGlobal();
 
         if (config('database.with-seeds', true)) {
-
             if ($this->app->environment() !== 'production') {
                 $this->commands([\Illuminate\Database\Console\Seeds\SeederMakeCommand::class]);
             }
@@ -87,7 +86,6 @@ class ComponentProvider extends AbstractComponentProvider
         );
 
         if (config('database.with-migrations', true)) {
-
             if ($this->app->environment() !== 'production') {
                 $this->commands([\Illuminate\Database\Console\Migrations\MigrateMakeCommand::class]);
             }
