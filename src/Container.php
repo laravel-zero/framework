@@ -53,6 +53,17 @@ class Container extends BaseContainer implements LaravelApplication
     }
 
     /**
+     * Get the path to the application "app" directory.
+     *
+     * @param  string  $path Optionally, a path to append to the app path
+     * @return string
+     */
+    public function path($path = '')
+    {
+        return $this->basePath('app'.($path ? DIRECTORY_SEPARATOR.$path : $path));
+    }
+
+    /**
      * Get the base path of the Laravel installation.
      *
      * @param  string $path
