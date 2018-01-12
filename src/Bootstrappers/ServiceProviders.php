@@ -50,6 +50,13 @@ class ServiceProviders extends Bootstrapper
         'config' => [\Illuminate\Config\Repository::class, \Illuminate\Contracts\Config\Repository::class],
         'cache' => [\Illuminate\Cache\CacheManager::class, \Illuminate\Contracts\Cache\Factory::class],
         'cache.store' => [\Illuminate\Cache\Repository::class, \Illuminate\Contracts\Cache\Repository::class],
+        'files' => [\Illuminate\Filesystem\Filesystem::class],
+        'filesystem' => [
+            \Illuminate\Filesystem\FilesystemManager::class,
+            \Illuminate\Contracts\Filesystem\Factory::class,
+        ],
+        'filesystem.disk' => [\Illuminate\Contracts\Filesystem\Filesystem::class],
+        'filesystem.cloud' => [\Illuminate\Contracts\Filesystem\Cloud::class],
     ];
 
     /**
@@ -57,7 +64,7 @@ class ServiceProviders extends Bootstrapper
      */
     public function bootstrap(): void
     {
-        collect($this->providers)
+        $providers = collect($this->providers)
             ->merge(
                 collect($this->components)
                     ->filter(
@@ -70,23 +77,25 @@ class ServiceProviders extends Bootstrapper
             ->merge(
                 $this->container->make('config')
                     ->get('app.providers')
-            )
-            ->each(
-                function ($serviceProviderClass) {
-                    $this->call($serviceProviderClass, 'register');
-                }
-            )
-            ->each(
-                function ($serviceProviderClass) {
-                    $this->call($serviceProviderClass, 'boot');
-                }
             );
+
+        $providers->each(
+            function ($serviceProviderClass) {
+                $this->call($serviceProviderClass, 'register');
+            }
+        );
 
         foreach ($this->aliases as $key => $aliases) {
             foreach ($aliases as $alias) {
                 $this->container->alias($key, $alias);
             }
         }
+
+        $providers->each(
+            function ($serviceProviderClass) {
+                $this->call($serviceProviderClass, 'boot');
+            }
+        );
     }
 
     /**
