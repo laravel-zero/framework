@@ -23,15 +23,15 @@ class Bindings extends Bootstrapper
         Container::setInstance($this->container);
 
         $this->container->instance('app', $this->container);
-
         $this->container->instance(Container::class, $this->container);
-
         $this->container->instance(ApplicationContract::class, $this->application);
-
         $this->container->instance('config', new Repository());
-
-        $this->container->instance('path', $this->container->basePath().DIRECTORY_SEPARATOR.'app');
-
-        $this->container->instance('path.storage', $this->container->basePath().DIRECTORY_SEPARATOR.'storage');
+        $this->container->instance('path', $this->container->path());
+        $this->container->instance('path.base', $this->container->basePath());
+        $this->container->instance('path.lang', $this->container->langPath());
+        $this->container->instance('path.config', $this->container->configPath());
+        $this->container->instance('path.storage', $this->container->storagePath());
+        $this->container->instance('path.database', $this->container->databasePath());
+        $this->container->instance('path.resources', $this->container->resourcePath());
     }
 }
