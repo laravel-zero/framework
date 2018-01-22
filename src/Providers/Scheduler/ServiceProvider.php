@@ -25,7 +25,5 @@ class ServiceProvider extends BaseServiceProvider
                 return new Scheduling\Schedule;
             }
         );
-
-
     }
 }

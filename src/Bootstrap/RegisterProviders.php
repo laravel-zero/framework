@@ -50,12 +50,12 @@ class RegisterProviders
      */
     public function bootstrap(Application $app): void
     {
-        /**
+        /*
          * First we register Laravel Foundation providers.
          */
         (new \Illuminate\Foundation\Bootstrap\RegisterProviders)->bootstrap($app);
 
-        /**
+        /*
          * Then we register Laravel Zero providers.
          */
         collect($this->providers)->merge(
