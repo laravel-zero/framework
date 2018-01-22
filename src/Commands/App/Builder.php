@@ -20,10 +20,10 @@ class Builder extends Command
      * @var []string
      */
     protected $structure = [
-        'app' . DIRECTORY_SEPARATOR,
-        'bootstrap' . DIRECTORY_SEPARATOR,
-        'vendor' . DIRECTORY_SEPARATOR,
-        'config' . DIRECTORY_SEPARATOR,
+        'app'.DIRECTORY_SEPARATOR,
+        'bootstrap'.DIRECTORY_SEPARATOR,
+        'vendor'.DIRECTORY_SEPARATOR,
+        'config'.DIRECTORY_SEPARATOR,
         'composer.json',
     ];
 
@@ -55,8 +55,8 @@ class Builder extends Command
             $this->build($this->input->getArgument('name') ?: static::BUILD_NAME);
         } else {
             $this->error(
-                'Unable to compile a phar because of php\'s security settings. ' . 'phar.readonly must be disabled in php.ini. ' . PHP_EOL . PHP_EOL . 'You will need to edit ' . php_ini_loaded_file(
-                ) . ' and add or set' . PHP_EOL . PHP_EOL . '    phar.readonly = Off' . PHP_EOL . PHP_EOL . 'to continue. Details here: http://php.net/manual/en/phar.configuration.php'
+                'Unable to compile a phar because of php\'s security settings. '.'phar.readonly must be disabled in php.ini. '.PHP_EOL.PHP_EOL.'You will need to edit '.php_ini_loaded_file(
+                ).' and add or set'.PHP_EOL.PHP_EOL.'    phar.readonly = Off'.PHP_EOL.PHP_EOL.'to continue. Details here: http://php.net/manual/en/phar.configuration.php'
             );
         }
     }
@@ -72,7 +72,7 @@ class Builder extends Command
     {
         $this->prepare()->compile($name)->cleanUp($name)->setPermissions($name)->finish();
 
-        $this->info('Standalone application compiled into: builds' . DIRECTORY_SEPARATOR . $name);
+        $this->info('Standalone application compiled into: builds'.DIRECTORY_SEPARATOR.$name);
 
         return $this;
     }
@@ -92,7 +92,7 @@ class Builder extends Command
 
         $structure = config('app.structure') ?: $this->structure;
 
-        $regex = '#' . implode('|', $structure) . '#';
+        $regex = '#'.implode('|', $structure).'#';
 
         if (stristr(PHP_OS, 'WINNT') !== false) {
             $compiler->buildFromDirectory(BASE_PATH, str_replace('\\', '/', $regex));
@@ -101,7 +101,7 @@ class Builder extends Command
             $compiler->buildFromDirectory(BASE_PATH, $regex);
         }
         $compiler->setStub(
-            "#!/usr/bin/env php \n" . $compiler->createDefaultStub('bootstrap' . DIRECTORY_SEPARATOR . 'init.php')
+            "#!/usr/bin/env php \n".$compiler->createDefaultStub('bootstrap'.DIRECTORY_SEPARATOR.'init.php')
         );
 
         return $this;
@@ -118,7 +118,7 @@ class Builder extends Command
     {
         try {
             return new Phar(
-                $this->app->buildsPath . DIRECTORY_SEPARATOR . $name . '.phar',
+                $this->app->buildsPath.DIRECTORY_SEPARATOR.$name.'.phar',
                 FilesystemIterator::CURRENT_AS_FILEINFO | FilesystemIterator::KEY_AS_FILENAME,
                 $name
             );
@@ -151,7 +151,7 @@ class Builder extends Command
      */
     protected function cleanUp(string $name): Builder
     {
-        $file = $this->app->buildsPath . DIRECTORY_SEPARATOR . $name;
+        $file = $this->app->buildsPath.DIRECTORY_SEPARATOR.$name;
         rename("$file.phar", $file);
 
         return $this;
@@ -166,7 +166,7 @@ class Builder extends Command
      */
     protected function setPermissions($name): Builder
     {
-        $file = $this->app->buildsPath . DIRECTORY_SEPARATOR . $name;
+        $file = $this->app->buildsPath.DIRECTORY_SEPARATOR.$name;
         chmod($file, 0755);
 
         return $this;
@@ -179,7 +179,7 @@ class Builder extends Command
      */
     protected function prepare(): Builder
     {
-        $file = BASE_PATH . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'app.php';
+        $file = BASE_PATH.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'app.php';
         static::$config = file_get_contents($file);
         $config = include $file;
 
@@ -187,7 +187,7 @@ class Builder extends Command
 
         $this->info('Moving configuration to production mode...');
 
-        file_put_contents($file, '<?php return ' . var_export($config, true) . ';' . PHP_EOL);
+        file_put_contents($file, '<?php return '.var_export($config, true).';'.PHP_EOL);
 
         return $this;
     }
@@ -200,7 +200,7 @@ class Builder extends Command
     protected function finish(): Builder
     {
         file_put_contents(
-            BASE_PATH . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'app.php',
+            BASE_PATH.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'app.php',
             static::$config
         );
 
@@ -217,7 +217,7 @@ class Builder extends Command
     {
         if (static::$config !== null) {
             file_put_contents(
-                BASE_PATH . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'app.php',
+                BASE_PATH.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'app.php',
                 static::$config
             );
         }

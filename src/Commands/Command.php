@@ -97,7 +97,7 @@ abstract class Command extends BaseCommand
             $task(),
             function ($result) use ($title) {
                 $this->output->writeln(
-                    "$title: " . ($result ? '<info>✔</info>' : '<error>failed</error>')
+                    "$title: ".($result ? '<info>✔</info>' : '<error>failed</error>')
                 );
             }
         );
