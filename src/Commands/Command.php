@@ -16,6 +16,25 @@ use NunoMaduro\LaravelDesktopNotifier\Contracts\Notification;
 abstract class Command extends BaseCommand
 {
     /**
+     * Holds an instance of the app.
+     *
+     * @var \Illuminate\Contracts\Foundation\Application
+     */
+    protected $app;
+
+    /**
+     * Create a new console command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->app = $this->getLaravel();
+    }
+
+    /**
      * Execute the console command. Here goes the command
      * code.
      *
@@ -54,14 +73,11 @@ abstract class Command extends BaseCommand
      */
     public function notify(string $title, string $body, $icon = null): void
     {
-        $notifier = $this->getContainer()
-            ->make(Notifier::class);
+        $notifier = $this->getContainer()->make(Notifier::class);
 
-        $notification = $this->getContainer()
-            ->make(Notification::class)
-            ->setTitle($title)
-            ->setBody($body)
-            ->setIcon($icon);
+        $notification = $this->getContainer()->make(Notification::class)->setTitle($title)->setBody($body)->setIcon(
+                $icon
+            );
 
         $notifier->send($notification);
     }
@@ -77,10 +93,13 @@ abstract class Command extends BaseCommand
      */
     public function task(string $title, callable $task)
     {
-        return tap($task(), function ($result) use ($title) {
-            $this->output->writeln(
-                "$title: ".($result ? '<info>✔</info>' : '<error>failed</error>')
-            );
-        });
+        return tap(
+            $task(),
+            function ($result) use ($title) {
+                $this->output->writeln(
+                    "$title: " . ($result ? '<info>✔</info>' : '<error>failed</error>')
+                );
+            }
+        );
     }
 }

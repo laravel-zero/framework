@@ -26,13 +26,6 @@ class ServiceProvider extends BaseServiceProvider
             }
         );
 
-        if (config('app.with-scheduler')) {
-            $this->commands(
-                [
-                    Scheduling\ScheduleRunCommand::class,
-                    Scheduling\ScheduleFinishCommand::class,
-                ]
-            );
-        }
+
     }
 }

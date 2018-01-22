@@ -2,18 +2,18 @@
 
 namespace Tests;
 
-use LaravelZero\Framework\Container;
+use LaravelZero\Framework\Application;
 
 class HelpersTest extends TestCase
 {
     /** @test */
     public function abort_helper(): void
     {
-        $containerMock = $this->createMock(Container::class);
+        $containerMock = $this->createMock(Application::class);
 
         $containerMock->expects($this->once())->method('abort')->with(404, 'Foo');
 
-        Container::setInstance($containerMock);
+        Application::setInstance($containerMock);
 
         abort(404, 'Foo');
     }
@@ -25,11 +25,11 @@ class HelpersTest extends TestCase
 
         $this->assertTrue(true);
 
-        $containerMock = $this->createMock(Container::class);
+        $containerMock = $this->createMock(Application::class);
 
         $containerMock->expects($this->once())->method('abort')->with(456, 'Bar');
 
-        Container::setInstance($containerMock);
+        Application::setInstance($containerMock);
 
         abort_if(true, 456, 'Bar');
     }
@@ -41,11 +41,11 @@ class HelpersTest extends TestCase
 
         $this->assertTrue(true);
 
-        $containerMock = $this->createMock(Container::class);
+        $containerMock = $this->createMock(Application::class);
 
         $containerMock->expects($this->once())->method('abort')->with(456, 'Bar');
 
-        Container::setInstance($containerMock);
+        Application::setInstance($containerMock);
 
         abort_unless(false, 456, 'Bar');
     }
@@ -53,9 +53,9 @@ class HelpersTest extends TestCase
     /** @test */
     public function app_helper(): void
     {
-        $this->assertSame(app(), Container::getInstance());
+        $this->assertSame(app(), Application::getInstance());
 
-        Container::getInstance()->bind('foo', function () {
+        Application::getInstance()->bind('foo', function () {
             return 'bar';
         });
 

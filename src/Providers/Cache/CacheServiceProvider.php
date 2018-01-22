@@ -9,7 +9,7 @@ use Illuminate\Cache\CacheServiceProvider as BaseServiceProvider;
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
-class ServiceProvider extends BaseServiceProvider
+class CacheServiceProvider extends BaseServiceProvider
 {
     /**
      * Register Scheduler service.

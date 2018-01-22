@@ -10,7 +10,7 @@ use Illuminate\Filesystem\FilesystemServiceProvider as BaseServiceProvider;
  *
  * @author Nuno Maduro <enunomaduro@gmail.com>
  */
-class ServiceProvider extends BaseServiceProvider
+class FilesystemServiceProvider extends BaseServiceProvider
 {
     /**
      * Register Scheduler service.
