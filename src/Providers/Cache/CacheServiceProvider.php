@@ -1,18 +1,25 @@
 <?php
 
+/**
+ * This file is part of Laravel Zero.
+ *
+ * (c) Nuno Maduro <enunomaduro@gmail.com>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace LaravelZero\Framework\Providers\Cache;
 
 use Illuminate\Cache\CacheServiceProvider as BaseServiceProvider;
 
 /**
- * This is the Laravel Zero Framework Filesystem service provider class.
- *
- * @author Nuno Maduro <enunomaduro@gmail.com>
+ * This is the Laravel Zero Framework Cache Service Provider implementation.
  */
 class CacheServiceProvider extends BaseServiceProvider
 {
     /**
-     * Register Scheduler service.
+     * Register the Cache Service Provider.
      *
      * @return void
      */
@@ -20,19 +27,15 @@ class CacheServiceProvider extends BaseServiceProvider
     {
         parent::register();
 
-        $config = $this->app->make('config');
-
-        if ($config->get('cache') === null) {
-            $config->set('cache', $this->getDefaultConfig());
+        if ($this->app['config']->get('cache') === null) {
+            $this->app['config']->set('cache', $this->getDefaultConfig());
         }
     }
 
     /**
      * Returns the default application cache config.
      *
-     * In order to keep it simple we use the `array` driver. Feel free
-     * to use another driver, be sure to check the cache component
-     * documentation.
+     * We keep it simple using the `array` driver.
      *
      * @return array
      */

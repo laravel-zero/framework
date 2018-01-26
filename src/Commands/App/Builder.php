@@ -1,23 +1,31 @@
 <?php
 
+/**
+ * This file is part of Laravel Zero.
+ *
+ * (c) Nuno Maduro <enunomaduro@gmail.com>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace LaravelZero\Framework\Commands\App;
 
 use Phar;
 use FilesystemIterator;
 use UnexpectedValueException;
+use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Commands\Command;
 
 /**
- * This is the Laravel Zero Framework builder command class.
- *
- * @author Nuno Maduro <enunomaduro@gmail.com>
+ * This is the Laravel Zero Framework Builder Command implementation.
  */
 class Builder extends Command
 {
     /**
      * Contains the default app structure.
      *
-     * @var []string
+     * @var string[]
      */
     protected $structure = [
         'app' . DIRECTORY_SEPARATOR,
@@ -62,24 +70,29 @@ class Builder extends Command
     }
 
     /**
-     * Builds the application.
+     * Builds the application into a single file.
      *
-     * @param string $name
+     * @param string $name The file name.
      *
      * @return $this
      */
     protected function build(string $name): Builder
     {
-        $this->prepare()->compile($name)->cleanUp($name)->setPermissions($name)->finish();
+        /**
+         * We setInProduction the application for a build, moving it to production. Then,
+         * after compile all the code to a single file, we move the built file
+         * to the builds folder with the correct permissions.
+         */
+        $this->setInProduction()->compile($name)->setPermissions($name)->setInDevelopment();
 
-        $this->info('Standalone application compiled into: builds' . DIRECTORY_SEPARATOR . $name);
+        $this->info(
+            sprintf('Application built into a single file: %s', $this->app->buildsPath($name))
+        );
 
         return $this;
     }
 
     /**
-     * Compiles the standalone application.
-     *
      * @param string $name
      *
      * @return $this
@@ -88,21 +101,24 @@ class Builder extends Command
     {
         $this->info('Compiling code...');
 
-        $compiler = $this->makeFolder()->getCompiler($name);
+        $compiler = $this->makeBuildsFolder()->getCompiler($name);
 
         $structure = config('app.structure') ?: $this->structure;
 
         $regex = '#' . implode('|', $structure) . '#';
 
-        if (stristr(PHP_OS, 'WINNT') !== false) {
+        if (stristr(PHP_OS, 'WINNT') !== false) { // For windows:
             $compiler->buildFromDirectory(BASE_PATH, str_replace('\\', '/', $regex));
-        } else {
-            // Linux, OS X
+        } else { // Linux, OS X:
             $compiler->buildFromDirectory(BASE_PATH, $regex);
         }
         $compiler->setStub(
             "#!/usr/bin/env php \n" . $compiler->createDefaultStub('bootstrap' . DIRECTORY_SEPARATOR . 'init.php')
         );
+
+        $file = $this->app->buildsPath($name);
+
+        File::move("$file.phar", $file);
 
         return $this;
     }
@@ -118,47 +134,29 @@ class Builder extends Command
     {
         try {
             return new Phar(
-                $this->app->buildsPath . DIRECTORY_SEPARATOR . $name . '.phar',
+                $this->app->buildsPath($name . '.phar'),
                 FilesystemIterator::CURRENT_AS_FILEINFO | FilesystemIterator::KEY_AS_FILENAME,
                 $name
             );
         } catch (UnexpectedValueException $e) {
-            $this->error("You can't perform a build.");
-            exit(0);
+            $this->app->abort(401, 'Unauthorized.');
         }
     }
 
     /**
-     * Creates the folder for the builds.
-     *
      * @return $this
      */
-    protected function makeFolder(): Builder
+    protected function makeBuildsFolder(): Builder
     {
-        if (! file_exists($this->app->buildsPath)) {
-            mkdir($this->app->buildsPath);
+        if (! File::exists($this->app->buildsPath())) {
+            File::makeDirectory($this->app->buildsPath());
         }
 
         return $this;
     }
 
     /**
-     * Moves the compiled files to the builds folder.
-     *
-     * @param string $name
-     *
-     * @return $this
-     */
-    protected function cleanUp(string $name): Builder
-    {
-        $file = $this->app->buildsPath . DIRECTORY_SEPARATOR . $name;
-        rename("$file.phar", $file);
-
-        return $this;
-    }
-
-    /**
-     * Sets the executable mode on the standalone application file.
+     * Sets the executable mode on the single application file.
      *
      * @param string $name
      *
@@ -166,43 +164,35 @@ class Builder extends Command
      */
     protected function setPermissions($name): Builder
     {
-        $file = $this->app->buildsPath . DIRECTORY_SEPARATOR . $name;
-        chmod($file, 0755);
+        chmod($this->app->buildsPath($name), 0755);
 
         return $this;
     }
 
     /**
-     * Prepares the application for build.
-     *
      * @return $this
      */
-    protected function prepare(): Builder
+    protected function setInProduction(): Builder
     {
-        $file = BASE_PATH . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'app.php';
-        static::$config = file_get_contents($file);
+        $file = $this->app->configPath('app.php');
+        static::$config = File::get($file);
         $config = include $file;
 
         $config['production'] = true;
 
-        $this->info('Moving configuration to production mode...');
+        $this->info('Moving application to production mode...');
 
-        file_put_contents($file, '<?php return ' . var_export($config, true) . ';' . PHP_EOL);
+        File::put($file, '<?php return ' . var_export($config, true) . ';' . PHP_EOL);
 
         return $this;
     }
 
     /**
-     * Prepares the application for build.
-     *
      * @return $this
      */
-    protected function finish(): Builder
+    protected function setInDevelopment(): Builder
     {
-        file_put_contents(
-            BASE_PATH . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'app.php',
-            static::$config
-        );
+        File::put($this->app->configPath('app.php'), static::$config);
 
         static::$config = null;
 
@@ -210,16 +200,15 @@ class Builder extends Command
     }
 
     /**
-     * Makes sure that the finish is performed even
+     * Makes sure that the `setInDevelopment` is performed even
      * if the command fails.
+     *
+     * @return void
      */
     public function __destruct()
     {
         if (static::$config !== null) {
-            file_put_contents(
-                BASE_PATH . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'app.php',
-                static::$config
-            );
+            File::put($this->app->configPath('app.php'), static::$config);
         }
     }
 }

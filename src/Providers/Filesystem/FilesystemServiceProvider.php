@@ -1,14 +1,21 @@
 <?php
 
+/**
+ * This file is part of Laravel Zero.
+ *
+ * (c) Nuno Maduro <enunomaduro@gmail.com>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace LaravelZero\Framework\Providers\Filesystem;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Filesystem\FilesystemServiceProvider as BaseServiceProvider;
 
 /**
- * This is the Laravel Zero Framework Filesystem service provider class.
- *
- * @author Nuno Maduro <enunomaduro@gmail.com>
+ * This is the Laravel Zero Framework Filesystem Service Provider implementation.
  */
 class FilesystemServiceProvider extends BaseServiceProvider
 {
@@ -33,9 +40,7 @@ class FilesystemServiceProvider extends BaseServiceProvider
     /**
      * Returns the default application filesystems config.
      *
-     * In order to keep it simple we use the `local` driver. Feel free
-     * to use another driver, be sure to check the filesysyem
-     * component documentation.
+     * We it simple we use the `local` driver.
      *
      * @return array
      */
@@ -46,7 +51,7 @@ class FilesystemServiceProvider extends BaseServiceProvider
             'disks' => [
                 'local' => [
                     'driver' => 'local',
-                    'root' => storage_path('app'),
+                    'root' => $this->app->storagePath('app'),
                 ],
             ],
         ];

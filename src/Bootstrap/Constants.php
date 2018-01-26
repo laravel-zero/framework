@@ -11,17 +11,19 @@
 
 namespace LaravelZero\Framework\Bootstrap;
 
-use LaravelZero\Framework\Contracts\Application;
+use Illuminate\Contracts\Foundation\Application;
 
 /**
- * This is the Laravel Zero Framework Bootstrap Constants implmentation.
+ * This is the Laravel Zero Framework Bootstrap Constants implementation.
  */
 class Constants
 {
     /**
      * Bootstrap core constants.
      *
-     * @param \LaravelZero\Framework\Contracts\Application $app
+     * @param \Illuminate\Contracts\Foundation\Application $app
+     *
+     * @return void
      */
     public function bootstrap(Application $app): void
     {

@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of Laravel Zero.
+ *
+ * (c) Nuno Maduro <enunomaduro@gmail.com>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace LaravelZero\Framework\Commands\App;
 
 use Illuminate\Support\Str;
@@ -7,9 +16,7 @@ use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Commands\Command;
 
 /**
- * This is the Laravel Zero Framework renamer command class.
- *
- * @author Nuno Maduro <enunomaduro@gmail.com>
+ * This is the Laravel Zero Framework Renamer Command implementation.
  */
 class Renamer extends Command
 {
@@ -34,8 +41,8 @@ class Renamer extends Command
     }
 
     /**
-     * Perform project modifications in order to apply the
-     * application name on the composer and on the binary.
+     * Updates the binary name and the application
+     * name on the composer.json.
      *
      * @return $this
      */
@@ -44,21 +51,11 @@ class Renamer extends Command
         $name = $this->asksForApplicationName();
 
         if (File::exists(base_path($name))) {
-            $this->error("Could't rename: Folder or file already exists.");
+            $this->app->abort(403, 'Folder or file already exists.');
         } else {
             $this->renameBinary($name)->updateComposer($name);
         }
 
-        return $this;
-    }
-
-    /**
-     * Display an welcome message.
-     *
-     * @return $this
-     */
-    protected function displayWelcomeMessage(): Renamer
-    {
         return $this;
     }
 
@@ -76,7 +73,7 @@ class Renamer extends Command
         }
 
         if (empty($name)) {
-            $name = trim(basename(BASE_PATH));
+            $name = trim(basename($this->app->basePath()));
         }
 
         return Str::lower($name);
@@ -91,13 +88,19 @@ class Renamer extends Command
      */
     protected function updateComposer(string $name): Renamer
     {
-        $this->setComposer(
-            Str::replaceFirst(
-                '"bin": ["'.$this->getCurrentBinaryName().'"]', '"bin": ["'.$name.'"]', $this->getComposer()
-            )
+        $this->task(
+            'Updating composer',
+            function () use ($name) {
+                return File::put(
+                    base_path('composer.json'),
+                    Str::replaceFirst(
+                        '"bin": ["' . $this->getCurrentBinaryName() . '"]',
+                        '"bin": ["' . $name . '"]',
+                        $this->getComposer()
+                    )
+                );
+            }
         );
-
-        $this->output->writeln('Updating composer: <info>✔</info>');
 
         return $this;
     }
@@ -111,23 +114,12 @@ class Renamer extends Command
      */
     protected function renameBinary(string $name): Renamer
     {
-        File::move(base_path($this->getCurrentBinaryName()), base_path($name));
-
-        $this->output->writeln("Renaming application to: <info>$name</info>");
-
-        return $this;
-    }
-
-    /**
-     * Set composer file.
-     *
-     * @param string $composer
-     *
-     * @return $this
-     */
-    protected function setComposer(string $composer): Renamer
-    {
-        File::put(base_path('composer.json'), $composer);
+        $this->task(
+            sprintf('Renaming application to "%s"', $name),
+            function () use ($name) {
+                return File::move($this->app->basePath($this->getCurrentBinaryName()), $this->app->basePath($name));
+            }
+        );
 
         return $this;
     }
@@ -151,11 +143,10 @@ class Renamer extends Command
      */
     protected function getComposer(): string
     {
-        $file = base_path('composer.json');
+        $file = $this->app->basePath('composer.json');
 
         if (! File::exists($file)) {
-            $this->error('composer.json not found.');
-            exit(0);
+            abort(400, 'The file composer.json not found');
         }
 
         return File::get($file);

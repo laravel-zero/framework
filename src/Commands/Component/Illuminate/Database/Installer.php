@@ -1,16 +1,22 @@
 <?php
 
+/**
+ * This file is part of Laravel Zero.
+ *
+ * (c) Nuno Maduro <enunomaduro@gmail.com>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace LaravelZero\Framework\Commands\Component\Illuminate\Database;
 
-use LaravelZero\Framework\Commands\Component\Installer as BaseInstaller;
-use LaravelZero\Framework\Contracts\Commands\Component\Installer as InstallerContract;
+use LaravelZero\Framework\Commands\Component\AbstractInstaller;
 
 /**
- * This is the Laravel Zero Framework illuminate/database install class.
- *
- * @author Nuno Maduro <enunomaduro@gmail.com>
+ * This is the Laravel Zero Framework Database Component Installer Implementation.
  */
-class Installer extends BaseInstaller implements InstallerContract
+class Installer extends AbstractInstaller
 {
     /**
      * {@inheritdoc}
@@ -25,7 +31,7 @@ class Installer extends BaseInstaller implements InstallerContract
     /**
      * The config file path.
      */
-    const CONFIG_FILE = __DIR__.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'database.php';
+    const CONFIG_FILE = __DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'database.php';
 
     /**
      * {@inheritdoc}
@@ -41,36 +47,53 @@ class Installer extends BaseInstaller implements InstallerContract
     public function install(): bool
     {
         $this->require('illuminate/database "5.5.*"');
-        $this->task(
-            'Creating directories and files under database folder',
-            function () {
-                $this->files->makeDirectory(database_path('migrations'), 0755, true, true);
-                if (! $this->files->exists(database_path('database.sqlite'))) {
-                    $this->files->put(database_path('database.sqlite'), '');
-                }
-                $this->files->makeDirectory(database_path('seeds'), 0755, false, true);
-                if (! $this->files->exists(database_path('seeds').DIRECTORY_SEPARATOR.'DatabaseSeeder.php')) {
-                    $this->files->copy(
-                        __DIR__.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php',
-                        database_path('seeds').DIRECTORY_SEPARATOR.'DatabaseSeeder.php'
-                    );
-                }
 
-                return true;
+        $this->task(
+            'Creating Migrations directories',
+            function () {
+                return $this->files->makeDirectory($this->app->databasePath('migrations'), 0755, true, true);
             }
         );
 
         $this->task(
-            'Creating default config',
+            'Creating a default SQLite database',
             function () {
-                if (! $this->files->exists(config_path('database.php'))) {
+                if (! $this->files->exists($this->app->databasePath('database.sqlite'))) {
+                    return $this->files->put($this->app->databasePath('database.sqlite'), '');
+                }
+
+                return false;
+            }
+        );
+
+        $this->task(
+            'Creating Seeds directories and files',
+            function () {
+                $this->files->makeDirectory($this->app->databasePath('seeds'), 0755, false, true);
+                if (! $this->files->exists(
+                    $this->app->databasePath('seeds' . DIRECTORY_SEPARATOR . 'DatabaseSeeder.php')
+                )) {
                     $this->files->copy(
-                        static::CONFIG_FILE,
-                        config_path('database.php')
+                        __DIR__ . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR . 'DatabaseSeeder.php',
+                        $this->app->databasePath('seeds' . DIRECTORY_SEPARATOR . 'DatabaseSeeder.php')
                     );
                 }
 
-                return true;
+                return false;
+            }
+        );
+
+        $this->task(
+            'Creating default database configuration',
+            function () {
+                if (! $this->files->exists($this->app->configPath('database.php'))) {
+                    return $this->files->copy(
+                        static::CONFIG_FILE,
+                        $this->app->configPath('database.php')
+                    );
+                }
+
+                return false;
             }
         );
 

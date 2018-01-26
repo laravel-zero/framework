@@ -15,11 +15,12 @@ use LaravelZero\Framework\Providers;
 use LaravelZero\Framework\Commands\Component;
 use Illuminate\Contracts\Foundation\Application;
 use NunoMaduro\LaravelDesktopNotifier\LaravelDesktopNotifierServiceProvider;
+use Illuminate\Foundation\Bootstrap\RegisterProviders as BaseRegisterProviders;
 
 /**
- * This is the Laravel Zero Framework Bootstrap Service Providers implementation.
+ * This is the Laravel Zero Framework Bootstrap Register Providers implementation.
  */
-class RegisterProviders
+class RegisterProviders extends BaseRegisterProviders
 {
     /**
      * Framework core providers.
@@ -29,12 +30,12 @@ class RegisterProviders
     protected $providers = [
         Providers\Cache\CacheServiceProvider::class,
         Providers\Filesystem\FilesystemServiceProvider::class,
-        Providers\Composer\ServiceProvider::class,
+        Providers\Composer\ComposerServiceProvider::class,
         LaravelDesktopNotifierServiceProvider::class,
     ];
 
     /**
-     * Framework core components.
+     * Framework optional components.
      *
      * @var string[]
      */
@@ -51,9 +52,9 @@ class RegisterProviders
     public function bootstrap(Application $app): void
     {
         /**
-         * First we register Laravel Foundation providers.
+         * First, we register Laravel Foundation providers.
          */
-        (new \Illuminate\Foundation\Bootstrap\RegisterProviders)->bootstrap($app);
+        parent::bootstrap($app);
 
         /**
          * Then we register Laravel Zero providers.

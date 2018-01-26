@@ -17,18 +17,20 @@ use Illuminate\Foundation\Application as BaseApplication;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
 
 /**
- * This is the Laravel Zero Framework application implementation.
+ * This is the Laravel Zero Framework Application implementation.
  */
 class Application extends BaseApplication
 {
     /**
-     * Get the builds path of the application.
+     * Get the builds path.
+     *
+     * @param  string $path Optionally, a path to append to the base path
      *
      * @return string
      */
-    public function buildsPath(): string
+    public function buildsPath(string $path = ''): string
     {
-        return $this->basePath . DIRECTORY_SEPARATOR . 'builds';
+        return $this->basePath('builds' . DIRECTORY_SEPARATOR . ($path ? DIRECTORY_SEPARATOR . $path : $path));
     }
 
     /**
@@ -44,7 +46,7 @@ class Application extends BaseApplication
      */
     public function version()
     {
-        return config('app.version');
+        return $this->app['config']->get('app.version');
     }
 
     /**
@@ -52,7 +54,7 @@ class Application extends BaseApplication
      */
     public function environment()
     {
-        return config('app.production') ? 'production' : 'development';
+        return $this->app['config']->get('app.production') ? 'production' : 'development';
     }
 
     /**

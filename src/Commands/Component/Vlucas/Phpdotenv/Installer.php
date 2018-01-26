@@ -1,17 +1,23 @@
 <?php
 
+/**
+ * This file is part of Laravel Zero.
+ *
+ * (c) Nuno Maduro <enunomaduro@gmail.com>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace LaravelZero\Framework\Commands\Component\Vlucas\Phpdotenv;
 
 use Illuminate\Support\Facades\File;
-use LaravelZero\Framework\Commands\Component\Installer as BaseInstaller;
-use LaravelZero\Framework\Contracts\Commands\Component\Installer as InstallerContract;
+use LaravelZero\Framework\Commands\Component\AbstractInstaller;
 
 /**
- * This is the Laravel Zero Framework vlucas/phpdotent install class.
- *
- * @author Nuno Maduro <enunomaduro@gmail.com>
+ * This is the Laravel Zero Framework Dot Env Component Installer Implementation.
  */
-class Installer extends BaseInstaller implements InstallerContract
+class Installer extends AbstractInstaller
 {
     /**
      * {@inheritdoc}
@@ -39,17 +45,26 @@ class Installer extends BaseInstaller implements InstallerContract
         $this->require('vlucas/phpdotenv');
 
         $this->task(
-            'Creating .env and .env.example',
+            'Creating .env',
             function () {
+
                 if (! File::exists(base_path('.env'))) {
-                    File::put(base_path('.env'), 'CONSUMER_KEY=');
+                    return File::put(base_path('.env'), 'CONSUMER_KEY=');
                 }
+
+                return false;
+            }
+        );
+
+        $this->task(
+            'Creating .env.example',
+            function () {
 
                 if (! File::exists(base_path('.env.example'))) {
-                    File::put(base_path('.env.example'), 'CONSUMER_KEY=');
+                    return File::put(base_path('.env.example'), 'CONSUMER_KEY=');
                 }
 
-                return true;
+                return false;
             }
         );
 

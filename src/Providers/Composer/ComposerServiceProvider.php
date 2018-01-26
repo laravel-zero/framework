@@ -1,16 +1,23 @@
 <?php
 
+/**
+ * This file is part of Laravel Zero.
+ *
+ * (c) Nuno Maduro <enunomaduro@gmail.com>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace LaravelZero\Framework\Providers\Composer;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use LaravelZero\Framework\Contracts\Providers\Composer as ComposerContract;
 
 /**
- * This is the Laravel Zero Framework composer service provider class.
- *
- * @author Nuno Maduro <enunomaduro@gmail.com>
+ * This is the Laravel Zero Framework Composer Service Provider implementation.
  */
-class ServiceProvider extends BaseServiceProvider
+class ComposerServiceProvider extends BaseServiceProvider
 {
     /**
      * Register composer service.
@@ -22,7 +29,7 @@ class ServiceProvider extends BaseServiceProvider
         $this->app->singleton(
             'composer',
             function ($app) {
-                return new Composer;
+                return new Composer($app);
             }
         );
 

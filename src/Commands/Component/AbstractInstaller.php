@@ -1,18 +1,25 @@
 <?php
 
+/**
+ * This file is part of Laravel Zero.
+ *
+ * (c) Nuno Maduro <enunomaduro@gmail.com>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace LaravelZero\Framework\Commands\Component;
 
 use Illuminate\Filesystem\Filesystem;
 use LaravelZero\Framework\Commands\Command;
+use LaravelZero\Framework\Contracts\Commands\Component\Installer;
 use LaravelZero\Framework\Contracts\Providers\Composer as ComposerContract;
-use LaravelZero\Framework\Contracts\Commands\Component\Installer as InstallerContract;
 
 /**
- * This is the Laravel Zero Framework component installer command class.
- *
- * @author Nuno Maduro <enunomaduro@gmail.com>
+ * This is the Laravel Zero Framework Abstract Installer Implementation.
  */
-abstract class Installer extends Command implements InstallerContract
+abstract class AbstractInstaller extends Command implements Installer
 {
     /**
      * Holds an instance of Files.
@@ -65,7 +72,7 @@ abstract class Installer extends Command implements InstallerContract
      *
      * @return \LaravelZero\Framework\Contracts\Commands\Component\Installer
      */
-    protected function require(string $package): InstallerContract
+    protected function require(string $package): Installer
     {
         $this->task(
             'Require package via composer',

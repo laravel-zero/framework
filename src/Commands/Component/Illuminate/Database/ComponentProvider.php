@@ -1,13 +1,21 @@
 <?php
 
+/**
+ * This file is part of Laravel Zero.
+ *
+ * (c) Nuno Maduro <enunomaduro@gmail.com>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace LaravelZero\Framework\Commands\Component\Illuminate\Database;
 
+use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Commands\Component\AbstractComponentProvider;
 
 /**
- * This is the Laravel Zero Framework illuminate/database component provider class.
- *
- * @author Nuno Maduro <enunomaduro@gmail.com>
+ * This is the Laravel Zero Framework Database Component Provider Implementation.
  */
 class ComponentProvider extends AbstractComponentProvider
 {
@@ -24,7 +32,7 @@ class ComponentProvider extends AbstractComponentProvider
      */
     public function register(): void
     {
-        if (file_exists(config_path('database.php'))) {
+        if (File::exists(config_path('database.php'))) {
             $this->mergeConfigFrom(config_path('database.php'), 'database');
         }
 
@@ -36,13 +44,13 @@ class ComponentProvider extends AbstractComponentProvider
     /**
      * Registers the database service.
      *
-     * Makes this Capsule instance available globally via static methods.
+     * Makes this Capsule Instance available globally via static methods.
      *
      * @return void
      */
     protected function registerDatabaseService(): void
     {
-        $this->registerServiceProvider(\Illuminate\Database\DatabaseServiceProvider::class);
+        $this->app->register(\Illuminate\Database\DatabaseServiceProvider::class);
 
         $this->app->alias('db', \Illuminate\Database\DatabaseManager::class);
         $this->app->alias('db', \Illuminate\Database\ConnectionResolverInterface::class);
@@ -51,19 +59,19 @@ class ComponentProvider extends AbstractComponentProvider
 
         $this->app->make(\Illuminate\Database\Capsule\Manager::class)->setAsGlobal();
 
-        if (config('database.with-seeds', true)) {
+        if ($this->app['config']->get('database.with-seeds', true)) {
             if ($this->app->environment() !== 'production') {
                 $this->commands([\Illuminate\Database\Console\Seeds\SeederMakeCommand::class]);
             }
 
             $this->commands([\Illuminate\Database\Console\Seeds\SeedCommand::class]);
 
-            if (is_dir(database_path('seeds'))) {
+            if (File::exists($this->app->databasePath('seeds'))) {
                 collect(
-                    $this->app->make('files')->files(database_path('seeds'))
+                    File::files($this->app->databasePath('seeds'))
                 )->each(
                     function ($file) {
-                        $this->app->make('files')->requireOnce($file);
+                        File::requireOnce($file);
                     }
                 );
             }
@@ -77,15 +85,16 @@ class ComponentProvider extends AbstractComponentProvider
      */
     protected function registerMigrationService(): void
     {
-        $config = $this->app->make('config');
+        $config = $this->app['config'];
         $config->set('database.migrations', $config->get('database.migrations') ?: 'migrations');
-        $this->registerServiceProvider(\Illuminate\Database\MigrationServiceProvider::class);
+
+        $this->app->register(\Illuminate\Database\MigrationServiceProvider::class);
         $this->app->alias(
             'migration.repository',
             \Illuminate\Database\Migrations\MigrationRepositoryInterface::class
         );
 
-        if (config('database.with-migrations', true)) {
+        if ($config->get('database.with-migrations', true)) {
             if ($this->app->environment() !== 'production') {
                 $this->commands([\Illuminate\Database\Console\Migrations\MigrateMakeCommand::class]);
             }

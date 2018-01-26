@@ -1,13 +1,20 @@
 <?php
 
+/**
+ * This file is part of Laravel Zero.
+ *
+ * (c) Nuno Maduro <enunomaduro@gmail.com>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace LaravelZero\Framework\Commands\Component;
 
 use Illuminate\Support\ServiceProvider;
 
 /**
- * This is the Laravel Zero Framework illuminate/database component provider class.
- *
- * @author Nuno Maduro <enunomaduro@gmail.com>
+ * This is the Laravel Zero Framework Abstract Component Provider Implementation.
  */
 abstract class AbstractComponentProvider extends ServiceProvider
 {
@@ -26,23 +33,4 @@ abstract class AbstractComponentProvider extends ServiceProvider
      * @return bool
      */
     abstract public function isAvailable(): bool;
-
-    /**
-     * Register the service provider.
-     *
-     * @param string $providerClass
-     *
-     * @return void
-     */
-    protected function registerServiceProvider(string $providerClass): void
-    {
-        $instance = new $providerClass($this->app);
-        if (method_exists($instance, 'register')) {
-            $instance->register();
-        }
-
-        if (method_exists($instance, 'boot')) {
-            $instance->boot();
-        }
-    }
 }

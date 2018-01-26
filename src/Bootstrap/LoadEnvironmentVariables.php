@@ -12,23 +12,22 @@
 namespace LaravelZero\Framework\Bootstrap;
 
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables as BaseLoadEnvironmentVariables;
 
 /**
- * This is the Laravel Zero Framework Bootstrapper Load Environment Variables implementation.
+ * This is the Laravel Zero Framework Bootstrap Load Environment Variables implementation.
  */
-class LoadEnvironmentVariables
+class LoadEnvironmentVariables extends BaseLoadEnvironmentVariables
 {
     /**
-     * If component installed, bootstrap Environment Variables if component installed.
+     * If component installed, bootstrap Environment Variables.
      *
      * @param \Illuminate\Contracts\Foundation\Application $app
      */
     public function bootstrap(Application $app): void
     {
         if (class_exists(\Dotenv\Dotenv::class)) {
-            $app->make(\Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables::class)->bootstrap(
-                $app
-            );
+            parent::bootstrap($app);
         }
     }
 }

@@ -1,13 +1,20 @@
 <?php
 
+/**
+ * This file is part of Laravel Zero.
+ *
+ * (c) Nuno Maduro <enunomaduro@gmail.com>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace LaravelZero\Framework\Commands\Component\Illuminate\Log;
 
 use LaravelZero\Framework\Commands\Component\AbstractComponentProvider;
 
 /**
- * This is the Laravel Zero Framework illuminate/log component provider class.
- *
- * @author Nuno Maduro <enunomaduro@gmail.com>
+ * This is the Laravel Zero Framework Log Component Provider Implementation.
  */
 class ComponentProvider extends AbstractComponentProvider
 {
@@ -24,7 +31,7 @@ class ComponentProvider extends AbstractComponentProvider
      */
     public function register(): void
     {
-        $this->registerServiceProvider(\Illuminate\Log\LogServiceProvider::class);
+        $this->app->register(\Illuminate\Log\LogServiceProvider::class);
 
         $this->app->alias('log', \Illuminate\Log\Writer::class);
         $this->app->alias('log', \Illuminate\Contracts\Logging\Log::class);

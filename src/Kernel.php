@@ -11,6 +11,7 @@
 
 namespace LaravelZero\Framework;
 
+use Illuminate\Console\Application as Artisan;
 use Illuminate\Foundation\Console\Kernel as BaseKernel;
 
 /**
@@ -33,13 +34,14 @@ class Kernel extends BaseKernel
     ];
 
     /**
-     * The bootstrap classes for the application.
+     * The application's bootstrap classes.
      *
-     * @var array
+     * @var string[]
      */
     protected $bootstrappers = [
         \LaravelZero\Framework\Bootstrap\LoadEnvironmentVariables::class,
-        \Illuminate\Foundation\Bootstrap\LoadConfiguration::class,
+        \LaravelZero\Framework\Bootstrap\Constants::class,
+        \LaravelZero\Framework\Bootstrap\LoadConfiguration::class,
         \Illuminate\Foundation\Bootstrap\HandleExceptions::class,
         \Illuminate\Foundation\Bootstrap\RegisterFacades::class,
         \LaravelZero\Framework\Bootstrap\RegisterProviders::class,
@@ -47,26 +49,44 @@ class Kernel extends BaseKernel
     ];
 
     /**
+     * Gets the application name.
+     *
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->getArtisan()->getName();
+    }
+
+    /**
      * Register the commands for the application.
      *
      * @return void
      */
-    protected function commands()
+    protected function commands(): void
     {
-        $this->load($this->app->path('Commands'));
+        $config = $this->app['config'];
 
-        $config = $this->app->make('config');
+        /**
+         * Loads commands paths.
+         */
+        $this->load($config->get('app.commands-paths', $this->app->path('Commands')));
 
-        if ($name = $config->get('app.name')) {
-            $this->getArtisan()->setName($name);
-        }
+        /**
+         * Loads configurated commands.
+         */
+        $commands = collect($config->get('app.commands', []))->push($config->get('app.default-command'));
 
-        $commands = collect($config->get('app.commands') ?: []);
-
+        /**
+         * Loads development commands.
+         */
         if ($this->app->environment() !== 'production') {
             $commands = $commands->merge($this->developmentCommands);
         }
 
+        /**
+         * Loads scheduler commands.
+         */
         if ($config->get('app.with-scheduler')) {
             $commands = $commands->merge(
                 [
@@ -76,17 +96,22 @@ class Kernel extends BaseKernel
             );
         }
 
-        $commands->push($config->get('app.default-command'))->unique()->each(
-            function ($command) {
-                if ($command) {
-                    $commandInstance = $this->app->make($command);
+        /**
+         * Registers a bootstrap callback on the artisan console application
+         * in order to call the schedule method on each Laravel Zero
+         * command class.
+         */
+        Artisan::starting(
+            function ($artisan) use ($commands) {
+                $artisan->resolveCommands($commands->toArray());
 
-                    if ($commandInstance instanceof Commands\Command) {
-                        $this->app->call([$commandInstance, 'schedule']);
+                collect($artisan->all())->each(
+                    function ($command) {
+                        if ($command instanceof Commands\Command) {
+                            $this->app->call([$command, 'schedule']);
+                        }
                     }
-
-                    $this->registerCommand($commandInstance);
-                }
+                );
             }
         );
     }
