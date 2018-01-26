@@ -94,8 +94,8 @@ class Renamer extends Command
                 return File::put(
                     base_path('composer.json'),
                     Str::replaceFirst(
-                        '"bin": ["' . $this->getCurrentBinaryName() . '"]',
-                        '"bin": ["' . $name . '"]',
+                        '"bin": ["'.$this->getCurrentBinaryName().'"]',
+                        '"bin": ["'.$name.'"]',
                         $this->getComposer()
                     )
                 );

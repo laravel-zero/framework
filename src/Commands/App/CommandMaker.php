@@ -36,7 +36,7 @@ class CommandMaker extends ConsoleMakeCommand
      */
     protected function getStub()
     {
-        return __DIR__ . '/stubs/console.stub';
+        return __DIR__.'/stubs/console.stub';
     }
 
     /**
@@ -44,6 +44,6 @@ class CommandMaker extends ConsoleMakeCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\Commands';
+        return $rootNamespace.'\Commands';
     }
 }
