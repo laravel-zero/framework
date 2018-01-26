@@ -3,19 +3,12 @@
 namespace Tests;
 
 use LaravelZero\Framework\Commands\Command;
+use Illuminate\Console\Application as Artisan;
 use Symfony\Component\Console\Output\OutputInterface;
 use NunoMaduro\LaravelDesktopNotifier\Contracts\Notifier;
 
 class BaseCommandTest extends TestCase
 {
-    /** @test */
-    public function it_has_a_container_getter(): void
-    {
-        $command = $this->makeCommand();
-
-        $this->assertSame($command->getContainer(), app());
-    }
-
     /** @test */
     public function it_allows_notifications(): void
     {
@@ -31,8 +24,7 @@ class BaseCommandTest extends TestCase
             )
         );
 
-        app()->instance(Notifier::class, $notifierMock);
-
+        $this->app->instance(Notifier::class, $notifierMock);
         $command->notify('foo', 'bar');
     }
 
@@ -49,9 +41,11 @@ class BaseCommandTest extends TestCase
         $command->setOutput($outputMock);
 
         $command->task(
-            'foo', function () {
+            'foo',
+            function () {
                 return true;
-            });
+            }
+        );
     }
 
     /** @test */
@@ -67,14 +61,17 @@ class BaseCommandTest extends TestCase
         $command->setOutput($outputMock);
 
         $command->task(
-            'bar', function () {
+            'bar',
+            function () {
                 return false;
-            });
+            }
+        );
     }
 
     private function makeCommand()
     {
-        $command = new class extends Command {
+        $command = new class extends Command
+        {
             protected $name = 'foo:bar';
 
             public function handle(): void
@@ -87,7 +84,7 @@ class BaseCommandTest extends TestCase
             }
         };
 
-        $this->app->add($command);
+        $command->setLaravel($this->app);
 
         return $command;
     }

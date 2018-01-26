@@ -3,12 +3,17 @@
 namespace Tests;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 
 class DatabaseProviderTest extends TestCase
 {
     /** @test */
     public function it_adds_commands(): void
     {
+        $commands = collect(Artisan::all())->map(function ($command) {
+            return get_class($command);
+        })->flip();
+
         collect(
             [
                 \Illuminate\Database\Console\Seeds\SeedCommand::class,
@@ -23,8 +28,8 @@ class DatabaseProviderTest extends TestCase
                 \Illuminate\Database\Console\Migrations\StatusCommand::class,
             ]
         )->map(
-            function ($commandClass) {
-                $this->assertInstanceOf(Command::class, $this->app->find(app($commandClass)->getName()));
+            function ($commandClass) use ($commands) {
+                $this->assertArrayHasKey($commandClass, $commands);
             }
         );
     }

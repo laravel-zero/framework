@@ -2,105 +2,53 @@
 
 namespace Tests;
 
-use App\Commands\FakeFooCommand;
-use Illuminate\Container\Container;
-use App\Commands\FakeDefaultCommand;
-use Illuminate\Support\Facades\Config;
-use App\OtherCommands\FakeOtherCommand;
-use Illuminate\Contracts\Config\Repository;
-use LaravelZero\Framework\Contracts\Application as ApplicationContract;
+use LaravelZero\Framework\Exceptions\NotImplementedException;
+use LaravelZero\Framework\Contracts\Exceptions\ConsoleException;
+use Symfony\Component\Console\Exception\CommandNotFoundException;
 
 class ApplicationTest extends TestCase
 {
     /** @test */
-    public function it_binds_core_alias(): void
+    public function it_has_environment_getter()
     {
-        $container = $this->app->getContainer();
-
-        $this->assertSame($container, Container::getInstance());
-        $this->assertSame($container, $container->make('app'));
-        $this->assertSame($container, $container->make(Container::class));
-        $this->assertSame($this->app, $container->make(ApplicationContract::class));
-        $this->assertInstanceOf(Repository::class, $container->make('config'));
-        $this->assertEquals(BASE_PATH.DIRECTORY_SEPARATOR.'app', $container->make('path'));
-        $this->assertEquals(BASE_PATH.DIRECTORY_SEPARATOR.'storage', $container->make('path.storage'));
+        $this->assertSame('Test version', $this->app->version());
     }
 
     /** @test */
-    public function it_reads_configuration_files()
+    public function it_confirms_the_running_in_console()
     {
-        $this->assertSame('Test name', $this->app->getName());
-        $this->assertSame('Test version', $this->app->getVersion());
-        $this->assertEquals(
-            $this->app->getContainer()
-                ->environment(),
-            'development'
-        );
-
-        $this->assertEquals(
-            $this->app->getContainer()
-                ->make('config')
-                ->get('foo.bar'),
-            10
+        $this->assertTrue(
+            $this->app->runningInConsole()
         );
     }
 
     /** @test */
-    public function it_register_commands()
+    public function it_confirms_that_is_not_down_for_maintenance()
     {
-        $commands = [
-            FakeDefaultCommand::class,
-            FakeFooCommand::class,
-            FakeOtherCommand::class,
-        ];
+        $this->assertFalse(
+            $this->app->isDownForMaintenance()
+        );
+    }
 
-        $appCommands = collect($this->app->all())
-            ->map(
-                function ($command) {
-                    return get_class($command);
-                }
-            )
-            ->toArray();
-
-        foreach ($commands as $command) {
-            $this->assertContains($command, $appCommands);
+    /** @test */
+    public function it_can_abort(): void
+    {
+        try {
+            $this->app->abort(404, 'Foo');
+        } catch (CommandNotFoundException $notFoundException) {
         }
-    }
 
-    /** @test */
-    public function it_defines_core_constants()
-    {
-        $this->assertEquals(ARTISAN_BINARY, base_path('phpunit'));
-    }
+        $this->assertInstanceOf(CommandNotFoundException::class, $notFoundException);
+        $this->assertEquals($notFoundException->getMessage(), 'Foo');
 
-    /** @test */
-    public function it_allows_using_facades()
-    {
-        $this->assertEquals(
-            Config::get('app.name'),
-            'Test name'
-        );
-    }
+        try {
+            abort(200, 'Bar', ['Foo' => 'Bar']);
+        } catch (ConsoleException $consoleException) {
+        }
 
-    /** @test */
-    public function it_register_service_providers()
-    {
-        $app = $this->createApplication();
-
-        $this->assertSame(
-            'bar',
-            $app->getContainer()
-                ->make('foo')
-        );
-    }
-
-    /** @test */
-    public function it_guards_the_running_command()
-    {
-        $app = $this->createApplication();
-
-        $app->call('fake:default');
-
-        $this->assertInstanceOf(FakeDefaultCommand::class, $app->getRunningCommand());
+        $this->assertInstanceOf(ConsoleException::class, $consoleException);
+        $this->assertEquals($consoleException->getExitCode(), 200);
+        $this->assertEquals($consoleException->getMessage(), 'Bar');
+        $this->assertEquals($consoleException->getHeaders(), ['Foo' => 'Bar']);
     }
 }

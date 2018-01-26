@@ -4,6 +4,7 @@ namespace Tests;
 
 use LaravelZero\Framework\Application;
 use PHPUnit\Framework\TestCase as BaseTestCase;
+use Illuminate\Contracts\Foundation\Application as ApplicationContract;
 
 /**
  * This is the Laravel Zero Framework test case class.
@@ -15,7 +16,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * The application instance.
      *
-     * @var \LaravelZero\Framework\Application
+     * @var \Illuminate\Contracts\Foundation\Application
      */
     protected $app;
 
@@ -24,8 +25,12 @@ abstract class TestCase extends BaseTestCase
      */
     protected function setUp(): void
     {
+        if (! defined('ARTISAN_BINARY')) {
+            define('ARTISAN_BINARY', basename($_SERVER['SCRIPT_FILENAME']));
+        }
+
         if (! defined('BASE_PATH')) {
-            define('BASE_PATH', __DIR__.DIRECTORY_SEPARATOR.'Application');
+            define('BASE_PATH', __DIR__ . DIRECTORY_SEPARATOR . 'Application');
         }
 
         $this->app = $this->createApplication();
@@ -34,10 +39,16 @@ abstract class TestCase extends BaseTestCase
     /**
      * Creates a new instance of the application.
      *
-     * @return \LaravelZero\Framework\Application
+     * @return \Illuminate\Contracts\Foundation\Application
      */
-    protected function createApplication(): Application
+    protected function createApplication(): ApplicationContract
     {
-        return new Application;
+        $app = require BASE_PATH . DIRECTORY_SEPARATOR . 'bootstrap' . DIRECTORY_SEPARATOR . 'app.php';
+
+        Application::setInstance($app);
+
+        $app->make(\Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+
+        return $app;
     }
 }

@@ -3,6 +3,7 @@
 namespace Tests;
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Artisan;
 
 class RenamerTest extends TestCase
 {
@@ -16,7 +17,7 @@ class RenamerTest extends TestCase
     /** @test */
     public function it_renames_the_binary(): void
     {
-        $this->app->call('app:rename', ['name' => 'zonda']);
+        Artisan::call('app:rename', ['name' => 'zonda']);
 
         $this->assertTrue(File::exists(base_path('zonda')));
         $this->assertContains('"bin": ["zonda"]', File::get(base_path('composer.json')));
