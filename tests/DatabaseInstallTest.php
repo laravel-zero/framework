@@ -5,9 +5,8 @@ namespace Tests;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
 use LaravelZero\Framework\Contracts\Providers\Composer;
-use LaravelZero\Framework\Commands\Component\Illuminate\Database\Installer;
 
-class InstallDatabaseTest extends TestCase
+class DatabaseInstallTest extends TestCase
 {
     public function tearDown()
     {

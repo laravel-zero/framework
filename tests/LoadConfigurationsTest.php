@@ -4,7 +4,6 @@ namespace Tests;
 
 use App\Commands\FakeFooCommand;
 use App\Commands\FakeDefaultCommand;
-use Illuminate\Support\Facades\Config;
 use App\OtherCommands\FakeOtherCommand;
 use Illuminate\Support\Facades\Artisan;
 

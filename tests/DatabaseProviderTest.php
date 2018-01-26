@@ -2,7 +2,6 @@
 
 namespace Tests;
 
-use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 
 class DatabaseProviderTest extends TestCase

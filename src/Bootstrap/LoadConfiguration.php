@@ -29,7 +29,7 @@ class LoadConfiguration extends BaseLoadConfiguration
     {
         parent::bootstrap($app);
 
-        /**
+        /*
          * When artisan starts, sets the application name
          * and the application version.
          */

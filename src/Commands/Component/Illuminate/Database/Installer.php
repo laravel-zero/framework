@@ -31,7 +31,7 @@ class Installer extends AbstractInstaller
     /**
      * The config file path.
      */
-    const CONFIG_FILE = __DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'database.php';
+    const CONFIG_FILE = __DIR__.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'database.php';
 
     /**
      * {@inheritdoc}
@@ -71,11 +71,11 @@ class Installer extends AbstractInstaller
             function () {
                 $this->files->makeDirectory($this->app->databasePath('seeds'), 0755, false, true);
                 if (! $this->files->exists(
-                    $this->app->databasePath('seeds' . DIRECTORY_SEPARATOR . 'DatabaseSeeder.php')
+                    $this->app->databasePath('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php')
                 )) {
                     $this->files->copy(
-                        __DIR__ . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR . 'DatabaseSeeder.php',
-                        $this->app->databasePath('seeds' . DIRECTORY_SEPARATOR . 'DatabaseSeeder.php')
+                        __DIR__.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php',
+                        $this->app->databasePath('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php')
                     );
                 }
 
