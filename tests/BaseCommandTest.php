@@ -3,7 +3,6 @@
 namespace Tests;
 
 use LaravelZero\Framework\Commands\Command;
-use Illuminate\Console\Application as Artisan;
 use Symfony\Component\Console\Output\OutputInterface;
 use NunoMaduro\LaravelDesktopNotifier\Contracts\Notifier;
 
@@ -70,8 +69,7 @@ class BaseCommandTest extends TestCase
 
     private function makeCommand()
     {
-        $command = new class extends Command
-        {
+        $command = new class extends Command {
             protected $name = 'foo:bar';
 
             public function handle(): void

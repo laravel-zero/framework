@@ -28,10 +28,10 @@ class Builder extends Command
      * @var string[]
      */
     protected $structure = [
-        'app' . DIRECTORY_SEPARATOR,
-        'bootstrap' . DIRECTORY_SEPARATOR,
-        'vendor' . DIRECTORY_SEPARATOR,
-        'config' . DIRECTORY_SEPARATOR,
+        'app'.DIRECTORY_SEPARATOR,
+        'bootstrap'.DIRECTORY_SEPARATOR,
+        'vendor'.DIRECTORY_SEPARATOR,
+        'config'.DIRECTORY_SEPARATOR,
         'composer.json',
     ];
 
@@ -63,8 +63,8 @@ class Builder extends Command
             $this->build($this->input->getArgument('name') ?: static::BUILD_NAME);
         } else {
             $this->error(
-                'Unable to compile a phar because of php\'s security settings. ' . 'phar.readonly must be disabled in php.ini. ' . PHP_EOL . PHP_EOL . 'You will need to edit ' . php_ini_loaded_file(
-                ) . ' and add or set' . PHP_EOL . PHP_EOL . '    phar.readonly = Off' . PHP_EOL . PHP_EOL . 'to continue. Details here: http://php.net/manual/en/phar.configuration.php'
+                'Unable to compile a phar because of php\'s security settings. '.'phar.readonly must be disabled in php.ini. '.PHP_EOL.PHP_EOL.'You will need to edit '.php_ini_loaded_file(
+                ).' and add or set'.PHP_EOL.PHP_EOL.'    phar.readonly = Off'.PHP_EOL.PHP_EOL.'to continue. Details here: http://php.net/manual/en/phar.configuration.php'
             );
         }
     }
@@ -78,7 +78,7 @@ class Builder extends Command
      */
     protected function build(string $name): Builder
     {
-        /**
+        /*
          * We setInProduction the application for a build, moving it to production. Then,
          * after compile all the code to a single file, we move the built file
          * to the builds folder with the correct permissions.
@@ -105,7 +105,7 @@ class Builder extends Command
 
         $structure = config('app.structure') ?: $this->structure;
 
-        $regex = '#' . implode('|', $structure) . '#';
+        $regex = '#'.implode('|', $structure).'#';
 
         if (stristr(PHP_OS, 'WINNT') !== false) { // For windows:
             $compiler->buildFromDirectory($this->app->basePath(), str_replace('\\', '/', $regex));
@@ -114,7 +114,7 @@ class Builder extends Command
         }
 
         $compiler->setStub(
-            "#!/usr/bin/env php \n" . $compiler->createDefaultStub('bootstrap' . DIRECTORY_SEPARATOR . 'init.php')
+            "#!/usr/bin/env php \n".$compiler->createDefaultStub('bootstrap'.DIRECTORY_SEPARATOR.'init.php')
         );
 
         $file = $this->app->buildsPath($name);
@@ -135,7 +135,7 @@ class Builder extends Command
     {
         try {
             return new Phar(
-                $this->app->buildsPath($name . '.phar'),
+                $this->app->buildsPath($name.'.phar'),
                 FilesystemIterator::CURRENT_AS_FILEINFO | FilesystemIterator::KEY_AS_FILENAME,
                 $name
             );
@@ -183,7 +183,7 @@ class Builder extends Command
 
         $this->info('Moving application to production mode...');
 
-        File::put($file, '<?php return ' . var_export($config, true) . ';' . PHP_EOL);
+        File::put($file, '<?php return '.var_export($config, true).';'.PHP_EOL);
 
         return $this;
     }

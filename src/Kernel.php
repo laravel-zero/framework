@@ -67,7 +67,7 @@ class Kernel extends BaseKernel
     {
         $config = $this->app['config'];
 
-        /**
+        /*
          * Loads commands paths.
          */
         $this->load($config->get('app.commands-paths', $this->app->path('Commands')));
@@ -77,14 +77,14 @@ class Kernel extends BaseKernel
          */
         $commands = collect($config->get('app.commands', []))->push($config->get('app.default-command'));
 
-        /**
+        /*
          * Loads development commands.
          */
         if ($this->app->environment() !== 'production') {
             $commands = $commands->merge($this->developmentCommands);
         }
 
-        /**
+        /*
          * Loads scheduler commands.
          */
         if ($config->get('app.with-scheduler')) {
@@ -96,7 +96,7 @@ class Kernel extends BaseKernel
             );
         }
 
-        /**
+        /*
          * Registers a bootstrap callback on the artisan console application
          * in order to call the schedule method on each Laravel Zero
          * command class.

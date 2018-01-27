@@ -30,7 +30,7 @@ class Application extends BaseApplication
      */
     public function buildsPath(string $path = ''): string
     {
-        return $this->basePath('builds' . DIRECTORY_SEPARATOR . ($path ? DIRECTORY_SEPARATOR . $path : $path));
+        return $this->basePath('builds'.DIRECTORY_SEPARATOR.($path ? DIRECTORY_SEPARATOR.$path : $path));
     }
 
     /**
@@ -38,7 +38,7 @@ class Application extends BaseApplication
      */
     protected function registerBaseServiceProviders()
     {
-        $this->register(new EventServiceProvider($this));;
+        $this->register(new EventServiceProvider($this));
     }
 
     /**

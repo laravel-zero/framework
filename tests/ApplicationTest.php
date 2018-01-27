@@ -2,7 +2,6 @@
 
 namespace Tests;
 
-use LaravelZero\Framework\Exceptions\NotImplementedException;
 use LaravelZero\Framework\Contracts\Exceptions\ConsoleException;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
 
