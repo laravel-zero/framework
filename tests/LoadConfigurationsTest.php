@@ -4,8 +4,10 @@ namespace Tests;
 
 use App\Commands\FakeFooCommand;
 use App\Commands\FakeDefaultCommand;
+use App\Commands\FakeRemovedCommand;
 use App\OtherCommands\FakeOtherCommand;
 use Illuminate\Support\Facades\Artisan;
+use App\HiddenCommands\FakeHiddenCommand;
 
 class LoadConfigurationsTest extends TestCase
 {
@@ -27,6 +29,7 @@ class LoadConfigurationsTest extends TestCase
             FakeDefaultCommand::class,
             FakeFooCommand::class,
             FakeOtherCommand::class,
+            FakeHiddenCommand::class
         ];
 
         $appCommands = collect(Artisan::all())->map(
@@ -38,5 +41,17 @@ class LoadConfigurationsTest extends TestCase
         foreach ($commands as $command) {
             $this->assertContains($command, $appCommands);
         }
+    }
+
+    /** @test */
+    public function it_allows_hidden_commands()
+    {
+        $this->assertTrue(Artisan::all()['fake:hidden']->isHidden());
+    }
+
+    /** @test */
+    public function it_allows_remove_commands()
+    {
+        $this->assertArrayNotHasKey('fake:removed', Artisan::all());
     }
 }

@@ -11,6 +11,7 @@
 
 namespace LaravelZero\Framework;
 
+use ReflectionClass;
 use Illuminate\Console\Application as Artisan;
 use Illuminate\Foundation\Console\Kernel as BaseKernel;
 
@@ -75,7 +76,9 @@ class Kernel extends BaseKernel
         /**
          * Loads configurated commands.
          */
-        $commands = collect($config->get('commands.add', []))->push($config->get('commands.default'));
+        $commands = collect($config->get('commands.add', []))
+            ->merge($config->get('commands.hidden', []))
+            ->push($config->get('commands.default'));
 
         /*
          * Loads development commands.
@@ -84,15 +87,37 @@ class Kernel extends BaseKernel
             $commands = $commands->merge($this->developmentCommands);
         }
 
+        $commands = $commands->except($removed = $config->get('commands.remove', []));
+
+        Artisan::starting(
+            function ($artisan) use ($removed){
+                $reflectionClass = new ReflectionClass(Artisan::class);
+                $commands = collect($artisan->all())
+                    ->filter(function ($command) use ($removed) {
+                        return ! in_array(get_class($command), $removed);
+                    })->toArray();
+
+                $property = $reflectionClass->getParentClass()->getProperty('commands');
+
+                $property->setAccessible(true);
+                $property->setValue($artisan, $commands);
+                $property->setAccessible(false);
+            }
+        );
+
         /*
          * Registers a bootstrap callback on the artisan console application
          * in order to call the schedule method on each Laravel Zero
          * command class.
          */
         Artisan::starting(
-            function ($artisan) use ($commands, $config) {
+            function ($artisan) use ($commands) {
                 $artisan->resolveCommands($commands->toArray());
+            }
+        );
 
+        Artisan::starting(
+            function ($artisan) use ($config) {
                 collect($artisan->all())->each(
                     function ($command) use ($config) {
 
