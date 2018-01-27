@@ -95,7 +95,6 @@ class Kernel extends BaseKernel
 
                 collect($artisan->all())->each(
                     function ($command) use ($config) {
-
                         if (in_array(get_class($command), $config->get('commands.hidden', []))) {
                             $command->setHidden(true);
                         }
