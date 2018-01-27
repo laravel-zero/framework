@@ -70,12 +70,12 @@ class Kernel extends BaseKernel
         /*
          * Loads commands paths.
          */
-        $this->load($config->get('app.commands-paths', $this->app->path('Commands')));
+        $this->load($config->get('commands.paths', $this->app->path('Commands')));
 
         /**
          * Loads configurated commands.
          */
-        $commands = collect($config->get('app.commands', []))->push($config->get('app.default-command'));
+        $commands = collect($config->get('commands.add', []))->push($config->get('commands.default'));
 
         /*
          * Loads development commands.
@@ -85,28 +85,21 @@ class Kernel extends BaseKernel
         }
 
         /*
-         * Loads scheduler commands.
-         */
-        if ($config->get('app.with-scheduler')) {
-            $commands = $commands->merge(
-                [
-                    \Illuminate\Console\Scheduling\ScheduleRunCommand::class,
-                    \Illuminate\Console\Scheduling\ScheduleFinishCommand::class,
-                ]
-            );
-        }
-
-        /*
          * Registers a bootstrap callback on the artisan console application
          * in order to call the schedule method on each Laravel Zero
          * command class.
          */
         Artisan::starting(
-            function ($artisan) use ($commands) {
+            function ($artisan) use ($commands, $config) {
                 $artisan->resolveCommands($commands->toArray());
 
                 collect($artisan->all())->each(
-                    function ($command) {
+                    function ($command) use ($config) {
+
+                        if (in_array(get_class($command), $config->get('commands.hidden', []))) {
+                            $command->setHidden(true);
+                        }
+
                         if ($command instanceof Commands\Command) {
                             $this->app->call([$command, 'schedule']);
                         }
