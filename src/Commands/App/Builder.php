@@ -108,10 +108,11 @@ class Builder extends Command
         $regex = '#' . implode('|', $structure) . '#';
 
         if (stristr(PHP_OS, 'WINNT') !== false) { // For windows:
-            $compiler->buildFromDirectory(BASE_PATH, str_replace('\\', '/', $regex));
+            $compiler->buildFromDirectory($this->app->basePath(), str_replace('\\', '/', $regex));
         } else { // Linux, OS X:
-            $compiler->buildFromDirectory(BASE_PATH, $regex);
+            $compiler->buildFromDirectory($this->app->basePath(), $regex);
         }
+
         $compiler->setStub(
             "#!/usr/bin/env php \n" . $compiler->createDefaultStub('bootstrap' . DIRECTORY_SEPARATOR . 'init.php')
         );
