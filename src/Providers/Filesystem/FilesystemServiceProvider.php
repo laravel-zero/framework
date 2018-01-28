@@ -20,7 +20,7 @@ use Illuminate\Filesystem\FilesystemServiceProvider as BaseServiceProvider;
 class FilesystemServiceProvider extends BaseServiceProvider
 {
     /**
-     * Register Scheduler service.
+     * Register Filesystem service.
      *
      * @return void
      */
