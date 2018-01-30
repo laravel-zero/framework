@@ -11,6 +11,8 @@
 
 namespace LaravelZero\Framework;
 
+use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Contracts\Foundation\Application;
 use ReflectionClass;
 use Illuminate\Console\Application as Artisan;
 use Illuminate\Foundation\Console\Kernel as BaseKernel;
@@ -41,13 +43,29 @@ class Kernel extends BaseKernel
      */
     protected $bootstrappers = [
         \LaravelZero\Framework\Bootstrap\LoadEnvironmentVariables::class,
-        \LaravelZero\Framework\Bootstrap\Constants::class,
         \LaravelZero\Framework\Bootstrap\LoadConfiguration::class,
         \Illuminate\Foundation\Bootstrap\HandleExceptions::class,
         \Illuminate\Foundation\Bootstrap\RegisterFacades::class,
         \LaravelZero\Framework\Bootstrap\RegisterProviders::class,
         \Illuminate\Foundation\Bootstrap\BootProviders::class,
     ];
+
+    /**
+     * Kernel constructor.
+     *
+     * @param \Illuminate\Contracts\Foundation\Application $app
+     * @param \Illuminate\Contracts\Events\Dispatcher $events
+     */
+    public function __construct(
+        \Illuminate\Contracts\Foundation\Application $app,
+        \Illuminate\Contracts\Events\Dispatcher $events
+    ) {
+        if (! defined('ARTISAN_BINARY')) {
+            define('ARTISAN_BINARY', basename($_SERVER['SCRIPT_FILENAME']));
+        }
+
+        parent::__construct($app, $events);
+    }
 
     /**
      * Gets the application name.
