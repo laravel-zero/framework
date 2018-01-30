@@ -13,14 +13,15 @@ namespace LaravelZero\Framework\Commands;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Console\Command as BaseCommand;
-use NunoMaduro\LaravelDesktopNotifier\Contracts\Notifier;
-use NunoMaduro\LaravelDesktopNotifier\Contracts\Notification;
+use NunoMaduro\LaravelDesktopNotifier\Notifications;
 
 /**
  * This is the Laravel Zero Framework Abstract Command Implementation.
  */
 abstract class Command extends BaseCommand
 {
+    use Notifications;
+
     /**
      * Holds an instance of the app, if any.
      *
@@ -52,46 +53,5 @@ abstract class Command extends BaseCommand
     public function setLaravel($laravel)
     {
         parent::setLaravel($this->app = $laravel);
-    }
-
-    /**
-     * Gets the concrete implementation of the notifier. Then
-     * creates a new notification and send it through the notifier.
-     *
-     * @param string $title
-     * @param string $body
-     * @param string|null $icon
-     *
-     * @return void
-     */
-    public function notify(string $title, string $body, $icon = null): void
-    {
-        $notifier = $this->laravel->make(Notifier::class);
-
-        $notification = $this->laravel->make(Notification::class)->setTitle($title)->setBody($body)->setIcon(
-            $icon
-        );
-
-        $notifier->send($notification);
-    }
-
-    /**
-     * Performs the given task and outputs the result.
-     *
-     * @param string $title
-     * @param callable $task
-     *
-     * @return bool
-     */
-    public function task(string $title, callable $task): bool
-    {
-        return tap(
-            $task(),
-            function ($result) use ($title) {
-                $this->output->writeln(
-                    "$title: ".($result ? '<info>✔</info>' : '<error>failed</error>')
-                );
-            }
-        );
     }
 }
