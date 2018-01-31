@@ -42,6 +42,7 @@ class Kernel extends BaseKernel
      * @var string[]
      */
     protected $bootstrappers = [
+        \LaravelZero\Framework\Bootstrap\CoreBindings::class,
         \LaravelZero\Framework\Bootstrap\LoadEnvironmentVariables::class,
         \LaravelZero\Framework\Bootstrap\LoadConfiguration::class,
         \Illuminate\Foundation\Bootstrap\HandleExceptions::class,
