@@ -21,9 +21,9 @@ class Factory
         Constants::class,
         Bindings::class,
         Configurations::class,
+        Facades::class,
         ServiceProviders::class,
         LoadCommands::class,
-        Facades::class,
     ];
 
     /**
