@@ -11,6 +11,7 @@
 
 namespace LaravelZero\Framework\Bootstrap;
 
+use Symfony\Component\Finder\Finder;
 use Illuminate\Console\Application as Artisan;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Bootstrap\LoadConfiguration as BaseLoadConfiguration;
@@ -40,4 +41,27 @@ class LoadConfiguration extends BaseLoadConfiguration
             }
         );
     }
+
+    /**
+     * Get all of the configuration files for the application.
+     *
+     * @param  \Illuminate\Contracts\Foundation\Application  $app
+     * @return array
+     */
+    protected function getConfigurationFiles(Application $app)
+    {
+        $files = [];
+
+        $configPath = $app->configPath();
+
+        foreach (Finder::create()->files()->name('*.php')->in($configPath) as $file) {
+            $directory = $this->getNestedDirectory($file, $configPath);
+            $files[$directory.basename($file->getPathName(), '.php')] = $file->getPathName();
+        }
+
+        ksort($files, SORT_NATURAL);
+
+        return $files;
+    }
+
 }
