@@ -63,5 +63,4 @@ class LoadConfiguration extends BaseLoadConfiguration
 
         return $files;
     }
-
 }
