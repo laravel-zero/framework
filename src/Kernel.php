@@ -11,10 +11,10 @@
 
 namespace LaravelZero\Framework;
 
-use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Contracts\Foundation\Application;
 use ReflectionClass;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Console\Application as Artisan;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Console\Kernel as BaseKernel;
 
 /**
