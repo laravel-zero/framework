@@ -109,7 +109,7 @@ class Kernel extends BaseKernel
         $commands = $commands->except($removed = $config->get('commands.remove', []));
 
         Artisan::starting(
-            function ($artisan) use ($removed){
+            function ($artisan) use ($removed) {
                 $reflectionClass = new ReflectionClass(Artisan::class);
                 $commands = collect($artisan->all())
                     ->filter(function ($command) use ($removed) {
@@ -139,7 +139,6 @@ class Kernel extends BaseKernel
             function ($artisan) use ($config) {
                 collect($artisan->all())->each(
                     function ($command) use ($config) {
-
                         if (in_array(get_class($command), $config->get('commands.hidden', []))) {
                             $command->setHidden(true);
                         }
