@@ -49,13 +49,6 @@ class Installer extends AbstractInstaller
         $this->require('illuminate/database "5.6.*-dev"');
 
         $this->task(
-            'Creating Migrations directories',
-            function () {
-                return $this->files->makeDirectory($this->app->databasePath('migrations'), 0755, true, true);
-            }
-        );
-
-        $this->task(
             'Creating a default SQLite database',
             function () {
                 if (! $this->files->exists($this->app->databasePath('database.sqlite'))) {
@@ -67,7 +60,7 @@ class Installer extends AbstractInstaller
         );
 
         $this->task(
-            'Creating Seeds directories and files',
+            'Creating seeds folders and files',
             function () {
                 $this->files->makeDirectory($this->app->databasePath('seeds'), 0755, false, true);
                 if (! $this->files->exists(
