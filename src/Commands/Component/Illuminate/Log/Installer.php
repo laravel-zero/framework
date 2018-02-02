@@ -41,7 +41,7 @@ class Installer extends AbstractInstaller
      */
     public function install(): bool
     {
-        $this->require('illuminate/log "5.5.*"');
+        $this->require('illuminate/log "5.6.*-dev"');
 
         $this->info('Usage:');
         $this->comment(

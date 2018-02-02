@@ -44,7 +44,7 @@ class Composer implements ComposerContract
      */
     public function require(string $package): bool
     {
-        ($process = new Process("composer require $package", $this->app->basePath()))->start();
+        ($process = new Process("composer require $package", $this->app->basePath()))->run();
 
         return $process->isSuccessful();
     }

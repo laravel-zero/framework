@@ -46,7 +46,7 @@ class Installer extends AbstractInstaller
      */
     public function install(): bool
     {
-        $this->require('illuminate/database "5.5.*"');
+        $this->require('illuminate/database "5.6.*-dev"');
 
         $this->task(
             'Creating Migrations directories',
