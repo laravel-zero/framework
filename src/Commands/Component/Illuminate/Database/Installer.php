@@ -46,7 +46,7 @@ class Installer extends AbstractInstaller
      */
     public function install(): bool
     {
-        $this->require('illuminate/database "5.6.*-dev"');
+        $this->require('illuminate/database "5.6.*"');
 
         $this->task(
             'Creating a default SQLite database',
