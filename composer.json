@@ -16,28 +16,28 @@
     ],
     "require": {
         "php": "^7.1.3",
-        "illuminate/cache": "5.6.*-dev",
-        "illuminate/config": "5.6.*-dev",
-        "illuminate/console": "5.6.*-dev",
-        "illuminate/container": "5.6.*-dev",
-        "illuminate/events": "5.6.*-dev",
-        "illuminate/filesystem": "5.6.*-dev",
-        "laravel-zero/foundation": "5.6.x-dev",
         "league/flysystem": "1.0.*",
+        "illuminate/cache": "5.6.*",
+        "illuminate/config": "5.6.*",
+        "illuminate/console": "5.6.*",
+        "illuminate/container": "5.6.*",
+        "illuminate/events": "5.6.*",
+        "illuminate/filesystem": "5.6.*",
+        "laravel-zero/foundation": "5.6.*",
         "mtdowling/cron-expression": "1.2.*",
-        "nunomaduro/collision": "1.1.*",
+        "nunomaduro/collision": "dev-release-2.0.0",
         "nunomaduro/laravel-console-task": "1.0.*",
         "nunomaduro/laravel-console-menu":"1.0.*",
         "nunomaduro/laravel-desktop-notifier": "1.3.*",
+        "nunomaduro/laravel-console-summary": "1.0.*",
         "symfony/debug": "4.0.*"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require-dev": {
-        "phpunit/phpunit": "~6.5",
-        "squizlabs/php_codesniffer": "^2.3",
-        "illuminate/database": "5.6.*-dev",
-        "illuminate/log": "5.6.*-dev"
+        "phpunit/phpunit": "~7.0",
+        "illuminate/database": "5.6.*",
+        "illuminate/log": "5.6.*"
     },
     "autoload": {
         "psr-4": {
@@ -55,8 +55,6 @@
         "sort-packages": true
     },
     "scripts": {
-        "test": "phpunit",
-        "check-style": "phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests",
-        "fix-style": "phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests"
+        "test": "phpunit"
     }
 }

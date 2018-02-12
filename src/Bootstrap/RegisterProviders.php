@@ -17,6 +17,7 @@ use Illuminate\Contracts\Foundation\Application;
 use NunoMaduro\LaravelConsoleTask\LaravelConsoleTaskServiceProvider;
 use NunoMaduro\LaravelConsoleMenu\LaravelConsoleMenuServiceProvider;
 use NunoMaduro\LaravelDesktopNotifier\LaravelDesktopNotifierServiceProvider;
+use NunoMaduro\LaravelConsoleSummary\LaravelConsoleSummaryServiceProvider;
 use Illuminate\Foundation\Bootstrap\RegisterProviders as BaseRegisterProviders;
 
 /**
@@ -34,8 +35,9 @@ class RegisterProviders extends BaseRegisterProviders
         Providers\Filesystem\FilesystemServiceProvider::class,
         Providers\Composer\ComposerServiceProvider::class,
         LaravelDesktopNotifierServiceProvider::class,
+        LaravelConsoleSummaryServiceProvider::class,
         LaravelConsoleTaskServiceProvider::class,
-        LaravelConsoleMenuServiceProvider::class
+        LaravelConsoleMenuServiceProvider::class,
     ];
 
     /**
