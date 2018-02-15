@@ -74,6 +74,7 @@ class Installer extends AbstractInstaller
                 $neededLine = '.env';
                 if (! Str::contains($contents, $neededLine)) {
                     File::append($gitignorePath, $neededLine);
+
                     return true;
                 }
             }

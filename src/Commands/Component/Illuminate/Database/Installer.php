@@ -50,7 +50,7 @@ class Installer extends AbstractInstaller
     {
         $this->require('illuminate/database "5.6.*"');
 
-        $this->task('Creating a default SQLite database',function () {
+        $this->task('Creating a default SQLite database', function () {
             if (! File::exists(database_path('database.sqlite'))) {
                 return File::makeDirectory(database_path('migrations'), 0755, true, true)
                     && File::put(database_path('database.sqlite'), '') === 0;
@@ -88,13 +88,13 @@ class Installer extends AbstractInstaller
         );
 
         $this->task('Updating .gitignore', function () {
-
             $gitignorePath = base_path('.gitignore');
             if (File::exists($gitignorePath)) {
                 $contents = File::get($gitignorePath);
                 $neededLine = '/database/database.sqlite';
                 if (! Str::contains($contents, $neededLine)) {
                     File::append($gitignorePath, $neededLine);
+
                     return true;
                 }
             }
