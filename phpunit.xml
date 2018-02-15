@@ -26,6 +26,10 @@
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./src</directory>
+            <exclude>
+                <directory suffix=".php">./src/Components/Database/stubs</directory>
+                <directory suffix=".php">./src/Components/Log/stubs</directory>
+            </exclude>
         </whitelist>
     </filter>
 </phpunit>
