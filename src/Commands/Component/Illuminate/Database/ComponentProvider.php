@@ -59,22 +59,18 @@ class ComponentProvider extends AbstractComponentProvider
 
         $this->app->make(\Illuminate\Database\Capsule\Manager::class)->setAsGlobal();
 
-        if ($this->app['config']->get('database.with-seeds', true)) {
-            if ($this->app->environment() !== 'production') {
-                $this->commands([\Illuminate\Database\Console\Seeds\SeederMakeCommand::class]);
-            }
+        if ($this->app->environment() !== 'production') {
+            $this->commands([\Illuminate\Database\Console\Seeds\SeederMakeCommand::class]);
+        }
 
-            $this->commands([\Illuminate\Database\Console\Seeds\SeedCommand::class]);
+        $this->commands([\Illuminate\Database\Console\Seeds\SeedCommand::class]);
 
-            if (File::exists($this->app->databasePath('seeds'))) {
-                collect(
-                    File::files($this->app->databasePath('seeds'))
-                )->each(
-                    function ($file) {
-                        File::requireOnce($file);
-                    }
-                );
-            }
+        if (File::exists($this->app->databasePath('seeds'))) {
+            collect(File::files($this->app->databasePath('seeds')))->each(
+                function ($file) {
+                    File::requireOnce($file);
+                }
+            );
         }
     }
 
@@ -94,22 +90,20 @@ class ComponentProvider extends AbstractComponentProvider
             \Illuminate\Database\Migrations\MigrationRepositoryInterface::class
         );
 
-        if ($config->get('database.with-migrations', true)) {
-            if ($this->app->environment() !== 'production') {
-                $this->commands([\Illuminate\Database\Console\Migrations\MigrateMakeCommand::class]);
-            }
-
-            $this->commands(
-                [
-                    \Illuminate\Database\Console\Migrations\FreshCommand::class,
-                    \Illuminate\Database\Console\Migrations\InstallCommand::class,
-                    \Illuminate\Database\Console\Migrations\MigrateCommand::class,
-                    \Illuminate\Database\Console\Migrations\RefreshCommand::class,
-                    \Illuminate\Database\Console\Migrations\ResetCommand::class,
-                    \Illuminate\Database\Console\Migrations\RollbackCommand::class,
-                    \Illuminate\Database\Console\Migrations\StatusCommand::class,
-                ]
-            );
+        if ($this->app->environment() !== 'production') {
+            $this->commands([\Illuminate\Database\Console\Migrations\MigrateMakeCommand::class]);
         }
+
+        $this->commands(
+            [
+                \Illuminate\Database\Console\Migrations\FreshCommand::class,
+                \Illuminate\Database\Console\Migrations\InstallCommand::class,
+                \Illuminate\Database\Console\Migrations\MigrateCommand::class,
+                \Illuminate\Database\Console\Migrations\RefreshCommand::class,
+                \Illuminate\Database\Console\Migrations\ResetCommand::class,
+                \Illuminate\Database\Console\Migrations\RollbackCommand::class,
+                \Illuminate\Database\Console\Migrations\StatusCommand::class,
+            ]
+        );
     }
 }

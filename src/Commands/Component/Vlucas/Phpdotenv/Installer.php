@@ -11,6 +11,7 @@
 
 namespace LaravelZero\Framework\Commands\Component\Vlucas\Phpdotenv;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Commands\Component\AbstractInstaller;
 
@@ -65,6 +66,20 @@ class Installer extends AbstractInstaller
                 return false;
             }
         );
+
+        $this->task('Updating .gitignore', function () {
+            $gitignorePath = base_path('.gitignore');
+            if (File::exists($gitignorePath)) {
+                $contents = File::get($gitignorePath);
+                $neededLine = '.env';
+                if (! Str::contains($contents, $neededLine)) {
+                    File::append($gitignorePath, $neededLine);
+                    return true;
+                }
+            }
+
+            return false;
+        });
 
         return true;
     }

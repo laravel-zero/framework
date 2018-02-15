@@ -11,6 +11,7 @@
 
 namespace LaravelZero\Framework\Commands\Component\Illuminate\Log;
 
+use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Commands\Component\AbstractInstaller;
 
 /**
@@ -29,6 +30,11 @@ class Installer extends AbstractInstaller
     protected $description = 'Installs illuminate/log';
 
     /**
+     * The config file path.
+     */
+    const CONFIG_FILE = __DIR__.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'logging.php';
+
+    /**
      * {@inheritdoc}
      */
     public function getComponentName(): string
@@ -42,6 +48,20 @@ class Installer extends AbstractInstaller
     public function install(): bool
     {
         $this->require('illuminate/log "5.6.*"');
+
+        $this->task(
+            'Creating default logging configuration',
+            function () {
+                if (! File::exists(config_path('logging.php'))) {
+                    return File::copy(
+                        static::CONFIG_FILE,
+                        config_path('logging.php')
+                    );
+                }
+
+                return false;
+            }
+        );
 
         $this->info('Usage:');
         $this->comment(

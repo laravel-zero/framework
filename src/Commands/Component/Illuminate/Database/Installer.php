@@ -11,6 +11,8 @@
 
 namespace LaravelZero\Framework\Commands\Component\Illuminate\Database;
 
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Commands\Component\AbstractInstaller;
 
 /**
@@ -48,28 +50,23 @@ class Installer extends AbstractInstaller
     {
         $this->require('illuminate/database "5.6.*"');
 
-        $this->task(
-            'Creating a default SQLite database',
-            function () {
-                if (! $this->files->exists($this->app->databasePath('database.sqlite'))) {
-                    return $this->files->put($this->app->databasePath('database.sqlite'), '');
-                }
-
-                return false;
+        $this->task('Creating a default SQLite database',function () {
+            if (! File::exists(database_path('database.sqlite'))) {
+                return File::makeDirectory(database_path('migrations'), 0755, true, true)
+                    && File::put(database_path('database.sqlite'), '') === 0;
             }
-        );
+
+            return false;
+        });
 
         $this->task(
             'Creating seeds folders and files',
             function () {
-                $this->files->makeDirectory($this->app->databasePath('seeds'), 0755, false, true);
-                if (! $this->files->exists(
-                    $this->app->databasePath('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php')
-                )) {
-                    $this->files->copy(
-                        __DIR__.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php',
-                        $this->app->databasePath('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php')
-                    );
+                if (! File::exists(database_path('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php'))) {
+                    return File::makeDirectory(database_path('seeds'), 0755, false, true)
+                        && File::copy(__DIR__.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php',
+                            database_path('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php')
+                        );
                 }
 
                 return false;
@@ -79,10 +76,10 @@ class Installer extends AbstractInstaller
         $this->task(
             'Creating default database configuration',
             function () {
-                if (! $this->files->exists($this->app->configPath('database.php'))) {
-                    return $this->files->copy(
+                if (! File::exists(config_path('database.php'))) {
+                    return File::copy(
                         static::CONFIG_FILE,
-                        $this->app->configPath('database.php')
+                        config_path('database.php')
                     );
                 }
 
@@ -90,10 +87,24 @@ class Installer extends AbstractInstaller
             }
         );
 
+        $this->task('Updating .gitignore', function () {
+
+            $gitignorePath = base_path('.gitignore');
+            if (File::exists($gitignorePath)) {
+                $contents = File::get($gitignorePath);
+                $neededLine = '/database/database.sqlite';
+                if (! Str::contains($contents, $neededLine)) {
+                    File::append($gitignorePath, $neededLine);
+                    return true;
+                }
+            }
+
+            return false;
+        });
+
         $this->info('Usage:');
         $this->comment(
             '
-
 $ php <your-application-name> make:migration create_users_table
 $ php <your-application-name> migrate
 
@@ -104,9 +115,6 @@ DB::table(\'users\')->insert(
 );
 
 $users = DB::table(\'users\')->get();
-
-dd($users);
-
         '
         );
 
