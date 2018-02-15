@@ -21,7 +21,7 @@ class CoreBindings
 {
     /**
      * Registers service providers that need to be registered
-     * very early.
+     * on the early stage of the framework.
      *
      * @param \Illuminate\Contracts\Foundation\Application $app
      */

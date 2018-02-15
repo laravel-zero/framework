@@ -9,14 +9,14 @@
  *  file that was distributed with this source code.
  */
 
-namespace LaravelZero\Framework\Commands\Component\Illuminate\Log;
+namespace LaravelZero\Framework\Components\Log;
 
-use LaravelZero\Framework\Commands\Component\AbstractComponentProvider;
+use LaravelZero\Framework\Components\AbstractComponentProvider;
 
 /**
  * This is the Laravel Zero Framework Log Component Provider Implementation.
  */
-class ComponentProvider extends AbstractComponentProvider
+class Provider extends AbstractComponentProvider
 {
     /**
      * {@inheritdoc}
@@ -33,8 +33,8 @@ class ComponentProvider extends AbstractComponentProvider
     {
         $this->app->register(\Illuminate\Log\LogServiceProvider::class);
 
-        $this->app->alias('log', \Illuminate\Log\Writer::class);
-        $this->app->alias('log', \Illuminate\Contracts\Logging\Log::class);
-        $this->app->alias('log', \Psr\Log\LoggerInterface::class);
+        $config = $this->app['config'];
+
+        $config->set('logging.default', $config->get('logging.default') ?: 'default');
     }
 }

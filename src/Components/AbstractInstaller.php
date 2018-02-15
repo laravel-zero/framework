@@ -9,7 +9,7 @@
  *  file that was distributed with this source code.
  */
 
-namespace LaravelZero\Framework\Commands\Component;
+namespace LaravelZero\Framework\Components;
 
 use Illuminate\Filesystem\Filesystem;
 use LaravelZero\Framework\Commands\Command;
@@ -55,14 +55,7 @@ abstract class AbstractInstaller extends Command implements Installer
      */
     public function handle(): void
     {
-        $component = $this->getComponentName();
-
-        $this->task(
-            "The component $component installation",
-            function () {
-                return $this->install();
-            }
-        );
+        $this->install();
     }
 
     /**

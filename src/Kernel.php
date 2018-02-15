@@ -31,9 +31,7 @@ class Kernel extends BaseKernel
         Commands\App\Builder::class,
         Commands\App\Renamer::class,
         Commands\App\CommandMaker::class,
-        Commands\Component\Illuminate\Log\Installer::class,
-        Commands\Component\Vlucas\Phpdotenv\Installer::class,
-        Commands\Component\Illuminate\Database\Installer::class,
+        Commands\App\Installer::class,
     ];
 
     /**
@@ -75,7 +73,8 @@ class Kernel extends BaseKernel
      */
     public function getName(): string
     {
-        return $this->getArtisan()->getName();
+        return $this->getArtisan()
+            ->getName();
     }
 
     /**
@@ -109,14 +108,18 @@ class Kernel extends BaseKernel
         $commands = $commands->except($removed = $config->get('commands.remove', []));
 
         Artisan::starting(
-            function ($artisan) use ($removed){
+            function ($artisan) use ($removed) {
                 $reflectionClass = new ReflectionClass(Artisan::class);
                 $commands = collect($artisan->all())
-                    ->filter(function ($command) use ($removed) {
-                        return ! in_array(get_class($command), $removed);
-                    })->toArray();
+                    ->filter(
+                        function ($command) use ($removed) {
+                            return ! in_array(get_class($command), $removed);
+                        }
+                    )
+                    ->toArray();
 
-                $property = $reflectionClass->getParentClass()->getProperty('commands');
+                $property = $reflectionClass->getParentClass()
+                    ->getProperty('commands');
 
                 $property->setAccessible(true);
                 $property->setValue($artisan, $commands);

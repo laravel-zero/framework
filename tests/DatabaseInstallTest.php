@@ -25,7 +25,7 @@ class DatabaseInstallTest extends TestCase
 
         $this->app->instance(Composer::class, $composerMock);
 
-        Artisan::call('install:database');
+        Artisan::call('app:install', ['component' => 'database']);
     }
 
     /** @test */
@@ -35,7 +35,7 @@ class DatabaseInstallTest extends TestCase
         $composerMock->method('require');
         $this->app->instance(Composer::class, $composerMock);
 
-        Artisan::call('install:database');
+        Artisan::call('app:install', ['component' => 'database']);
 
         $this->assertTrue(File::exists(config_path('database.php')));
         $this->assertTrue(File::exists(database_path('database.sqlite')));

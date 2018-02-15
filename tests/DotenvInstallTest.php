@@ -21,7 +21,7 @@ class DotenvInstallTest extends TestCase
         $composerMock->expects($this->once())->method('require')->with('vlucas/phpdotenv');
         $this->app->instance(Composer::class, $composerMock);
 
-        Artisan::call('install:dotenv');
+        Artisan::call('app:install', ['component' => 'dotenv']);
     }
 
     /** @test */
@@ -31,7 +31,7 @@ class DotenvInstallTest extends TestCase
         $composerMock->expects($this->once())->method('require')->with('vlucas/phpdotenv');
         $this->app->instance(Composer::class, $composerMock);
 
-        Artisan::call('install:dotenv');
+        Artisan::call('app:install', ['component' => 'dotenv']);
 
         $this->assertTrue(File::exists(base_path('.env')));
         $this->assertTrue(File::exists(base_path('.env.example')));

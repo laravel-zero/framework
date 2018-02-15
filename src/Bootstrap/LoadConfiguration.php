@@ -45,23 +45,28 @@ class LoadConfiguration extends BaseLoadConfiguration
     /**
      * Get all of the configuration files for the application.
      *
-     * @param  \Illuminate\Contracts\Foundation\Application  $app
+     * @param  \Illuminate\Contracts\Foundation\Application $app
+     *
      * @return array
      */
-    protected function getConfigurationFiles(Application $app)
+    protected function getConfigurationFiles(Application $app): array
     {
         $files = [];
 
         $configPath = $app->configPath();
 
-        foreach (Finder::create()->files()->name('*.php')->in($configPath) as $file) {
+        $configFiles = Finder::create()
+            ->files()
+            ->name('*.php')
+            ->in($configPath);
+
+        foreach ($configFiles as $file) {
             $directory = $this->getNestedDirectory($file, $configPath);
-            $files[$directory.basename($file->getPathName(), '.php')] = $file->getPathName();
+            $files[$directory . basename($file->getPathName(), '.php')] = $file->getPathName();
         }
 
         ksort($files, SORT_NATURAL);
 
         return $files;
     }
-
 }

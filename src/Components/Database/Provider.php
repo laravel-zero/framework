@@ -9,15 +9,15 @@
  *  file that was distributed with this source code.
  */
 
-namespace LaravelZero\Framework\Commands\Component\Illuminate\Database;
+namespace LaravelZero\Framework\Components\Database;
 
 use Illuminate\Support\Facades\File;
-use LaravelZero\Framework\Commands\Component\AbstractComponentProvider;
+use LaravelZero\Framework\Components\AbstractComponentProvider;
 
 /**
  * This is the Laravel Zero Framework Database Component Provider Implementation.
  */
-class ComponentProvider extends AbstractComponentProvider
+class Provider extends AbstractComponentProvider
 {
     /**
      * {@inheritdoc}
@@ -42,6 +42,30 @@ class ComponentProvider extends AbstractComponentProvider
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function boot(): void
+    {
+        if ($this->app->environment() !== 'production') {
+            $this->commands([\Illuminate\Database\Console\Seeds\SeederMakeCommand::class]);
+            $this->commands([\Illuminate\Database\Console\Migrations\MigrateMakeCommand::class]);
+        }
+
+        $this->commands(
+            [
+                \Illuminate\Database\Console\Migrations\FreshCommand::class,
+                \Illuminate\Database\Console\Migrations\InstallCommand::class,
+                \Illuminate\Database\Console\Migrations\MigrateCommand::class,
+                \Illuminate\Database\Console\Migrations\RefreshCommand::class,
+                \Illuminate\Database\Console\Migrations\ResetCommand::class,
+                \Illuminate\Database\Console\Migrations\RollbackCommand::class,
+                \Illuminate\Database\Console\Migrations\StatusCommand::class,
+                \Illuminate\Database\Console\Seeds\SeedCommand::class,
+            ]
+        );
+    }
+
+    /**
      * Registers the database service.
      *
      * Makes this Capsule Instance available globally via static methods.
@@ -50,20 +74,13 @@ class ComponentProvider extends AbstractComponentProvider
      */
     protected function registerDatabaseService(): void
     {
+        $this->app['config']->set('database.migrations', 'migrations');
+        $this->app->alias('db', \Illuminate\Database\ConnectionResolverInterface::class);
+
         $this->app->register(\Illuminate\Database\DatabaseServiceProvider::class);
 
-        $this->app->alias('db', \Illuminate\Database\DatabaseManager::class);
-        $this->app->alias('db', \Illuminate\Database\ConnectionResolverInterface::class);
-        $this->app->alias('db.connection', \Illuminate\Database\DatabaseManager::class);
-        $this->app->alias('db.connection', \Illuminate\Database\ConnectionInterface::class);
-
-        $this->app->make(\Illuminate\Database\Capsule\Manager::class)->setAsGlobal();
-
-        if ($this->app->environment() !== 'production') {
-            $this->commands([\Illuminate\Database\Console\Seeds\SeederMakeCommand::class]);
-        }
-
-        $this->commands([\Illuminate\Database\Console\Seeds\SeedCommand::class]);
+        $this->app->make(\Illuminate\Database\Capsule\Manager::class)
+            ->setAsGlobal();
 
         if (File::exists($this->app->databasePath('seeds'))) {
             collect(File::files($this->app->databasePath('seeds')))->each(
@@ -88,22 +105,6 @@ class ComponentProvider extends AbstractComponentProvider
         $this->app->alias(
             'migration.repository',
             \Illuminate\Database\Migrations\MigrationRepositoryInterface::class
-        );
-
-        if ($this->app->environment() !== 'production') {
-            $this->commands([\Illuminate\Database\Console\Migrations\MigrateMakeCommand::class]);
-        }
-
-        $this->commands(
-            [
-                \Illuminate\Database\Console\Migrations\FreshCommand::class,
-                \Illuminate\Database\Console\Migrations\InstallCommand::class,
-                \Illuminate\Database\Console\Migrations\MigrateCommand::class,
-                \Illuminate\Database\Console\Migrations\RefreshCommand::class,
-                \Illuminate\Database\Console\Migrations\ResetCommand::class,
-                \Illuminate\Database\Console\Migrations\RollbackCommand::class,
-                \Illuminate\Database\Console\Migrations\StatusCommand::class,
-            ]
         );
     }
 }

@@ -17,17 +17,9 @@ namespace LaravelZero\Framework\Contracts\Commands\Component;
 interface Installer
 {
     /**
-     * Returns the component name.
+     * Installs a component.
      *
-     * @return string
+     * @return void
      */
-    public function getComponentName(): string;
-
-    /**
-     * Installs the component and returns the result
-     * of the installation.
-     *
-     * @return bool
-     */
-    public function install(): bool;
+    public function install(): void;
 }

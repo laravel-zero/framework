@@ -20,7 +20,7 @@ use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables as BaseLoadEnvironm
 class LoadEnvironmentVariables extends BaseLoadEnvironmentVariables
 {
     /**
-     * If component installed, bootstrap Environment Variables.
+     * If component is installed, bootstrap Environment Variables.
      *
      * @param \Illuminate\Contracts\Foundation\Application $app
      */

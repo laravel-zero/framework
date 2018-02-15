@@ -26,7 +26,7 @@ abstract class TestCase extends BaseTestCase
     protected function setUp(): void
     {
         if (! defined('ARTISAN_BINARY')) {
-            define('ARTISAN_BINARY', basename($_SERVER['SCRIPT_FILENAME']));
+            define('ARTISAN_BINARY', 'application');
         }
 
         $this->app = $this->createApplication();
@@ -39,12 +39,12 @@ abstract class TestCase extends BaseTestCase
      */
     protected function createApplication(): ApplicationContract
     {
-        $app = require __DIR__ . DIRECTORY_SEPARATOR . 'Application'
-            . DIRECTORY_SEPARATOR . 'bootstrap' . DIRECTORY_SEPARATOR . 'app.php';
+        $app = require __DIR__ . DIRECTORY_SEPARATOR . 'Application' . DIRECTORY_SEPARATOR . 'bootstrap' . DIRECTORY_SEPARATOR . 'app.php';
 
         Application::setInstance($app);
 
-        $app->make(\Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+        $app->make(\Illuminate\Contracts\Console\Kernel::class)
+            ->bootstrap();
 
         return $app;
     }

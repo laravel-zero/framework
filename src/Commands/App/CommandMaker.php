@@ -14,7 +14,7 @@ namespace LaravelZero\Framework\Commands\App;
 use Illuminate\Foundation\Console\ConsoleMakeCommand;
 
 /**
- * This is the Laravel Zero Framework Command Maker Command implementation.
+ * This is the Laravel Zero Framework Maker Command implementation.
  */
 class CommandMaker extends ConsoleMakeCommand
 {
@@ -36,7 +36,7 @@ class CommandMaker extends ConsoleMakeCommand
      */
     protected function getStub()
     {
-        return __DIR__.'/stubs/console.stub';
+        return __DIR__ . '/stubs/console.stub';
     }
 
     /**
@@ -44,6 +44,6 @@ class CommandMaker extends ConsoleMakeCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Commands';
+        return $rootNamespace . '\Commands';
     }
 }

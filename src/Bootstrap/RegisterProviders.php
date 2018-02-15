@@ -12,12 +12,12 @@
 namespace LaravelZero\Framework\Bootstrap;
 
 use LaravelZero\Framework\Providers;
-use LaravelZero\Framework\Commands\Component;
+use LaravelZero\Framework\Components;
 use Illuminate\Contracts\Foundation\Application;
 use NunoMaduro\LaravelConsoleTask\LaravelConsoleTaskServiceProvider;
 use NunoMaduro\LaravelConsoleMenu\LaravelConsoleMenuServiceProvider;
-use NunoMaduro\LaravelDesktopNotifier\LaravelDesktopNotifierServiceProvider;
 use NunoMaduro\LaravelConsoleSummary\LaravelConsoleSummaryServiceProvider;
+use NunoMaduro\LaravelDesktopNotifier\LaravelDesktopNotifierServiceProvider;
 use Illuminate\Foundation\Bootstrap\RegisterProviders as BaseRegisterProviders;
 
 /**
@@ -46,8 +46,8 @@ class RegisterProviders extends BaseRegisterProviders
      * @var string[]
      */
     protected $components = [
-        Component\Illuminate\Log\ComponentProvider::class,
-        Component\Illuminate\Database\ComponentProvider::class,
+        Components\Log\Provider::class,
+        Components\Database\Provider::class,
     ];
 
     /**
@@ -65,16 +65,18 @@ class RegisterProviders extends BaseRegisterProviders
         /*
          * Then we register Laravel Zero providers.
          */
-        collect($this->providers)->merge(
-            collect($this->components)->filter(
-                function ($component) use ($app) {
-                    return (new $component($app))->isAvailable();
-                }
+        collect($this->providers)
+            ->merge(
+                collect($this->components)->filter(
+                    function ($component) use ($app) {
+                        return (new $component($app))->isAvailable();
+                    }
+                )
             )
-        )->each(
-            function ($serviceProviderClass) use ($app) {
-                $app->register($serviceProviderClass);
-            }
-        );
+            ->each(
+                function ($serviceProviderClass) use ($app) {
+                    $app->register($serviceProviderClass);
+                }
+            );
     }
 }

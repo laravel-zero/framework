@@ -9,11 +9,11 @@
  *  file that was distributed with this source code.
  */
 
-namespace LaravelZero\Framework\Commands\Component\Vlucas\Phpdotenv;
+namespace LaravelZero\Framework\Components\Dotenv;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
-use LaravelZero\Framework\Commands\Component\AbstractInstaller;
+use LaravelZero\Framework\Components\AbstractInstaller;
 
 /**
  * This is the Laravel Zero Framework Dot Env Component Installer Implementation.
@@ -33,15 +33,7 @@ class Installer extends AbstractInstaller
     /**
      * {@inheritdoc}
      */
-    public function getComponentName(): string
-    {
-        return 'dotenv';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function install(): bool
+    public function install(): void
     {
         $this->require('vlucas/phpdotenv');
 
@@ -80,7 +72,5 @@ class Installer extends AbstractInstaller
 
             return false;
         });
-
-        return true;
     }
 }
