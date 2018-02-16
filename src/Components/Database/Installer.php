@@ -33,12 +33,12 @@ class Installer extends AbstractInstaller
     /**
      * The config file path.
      */
-    const CONFIG_FILE = __DIR__ . DIRECTORY_SEPARATOR . 'stubs' . DIRECTORY_SEPARATOR . 'database.php';
+    const CONFIG_FILE = __DIR__.DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'database.php';
 
     /**
      * The seeder file.
      */
-    const SEEDER_FILE = __DIR__ . DIRECTORY_SEPARATOR . 'stubs' . DIRECTORY_SEPARATOR . 'DatabaseSeeder.php';
+    const SEEDER_FILE = __DIR__.DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php';
 
     /**
      * {@inheritdoc}
@@ -68,12 +68,12 @@ class Installer extends AbstractInstaller
         $this->task(
             'Creating seeds folders and files',
             function () {
-                if (! File::exists(database_path('seeds' . DIRECTORY_SEPARATOR . 'DatabaseSeeder.php'))) {
+                if (! File::exists(database_path('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php'))) {
                     File::makeDirectory(database_path('seeds'), 0755, false, true);
 
                     File::copy(
                         static::SEEDER_FILE,
-                        database_path('seeds' . DIRECTORY_SEPARATOR . 'DatabaseSeeder.php')
+                        database_path('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php')
                     );
 
                     return true;
@@ -102,7 +102,6 @@ class Installer extends AbstractInstaller
         $this->task(
             'Updating .gitignore',
             function () {
-
                 $gitignorePath = base_path('.gitignore');
                 if (File::exists($gitignorePath)) {
                     $contents = File::get($gitignorePath);
