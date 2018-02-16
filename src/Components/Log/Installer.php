@@ -32,7 +32,7 @@ class Installer extends AbstractInstaller
     /**
      * The config file path.
      */
-    const CONFIG_FILE = __DIR__ . DIRECTORY_SEPARATOR . 'stubs' . DIRECTORY_SEPARATOR . 'logging.php';
+    const CONFIG_FILE = __DIR__.DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'logging.php';
 
     /**
      * {@inheritdoc}
