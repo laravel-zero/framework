@@ -13,15 +13,12 @@ namespace LaravelZero\Framework\Commands;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Console\Command as BaseCommand;
-use NunoMaduro\LaravelDesktopNotifier\Notifications;
 
 /**
  * This is the Laravel Zero Framework Abstract Command Implementation.
  */
 abstract class Command extends BaseCommand
 {
-    use Notifications;
-
     /**
      * Holds an instance of the app, if any.
      *
