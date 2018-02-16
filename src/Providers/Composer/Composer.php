@@ -64,6 +64,8 @@ class Composer implements ComposerContract
 
         ($process = new Process($cmd))->start();
 
+        $process->wait();
+
         return $process->isSuccessful();
     }
 }
