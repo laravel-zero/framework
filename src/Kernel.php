@@ -95,8 +95,11 @@ class Kernel extends BaseKernel
          * Loads configurated commands.
          */
         $commands = collect($config->get('commands.add', []))
-            ->merge($config->get('commands.hidden', []))
-            ->push($config->get('commands.default'));
+            ->merge($config->get('commands.hidden', []));
+
+        if ($command = $config->get('commands.default')) {
+            $commands->push($config->get('commands.default'));
+        }
 
         /*
          * Loads development commands.
