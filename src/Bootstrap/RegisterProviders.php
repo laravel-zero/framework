@@ -35,7 +35,6 @@ class RegisterProviders extends BaseRegisterProviders
         Providers\Filesystem\FilesystemServiceProvider::class,
         Providers\Composer\ComposerServiceProvider::class,
         LaravelDesktopNotifierServiceProvider::class,
-        LaravelConsoleSummaryServiceProvider::class,
         LaravelConsoleTaskServiceProvider::class,
         LaravelConsoleMenuServiceProvider::class,
     ];
