@@ -91,15 +91,14 @@ class Renamer extends Command
         $this->task(
             'Updating config/app.php "name" property',
             function () use ($name) {
-
-                $neededLine = "'name' => '" . Str::ucfirst($this->getCurrentBinaryName()) . "'";
+                $neededLine = "'name' => '".Str::ucfirst($this->getCurrentBinaryName())."'";
 
                 if (Str::contains($contents = $this->getConfig(), $neededLine)) {
                     File::put(
                         config_path('app.php'),
                         Str::replaceFirst(
                             $neededLine,
-                            "'name' => '" . Str::ucfirst($name) . "'",
+                            "'name' => '".Str::ucfirst($name)."'",
                             $contents
                         )
                     );
@@ -114,7 +113,6 @@ class Renamer extends Command
         $this->task(
             'Updating composer "bin"',
             function () use ($name) {
-
                 $neededLine = '"bin": ["'.$this->getCurrentBinaryName().'"]';
 
                 if (Str::contains($contents = $this->getComposer(), $neededLine)) {
