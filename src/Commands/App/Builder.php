@@ -34,6 +34,7 @@ class Builder extends Command
         'config' . DIRECTORY_SEPARATOR,
         'composer.json',
         'builder-stub',
+        '.env'
     ];
 
     /**
