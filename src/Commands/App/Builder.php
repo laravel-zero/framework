@@ -28,10 +28,10 @@ class Builder extends Command
      * @var string[]
      */
     protected $structure = [
-        'app' . DIRECTORY_SEPARATOR,
-        'bootstrap' . DIRECTORY_SEPARATOR,
-        'vendor' . DIRECTORY_SEPARATOR,
-        'config' . DIRECTORY_SEPARATOR,
+        'app'.DIRECTORY_SEPARATOR,
+        'bootstrap'.DIRECTORY_SEPARATOR,
+        'vendor'.DIRECTORY_SEPARATOR,
+        'config'.DIRECTORY_SEPARATOR,
         'composer.json',
         'builder-stub',
         '.env'
@@ -72,8 +72,8 @@ class Builder extends Command
             $this->build($this->input->getArgument('name') ?: static::BUILD_NAME);
         } else {
             $this->error(
-                'Unable to compile a phar because of php\'s security settings. ' . 'phar.readonly must be disabled in php.ini. ' . PHP_EOL . PHP_EOL . 'You will need to edit ' . php_ini_loaded_file(
-                ) . ' and add or set' . PHP_EOL . PHP_EOL . '    phar.readonly = Off' . PHP_EOL . PHP_EOL . 'to continue. Details here: http://php.net/manual/en/phar.configuration.php'
+                'Unable to compile a phar because of php\'s security settings. '.'phar.readonly must be disabled in php.ini. '.PHP_EOL.PHP_EOL.'You will need to edit '.php_ini_loaded_file(
+                ).' and add or set'.PHP_EOL.PHP_EOL.'    phar.readonly = Off'.PHP_EOL.PHP_EOL.'to continue. Details here: http://php.net/manual/en/phar.configuration.php'
             );
         }
     }
@@ -118,7 +118,7 @@ class Builder extends Command
 
         $structure = config('app.structure') ?: $this->structure;
 
-        $regex = '#' . implode('|', $structure) . '#';
+        $regex = '#'.implode('|', $structure).'#';
 
         if (stristr(PHP_OS, 'WINNT') !== false) { // For windows:
             $compiler->buildFromDirectory($this->app->basePath(), str_replace('\\', '/', $regex));
@@ -127,7 +127,7 @@ class Builder extends Command
         }
 
         $compiler->setStub(
-            "#!/usr/bin/env php \n" . $compiler->createDefaultStub(
+            "#!/usr/bin/env php \n".$compiler->createDefaultStub(
                 $this->stub
             )
         );
@@ -150,7 +150,7 @@ class Builder extends Command
     {
         try {
             return new Phar(
-                $this->app->buildsPath($name . '.phar'),
+                $this->app->buildsPath($name.'.phar'),
                 FilesystemIterator::CURRENT_AS_FILEINFO | FilesystemIterator::KEY_AS_FILENAME,
                 $name
             );
@@ -198,7 +198,7 @@ class Builder extends Command
 
         $this->info('Moving application to production mode...');
 
-        File::put($file, '<?php return ' . var_export($config, true) . ';' . PHP_EOL);
+        File::put($file, '<?php return '.var_export($config, true).';'.PHP_EOL);
 
         $stub = str_replace('#!/usr/bin/env php', '', File::get($this->app->basePath(ARTISAN_BINARY)));
 
