@@ -11,5 +11,5 @@ return [
     ],
     'remove' => [
         App\Commands\FakeRemovedCommand::class,
-    ]
+    ],
 ];
