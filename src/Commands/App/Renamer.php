@@ -91,28 +91,46 @@ class Renamer extends Command
         $this->task(
             'Updating config/app.php',
             function () use ($name) {
-                return File::put(
-                    config_path('app.php'),
-                    Str::replaceFirst(
-                        "'name' => '" . Str::ucfirst($this->getCurrentBinaryName()) . "'",
-                        "'name' => '" . Str::ucfirst($name) . "'",
-                        $this->getConfig()
-                    )
-                );
+
+                $neededLine = "'name' => '" . Str::ucfirst($this->getCurrentBinaryName()) . "'";
+
+                if (Str::contains($contents = $this->getConfig(), $neededLine)) {
+                    File::put(
+                        config_path('app.php'),
+                        Str::replaceFirst(
+                            $neededLine,
+                            "'name' => '" . Str::ucfirst($name) . "'",
+                            $contents
+                        )
+                    );
+
+                    return true;
+                }
+
+                return false;
             }
         );
 
         $this->task(
             'Updating composer',
             function () use ($name) {
-                return File::put(
-                    base_path('composer.json'),
-                    Str::replaceFirst(
-                        '"bin": ["'.$this->getCurrentBinaryName().'"]',
-                        '"bin": ["'.$name.'"]',
-                        $this->getComposer()
-                    )
-                );
+
+                $neededLine = '"bin": ["'.$this->getCurrentBinaryName().'"]';
+
+                if (Str::contains($contents = $this->getComposer(), $neededLine)) {
+                    File::put(
+                        base_path('composer.json'),
+                        Str::replaceFirst(
+                            $neededLine,
+                            '"bin": ["'.$name.'"]',
+                            $contents
+                        )
+                    );
+
+                    return true;
+                }
+
+                return false;
             }
         );
 
