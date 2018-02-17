@@ -108,7 +108,7 @@ class Installer extends AbstractInstaller
                     $contents = File::get($gitignorePath);
                     $neededLine = '/database/database.sqlite';
                     if (! Str::contains($contents, $neededLine)) {
-                        File::append($gitignorePath, $neededLine);
+                        File::append($gitignorePath, $neededLine . PHP_EOL);
 
                         return true;
                     }
