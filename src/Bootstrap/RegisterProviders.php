@@ -16,6 +16,7 @@ use LaravelZero\Framework\Components;
 use Illuminate\Contracts\Foundation\Application;
 use NunoMaduro\LaravelConsoleTask\LaravelConsoleTaskServiceProvider;
 use NunoMaduro\LaravelConsoleMenu\LaravelConsoleMenuServiceProvider;
+use NunoMaduro\LaravelConsoleMenu\LaravelConsoleSummaryServiceProvider;
 use NunoMaduro\LaravelDesktopNotifier\LaravelDesktopNotifierServiceProvider;
 use Illuminate\Foundation\Bootstrap\RegisterProviders as BaseRegisterProviders;
 
@@ -36,6 +37,7 @@ class RegisterProviders extends BaseRegisterProviders
         LaravelDesktopNotifierServiceProvider::class,
         LaravelConsoleTaskServiceProvider::class,
         LaravelConsoleMenuServiceProvider::class,
+        LaravelConsoleSummaryServiceProvider::class,
     ];
 
     /**
