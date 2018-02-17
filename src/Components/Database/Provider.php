@@ -100,8 +100,8 @@ class Provider extends AbstractComponentProvider
     {
         $config = $this->app['config'];
         $config->set('database.migrations', $config->get('database.migrations') ?: 'migrations');
-
         $this->app->register(\Illuminate\Database\MigrationServiceProvider::class);
+
         $this->app->alias(
             'migration.repository',
             \Illuminate\Database\Migrations\MigrationRepositoryInterface::class
@@ -112,5 +112,10 @@ class Provider extends AbstractComponentProvider
 
             return new Migrator($repository, $app['db'], $app['files']);
         });
+
+        $this->app->alias(
+            'migrator',
+            \Illuminate\Database\Migrations\Migrator::class
+        );
     }
 }
