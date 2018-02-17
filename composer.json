@@ -32,8 +32,6 @@
         "nunomaduro/laravel-console-summary": "1.0.*",
         "symfony/debug": "4.0.*"
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "require-dev": {
         "phpunit/phpunit": "~7.0",
         "illuminate/database": "5.6.*",
@@ -51,9 +49,10 @@
         }
     },
     "config": {
-        "preferred-install": "dist",
         "sort-packages": true
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "scripts": {
         "test": "phpunit"
     }
