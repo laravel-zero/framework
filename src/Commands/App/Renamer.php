@@ -94,8 +94,8 @@ class Renamer extends Command
                 return File::put(
                     config_path('app.php'),
                     Str::replaceFirst(
-                        "'name' => '" . Str::ucfirst($this->getCurrentBinaryName()) . "'",
-                        "'name' => '" . Str::ucfirst($name) . "'",
+                        "'name' => '".Str::ucfirst($this->getCurrentBinaryName())."'",
+                        "'name' => '".Str::ucfirst($name)."'",
                         $this->getConfig()
                     )
                 );
