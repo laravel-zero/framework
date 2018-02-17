@@ -42,15 +42,6 @@ class Installer extends Command
     ];
 
     /**
-     * The options.
-     *
-     * @var array
-     */
-    protected $menuOptions = [
-
-    ];
-
-    /**
      * {@inheritdoc}
      */
     public function handle(): void
@@ -58,11 +49,13 @@ class Installer extends Command
         $option = $this->argument('component') ?: $this->menu(
             'Laravel Zero - Component installer',
             [
-                'database' => 'The Laravel Database package',
-                'log' => 'The Laravel Log package.',
-                'dotenv' => 'Loads environment variables from .env',
+                'database' =>   'Database - Laravel Eloquent',
+                'log' =>        'Log      - Laravel Log component',
+                'dotenv' =>     'Dotenv   - Loads environment variables from `.env`',
             ]
         )
+            ->setForegroundColour('green')
+            ->setBackgroundColour('black')
             ->open();
 
         if ($option !== null && ! empty($this->components[$option])) {
