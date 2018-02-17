@@ -78,6 +78,23 @@ class Kernel extends BaseKernel
     }
 
     /**
+     * Bootstrap the application for artisan commands.
+     *
+     * @return void
+     */
+    public function bootstrap()
+    {
+        parent::bootstrap();
+
+        if ($commandClass = $this->app['config']->get('commands.default')) {
+            $this->getArtisan()
+                ->setDefaultCommand(
+                    $this->app[$commandClass]->getName()
+                );
+        }
+    }
+
+    /**
      * Register the commands for the application.
      *
      * @return void
