@@ -111,8 +111,6 @@ class Builder extends Command
      */
     protected function compile(string $name): Builder
     {
-        $this->info('Compiling code...');
-
         $compiler = $this->makeBuildsFolder()
             ->getCompiler($name);
 
@@ -126,11 +124,13 @@ class Builder extends Command
             $compiler->buildFromDirectory($this->app->basePath(), $regex);
         }
 
-        $compiler->setStub(
-            "#!/usr/bin/env php \n" . $compiler->createDefaultStub(
-                $this->stub
-            )
-        );
+        $this->task('Compiling code', function () use ($compiler) {
+            $compiler->setStub(
+                "#!/usr/bin/env php \n" . $compiler->createDefaultStub(
+                    $this->stub
+                )
+            );
+        });
 
         $file = $this->app->buildsPath($name);
 
@@ -196,9 +196,9 @@ class Builder extends Command
 
         $config['production'] = true;
 
-        $this->info('Moving application to production mode...');
-
-        File::put($file, '<?php return ' . var_export($config, true) . ';' . PHP_EOL);
+        $this->task('Moving application to production mode', function () use ($file, $config) {
+            File::put($file, '<?php return ' . var_export($config, true) . ';' . PHP_EOL);
+        });
 
         $stub = str_replace('#!/usr/bin/env php', '', File::get($this->app->basePath(ARTISAN_BINARY)));
 
