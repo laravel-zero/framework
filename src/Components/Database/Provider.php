@@ -106,5 +106,11 @@ class Provider extends AbstractComponentProvider
             'migration.repository',
             \Illuminate\Database\Migrations\MigrationRepositoryInterface::class
         );
+
+        $this->app->singleton('migrator', function ($app) {
+            $repository = $app['migration.repository'];
+
+            return new Migrator($repository, $app['db'], $app['files']);
+        });
     }
 }
