@@ -29,7 +29,7 @@ class GitVersionServiceProvider extends ServiceProvider
         $this->app->bind(
             'git.version',
             function ($app) {
-                ($process = new Process('git describe $(git rev-list --tags --max-count=1)', $app->basePath()))->run();
+                ($process = new Process('git describe --tags $(git rev-list --tags --max-count=1)', $app->basePath()))->run();
 
                 return trim($process->getOutput()) ?: 'unreleased';
             }
