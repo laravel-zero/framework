@@ -66,7 +66,7 @@ class Builder extends Command
      */
     public function handle(): void
     {
-        $this->alert('Building the application...');
+        $this->info('Building the application...');
 
         if (Phar::canWrite()) {
             $this->build($this->input->getArgument('name') ?: static::BUILD_NAME);

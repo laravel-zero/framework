@@ -35,7 +35,7 @@ class Renamer extends Command
      */
     public function handle(): void
     {
-        $this->alert('Renaming the application...');
+        $this->info('Renaming the application...');
 
         $this->rename();
     }
@@ -89,7 +89,7 @@ class Renamer extends Command
     protected function updateComposer(string $name): Renamer
     {
         $this->task(
-            'Updating config/app.php',
+            'Updating config/app.php "name" property',
             function () use ($name) {
 
                 $neededLine = "'name' => '" . Str::ucfirst($this->getCurrentBinaryName()) . "'";
@@ -112,7 +112,7 @@ class Renamer extends Command
         );
 
         $this->task(
-            'Updating composer',
+            'Updating composer "bin"',
             function () use ($name) {
 
                 $neededLine = '"bin": ["'.$this->getCurrentBinaryName().'"]';
