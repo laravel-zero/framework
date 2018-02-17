@@ -65,7 +65,8 @@ class Installer extends AbstractInstaller
                 $contents = File::get($gitignorePath);
                 $neededLine = '.env';
                 if (! Str::contains($contents, $neededLine)) {
-                    File::append($gitignorePath, $neededLine . PHP_EOL);
+                    File::append($gitignorePath, $neededLine.PHP_EOL);
+
                     return true;
                 }
             }
