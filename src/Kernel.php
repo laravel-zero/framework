@@ -12,7 +12,6 @@
 namespace LaravelZero\Framework;
 
 use ReflectionClass;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Console\Application as Artisan;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Console\Kernel as BaseKernel;
@@ -162,7 +161,6 @@ class Kernel extends BaseKernel
             function ($artisan) use ($config) {
                 collect($artisan->all())->each(
                     function ($command) use ($config) {
-
                         if (in_array(get_class($command), $config->get('commands.hidden', []))) {
                             $command->setHidden(true);
                         }
