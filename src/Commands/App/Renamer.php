@@ -89,6 +89,20 @@ class Renamer extends Command
     protected function updateComposer(string $name): Renamer
     {
         $this->task(
+            'Updating config/app.php',
+            function () use ($name) {
+                return File::put(
+                    config_path('app.php'),
+                    Str::replaceFirst(
+                        "'name' => '" . Str::ucfirst($this->getCurrentBinaryName()) . "'",
+                        "'name' => '" . Str::ucfirst($name) . "'",
+                        $this->getConfig()
+                    )
+                );
+            }
+        );
+
+        $this->task(
             'Updating composer',
             function () use ($name) {
                 return File::put(
@@ -147,6 +161,22 @@ class Renamer extends Command
 
         if (! File::exists($file)) {
             abort(400, 'The file composer.json not found');
+        }
+
+        return File::get($file);
+    }
+
+    /**
+     * Get config file.
+     *
+     * @return string
+     */
+    protected function getConfig(): string
+    {
+        $file = config_path('app.php');
+
+        if (! File::exists($file)) {
+            abort(400, 'The file config/app.php not found');
         }
 
         return File::get($file);

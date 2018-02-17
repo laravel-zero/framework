@@ -14,7 +14,7 @@ class LoadConfigurationsTest extends TestCase
     /** @test */
     public function it_reads_configuration_files()
     {
-        $this->assertSame('Test name', Artisan::getName());
+        $this->assertSame('Application', Artisan::getName());
         $this->assertSame('Test version', $this->app->version());
         $this->assertEquals(
             $this->app->environment(),

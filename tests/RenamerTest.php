@@ -11,6 +11,7 @@ class RenamerTest extends TestCase
     {
         File::copy(base_path('save-composer.json'), base_path('composer.json'));
         File::copy(base_path('save-application'), base_path('application'));
+        File::copy(base_path('save-config-app.php'), config_path('app.php'));
         File::delete(base_path('zonda'));
     }
 
@@ -21,5 +22,6 @@ class RenamerTest extends TestCase
 
         $this->assertTrue(File::exists(base_path('zonda')));
         $this->assertContains('"bin": ["zonda"]', File::get(base_path('composer.json')));
+        $this->assertContains("'name' => 'Zonda'", File::get(config_path('app.php')));
     }
 }

@@ -9,25 +9,6 @@ use NunoMaduro\LaravelDesktopNotifier\Contracts\Notifier;
 class BaseCommandTest extends TestCase
 {
     /** @test */
-    public function it_allows_notifications(): void
-    {
-        $command = $this->makeCommand();
-
-        $notifierMock = $this->createMock(Notifier::class);
-
-        $notifierMock->expects($this->once())->method('send')->with(
-            $this->callback(
-                function ($notification) {
-                    return $notification->getTitle() === 'foo' && $notification->getBody() === 'bar';
-                }
-            )
-        );
-
-        $this->app->instance(Notifier::class, $notifierMock);
-        $command->notify('foo', 'bar');
-    }
-
-    /** @test */
     public function it_allows_success_tasks(): void
     {
         $command = $this->makeCommand();
