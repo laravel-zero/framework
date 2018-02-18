@@ -1,36 +1,48 @@
 <?php
 
+/**
+ * This file is part of Laravel Zero.
+ *
+ * (c) Nuno Maduro <enunomaduro@gmail.com>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace LaravelZero\Framework\Commands\App;
 
 use Phar;
 use FilesystemIterator;
 use UnexpectedValueException;
+use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Commands\Command;
 
 /**
- * This is the Laravel Zero Framework builder command class.
- *
- * @author Nuno Maduro <enunomaduro@gmail.com>
+ * This is the Laravel Zero Framework Builder Command implementation.
  */
 class Builder extends Command
 {
     /**
-     * The directory that contains your application builds.
-     */
-    const BUILD_PATH = BASE_PATH.DIRECTORY_SEPARATOR.'builds';
-
-    /**
      * Contains the default app structure.
      *
-     * @var []string
+     * @var string[]
      */
     protected $structure = [
-        'app'.DIRECTORY_SEPARATOR,
-        'bootstrap'.DIRECTORY_SEPARATOR,
-        'vendor'.DIRECTORY_SEPARATOR,
-        'config'.DIRECTORY_SEPARATOR,
+        'app' . DIRECTORY_SEPARATOR,
+        'bootstrap' . DIRECTORY_SEPARATOR,
+        'vendor' . DIRECTORY_SEPARATOR,
+        'config' . DIRECTORY_SEPARATOR,
         'composer.json',
+        'builder-stub',
+        '.env'
     ];
+
+    /**
+     * Holds the stub name.
+     *
+     * @var string
+     */
+    protected $stub = 'builder-stub';
 
     /**
      * {@inheritdoc}
@@ -54,65 +66,75 @@ class Builder extends Command
      */
     public function handle(): void
     {
-        $this->alert('Building the application...');
+        $this->info('Building the application...');
 
         if (Phar::canWrite()) {
-            $this->build($this->input->getArgument('name') ?: self::BUILD_NAME);
+            $this->build($this->input->getArgument('name') ?: static::BUILD_NAME);
         } else {
             $this->error(
-                'Unable to compile a phar because of php\'s security settings. '.'phar.readonly must be disabled in php.ini. '.PHP_EOL.PHP_EOL.'You will need to edit '.php_ini_loaded_file(
-                ).' and add or set'.PHP_EOL.PHP_EOL.'    phar.readonly = Off'.PHP_EOL.PHP_EOL.'to continue. Details here: http://php.net/manual/en/phar.configuration.php'
+                'Unable to compile a phar because of php\'s security settings. ' . 'phar.readonly must be disabled in php.ini. ' . PHP_EOL . PHP_EOL . 'You will need to edit ' . php_ini_loaded_file(
+                ) . ' and add or set' . PHP_EOL . PHP_EOL . '    phar.readonly = Off' . PHP_EOL . PHP_EOL . 'to continue. Details here: http://php.net/manual/en/phar.configuration.php'
             );
         }
     }
 
     /**
-     * Builds the application.
+     * Builds the application into a single file.
      *
-     * @param string $name
+     * @param string $name The file name.
      *
      * @return $this
      */
     protected function build(string $name): Builder
     {
+        /*
+         * We prepare the application for a build, moving it to production. Then,
+         * after compile all the code to a single file, we move the built file
+         * to the builds folder with the correct permissions.
+         */
         $this->prepare()
             ->compile($name)
-            ->cleanUp($name)
             ->setPermissions($name)
-            ->finish();
+            ->clear();
 
-        $this->info('Standalone application compiled into: builds'.DIRECTORY_SEPARATOR.$name);
+        $this->info(
+            sprintf('Application built into a single file: %s', $this->app->buildsPath($name))
+        );
 
         return $this;
     }
 
     /**
-     * Compiles the standalone application.
-     *
      * @param string $name
      *
      * @return $this
      */
     protected function compile(string $name): Builder
     {
-        $this->info('Compiling code...');
-
-        $compiler = $this->makeFolder()
+        $compiler = $this->makeBuildsFolder()
             ->getCompiler($name);
 
         $structure = config('app.structure') ?: $this->structure;
 
-        $regex = '#'.implode('|', $structure).'#';
+        $regex = '#' . implode('|', $structure) . '#';
 
-        if (stristr(PHP_OS, 'WINNT') !== false) {
-            $compiler->buildFromDirectory(BASE_PATH, str_replace('\\', '/', $regex));
-        } else {
-            // Linux, OS X
-            $compiler->buildFromDirectory(BASE_PATH, $regex);
+        if (stristr(PHP_OS, 'WINNT') !== false) { // For windows:
+            $compiler->buildFromDirectory($this->app->basePath(), str_replace('\\', '/', $regex));
+        } else { // Linux, OS X:
+            $compiler->buildFromDirectory($this->app->basePath(), $regex);
         }
-        $compiler->setStub(
-            "#!/usr/bin/env php \n".$compiler->createDefaultStub('bootstrap'.DIRECTORY_SEPARATOR.'init.php')
-        );
+
+        $this->task('Compiling code', function () use ($compiler) {
+            $compiler->setStub(
+                "#!/usr/bin/env php \n" . $compiler->createDefaultStub(
+                    $this->stub
+                )
+            );
+        });
+
+        $file = $this->app->buildsPath($name);
+
+        File::move("$file.phar", $file);
 
         return $this;
     }
@@ -128,47 +150,29 @@ class Builder extends Command
     {
         try {
             return new Phar(
-                self::BUILD_PATH.DIRECTORY_SEPARATOR.$name.'.phar',
+                $this->app->buildsPath($name . '.phar'),
                 FilesystemIterator::CURRENT_AS_FILEINFO | FilesystemIterator::KEY_AS_FILENAME,
                 $name
             );
         } catch (UnexpectedValueException $e) {
-            $this->error("You can't perform a build.");
-            exit(0);
+            $this->app->abort(401, 'Unauthorized.');
         }
     }
 
     /**
-     * Creates the folder for the builds.
-     *
      * @return $this
      */
-    protected function makeFolder(): Builder
+    protected function makeBuildsFolder(): Builder
     {
-        if (! file_exists(self::BUILD_PATH)) {
-            mkdir(self::BUILD_PATH);
+        if (! File::exists($this->app->buildsPath())) {
+            File::makeDirectory($this->app->buildsPath());
         }
 
         return $this;
     }
 
     /**
-     * Moves the compiled files to the builds folder.
-     *
-     * @param string $name
-     *
-     * @return $this
-     */
-    protected function cleanUp(string $name): Builder
-    {
-        $file = self::BUILD_PATH.DIRECTORY_SEPARATOR.$name;
-        rename("$file.phar", $file);
-
-        return $this;
-    }
-
-    /**
-     * Sets the executable mode on the standalone application file.
+     * Sets the executable mode on the single application file.
      *
      * @param string $name
      *
@@ -176,40 +180,41 @@ class Builder extends Command
      */
     protected function setPermissions($name): Builder
     {
-        $file = self::BUILD_PATH.DIRECTORY_SEPARATOR.$name;
-        chmod($file, 0755);
+        chmod($this->app->buildsPath($name), 0755);
 
         return $this;
     }
 
     /**
-     * Prepares the application for build.
-     *
      * @return $this
      */
     protected function prepare(): Builder
     {
-        $file = BASE_PATH.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'app.php';
-        static::$config = file_get_contents($file);
+        $file = $this->app->configPath('app.php');
+        static::$config = File::get($file);
         $config = include $file;
 
         $config['production'] = true;
 
-        $this->info('Moving configuration to production mode...');
+        $this->task('Moving application to production mode', function () use ($file, $config) {
+            File::put($file, '<?php return ' . var_export($config, true) . ';' . PHP_EOL);
+        });
 
-        file_put_contents($file, '<?php return '.var_export($config, true).';'.PHP_EOL);
+        $stub = str_replace('#!/usr/bin/env php', '', File::get($this->app->basePath(ARTISAN_BINARY)));
+
+        File::put($this->app->basePath($this->stub), $stub);
 
         return $this;
     }
 
     /**
-     * Prepares the application for build.
-     *
      * @return $this
      */
-    protected function finish(): Builder
+    protected function clear(): Builder
     {
-        file_put_contents(BASE_PATH.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'app.php', static::$config);
+        File::put($this->app->configPath('app.php'), static::$config);
+
+        File::delete($this->app->basePath($this->stub));
 
         static::$config = null;
 
@@ -217,13 +222,16 @@ class Builder extends Command
     }
 
     /**
-     * Makes sure that the finish is performed even
+     * Makes sure that the `clear` is performed even
      * if the command fails.
+     *
+     * @return void
      */
     public function __destruct()
     {
         if (static::$config !== null) {
-            file_put_contents(BASE_PATH.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'app.php', static::$config);
+            File::put($this->app->configPath('app.php'), static::$config);
+            File::delete($this->app->basePath($this->stub));
         }
     }
 }

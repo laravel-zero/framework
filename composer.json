@@ -1,19 +1,12 @@
 {
     "name": "laravel-zero/framework",
-    "description": "Laravel Zero provides the perfect starting point for your next Laravel Console Application.",
-    "keywords": [
-        "Laravel Zero",
-        "Zero",
-        "Laravel",
-        "Console",
-        "Cli",
-        "Commands"
-    ],
-    "homepage": "https://github.com/laravel-zero/framework",
+    "description": "The Laravel Zero Framework.",
+    "keywords": ["framework", "laravel", "console", "zero", "cli"],
+    "homepage": "http://laravel-zero.com",
     "license": "MIT",
     "support": {
-        "issues": "https://github.com/laravel-zero/framework/issues",
-        "source": "https://github.com/laravel-zero/framework"
+        "issues": "https://github.com/laravel-zero/laravel-zero/issues",
+        "source": "https://github.com/laravel-zero/laravel-zero"
     },
     "authors": [
         {
@@ -22,32 +15,32 @@
         }
     ],
     "require": {
-        "php": ">=7.1",
-        "laravel-zero/foundation": "5.5.*",
-        "illuminate/config": "5.5.*",
-        "illuminate/console": "5.5.*",
-        "illuminate/container": "5.5.*",
-        "illuminate/events": "5.5.*",
-        "illuminate/cache": "5.5.*",
-        "illuminate/filesystem": "5.5.*",
-        "nunomaduro/collision": "1.1.*",
-        "nunomaduro/laravel-desktop-notifier": "1.3.*",
-        "mtdowling/cron-expression": "^1.2",
-        "league/flysystem": "^1.0"
+        "php": "^7.1.3",
+        "league/flysystem": "1.0.*",
+        "illuminate/cache": "5.6.*",
+        "illuminate/config": "5.6.*",
+        "illuminate/console": "5.6.*",
+        "illuminate/container": "5.6.*",
+        "illuminate/events": "5.6.*",
+        "illuminate/filesystem": "5.6.*",
+        "laravel-zero/foundation": "5.6.*",
+        "mtdowling/cron-expression": "1.2.*",
+        "nunomaduro/collision": "2.0.*",
+        "nunomaduro/laravel-console-task": "1.0.*",
+        "nunomaduro/laravel-console-menu":"1.0.*",
+        "nunomaduro/laravel-desktop-notifier": "2.0.*",
+        "nunomaduro/laravel-console-summary": "1.0.*",
+        "symfony/debug": "4.0.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "~6.4",
-        "squizlabs/php_codesniffer": "^2.3",
-        "illuminate/database": "5.5.*",
-        "illuminate/log": "5.5.*"
+        "phpunit/phpunit": "~7.0",
+        "illuminate/database": "5.6.*",
+        "illuminate/log": "5.6.*"
     },
     "autoload": {
         "psr-4": {
             "LaravelZero\\Framework\\": "src"
-        },
-        "files": [
-            "src/helpers.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
@@ -55,9 +48,12 @@
             "App\\": "tests/Application/app"
         }
     },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "scripts": {
-        "test": "phpunit",
-        "check-style": "phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests",
-        "fix-style": "phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests"
+        "test": "phpunit"
     }
 }

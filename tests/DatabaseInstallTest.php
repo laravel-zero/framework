@@ -3,8 +3,8 @@
 namespace Tests;
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Artisan;
 use LaravelZero\Framework\Contracts\Providers\Composer;
-use LaravelZero\Framework\Commands\Component\Illuminate\Database\Installer;
 
 class DatabaseInstallTest extends TestCase
 {
@@ -21,34 +21,25 @@ class DatabaseInstallTest extends TestCase
     {
         $composerMock = $this->createMock(Composer::class);
 
-        $composerMock->expects($this->once())->method('require')->with('illuminate/database "5.5.*"');
+        $composerMock->expects($this->once())->method('require')->with('illuminate/database "5.6.*"');
 
-        app()->instance(Composer::class, $composerMock);
+        $this->app->instance(Composer::class, $composerMock);
 
-        $this->app->add(app(Installer::class));
-
-        $this->app->call('install:database');
+        Artisan::call('app:install', ['component' => 'database']);
     }
 
     /** @test */
     public function it_copy_stubs(): void
     {
-        $this->addDatabaseCommand();
+        $composerMock = $this->createMock(Composer::class);
+        $composerMock->method('require');
+        $this->app->instance(Composer::class, $composerMock);
 
-        $this->app->call('install:database');
+        Artisan::call('app:install', ['component' => 'database']);
 
         $this->assertTrue(File::exists(config_path('database.php')));
         $this->assertTrue(File::exists(database_path('database.sqlite')));
         $this->assertTrue(File::exists(database_path('migrations')));
         $this->assertTrue(File::exists(database_path('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php')));
-    }
-
-    private function addDatabaseCommand(): void
-    {
-        $composerMock = $this->createMock(Composer::class);
-        $composerMock->method('require');
-        app()->instance(Composer::class, $composerMock);
-
-        $this->app->add(app(Installer::class));
     }
 }

@@ -1,11 +1,18 @@
 <?php
 
+/**
+ * This file is part of Laravel Zero.
+ *
+ * (c) Nuno Maduro <enunomaduro@gmail.com>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace LaravelZero\Framework\Contracts\Providers;
 
 /**
- * This is the Laravel Zero Framework composer contract.
- *
- * @author Nuno Maduro <enunomaduro@gmail.com>
+ * This is the Laravel Zero Framework Composer Contract.
  */
 interface Composer
 {
@@ -14,9 +21,9 @@ interface Composer
      *
      * @param  string $package
      *
-     * @return $this
+     * @return bool
      */
-    public function require(string $package): Composer;
+    public function require(string $package): bool;
 
     /**
      * Creates an project.
@@ -31,7 +38,7 @@ interface Composer
      * @param  string $name
      * @param  array $options
      *
-     * @return $this
+     * @return bool
      */
-    public function createProject(string $package, string $name, array $options): Composer;
+    public function createProject(string $package, string $name, array $options): bool;
 }

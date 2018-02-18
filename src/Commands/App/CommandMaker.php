@@ -1,22 +1,30 @@
 <?php
 
+/**
+ * This file is part of Laravel Zero.
+ *
+ * (c) Nuno Maduro <enunomaduro@gmail.com>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace LaravelZero\Framework\Commands\App;
 
 use Illuminate\Foundation\Console\ConsoleMakeCommand;
 
+/**
+ * This is the Laravel Zero Framework Maker Command implementation.
+ */
 class CommandMaker extends ConsoleMakeCommand
 {
     /**
-     * The console command description.
-     *
-     * @var string
+     * {@inheritdoc}
      */
     protected $description = 'Create a new command';
 
     /**
-     * Get the desired class name from the input.
-     *
-     * @return string
+     * {@inheritdoc}
      */
     protected function getNameInput()
     {
@@ -24,24 +32,18 @@ class CommandMaker extends ConsoleMakeCommand
     }
 
     /**
-     * Get the stub file for the generator.
-     *
-     * @return string
+     * {@inheritdoc}
      */
     protected function getStub()
     {
-        return __DIR__.'/stubs/console.stub';
+        return __DIR__ . '/stubs/console.stub';
     }
 
     /**
-     * Get the default namespace for the class.
-     *
-     * @param  string $rootNamespace
-     *
-     * @return string
+     * {@inheritdoc}
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Commands';
+        return $rootNamespace . '\Commands';
     }
 }

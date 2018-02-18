@@ -1,14 +1,21 @@
 <?php
 
+/**
+ * This file is part of Laravel Zero.
+ *
+ * (c) Nuno Maduro <enunomaduro@gmail.com>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace LaravelZero\Framework\Exceptions;
 
 use Exception;
 use LaravelZero\Framework\Contracts\Exceptions\ConsoleException as ConsoleExceptionContract;
 
 /**
- * This is the Laravel Zero Framework Console Exception class.
- *
- * @author Nuno Maduro <enunomaduro@gmail.com>
+ * This is the Laravel Zero Framework Console Exception Implementation.
  */
 class ConsoleException extends Exception implements ConsoleExceptionContract
 {

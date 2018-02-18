@@ -9,34 +9,6 @@ use NunoMaduro\LaravelDesktopNotifier\Contracts\Notifier;
 class BaseCommandTest extends TestCase
 {
     /** @test */
-    public function it_has_a_container_getter(): void
-    {
-        $command = $this->makeCommand();
-
-        $this->assertSame($command->getContainer(), app());
-    }
-
-    /** @test */
-    public function it_allows_notifications(): void
-    {
-        $command = $this->makeCommand();
-
-        $notifierMock = $this->createMock(Notifier::class);
-
-        $notifierMock->expects($this->once())->method('send')->with(
-            $this->callback(
-                function ($notification) {
-                    return $notification->getTitle() === 'foo' && $notification->getBody() === 'bar';
-                }
-            )
-        );
-
-        app()->instance(Notifier::class, $notifierMock);
-
-        $command->notify('foo', 'bar');
-    }
-
-    /** @test */
     public function it_allows_success_tasks(): void
     {
         $command = $this->makeCommand();
@@ -49,9 +21,11 @@ class BaseCommandTest extends TestCase
         $command->setOutput($outputMock);
 
         $command->task(
-            'foo', function () {
+            'foo',
+            function () {
                 return true;
-            });
+            }
+        );
     }
 
     /** @test */
@@ -67,9 +41,11 @@ class BaseCommandTest extends TestCase
         $command->setOutput($outputMock);
 
         $command->task(
-            'bar', function () {
+            'bar',
+            function () {
                 return false;
-            });
+            }
+        );
     }
 
     private function makeCommand()
@@ -87,7 +63,7 @@ class BaseCommandTest extends TestCase
             }
         };
 
-        $this->app->add($command);
+        $command->setLaravel($this->app);
 
         return $command;
     }

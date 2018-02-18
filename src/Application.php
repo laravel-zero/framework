@@ -1,115 +1,103 @@
 <?php
 
+/**
+ * This file is part of Laravel Zero.
+ *
+ * (c) Nuno Maduro <enunomaduro@gmail.com>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace LaravelZero\Framework;
 
-use Illuminate\Events\Dispatcher;
-use Symfony\Component\Console\Command\Command;
-use Illuminate\Support\Traits\CapsuleManagerTrait;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Illuminate\Console\Application as BaseApplication;
-use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
-use Illuminate\Contracts\Container\Container as ContainerContract;
-use LaravelZero\Framework\Contracts\Application as ApplicationContract;
-use LaravelZero\Framework\Contracts\Providers\ErrorHandler as ErrorHandlerContract;
+use Illuminate\Events\EventServiceProvider;
+use LaravelZero\Framework\Exceptions\ConsoleException;
+use Illuminate\Foundation\Application as BaseApplication;
+use Symfony\Component\Console\Exception\CommandNotFoundException;
 
 /**
- * This is the Laravel Zero Framework application class.
- *
- * @author Nuno Maduro <enunomaduro@gmail.com>
+ * This is the Laravel Zero Framework Application implementation.
  */
-class Application extends BaseApplication implements ApplicationContract
+class Application extends BaseApplication
 {
-    use CapsuleManagerTrait;
-
     /**
-     * The application event dispatcher.
+     * Get the builds path.
      *
-     * @var \Illuminate\Contracts\Events\Dispatcher
-     */
-    protected $dispatcher;
-
-    /**
-     * The current running command.
+     * @param  string $path Optionally, a path to append to the base path
      *
-     * @var \Symfony\Component\Console\Command\Command
+     * @return string
      */
-    protected $runningCommand;
-
-    /**
-     * Holds an instance of the bootstrapper factory.
-     *
-     * @var \LaravelZero\Framework\Bootstrappers\Factory
-     */
-    protected $bootstrappersFactory;
-
-    /**
-     * Creates a new instance of the application.
-     *
-     * @param \Illuminate\Contracts\Container\Container|null $container
-     * @param \Illuminate\Contracts\Events\Dispatcher|null $dispatcher
-     * @param \LaravelZero\Framework\Bootstrappers\Factory|null $bootstrappersFactory
-     */
-    public function __construct(
-        ContainerContract $container = null,
-        DispatcherContract $dispatcher = null,
-        Bootstrappers\Factory $bootstrappersFactory = null
-    ) {
-        $this->setupContainer($container ?: new Container);
-        $this->dispatcher = $dispatcher ?: new Dispatcher($this->container);
-        $this->bootstrappersFactory = $bootstrappersFactory ?: new Bootstrappers\Factory;
-        parent::__construct($this->container, $this->dispatcher, '');
+    public function buildsPath(string $path = ''): string
+    {
+        return $this->basePath('builds'.($path ? DIRECTORY_SEPARATOR.$path : $path));
     }
 
     /**
      * {@inheritdoc}
      */
-    protected function bootstrap()
+    protected function registerBaseServiceProviders()
     {
-        foreach ($this->bootstrappersFactory->make() as $bootstrapper) {
-            $bootstrapper($this);
+        $this->register(new EventServiceProvider($this));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function version()
+    {
+        return $this->app['config']->get('app.version');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function environment()
+    {
+        return $this->app['config']->get('app.production') ? 'production' : 'development';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function runningInConsole()
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isDownForMaintenance()
+    {
+        return false;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function configurationIsCached()
+    {
+        return false;
+    }
+
+    /**
+     * Throw an Console Exception with the given data unless the given condition is true.
+     *
+     * @param  int $code
+     * @param  string $message
+     * @param  array $headers
+     * @return void
+     *
+     * @throws \Symfony\Component\Console\Exception\CommandNotFoundException
+     * @throws \LaravelZero\Framework\Contracts\Exceptions\ConsoleException
+     */
+    public function abort($code, $message = '', array $headers = [])
+    {
+        if ($code == 404) {
+            throw new CommandNotFoundException($message);
         }
 
-        parent::bootstrap();
-    }
-
-    /**
-     * Gets the name of the command based on input.
-     *
-     * Proxies to the Laravel default command if there is no application
-     * default command.
-     *
-     * @param \Symfony\Component\Console\Input\InputInterface $input The input interface
-     *
-     * @return string|null
-     */
-    protected function getCommandName(InputInterface $input)
-    {
-        if (($name = parent::getCommandName($input)) || ($defaultCommand = $this->container->make('config')
-                ->get('app.default-command')) === null) {
-            return $name;
-        }
-
-        return $this->container->make($defaultCommand)
-            ->getName();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function doRunCommand(Command $command, InputInterface $input, OutputInterface $output)
-    {
-        $this->container->make(ErrorHandlerContract::class)
-            ->setOutput($output);
-
-        return parent::doRunCommand($this->runningCommand = $command, $input, $output);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getRunningCommand(): Command
-    {
-        return $this->runningCommand;
+        throw new ConsoleException($code, $message, $headers);
     }
 }

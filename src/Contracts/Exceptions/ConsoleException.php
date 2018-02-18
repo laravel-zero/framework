@@ -1,13 +1,20 @@
 <?php
 
+/**
+ * This file is part of Laravel Zero.
+ *
+ * (c) Nuno Maduro <enunomaduro@gmail.com>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace LaravelZero\Framework\Contracts\Exceptions;
 
 use Symfony\Component\Console\Exception\ExceptionInterface;
 
 /**
- * This is the Laravel Zero Framework error handler contract.
- *
- * @author Nuno Maduro <enunomaduro@gmail.com>
+ * This is the Laravel Zero Framework Console Exception Contract.
  */
 interface ConsoleException extends ExceptionInterface
 {

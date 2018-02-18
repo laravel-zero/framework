@@ -3,6 +3,7 @@
 namespace Tests;
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Artisan;
 
 class CommandMakerTest extends TestCase
 {
@@ -14,7 +15,7 @@ class CommandMakerTest extends TestCase
     /** @test */
     public function it_creates_commands(): void
     {
-        $this->app->call('make:command', ['name' => 'FooCommand']);
+        Artisan::call('make:command', ['name' => 'FooCommand']);
 
         $file = app_path('Commands'.DIRECTORY_SEPARATOR.'FooCommand.php');
 
