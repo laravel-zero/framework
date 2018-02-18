@@ -25,7 +25,7 @@
         "illuminate/filesystem": "5.6.*",
         "laravel-zero/foundation": "5.6.*",
         "mtdowling/cron-expression": "1.2.*",
-        "nunomaduro/collision": "dev-release-2.0.0",
+        "nunomaduro/collision": "2.0.*",
         "nunomaduro/laravel-console-task": "1.0.*",
         "nunomaduro/laravel-console-menu":"1.0.*",
         "nunomaduro/laravel-desktop-notifier": "2.0.*",
