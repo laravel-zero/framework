@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [5.6.0] - 2018-02-18
+### Added
+- Added `config/commands.php` to hold the ListCommand configuration.
+- Added `bootstrap/cache` folder to hold application services cache.
+- Core: Added `menu` method on base command class.
+- Core: Collision v2
+
+### Changed
+- On tests, the `Integration` folder got renamed to `Feature`.
+- The value version on `config/app.php` should be updated to `app('git.version')`.
+
+### Removed
+- `bootstrap/autoload` and `bootstrap/init` got removed.
+- App config `with-scheduler` is no longer available. You should use `config/commands.php` for it.
+- App config `default-command` is no longer available. You should use `config/commands.php` for it.
+- App config `commands-paths` is no longer available. You should use `config/commands.php` for it.
+- App config `commandss` is no longer available. You should use `config/commands.php` for it.
+- Database config `with-migrations` is no longer available. You should use `config/commands.php` for it.
+- Database config `with-seeds` is no longer available. You should use `config/commands.php` for it.
+
+## [4.0.26] - 2018-02-01
+### Fixes
+- Core: Fixes usage of facades in service providers.
+
 ## [4.0.25] - 2018-01-12
 ### Fixes
 - Core: Respects Service Provider Lifecycle.
@@ -107,6 +131,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Core: Adds support to `Storage` facade & Flysystem.
 - `config/app.php` added containing now only app config.
 
+### Changed
+- The file `config/config.php` was removed.
+
+### Removed
+- `nunomaduro/collision` removed from composer.json.
+
 ## [3.10.0] - 2017-11-01
 ### Changed
 - Uses symfony default command by default.
@@ -139,9 +169,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Core: Adds `config_path` helper.
 
-## [3.6.6] - 2017-09-29
+## [3.6.8] - 2017-09-28
 ### Added
-- Core: Removes output global helpers.
+- Adds composer lock.
 
 ## [3.6.5] - 2017-09-24
 ### Added
@@ -159,6 +189,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 - Core: Removes `illuminate/cache` component. It's now by default.
+
+## [3.5.4] - 2017-09-17
+### Added
+- [Installer](https://github.com/laravel-zero/installer)
 
 ## [3.5.0] - 2017-09-12
 ### Added
@@ -183,15 +217,47 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [3.1.0] - 2017-07-21
 ### Changed
-- Core: Fixes bootstrap of service providers.
+- Core: Fixes bootstrap of service providers
+
+## [3.1.0] - 2017-07-21
+### Changed
+- Core: Fixes bootstrap of service providers
 
 ## [3.0.5] - 2017-07-19
 ### Changed
-- Fixes bind of app container.
+- Core: Fixes bind of app container
 
 ## [3.0.0] - 2017-07-16
 ### Added
 - Splits core framework from the project.
 
+## [2.0.13] - 2017-07-02
+### Fixed
+- Fixes application build [#18](https://github.com/nunomaduro/laravel-zero/issues/18)
+
+## [2.0.11] - 2017-06-28
 ### Changed
-- Removes performance analyser.
+- Updates project struture
+
+## [2.0.0] - 2017-06-21
+### Added
+- Adds support to desktop notifications
+- Adds better docs
+
+## [1.6.0] - 2017-06-11
+### Added
+- Adds format "Keep a Changelog"
+
+## [1.5.0] - 2017-06-11
+### Added
+- Adds IOC automatic resolution on commands `__construct`
+
+## [1.3.0] - 2017-04-16
+### Added
+- Adds better error handling
+- Adds base abstract layer between you app commands and laravel commands
+- Adds feature `Performance analyser`
+
+## [1.0.0] - 2017-03-27
+### Added
+- First stable version
