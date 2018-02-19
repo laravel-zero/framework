@@ -30,6 +30,10 @@ class LoadConfiguration extends BaseLoadConfiguration
     {
         parent::bootstrap($app);
 
+        $app->detectEnvironment(function () use ($app) {
+            return $app['config']->get('app.production', true) ? 'production' : 'development';
+        });
+
         /*
          * When artisan starts, sets the application name
          * and the application version.

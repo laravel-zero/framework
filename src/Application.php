@@ -52,14 +52,6 @@ class Application extends BaseApplication
     /**
      * {@inheritdoc}
      */
-    public function environment()
-    {
-        return $this->app['config']->get('app.production') ? 'production' : 'development';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function runningInConsole()
     {
         return true;
