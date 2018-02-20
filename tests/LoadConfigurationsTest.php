@@ -4,7 +4,6 @@ namespace Tests;
 
 use App\Commands\FakeFooCommand;
 use App\Commands\FakeDefaultCommand;
-use App\Commands\FakeRemovedCommand;
 use App\OtherCommands\FakeOtherCommand;
 use Illuminate\Support\Facades\Artisan;
 use App\HiddenCommands\FakeHiddenCommand;
@@ -29,7 +28,7 @@ class LoadConfigurationsTest extends TestCase
             FakeDefaultCommand::class,
             FakeFooCommand::class,
             FakeOtherCommand::class,
-            FakeHiddenCommand::class
+            FakeHiddenCommand::class,
         ];
 
         $appCommands = collect(Artisan::all())->map(
