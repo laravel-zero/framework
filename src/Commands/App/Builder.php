@@ -15,6 +15,7 @@ use Phar;
 use FilesystemIterator;
 use UnexpectedValueException;
 use Illuminate\Support\Facades\File;
+use Symfony\Component\Process\Process;
 use LaravelZero\Framework\Commands\Command;
 
 /**
@@ -200,6 +201,10 @@ class Builder extends Command
             File::put($file, '<?php return ' . var_export($config, true) . ';' . PHP_EOL);
         });
 
+        $this->task('Removing dev dependencies', function () {
+            ($process = new Process("composer install --no-dev", $this->app->basePath()))->run();
+        });
+
         $stub = str_replace('#!/usr/bin/env php', '', File::get($this->app->basePath(ARTISAN_BINARY)));
 
         File::put($this->app->basePath($this->stub), $stub);
@@ -215,6 +220,8 @@ class Builder extends Command
         File::put($this->app->configPath('app.php'), static::$config);
 
         File::delete($this->app->basePath($this->stub));
+
+        ($process = new Process("composer install", $this->app->basePath()))->run();
 
         static::$config = null;
 
