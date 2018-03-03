@@ -9,6 +9,7 @@
   <a href="https://packagist.org/packages/laravel-zero/framework"><img src="https://poser.pugx.org/laravel-zero/framework/d/total.svg" alt="Total Downloads"></a>
   <a href="https://packagist.org/packages/laravel-zero/framework"><img src="https://poser.pugx.org/laravel-zero/framework/v/stable.svg" alt="Latest Stable Version"></a>
   <a href="https://packagist.org/packages/laravel-zero/framework"><img src="https://poser.pugx.org/laravel-zero/framework/license.svg" alt="License"></a>
+  <a href="https://www.codetriage.com/laravel-zero/framework"><img src="https://www.codetriage.com/laravel-zero/framework/badges/users.svg" alt="CodeTriage Badge"></a>
 </p>
 
 <h4> <center>This is a <bold>community project</bold> and not an official Laravel one </center></h4>
