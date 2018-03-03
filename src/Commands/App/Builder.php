@@ -202,7 +202,7 @@ class Builder extends Command
             File::put($file, '<?php return ' . var_export($config, true) . ';' . PHP_EOL);
         });
 
-        $this->task('Removing dev dependencies', function () {
+        $this->task('Temporarily removing dev dependencies', function () {
             $this->app[Composer::class]->install(['--no-dev']);
         });
 
@@ -222,7 +222,9 @@ class Builder extends Command
 
         File::delete($this->app->basePath($this->stub));
 
-        $this->app[Composer::class]->install();
+        $this->task('Reinstalling dev dependencies', function () {
+            $this->app[Composer::class]->install();
+        });
 
         static::$config = null;
 
@@ -239,6 +241,7 @@ class Builder extends Command
     {
         if (static::$config !== null) {
             $this->clear();
+            $this->error('Something went wrong.');
         }
     }
 }

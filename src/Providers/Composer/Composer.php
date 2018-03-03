@@ -34,7 +34,7 @@ class Composer implements ComposerContract
      *
      * @param \Illuminate\Contracts\Foundation\Application $app
      *
-     * return void
+     * @return void
      */
     public function __construct(Application $app)
     {
@@ -93,14 +93,15 @@ class Composer implements ComposerContract
         }
 
         try {
-            $output = $app->make(OutputInterface::class);
+            $output = $this->app->make(OutputInterface::class);
         } catch (Throwable $e) {
             $output = null;
         }
 
         if ($output) {
-            $process->run(function ($type, $line) {
-                $app->make(OutputInterface::class)->write($line);
+            $output->write("\n");
+            $process->run(function ($type, $line) use ($output) {
+                $output->write($line);
             });
         } else {
             $process->run();
