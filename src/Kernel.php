@@ -15,6 +15,7 @@ use ReflectionClass;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Console\Application as Artisan;
 use Illuminate\Contracts\Foundation\Application;
+use Symfony\Component\Console\Output\OutputInterface;
 use Illuminate\Foundation\Console\Kernel as BaseKernel;
 
 /**
@@ -67,20 +68,17 @@ class Kernel extends BaseKernel
     }
 
     /**
-     * Gets the application name.
-     *
-     * @return string
+     * {@inheritdoc}
      */
-    public function getName(): string
+    public function handle($input, $output = null)
     {
-        return $this->getArtisan()
-            ->getName();
+        $this->app->instance(OutputInterface::class, $output);
+
+        return parent::handle($input, $output);
     }
 
     /**
-     * Bootstrap the application for artisan commands.
-     *
-     * @return void
+     * {@inheritdoc}
      */
     public function bootstrap()
     {
@@ -95,9 +93,7 @@ class Kernel extends BaseKernel
     }
 
     /**
-     * Register the commands for the application.
-     *
-     * @return void
+     * {@inheritdoc}
      */
     protected function commands(): void
     {
@@ -165,5 +161,16 @@ class Kernel extends BaseKernel
                 }}
             );
         });
+    }
+
+    /**
+     * Gets the application name.
+     *
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->getArtisan()
+            ->getName();
     }
 }
