@@ -17,6 +17,7 @@ use UnexpectedValueException;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Process\Process;
 use LaravelZero\Framework\Commands\Command;
+use LaravelZero\Framework\Contracts\Providers\Composer;
 
 /**
  * This is the Laravel Zero Framework Builder Command implementation.
@@ -202,7 +203,7 @@ class Builder extends Command
         });
 
         $this->task('Removing dev dependencies', function () {
-            ($process = new Process("composer install --no-dev", $this->app->basePath()))->run();
+            $this->app[Composer::class]->install(['--no-dev']);
         });
 
         $stub = str_replace('#!/usr/bin/env php', '', File::get($this->app->basePath(ARTISAN_BINARY)));
@@ -221,7 +222,7 @@ class Builder extends Command
 
         File::delete($this->app->basePath($this->stub));
 
-        ($process = new Process("composer install", $this->app->basePath()))->run();
+        $this->app[Composer::class]->install();
 
         static::$config = null;
 
@@ -237,8 +238,7 @@ class Builder extends Command
     public function __destruct()
     {
         if (static::$config !== null) {
-            File::put($this->app->configPath('app.php'), static::$config);
-            File::delete($this->app->basePath($this->stub));
+            $this->clear();
         }
     }
 }

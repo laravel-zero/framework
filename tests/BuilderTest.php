@@ -4,6 +4,7 @@ namespace Tests;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
+use LaravelZero\Framework\Contracts\Providers\Composer;
 
 class BuilderTest extends TestCase
 {
@@ -15,6 +16,10 @@ class BuilderTest extends TestCase
     /** @test */
     public function it_builds_the_application(): void
     {
+        $composerMock = $this->createMock(Composer::class);
+        $composerMock->expects($this->exactly(4))->method('install');
+        $this->app->instance(Composer::class, $composerMock);
+
         Artisan::call('app:build');
 
         $this->assertTrue(File::exists(base_path('builds'.DIRECTORY_SEPARATOR.'application')));
