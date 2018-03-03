@@ -12,7 +12,6 @@
 namespace LaravelZero\Framework;
 
 use ReflectionClass;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Console\Application as Artisan;
 use Illuminate\Contracts\Foundation\Application;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -158,7 +157,8 @@ class Kernel extends BaseKernel
 
                 if ($command instanceof Commands\Command) {
                     $this->app->call([$command, 'schedule']);
-                }}
+                }
+            }
             );
         });
     }
