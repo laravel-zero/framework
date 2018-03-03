@@ -15,7 +15,9 @@ use Phar;
 use FilesystemIterator;
 use UnexpectedValueException;
 use Illuminate\Support\Facades\File;
+use Symfony\Component\Process\Process;
 use LaravelZero\Framework\Commands\Command;
+use LaravelZero\Framework\Contracts\Providers\Composer;
 
 /**
  * This is the Laravel Zero Framework Builder Command implementation.
@@ -200,6 +202,10 @@ class Builder extends Command
             File::put($file, '<?php return ' . var_export($config, true) . ';' . PHP_EOL);
         });
 
+        $this->task('Removing dev dependencies', function () {
+            $this->app[Composer::class]->install(['--no-dev']);
+        });
+
         $stub = str_replace('#!/usr/bin/env php', '', File::get($this->app->basePath(ARTISAN_BINARY)));
 
         File::put($this->app->basePath($this->stub), $stub);
@@ -216,6 +222,8 @@ class Builder extends Command
 
         File::delete($this->app->basePath($this->stub));
 
+        $this->app[Composer::class]->install();
+
         static::$config = null;
 
         return $this;
@@ -230,8 +238,7 @@ class Builder extends Command
     public function __destruct()
     {
         if (static::$config !== null) {
-            File::put($this->app->configPath('app.php'), static::$config);
-            File::delete($this->app->basePath($this->stub));
+            $this->clear();
         }
     }
 }
