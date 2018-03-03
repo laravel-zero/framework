@@ -4,7 +4,6 @@ namespace Tests;
 
 use LaravelZero\Framework\Commands\Command;
 use Symfony\Component\Console\Output\OutputInterface;
-use NunoMaduro\LaravelDesktopNotifier\Contracts\Notifier;
 
 class BaseCommandTest extends TestCase
 {
