@@ -80,16 +80,6 @@ class Kernel extends BaseKernel
     /**
      * {@inheritdoc}
      */
-    public function call($command, array $parameters = [], $outputBuffer = null)
-    {
-        $this->app->instance(OutputInterface::class, $output);
-
-        return parent::call($command, $parameters, $outputBuffer);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function bootstrap()
     {
         parent::bootstrap();
