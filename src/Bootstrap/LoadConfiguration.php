@@ -66,7 +66,7 @@ class LoadConfiguration extends BaseLoadConfiguration
 
         foreach ($configFiles as $file) {
             $directory = $this->getNestedDirectory($file, $configPath);
-            $files[$directory . basename($file->getPathName(), '.php')] = $file->getPathName();
+            $files[$directory.basename($file->getPathName(), '.php')] = $file->getPathName();
         }
 
         ksort($files, SORT_NATURAL);
