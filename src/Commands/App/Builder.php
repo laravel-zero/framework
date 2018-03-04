@@ -133,6 +133,9 @@ class Builder extends Command
             );
         });
 
+        // Unset the compiler to fix a "file in use" error on Windows.
+        unset($compiler);
+
         $file = $this->app->buildsPath($name);
 
         File::move("$file.phar", $file);
