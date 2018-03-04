@@ -208,6 +208,11 @@ class Builder extends Command
 
         $stub = str_replace('#!/usr/bin/env php', '', File::get($this->app->basePath(ARTISAN_BINARY)));
 
+        // Remove first line.
+        $stubAsArray = explode("\n", $stub);
+        array_shift($stubAsArray);
+        $stub = implode("\n", $stubAsArray);
+
         File::put($this->app->basePath($this->stub), $stub);
 
         return $this;
