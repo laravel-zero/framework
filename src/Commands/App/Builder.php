@@ -24,6 +24,16 @@ use LaravelZero\Framework\Contracts\Providers\Composer;
 class Builder extends Command
 {
     /**
+     * {@inheritdoc}
+     */
+    protected $signature = 'app:build {name=application : The build name} {--with-dev : Whether the dev dependencies should be included}';
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $description = 'Perform an application build';
+
+    /**
      * Contains the default app structure.
      *
      * @var string[]
@@ -44,16 +54,6 @@ class Builder extends Command
      * @var string
      */
     protected $stub = 'builder-stub';
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $signature = 'app:build {name=application : The build name}';
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $description = 'Perform an application build';
 
     /**
      * Holds the configuration on is original state.
@@ -201,9 +201,11 @@ class Builder extends Command
             File::put($file, '<?php return '.var_export($config, true).';'.PHP_EOL);
         });
 
-        $this->task('Temporarily removing dev dependencies', function () {
-            $this->app[Composer::class]->install(['--no-dev']);
-        });
+        if ($this->option('with-dev') === false) {
+            $this->task('Temporarily removing dev dependencies', function () {
+                $this->app[Composer::class]->install(['--no-dev']);
+            });
+        }
 
         $stub = str_replace('#!/usr/bin/env php', '', File::get($this->app->basePath(ARTISAN_BINARY)));
 
@@ -226,9 +228,11 @@ class Builder extends Command
 
         File::delete($this->app->basePath($this->stub));
 
-        $this->task('Reinstalling dev dependencies', function () {
-            $this->app[Composer::class]->install();
-        });
+        if ($this->option('with-dev') === false) {
+            $this->task('Reinstalling dev dependencies', function () {
+                $this->app[Composer::class]->install();
+            });
+        }
 
         static::$config = null;
 
