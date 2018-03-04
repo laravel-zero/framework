@@ -46,7 +46,7 @@ class Composer implements ComposerContract
      */
     public function install(array $options = []): bool
     {
-        $cmd = "composer install";
+        $cmd = 'composer install';
 
         collect($options)->each(function ($option) use (&$cmd) {
             $cmd .= " $option";
