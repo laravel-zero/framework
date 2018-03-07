@@ -66,8 +66,6 @@ class Installer extends Command
                 ->open();
         }
 
-
-
         if ($option !== null && ! empty($this->components[$option])) {
             ($command = $this->app[$this->components[$option]])->setLaravel($this->app);
 
