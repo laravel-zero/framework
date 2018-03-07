@@ -13,6 +13,7 @@ namespace LaravelZero\Framework\Commands\App;
 
 use LaravelZero\Framework\Components;
 use LaravelZero\Framework\Commands\Command;
+use PhpSchool\CliMenu\Terminal\TerminalFactory;
 use Symfony\Component\Console\Input\ArrayInput;
 
 /**
@@ -46,17 +47,26 @@ class Installer extends Command
      */
     public function handle(): void
     {
-        $option = $this->argument('component') ?: $this->menu(
-            'Laravel Zero - Component installer',
-            [
-                'database' =>   'Database - Laravel Eloquent',
-                'log' =>        'Log      - Laravel Log component',
-                'dotenv' =>     'Dotenv   - Loads environment variables from `.env`',
-            ]
-        )
-            ->setForegroundColour('green')
-            ->setBackgroundColour('black')
-            ->open();
+        $title = 'Laravel Zero - Component installer';
+
+        $choices = [
+            'database' =>   'Database - Laravel Eloquent',
+            'log' =>        'Log      - Laravel Log component',
+            'dotenv' =>     'Dotenv   - Loads environment variables from `.env`',
+        ];
+
+        if (! TerminalFactory::fromSystem()->isTTY()) {
+            $option = $this->choice($title, $choices);
+        } else {
+            $option = $this->argument('component') ?: $this->menu(
+                $title,
+                $choices
+            )->setForegroundColour('green')
+                ->setBackgroundColour('black')
+                ->open();
+        }
+
+
 
         if ($option !== null && ! empty($this->components[$option])) {
             ($command = $this->app[$this->components[$option]])->setLaravel($this->app);
