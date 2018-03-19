@@ -54,7 +54,7 @@ class Installer extends Command
             'database' =>   'Database - Laravel Eloquent',
             'log' =>        'Log      - Laravel Log component',
             'dotenv' =>     'Dotenv   - Loads environment variables from `.env`',
-            'events' =>     'Events   - Laravel Events commands',
+            'events' =>     'Events   - Laravel Events',
         ];
 
         if (! TerminalFactory::fromSystem()->isTTY()) {

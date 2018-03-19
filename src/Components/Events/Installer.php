@@ -39,20 +39,24 @@ class Installer extends AbstractInstaller
      */
     public function install(): void
     {
-        $this->task(
-            'Installing Application Event Service Provider',
-            function () {
-                if (! File::exists($this->laravel->basePath('app') . '/Providers/EventServiceProvider.php')) {
-                    $stub = str_replace('DummyNamespace', $this->laravel->getNamespace() . 'Providers', File::get(static::SERVICE_PROVIDER_STUB));
-                    File::put($this->laravel->basePath('app') . '/Providers/EventServiceProvider.php', $stub);
+        $this->task('Installing Application Event Service Provider',function () {
+            if (! File::exists($this->laravel->basePath('app') . '/Providers/EventServiceProvider.php')) {
+                $stub = str_replace('DummyNamespace', $this->laravel->getNamespace() . 'Providers', File::get(static::SERVICE_PROVIDER_STUB));
+                File::put($this->laravel->basePath('app') . '/Providers/EventServiceProvider.php', $stub);
 
-                    return true;
-                }
-
-                return false;
+                return true;
             }
-        );
 
-        $this->info('Base Component installed! For usage information please reference the Laravel Framework documentation, here: https://laravel.com/docs/5.5/events');
+            return false;
+        });
+
+        $this->info('Usage:');
+        $this->comment(
+            '
+$ php <your-application-name> event:generate
+$ php <your-application-name> make:event UserCreated
+$ php <your-application-name> make:listener UpdateContact
+        '
+        );
     }
 }
