@@ -39,6 +39,7 @@ class Installer extends Command
     protected $components = [
         'database' => Components\Database\Installer::class,
         'dotenv' => Components\Dotenv\Installer::class,
+        'events' => Components\Events\Installer::class,
         'log' => Components\Log\Installer::class,
     ];
 
@@ -53,6 +54,7 @@ class Installer extends Command
             'database' =>   'Database - Laravel Eloquent',
             'log' =>        'Log      - Laravel Log component',
             'dotenv' =>     'Dotenv   - Loads environment variables from `.env`',
+            'events' =>     'Events   - Laravel Events commands',
         ];
 
         if (! TerminalFactory::fromSystem()->isTTY()) {
@@ -65,8 +67,6 @@ class Installer extends Command
                 ->setBackgroundColour('black')
                 ->open();
         }
-
-
 
         if ($option !== null && ! empty($this->components[$option])) {
             ($command = $this->app[$this->components[$option]])->setLaravel($this->app);
