@@ -39,6 +39,8 @@ class Installer extends AbstractInstaller
      */
     public function install(): void
     {
+        Artisan::call('app:install', ['name' => 'database'], $this->output);
+
         $this->require('illuminate/broadcasting "5.6.*"');
 
         $this->task('Creating App\Providers\EventServiceProvider.php',function () {
