@@ -23,7 +23,7 @@ class Provider extends AbstractComponentProvider
      */
     public function isAvailable(): bool
     {
-        return class_exists($this->app->getNamespace() . 'Providers\EventServiceProvider');
+        return class_exists($this->app->getNamespace().'Providers\EventServiceProvider');
     }
 
     /**
@@ -31,7 +31,7 @@ class Provider extends AbstractComponentProvider
      */
     public function register(): void
     {
-        $this->app->register($this->app->getNamespace() . 'Providers\EventServiceProvider');
+        $this->app->register($this->app->getNamespace().'Providers\EventServiceProvider');
     }
 
     /**
