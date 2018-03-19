@@ -12,6 +12,7 @@
 namespace LaravelZero\Framework\Components\Events;
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Artisan;
 use LaravelZero\Framework\Components\AbstractInstaller;
 
 /**
