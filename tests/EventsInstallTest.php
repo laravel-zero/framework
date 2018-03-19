@@ -2,16 +2,16 @@
 
 namespace Tests;
 
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Artisan;
 
 class EventsInstallTest extends TestCase
 {
     public function tearDown()
     {
-        File::delete($this->app->basePath('app') . '/Providers/EventServiceProvider.php');
-        File::delete($this->app->basePath('app') . '/Events/TestEvent.php');
-        File::delete($this->app->basePath('app') . '/Listeners/TestEventListener.php');
+        File::delete($this->app->basePath('app').'/Providers/EventServiceProvider.php');
+        File::delete($this->app->basePath('app').'/Events/TestEvent.php');
+        File::delete($this->app->basePath('app').'/Listeners/TestEventListener.php');
     }
 
     /** @test */
@@ -19,7 +19,7 @@ class EventsInstallTest extends TestCase
     {
         Artisan::call('app:install', ['component' => 'events']);
 
-        $this->assertTrue(File::exists($this->app->basePath('app') . '/Providers/EventServiceProvider.php'));
+        $this->assertTrue(File::exists($this->app->basePath('app').'/Providers/EventServiceProvider.php'));
     }
 
     /** @test */
@@ -27,7 +27,7 @@ class EventsInstallTest extends TestCase
     {
         Artisan::call('app:install', ['component' => 'events']);
         Artisan::call('make:event', ['name' => 'TestEvent']);
-        $this->assertTrue(File::exists($this->app->basePath('app') . '/Events/TestEvent.php'));
+        $this->assertTrue(File::exists($this->app->basePath('app').'/Events/TestEvent.php'));
     }
 
     /** @test */
@@ -35,7 +35,7 @@ class EventsInstallTest extends TestCase
     {
         Artisan::call('app:install', ['component' => 'events']);
         Artisan::call('make:listener', ['name' => 'TestEventListener']);
-        $this->assertTrue(File::exists($this->app->basePath('app') . '/Listeners/TestEventListener.php'));
+        $this->assertTrue(File::exists($this->app->basePath('app').'/Listeners/TestEventListener.php'));
     }
 
     /** @test */

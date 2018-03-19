@@ -30,7 +30,7 @@ class Installer extends AbstractInstaller
     protected $description = 'Installs illuminate/events related generator commands';
 
     /**
-     * The app's event service provider stub path
+     * The app's event service provider stub path.
      */
     protected const SERVICE_PROVIDER_STUB = __DIR__.DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'event-service-provider.stub';
 
@@ -39,10 +39,10 @@ class Installer extends AbstractInstaller
      */
     public function install(): void
     {
-        $this->task('Installing Application Event Service Provider',function () {
-            if (! File::exists($this->laravel->basePath('app') . '/Providers/EventServiceProvider.php')) {
-                $stub = str_replace('DummyNamespace', $this->laravel->getNamespace() . 'Providers', File::get(static::SERVICE_PROVIDER_STUB));
-                File::put($this->laravel->basePath('app') . '/Providers/EventServiceProvider.php', $stub);
+        $this->task('Installing Application Event Service Provider', function () {
+            if (! File::exists($this->laravel->basePath('app').'/Providers/EventServiceProvider.php')) {
+                $stub = str_replace('DummyNamespace', $this->laravel->getNamespace().'Providers', File::get(static::SERVICE_PROVIDER_STUB));
+                File::put($this->laravel->basePath('app').'/Providers/EventServiceProvider.php', $stub);
 
                 return true;
             }
