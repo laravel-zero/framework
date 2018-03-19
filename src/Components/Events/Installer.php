@@ -39,7 +39,9 @@ class Installer extends AbstractInstaller
      */
     public function install(): void
     {
-        $this->task('Installing Application Event Service Provider',function () {
+        $this->require('illuminate/broadcasting "5.6.*"');
+
+        $this->task('Creating App\Providers\EventServiceProvider.php',function () {
             if (! File::exists($this->laravel->basePath('app') . '/Providers/EventServiceProvider.php')) {
                 $stub = str_replace('DummyNamespace', $this->laravel->getNamespace() . 'Providers', File::get(static::SERVICE_PROVIDER_STUB));
                 File::put($this->laravel->basePath('app') . '/Providers/EventServiceProvider.php', $stub);
