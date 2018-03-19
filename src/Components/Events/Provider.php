@@ -35,7 +35,7 @@ class Provider extends AbstractComponentProvider
         // will always return true. We cannot put this particular conditional in the isAvailable method since the
         // application isn't fully booted, and we cannot resolve $this->app->getNamespace(). Only when the
         // application-level EventServiceProvider is present do we register the Framework's  Provider.
-        $providerName = $this->app->getNamespace() . 'Providers\EventServiceProvider';
+        $providerName = $this->app->getNamespace().'Providers\EventServiceProvider';
         if (class_exists($providerName)) {
             $this->app->register($providerName);
         }
