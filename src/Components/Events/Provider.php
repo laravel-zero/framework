@@ -23,7 +23,7 @@ class Provider extends AbstractComponentProvider
      */
     public function isAvailable(): bool
     {
-        return  class_exists(\Illuminate\Events\EventServiceProvider::class);
+        return class_exists($this->app->getNamespace() . 'Providers\EventServiceProvider');
     }
 
     /**
@@ -31,14 +31,7 @@ class Provider extends AbstractComponentProvider
      */
     public function register(): void
     {
-        // Since the LaravelZero Framework requires illuminate\events be installed, the call to isAvailable() above
-        // will always return true. We cannot put this particular conditional in the isAvailable method since the
-        // application isn't fully booted, and we cannot resolve $this->app->getNamespace(). Only when the
-        // application-level EventServiceProvider is present do we register the Framework's  Provider.
-        $providerName = $this->app->getNamespace() . 'Providers\EventServiceProvider';
-        if (class_exists($providerName)) {
-            $this->app->register($providerName);
-        }
+        $this->app->register($this->app->getNamespace() . 'Providers\EventServiceProvider');
     }
 
     /**

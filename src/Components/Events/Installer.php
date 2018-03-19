@@ -40,7 +40,7 @@ class Installer extends AbstractInstaller
      */
     public function install(): void
     {
-        Artisan::call('app:install', ['name' => 'database'], $this->output);
+        Artisan::call('app:install', ['component' => 'database'], $this->output);
 
         $this->require('illuminate/broadcasting "5.6.*"');
 
