@@ -40,19 +40,15 @@ class Installer extends AbstractInstaller
      */
     public function install(): void
     {
-        Artisan::call('app:install', ['component' => 'database'], $this->output);
-
         $this->require('illuminate/broadcasting "5.6.*"');
 
         $this->task('Creating App\Providers\EventServiceProvider.php',function () {
-            if (! File::exists($this->laravel->basePath('app') . '/Providers/EventServiceProvider.php')) {
-                $stub = str_replace('DummyNamespace', $this->laravel->getNamespace() . 'Providers', File::get(static::SERVICE_PROVIDER_STUB));
-                File::put($this->laravel->basePath('app') . '/Providers/EventServiceProvider.php', $stub);
-
-                return true;
+            if (File::exists($this->laravel->basePath('app') . '/Providers/EventServiceProvider.php')) {
+                return false;
             }
 
-            return false;
+            $stub = str_replace('DummyNamespace', $this->laravel->getNamespace() . 'Providers', File::get(static::SERVICE_PROVIDER_STUB));
+            File::put($this->laravel->basePath('app') . '/Providers/EventServiceProvider.php', $stub);
         });
 
         $this->info('Usage:');
