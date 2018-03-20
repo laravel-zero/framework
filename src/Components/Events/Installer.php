@@ -12,7 +12,6 @@
 namespace LaravelZero\Framework\Components\Events;
 
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Artisan;
 use LaravelZero\Framework\Components\AbstractInstaller;
 
 /**
@@ -31,7 +30,7 @@ class Installer extends AbstractInstaller
     protected $description = 'Installs illuminate/events related generator commands';
 
     /**
-     * The app's event service provider stub path
+     * The app's event service provider stub path.
      */
     protected const SERVICE_PROVIDER_STUB = __DIR__.DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'event-service-provider.stub';
 
@@ -42,13 +41,13 @@ class Installer extends AbstractInstaller
     {
         $this->require('illuminate/broadcasting "5.6.*"');
 
-        $this->task('Creating App\Providers\EventServiceProvider.php',function () {
-            if (File::exists($this->laravel->basePath('app') . '/Providers/EventServiceProvider.php')) {
+        $this->task('Creating App\Providers\EventServiceProvider.php', function () {
+            if (File::exists($this->laravel->basePath('app').'/Providers/EventServiceProvider.php')) {
                 return false;
             }
 
-            $stub = str_replace('DummyNamespace', $this->laravel->getNamespace() . 'Providers', File::get(static::SERVICE_PROVIDER_STUB));
-            File::put($this->laravel->basePath('app') . '/Providers/EventServiceProvider.php', $stub);
+            $stub = str_replace('DummyNamespace', $this->laravel->getNamespace().'Providers', File::get(static::SERVICE_PROVIDER_STUB));
+            File::put($this->laravel->basePath('app').'/Providers/EventServiceProvider.php', $stub);
         });
 
         $this->info('Usage:');
