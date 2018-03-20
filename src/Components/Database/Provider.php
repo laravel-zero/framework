@@ -24,7 +24,8 @@ class Provider extends AbstractComponentProvider
      */
     public function isAvailable(): bool
     {
-        return class_exists(\Illuminate\Database\DatabaseServiceProvider::class);
+        return class_exists(\Illuminate\Database\DatabaseServiceProvider::class)
+            && config('database') !== null;
     }
 
     /**
