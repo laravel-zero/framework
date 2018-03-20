@@ -47,75 +47,55 @@ class Installer extends AbstractInstaller
     {
         $this->require('illuminate/database "5.6.*"');
 
-        $this->task(
-            'Creating a default SQLite database',
-            function () {
-                if (! File::exists(database_path('database.sqlite'))) {
-                    File::makeDirectory(database_path('migrations'), 0755, true, true);
+        $this->task('Creating a default SQLite database', function () {
+            if (File::exists(database_path('database.sqlite'))) {
+                return false;
+            }
 
-                    File::put(
-                        database_path('database.sqlite'),
-                        ''
-                    );
+            File::makeDirectory(database_path('migrations'), 0755, true, true);
+            File::put(database_path('database.sqlite'), '');
+        });
+
+        $this->task('Creating seeds folders and files', function () {
+            if (File::exists(database_path('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php'))) {
+                return false;
+            }
+
+            File::makeDirectory(database_path('seeds'), 0755, false, true);
+
+            File::copy(
+                static::SEEDER_FILE,
+                database_path('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php')
+            );
+
+            return true;
+        });
+
+        $this->task('Creating default database configuration', function () {
+            if (File::exists(config_path('database.php'))) {
+                return false;
+            }
+
+            File::copy(
+                static::CONFIG_FILE,
+                config_path('database.php')
+            );
+        });
+
+        $this->task('Updating .gitignore', function () {
+            $gitignorePath = base_path('.gitignore');
+            if (File::exists($gitignorePath)) {
+                $contents = File::get($gitignorePath);
+                $neededLine = '/database/database.sqlite';
+                if (! Str::contains($contents, $neededLine)) {
+                    File::append($gitignorePath, $neededLine.PHP_EOL);
 
                     return true;
                 }
-
-                return false;
             }
-        );
 
-        $this->task(
-            'Creating seeds folders and files',
-            function () {
-                if (! File::exists(database_path('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php'))) {
-                    File::makeDirectory(database_path('seeds'), 0755, false, true);
-
-                    File::copy(
-                        static::SEEDER_FILE,
-                        database_path('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php')
-                    );
-
-                    return true;
-                }
-
-                return false;
-            }
-        );
-
-        $this->task(
-            'Creating default database configuration',
-            function () {
-                if (! File::exists(config_path('database.php'))) {
-                    File::copy(
-                        static::CONFIG_FILE,
-                        config_path('database.php')
-                    );
-
-                    return true;
-                }
-
-                return false;
-            }
-        );
-
-        $this->task(
-            'Updating .gitignore',
-            function () {
-                $gitignorePath = base_path('.gitignore');
-                if (File::exists($gitignorePath)) {
-                    $contents = File::get($gitignorePath);
-                    $neededLine = '/database/database.sqlite';
-                    if (! Str::contains($contents, $neededLine)) {
-                        File::append($gitignorePath, $neededLine.PHP_EOL);
-
-                        return true;
-                    }
-                }
-
-                return false;
-            }
-        );
+            return false;
+        });
 
         $this->info('Usage:');
         $this->comment(
