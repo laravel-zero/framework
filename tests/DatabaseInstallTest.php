@@ -10,7 +10,6 @@ class DatabaseInstallTest extends TestCase
 {
     public function tearDown()
     {
-        File::delete(config_path('database.php'));
         File::delete(database_path('database.sqlite'));
         File::delete(database_path('migrations'));
         File::delete(database_path('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php'));
