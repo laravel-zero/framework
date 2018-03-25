@@ -18,11 +18,12 @@ use NunoMaduro\LaravelConsoleMenu\LaravelConsoleMenuServiceProvider;
 use NunoMaduro\LaravelConsoleTask\LaravelConsoleTaskServiceProvider;
 use NunoMaduro\LaravelConsoleSummary\LaravelConsoleSummaryServiceProvider;
 use NunoMaduro\LaravelDesktopNotifier\LaravelDesktopNotifierServiceProvider;
+use Illuminate\Foundation\Bootstrap\RegisterProviders as BaseRegisterProviders;
 
 /**
  * This is the Laravel Zero Framework Bootstrap Register Providers implementation.
  */
-class RegisterProviders
+class RegisterProviders extends BaseRegisterProviders
 {
     /**
      * Framework core providers.
@@ -57,7 +58,12 @@ class RegisterProviders
     public function bootstrap(Application $app): void
     {
         /*
-         * First, we register Laravel Zero providers.
+         * First, we register Laravel Foundation providers.
+         */
+        parent::bootstrap($app);
+
+        /*
+         * Then we register Laravel Zero providers.
          */
         collect($this->providers)
             ->merge(
