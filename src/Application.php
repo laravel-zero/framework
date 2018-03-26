@@ -11,6 +11,7 @@
 
 namespace LaravelZero\Framework;
 
+use Illuminate\Foundation\PackageManifest;
 use Illuminate\Events\EventServiceProvider;
 use LaravelZero\Framework\Exceptions\ConsoleException;
 use Illuminate\Foundation\Application as BaseApplication;
@@ -31,6 +32,19 @@ class Application extends BaseApplication
     public function buildsPath(string $path = ''): string
     {
         return $this->basePath('builds'.($path ? DIRECTORY_SEPARATOR.$path : $path));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function registerBaseBindings()
+    {
+        parent::registerBaseBindings();
+
+        /**
+         * Ignores auto-discovery.
+         */
+        $this->make(PackageManifest::class)->manifest = [];
     }
 
     /**
