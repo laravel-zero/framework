@@ -45,7 +45,7 @@ abstract class Command extends BaseCommand
     }
 
     /**
-     * {@innerdoc}.
+     * {@inheritdoc}
      */
     public function setLaravel($laravel)
     {

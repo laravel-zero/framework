@@ -65,18 +65,12 @@ class RegisterProviders extends BaseRegisterProviders
         /*
          * Then we register Laravel Zero providers.
          */
-        collect($this->providers)
-            ->merge(
-                collect($this->components)->filter(
-                    function ($component) use ($app) {
-                        return (new $component($app))->isAvailable();
-                    }
-                )
-            )
-            ->each(
-                function ($serviceProviderClass) use ($app) {
-                    $app->register($serviceProviderClass);
-                }
-            );
+        collect($this->providers)->merge(
+            collect($this->components)->filter(function ($component) use ($app) {
+                return (new $component($app))->isAvailable();
+            })
+        )->each(function ($serviceProviderClass) use ($app) {
+            $app->register($serviceProviderClass);
+        });
     }
 }
