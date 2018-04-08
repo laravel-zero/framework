@@ -41,7 +41,7 @@ class Application extends BaseApplication
     {
         parent::registerBaseBindings();
 
-        /**
+        /*
          * Ignores auto-discovery.
          */
         $this->make(PackageManifest::class)->manifest = [];
