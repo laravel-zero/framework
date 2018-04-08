@@ -2,7 +2,7 @@
     "name": "laravel-zero/framework",
     "description": "The Laravel Zero Framework.",
     "keywords": ["framework", "laravel", "console", "zero", "cli"],
-    "homepage": "http://laravel-zero.com",
+    "homepage": "https://laravel-zero.com",
     "license": "MIT",
     "support": {
         "issues": "https://github.com/laravel-zero/laravel-zero/issues",
