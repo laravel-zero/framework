@@ -37,6 +37,7 @@ class Installer extends Command
      * @var array
      */
     protected $components = [
+        'console-dusk' => Components\ConsoleDusk\Installer::class,
         'database' => Components\Database\Installer::class,
         'dotenv' => Components\Dotenv\Installer::class,
         'log' => Components\Log\Installer::class,
