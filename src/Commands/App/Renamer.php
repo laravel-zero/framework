@@ -28,7 +28,7 @@ class Renamer extends Command
     /**
      * {@inheritdoc}
      */
-    protected $description = 'Perform an application rename';
+    protected $description = 'Change the application name';
 
     /**
      * {@inheritdoc}

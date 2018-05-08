@@ -31,7 +31,7 @@ class Builder extends Command
     /**
      * {@inheritdoc}
      */
-    protected $description = 'Perform an application build';
+    protected $description = 'Compile your application into a single file';
 
     /**
      * Contains the default app structure.
