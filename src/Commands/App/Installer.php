@@ -51,9 +51,10 @@ class Installer extends Command
         $title = 'Laravel Zero - Component installer';
 
         $choices = [
-            'database' =>   'Database - Laravel Eloquent',
-            'log' =>        'Log      - Laravel Log component',
-            'dotenv' =>     'Dotenv   - Loads environment variables from `.env`',
+            'console-dusk' =>   'Console Dusk - Laravel Dusk on artisan commands',
+            'database' =>       'Database     - Laravel Eloquent',
+            'dotenv' =>         'Dotenv       - Loads environment variables from `.env`',
+            'log' =>            'Log          - Laravel Log component',
         ];
 
         if (! TerminalFactory::fromSystem()->isTTY()) {
