@@ -15,7 +15,10 @@ use Phar;
 use FilesystemIterator;
 use UnexpectedValueException;
 use Illuminate\Support\Facades\File;
+use Symfony\Component\Process\Process;
 use LaravelZero\Framework\Commands\Command;
+use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Output\OutputInterface;
 use LaravelZero\Framework\Contracts\Providers\Composer;
 
 /**
@@ -26,34 +29,12 @@ class Builder extends Command
     /**
      * {@inheritdoc}
      */
-    protected $signature = 'app:build {name=application : The build name} {--with-dev : Whether the dev dependencies should be included}';
+    protected $signature = 'app:build {name=application : The build name}';
 
     /**
      * {@inheritdoc}
      */
     protected $description = 'Compile your application into a single file';
-
-    /**
-     * Contains the default app structure.
-     *
-     * @var string[]
-     */
-    protected $structure = [
-        'app'.DIRECTORY_SEPARATOR,
-        'bootstrap'.DIRECTORY_SEPARATOR,
-        'vendor'.DIRECTORY_SEPARATOR,
-        'config'.DIRECTORY_SEPARATOR,
-        'composer.json',
-        'builder-stub',
-        '.env',
-    ];
-
-    /**
-     * Holds the stub name.
-     *
-     * @var string
-     */
-    protected $stub = 'builder-stub';
 
     /**
      * Holds the configuration on is original state.
@@ -68,15 +49,8 @@ class Builder extends Command
     public function handle(): void
     {
         $this->info('Building the application...');
+        $this->build($this->input->getArgument('name') ?: static::BUILD_NAME);
 
-        if (Phar::canWrite()) {
-            $this->build($this->input->getArgument('name') ?: static::BUILD_NAME);
-        } else {
-            $this->error(
-                'Unable to compile a phar because of php\'s security settings. '.'phar.readonly must be disabled in php.ini. '.PHP_EOL.PHP_EOL.'You will need to edit '.php_ini_loaded_file(
-                ).' and add or set'.PHP_EOL.PHP_EOL.'    phar.readonly = Off'.PHP_EOL.PHP_EOL.'to continue. Details here: http://php.net/manual/en/phar.configuration.php'
-            );
-        }
     }
 
     /**
@@ -95,7 +69,6 @@ class Builder extends Command
          */
         $this->prepare()
             ->compile($name)
-            ->setPermissions($name)
             ->clear();
 
         $this->info(
@@ -112,55 +85,40 @@ class Builder extends Command
      */
     protected function compile(string $name): Builder
     {
-        $compiler = $this->makeBuildsFolder()
-            ->getCompiler($name);
+        $this->makeBuildsFolder();
 
-        $structure = config('app.structure') ?: $this->structure;
+        $binDir = dirname(dirname(dirname(__DIR__))) . '/bin';
 
-        $regex = '#'.implode('|', $structure).'#';
+        $process = new Process(
+            './box compile'
+                .' --working-dir=' . base_path()
+                .' --config=' . base_path('box.json'),
+            $binDir
+        );
+        $process->start();
 
-        if (stristr(PHP_OS, 'WINNT') !== false) { // For windows:
-            $compiler->buildFromDirectory($this->app->basePath(), str_replace('\\', '/', $regex));
-        } else { // Linux, OS X:
-            $compiler->buildFromDirectory($this->app->basePath(), $regex);
+        // creates a new progress bar (50 units)
+        $progressBar = new ProgressBar($this->output, 25);
+
+        // starts and displays the progress bar
+        $progressBar->start();
+
+        // ensures that the progress bar is at 100%
+        foreach ($process as $type => $data) {
+            $progressBar->advance();
+
+            if ($this->output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
+                $process::OUT === $type ? $this->info($data) : $this->error($data);
+            }
         }
 
-        $this->task('Compiling code', function () use ($compiler) {
-            $compiler->setStub(
-                "#!/usr/bin/env php \n".$compiler->createDefaultStub(
-                    $this->stub
-                )
-            );
-        });
+        $progressBar->finish();
 
-        // Unset the compiler to fix a "file in use" error on Windows.
-        unset($compiler);
+        $file = $this->app->basePath($name);
 
-        $file = $this->app->buildsPath($name);
-
-        File::move("$file.phar", $file);
+        File::move("$file.phar", $this->app->buildsPath($name));
 
         return $this;
-    }
-
-    /**
-     * Gets a new instance of the compiler.
-     *
-     * @param string $name
-     *
-     * @return \Phar
-     */
-    protected function getCompiler(string $name): \Phar
-    {
-        try {
-            return new Phar(
-                $this->app->buildsPath($name.'.phar'),
-                FilesystemIterator::CURRENT_AS_FILEINFO | FilesystemIterator::KEY_AS_FILENAME,
-                $name
-            );
-        } catch (UnexpectedValueException $e) {
-            $this->app->abort(401, 'Unauthorized.');
-        }
     }
 
     /**
@@ -171,20 +129,6 @@ class Builder extends Command
         if (! File::exists($this->app->buildsPath())) {
             File::makeDirectory($this->app->buildsPath());
         }
-
-        return $this;
-    }
-
-    /**
-     * Sets the executable mode on the single application file.
-     *
-     * @param string $name
-     *
-     * @return $this
-     */
-    protected function setPermissions($name): Builder
-    {
-        chmod($this->app->buildsPath($name), 0755);
 
         return $this;
     }
@@ -204,21 +148,6 @@ class Builder extends Command
             File::put($file, '<?php return '.var_export($config, true).';'.PHP_EOL);
         });
 
-        if ($this->option('with-dev') === false) {
-            $this->task('Temporarily removing dev dependencies', function () {
-                $this->app[Composer::class]->install(['--no-dev']);
-            });
-        }
-
-        $stub = str_replace('#!/usr/bin/env php', '', File::get($this->app->basePath(ARTISAN_BINARY)));
-
-        // Remove first line.
-        $stubAsArray = explode("\n", $stub);
-        array_shift($stubAsArray);
-        $stub = implode("\n", $stubAsArray);
-
-        File::put($this->app->basePath($this->stub), $stub);
-
         return $this;
     }
 
@@ -228,14 +157,6 @@ class Builder extends Command
     protected function clear(): Builder
     {
         File::put($this->app->configPath('app.php'), static::$config);
-
-        File::delete($this->app->basePath($this->stub));
-
-        if ($this->option('with-dev') === false) {
-            $this->task('Reinstalling dev dependencies', function () {
-                $this->app[Composer::class]->install();
-            });
-        }
 
         static::$config = null;
 
