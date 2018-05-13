@@ -12,14 +12,11 @@
 namespace LaravelZero\Framework\Commands\App;
 
 use Phar;
-use FilesystemIterator;
-use UnexpectedValueException;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Process\Process;
 use LaravelZero\Framework\Commands\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\OutputInterface;
-use LaravelZero\Framework\Contracts\Providers\Composer;
 
 /**
  * This is the Laravel Zero Framework Builder Command implementation.
@@ -50,7 +47,6 @@ class Builder extends Command
     {
         $this->info('Building the application...');
         $this->build($this->input->getArgument('name') ?: static::BUILD_NAME);
-
     }
 
     /**
@@ -87,12 +83,12 @@ class Builder extends Command
     {
         $this->makeBuildsFolder();
 
-        $binDir = dirname(dirname(dirname(__DIR__))) . '/bin';
+        $binDir = dirname(dirname(dirname(__DIR__))).'/bin';
 
         $process = new Process(
             './box compile'
-                .' --working-dir=' . base_path()
-                .' --config=' . base_path('box.json'),
+                .' --working-dir='.base_path()
+                .' --config='.base_path('box.json'),
             $binDir
         );
         $process->start();
