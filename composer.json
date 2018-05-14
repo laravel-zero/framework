@@ -33,7 +33,7 @@
         "nunomaduro/laravel-desktop-notifier": "^2.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^7.0",
+        "phpunit/phpunit": "^7.1",
         "illuminate/database": "5.6.*",
         "illuminate/log": "5.6.*"
     },
