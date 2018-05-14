@@ -2,20 +2,16 @@
 
 Contributions are **welcome** and will be fully **credited**.
 
-We accept contributions via Pull Requests on [Github](https://github.com/nunomaduro/zero-framework).
+We accept contributions via Pull Requests on [Github](https://github.com/laravel-zero/laravel-zero).
 
 
 ## Pull Requests
-
-- **[PSR-2 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)** - Check the code style with ``$ composer check-style`` and fix it with ``$ composer fix-style``.
 
 - **Add tests!** - Your patch won't be accepted if it doesn't have tests.
 
 - **Document any change in behaviour** - Make sure the `README.md` and any other relevant documentation are kept up-to-date.
 
-- **Consider our release cycle** - We try to follow [SemVer v2.0.0](http://semver.org/). Randomly breaking public APIs is not an option.
-
-- **Create feature branches** - Don't ask us to pull from your master branch.
+- **Consider our release cycle** - We follow Laravel's versioning scheme. We follow the convention `paradigm.major.minor`. Minor releases should never contain breaking changes.
 
 - **One pull request per feature** - If you want to do more than one thing, send multiple pull requests.
 
@@ -24,8 +20,16 @@ We accept contributions via Pull Requests on [Github](https://github.com/nunomad
 
 ## Running Tests
 
+You may need to update the following `php.ini` config:
+
+```
+[Phar]
+; Change from "On" to "Off".
+phar.readonly = Off
+```
+
 ``` bash
-$ composer test
+$ ./vendor/bin/phpunit
 ```
 
 **Happy coding**!
