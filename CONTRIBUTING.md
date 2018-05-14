@@ -2,7 +2,7 @@
 
 Contributions are **welcome** and will be fully **credited**.
 
-We accept contributions via Pull Requests on [Github](https://github.com/laravel-zero/laravel-zero).
+We accept contributions via Pull Requests on [Github](https://github.com/laravel-zero/framework).
 
 
 ## Pull Requests
