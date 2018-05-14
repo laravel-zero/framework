@@ -49,8 +49,8 @@ class Builder extends Command
     public function handle(): void
     {
         $this->info('Building the application...');
-        $this->build($this->input->getArgument('name') ?: static::BUILD_NAME);
 
+        $this->build($this->input->getArgument('name') ?: static::BUILD_NAME);
     }
 
     /**
@@ -63,9 +63,9 @@ class Builder extends Command
     protected function build(string $name): Builder
     {
         /*
-         * We prepare the application for a build, moving it to production. Then,
-         * after compile all the code to a single file, we move the built file
-         * to the builds folder with the correct permissions.
+         * We prepare the application for a build, moving it to production.
+         * Then, after compile all the code to a single file, we move the
+         * built file to the builds folder with the correct permissions.
          */
         $this->prepare()
             ->compile($name)
@@ -95,15 +95,12 @@ class Builder extends Command
                 .' --config=' . base_path('box.json'),
             $binDir
         );
+
         $process->start();
 
-        // creates a new progress bar (50 units)
         $progressBar = new ProgressBar($this->output, 25);
-
-        // starts and displays the progress bar
         $progressBar->start();
 
-        // ensures that the progress bar is at 100%
         foreach ($process as $type => $data) {
             $progressBar->advance();
 
