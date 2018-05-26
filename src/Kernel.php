@@ -110,7 +110,7 @@ class Kernel extends BaseKernel
             ->merge($config->get('commands.hidden', []));
 
         if ($command = $config->get('commands.default')) {
-            $commands->push($config->get('commands.default'));
+            $commands->push($command);
         }
 
         /*
