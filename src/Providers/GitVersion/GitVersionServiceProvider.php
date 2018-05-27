@@ -11,6 +11,7 @@
 
 namespace LaravelZero\Framework\Providers\GitVersion;
 
+use Illuminate\Contracts\Console\Application;
 use Symfony\Component\Process\Process;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,7 +29,7 @@ class GitVersionServiceProvider extends ServiceProvider
     {
         $this->app->bind(
             'git.version',
-            function ($app) {
+            function (Application $app) {
                 ($process = new Process('git describe --tags $(git rev-list --tags --max-count=1)', $app->basePath()))->run();
 
                 return trim($process->getOutput()) ?: 'unreleased';

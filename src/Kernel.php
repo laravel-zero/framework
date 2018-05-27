@@ -13,7 +13,6 @@ namespace LaravelZero\Framework;
 
 use ReflectionClass;
 use Illuminate\Console\Application as Artisan;
-use Illuminate\Contracts\Foundation\Application;
 use Symfony\Component\Console\Output\OutputInterface;
 use Illuminate\Foundation\Console\Kernel as BaseKernel;
 
@@ -122,7 +121,7 @@ class Kernel extends BaseKernel
 
         $commands = $commands->diff($toRemoveCommands = $config->get('commands.remove', []));
 
-        Artisan::starting(function ($artisan) use ($toRemoveCommands) {
+        Artisan::starting(function (Artisan $artisan) use ($toRemoveCommands) {
             $reflectionClass = new ReflectionClass(Artisan::class);
             $commands = collect($artisan->all())
                 ->filter(
@@ -145,11 +144,11 @@ class Kernel extends BaseKernel
          * in order to call the schedule method on each Laravel Zero
          * command class.
          */
-        Artisan::starting(function ($artisan) use ($commands) {
+        Artisan::starting(function (Artisan $artisan) use ($commands) {
             $artisan->resolveCommands($commands->toArray());
         });
 
-        Artisan::starting(function ($artisan) use ($config) {
+        Artisan::starting(function (Artisan $artisan) use ($config) {
             collect($artisan->all())->each(function ($command) use ($config) {
                 if (in_array(get_class($command), $config->get('commands.hidden', []))) {
                     $command->setHidden(true);
