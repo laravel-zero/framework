@@ -11,6 +11,7 @@
 
 namespace LaravelZero\Framework\Commands;
 
+use LogicException;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Console\Command as BaseCommand;
 
@@ -31,7 +32,10 @@ abstract class Command extends BaseCommand
      *
      * @return void
      */
-    abstract public function handle(): void;
+    public function handle(): void
+    {
+        throw new LogicException('You must override the handle() method in the concrete command class.');
+    }
 
     /**
      * Define the command's schedule.
