@@ -13,7 +13,7 @@ namespace LaravelZero\Framework\Providers\GitVersion;
 
 use Symfony\Component\Process\Process;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Contracts\Console\Application;
+use Illuminate\Contracts\Foundation\Application;
 
 /**
  * This is the Laravel Zero Framework Git Version Provider implementation.
