@@ -80,7 +80,7 @@ class Builder extends Command
             ->clear();
 
         $this->output->writeln(
-            sprintf('Application built: <fg=green>%s</>', $this->app->buildsPath($name))
+            sprintf('Compiled successfully: <fg=green>%s</>', $this->app->buildsPath($name))
         );
 
         return $this;
@@ -97,35 +97,34 @@ class Builder extends Command
             File::makeDirectory($this->app->buildsPath());
         }
 
-        $this->task('   2. <fg=yellow>Compile</> into a single file', function () {
+        $process = new Process(
+            './box compile'
+                .' --working-dir='.base_path()
+                .' --config='.base_path('box.json'),
+            dirname(dirname(dirname(__DIR__))).'/bin'
+        );
 
-            $process = new Process(
-                './box compile'
-                    .' --working-dir='.base_path()
-                    .' --config='.base_path('box.json'),
-                dirname(dirname(dirname(__DIR__))).'/bin'
-            );
+        $section = $this->originalOutput->section();
 
-            $section = $this->originalOutput->section();
+        $progressBar = new ProgressBar(
+            $this->output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL ?
+                new NullOutput() : $section,
+            25
+        );
 
-            $progressBar = new ProgressBar(
-                $this->output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL ?
-                    new NullOutput() : $section,
-                25
-            );
+        foreach (tap($process)->start() as $type => $data) {
+            $progressBar->advance();
 
-            foreach (tap($process)->start() as $type => $data) {
-                $progressBar->advance();
-
-                if ($this->output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
-                    $process::OUT === $type ? $this->info("$data") : $this->error("$data");
-                }
+            if ($this->output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
+                $process::OUT === $type ? $this->info("$data") : $this->error("$data");
             }
+        }
 
-            $progressBar->finish();
+        $progressBar->finish();
 
-            $section->clear();
-        });
+        $section->clear();
+
+        $this->task('   2. <fg=yellow>Compile</> into a single file');
 
         File::move($this->app->basePath($name) . '.phar', $this->app->buildsPath($name));
 
