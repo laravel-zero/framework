@@ -126,7 +126,7 @@ class Builder extends Command
 
         $this->task('   2. <fg=yellow>Compile</> into a single file');
 
-        File::move($this->app->basePath($name) . '.phar', $this->app->buildsPath($name));
+        File::move($this->app->basePath($name).'.phar', $this->app->buildsPath($name));
 
         return $this;
     }
