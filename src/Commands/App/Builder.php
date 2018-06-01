@@ -17,7 +17,9 @@ use Symfony\Component\Process\Process;
 use LaravelZero\Framework\Commands\Command;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+
 /**
  * This is the Laravel Zero Framework Builder Command implementation.
  */
@@ -47,6 +49,16 @@ class Builder extends Command
     {
         $this->title('Building process');
         $this->build($this->input->getArgument('name') ?: static::BUILD_NAME);
+    }
+
+    protected $originalOutput;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function run(InputInterface $input, OutputInterface $output)
+    {
+        parent::run($input, $this->originalOutput = $output);
     }
 
     /**
@@ -85,31 +97,34 @@ class Builder extends Command
             File::makeDirectory($this->app->buildsPath());
         }
 
-        $process = tap(new Process(
-            './box compile'
-                .' --working-dir='.base_path()
-                .' --config='.base_path('box.json'),
-            dirname(dirname(dirname(__DIR__))).'/bin'
-        ))->start();
+        $this->task('   2. <fg=yellow>Compile</> into a single file', function () {
 
-        $this->output->newLine();
+            $process = new Process(
+                './box compile'
+                    .' --working-dir='.base_path()
+                    .' --config='.base_path('box.json'),
+                dirname(dirname(dirname(__DIR__))).'/bin'
+            );
 
-        $progressBar = new ProgressBar(
-            $this->output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL ?
-                new NullOutput() : $this->output,
-            25
-        );
+            $section = $this->originalOutput->section();
 
-        $this->task('   2. <fg=yellow>Compile</> into a single file', function () use ($process, $progressBar) {
-            foreach ($process as $type => $data) {
+            $progressBar = new ProgressBar(
+                $this->output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL ?
+                    new NullOutput() : $section,
+                25
+            );
+
+            foreach (tap($process)->start() as $type => $data) {
                 $progressBar->advance();
 
                 if ($this->output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
-                    $process::OUT === $type ? $this->info($data) : $this->error($data);
+                    $process::OUT === $type ? $this->info("$data") : $this->error("$data");
                 }
             }
 
             $progressBar->finish();
+
+            $section->clear();
         });
 
         File::move($this->app->basePath($name) . '.phar', $this->app->buildsPath($name));
