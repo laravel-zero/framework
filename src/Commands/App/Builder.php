@@ -18,6 +18,7 @@ use LaravelZero\Framework\Commands\Command;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\OutputInterface;
+
 /**
  * This is the Laravel Zero Framework Builder Command implementation.
  */
@@ -112,7 +113,7 @@ class Builder extends Command
             $progressBar->finish();
         });
 
-        File::move($this->app->basePath($name) . '.phar', $this->app->buildsPath($name));
+        File::move($this->app->basePath($name).'.phar', $this->app->buildsPath($name));
 
         return $this;
     }
