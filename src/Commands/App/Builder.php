@@ -98,7 +98,6 @@ class Builder extends Command
         }
 
         $this->task('   2. <fg=yellow>Compile</> into a single file', function () {
-
             $process = new Process(
                 './box compile'
                     .' --working-dir='.base_path()
@@ -127,7 +126,7 @@ class Builder extends Command
             $section->clear();
         });
 
-        File::move($this->app->basePath($name) . '.phar', $this->app->buildsPath($name));
+        File::move($this->app->basePath($name).'.phar', $this->app->buildsPath($name));
 
         return $this;
     }
