@@ -51,4 +51,18 @@ abstract class Command extends BaseCommand
     {
         parent::setLaravel($this->app = $laravel);
     }
+
+    public function title(string $title): Command
+    {
+        $size = strlen($title);
+        $spaces = str_repeat(' ', $size);
+
+        $this->output->newLine();
+        $this->output->writeln("<bg=blue;fg=white>$spaces$spaces$spaces</>");
+        $this->output->writeln("<bg=blue;fg=white>$spaces$title$spaces</>");
+        $this->output->writeln("<bg=blue;fg=white>$spaces$spaces$spaces</>");
+        $this->output->newLine();
+
+        return $this;
+    }
 }
