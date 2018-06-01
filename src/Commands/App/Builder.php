@@ -127,7 +127,7 @@ class Builder extends Command
             $section->clear();
         });
 
-        File::move($this->app->basePath($name) . '.phar', $this->app->buildsPath($name));
+        File::move($this->app->basePath($name).'.phar', $this->app->buildsPath($name));
 
         return $this;
     }
