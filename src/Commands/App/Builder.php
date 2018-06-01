@@ -28,7 +28,7 @@ class Builder extends Command
     /**
      * {@inheritdoc}
      */
-    protected $signature = 'app:build {name=application : The build name}';
+    protected $signature = 'app:build {name? : The build name}';
 
     /**
      * {@inheritdoc}
@@ -43,15 +43,21 @@ class Builder extends Command
     protected static $config;
 
     /**
+     * Holds the command original output.
+     *
+     * @var \Symfony\Component\Console\Output\OutputInterface
+     */
+    protected $originalOutput;
+
+    /**
      * {@inheritdoc}
      */
     public function handle(): void
     {
         $this->title('Building process');
-        $this->build($this->input->getArgument('name') ?: static::BUILD_NAME);
-    }
 
-    protected $originalOutput;
+        $this->build($this->input->getArgument('name') ?? ARTISAN_BINARY);
+    }
 
     /**
      * {@inheritdoc}
@@ -80,7 +86,7 @@ class Builder extends Command
             ->clear();
 
         $this->output->writeln(
-            sprintf('Compiled successfully: <fg=green>%s</>', $this->app->buildsPath($name))
+            sprintf('    Compiled successfully: <fg=green>%s</>', $this->app->buildsPath($name))
         );
 
         return $this;
@@ -105,12 +111,15 @@ class Builder extends Command
         );
 
         $section = $this->originalOutput->section();
+        $section->write('');
 
         $progressBar = new ProgressBar(
             $this->output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL ?
                 new NullOutput() : $section,
             25
         );
+
+        $progressBar->setProgressCharacter("\xF0\x9F\x8D\xBA");
 
         foreach (tap($process)->start() as $type => $data) {
             $progressBar->advance();
@@ -126,7 +135,9 @@ class Builder extends Command
 
         $this->task('   2. <fg=yellow>Compile</> into a single file');
 
-        File::move($this->app->basePath($name) . '.phar', $this->app->buildsPath($name));
+        $this->output->newLine();
+
+        File::move($this->app->basePath(ARTISAN_BINARY) . '.phar', $this->app->buildsPath($name));
 
         return $this;
     }
