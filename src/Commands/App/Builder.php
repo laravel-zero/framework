@@ -12,15 +12,12 @@
 namespace LaravelZero\Framework\Commands\App;
 
 use Phar;
-use FilesystemIterator;
-use UnexpectedValueException;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Process\Process;
 use LaravelZero\Framework\Commands\Command;
+use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\OutputInterface;
-use LaravelZero\Framework\Contracts\Providers\Composer;
-
 /**
  * This is the Laravel Zero Framework Builder Command implementation.
  */
@@ -48,8 +45,7 @@ class Builder extends Command
      */
     public function handle(): void
     {
-        $this->info('Building the application...');
-
+        $this->title('Building process');
         $this->build($this->input->getArgument('name') ?: static::BUILD_NAME);
     }
 
@@ -63,16 +59,16 @@ class Builder extends Command
     protected function build(string $name): Builder
     {
         /*
-         * We prepare the application for a build, moving it to production.
-         * Then, after compile all the code to a single file, we move the
-         * built file to the builds folder with the correct permissions.
+         * We prepare the application for a build, moving it to production. Then,
+         * after compile all the code to a single file, we move the built file
+         * to the builds folder with the correct permissions.
          */
         $this->prepare()
             ->compile($name)
             ->clear();
 
-        $this->info(
-            sprintf('Application built into a single file: %s', $this->app->buildsPath($name))
+        $this->output->writeln(
+            sprintf('Application built: <fg=green>%s</>', $this->app->buildsPath($name))
         );
 
         return $this;
@@ -85,47 +81,38 @@ class Builder extends Command
      */
     protected function compile(string $name): Builder
     {
-        $this->makeBuildsFolder();
-
-        $binDir = dirname(dirname(dirname(__DIR__))) . '/bin';
-
-        $process = new Process(
-            './box compile'
-                .' --working-dir=' . base_path()
-                .' --config=' . base_path('box.json'),
-            $binDir
-        );
-
-        $process->start();
-
-        $progressBar = new ProgressBar($this->output, 25);
-        $progressBar->start();
-
-        foreach ($process as $type => $data) {
-            $progressBar->advance();
-
-            if ($this->output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
-                $process::OUT === $type ? $this->info($data) : $this->error($data);
-            }
-        }
-
-        $progressBar->finish();
-
-        $file = $this->app->basePath($name);
-
-        File::move("$file.phar", $this->app->buildsPath($name));
-
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    protected function makeBuildsFolder(): Builder
-    {
         if (! File::exists($this->app->buildsPath())) {
             File::makeDirectory($this->app->buildsPath());
         }
+
+        $process = tap(new Process(
+            './box compile'
+                .' --working-dir='.base_path()
+                .' --config='.base_path('box.json'),
+            dirname(dirname(dirname(__DIR__))).'/bin'
+        ))->start();
+
+        $this->output->newLine();
+
+        $progressBar = new ProgressBar(
+            $this->output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL ?
+                new NullOutput() : $this->output,
+            25
+        );
+
+        $this->task('   2. <fg=yellow>Compile</> into a single file', function () use ($process, $progressBar) {
+            foreach ($process as $type => $data) {
+                $progressBar->advance();
+
+                if ($this->output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
+                    $process::OUT === $type ? $this->info($data) : $this->error($data);
+                }
+            }
+
+            $progressBar->finish();
+        });
+
+        File::move($this->app->basePath($name) . '.phar', $this->app->buildsPath($name));
 
         return $this;
     }
@@ -141,7 +128,7 @@ class Builder extends Command
 
         $config['production'] = true;
 
-        $this->task('Moving application to production mode', function () use ($file, $config) {
+        $this->task('   1. Moving application to <fg=yellow>production mode</>', function () use ($file, $config) {
             File::put($file, '<?php return '.var_export($config, true).';'.PHP_EOL);
         });
 
