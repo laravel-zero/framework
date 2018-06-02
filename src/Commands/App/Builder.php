@@ -137,7 +137,7 @@ class Builder extends Command
 
         $this->output->newLine();
 
-        File::move($this->app->basePath(ARTISAN_BINARY) . '.phar', $this->app->buildsPath($name));
+        File::move($this->app->basePath(ARTISAN_BINARY).'.phar', $this->app->buildsPath($name));
 
         return $this;
     }
