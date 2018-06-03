@@ -9,10 +9,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Database component now adds Model generator.
 
 ### Changes
-- Internal behavior of build feature. Using "humbug/box" to provide fast application bundling.
+- Internal behavior of command `app:build`. Using "humbug/box" to provide fast application bundling.
+- Option `with-dev` on the command `app:build` got removed.
 
 ### Fixes
 - Removes seed command from production commands.
+- `.env` are no longer included in builds.
 
 ## [5.6.17] - 2018-05-08
 ### Adds
