@@ -48,8 +48,11 @@ class Provider extends AbstractComponentProvider
     public function boot(): void
     {
         if ($this->app->environment() !== 'production') {
-            $this->commands([\Illuminate\Database\Console\Seeds\SeederMakeCommand::class]);
-            $this->commands([\Illuminate\Database\Console\Migrations\MigrateMakeCommand::class]);
+            $this->commands([
+                \Illuminate\Database\Console\Migrations\MigrateMakeCommand::class,
+                \Illuminate\Database\Console\Seeds\SeederMakeCommand::class,
+                \Illuminate\Foundation\Console\ModelMakeCommand::class,
+            ]);
         }
 
         $this->commands(
