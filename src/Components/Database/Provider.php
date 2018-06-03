@@ -52,6 +52,7 @@ class Provider extends AbstractComponentProvider
                 \Illuminate\Database\Console\Migrations\MigrateMakeCommand::class,
                 \Illuminate\Database\Console\Seeds\SeederMakeCommand::class,
                 \Illuminate\Foundation\Console\ModelMakeCommand::class,
+                \Illuminate\Database\Console\Seeds\SeedCommand::class,
             ]);
         }
 
@@ -64,7 +65,6 @@ class Provider extends AbstractComponentProvider
                 \Illuminate\Database\Console\Migrations\ResetCommand::class,
                 \Illuminate\Database\Console\Migrations\RollbackCommand::class,
                 \Illuminate\Database\Console\Migrations\StatusCommand::class,
-                \Illuminate\Database\Console\Seeds\SeedCommand::class,
             ]
         );
     }
