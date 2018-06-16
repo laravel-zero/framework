@@ -11,6 +11,8 @@
 
 namespace LaravelZero\Framework;
 
+use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
 use Illuminate\Foundation\PackageManifest;
 use Illuminate\Events\EventServiceProvider;
 use LaravelZero\Framework\Exceptions\ConsoleException;
@@ -60,7 +62,7 @@ class Application extends BaseApplication
      */
     public function version()
     {
-        return $this->app['config']->get('app.version');
+        return $this['config']->get('app.version');
     }
 
     /**
@@ -85,6 +87,21 @@ class Application extends BaseApplication
     public function configurationIsCached()
     {
         return false;
+    }
+
+    /**
+     * Register all of the configured providers.
+     *
+     * @return void
+     */
+    public function registerConfiguredProviders()
+    {
+        $providers = Collection::make($this->config['app.providers'])
+                        ->partition(function ($provider) {
+                            return Str::startsWith($provider, 'Illuminate\\');
+                        });
+
+        $providers->splice(1, 0, [$this->make(PackageManifest::class)->providers()]);
     }
 
     /**
