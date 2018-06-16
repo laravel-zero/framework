@@ -31,7 +31,6 @@ class BuilderTest extends TestCase
             }
         };
 
-
         Artisan::call('app:build', [], $output);
 
         $this->assertTrue(File::exists(base_path('builds'.DIRECTORY_SEPARATOR.'application')));
