@@ -13,6 +13,7 @@ namespace LaravelZero\Framework;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\PackageManifest;
 use Illuminate\Events\EventServiceProvider;
 use LaravelZero\Framework\Exceptions\ConsoleException;
@@ -102,6 +103,9 @@ class Application extends BaseApplication
                         });
 
         $providers->splice(1, 0, [$this->make(PackageManifest::class)->providers()]);
+
+        (new ProviderRepository($this, new Filesystem, $this->getCachedServicesPath()))
+                    ->load($providers->collapse()->toArray());
     }
 
     /**
