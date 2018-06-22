@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of Laravel Zero.
  *
@@ -11,10 +13,7 @@
 
 namespace LaravelZero\Framework\Contracts\Providers;
 
-/**
- * This is the Laravel Zero Framework Composer Contract.
- */
-interface Composer
+interface ComposerContract
 {
     /**
      * Runs a composer install.

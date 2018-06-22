@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of Laravel Zero.
  *
@@ -12,18 +14,13 @@
 namespace LaravelZero\Framework\Bootstrap;
 
 use Illuminate\Contracts\Foundation\Application;
+use LaravelZero\Framework\Contracts\BoostrapperContract;
 use LaravelZero\Framework\Providers\GitVersion\GitVersionServiceProvider;
 
-/**
- * This is the Laravel Zero Framework Bootstrap Core Bindings implementation.
- */
-class CoreBindings
+final class CoreBindings implements BoostrapperContract
 {
     /**
-     * Registers service providers that need to be registered
-     * on the early stage of the framework.
-     *
-     * @param \Illuminate\Contracts\Foundation\Application $app
+     * {@inheritdoc}
      */
     public function bootstrap(Application $app): void
     {

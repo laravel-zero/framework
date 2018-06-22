@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of Laravel Zero.
  *
@@ -11,37 +13,38 @@
 
 namespace LaravelZero\Framework\Bootstrap;
 
+use function ksort;
+use function basename;
 use Symfony\Component\Finder\Finder;
 use Illuminate\Console\Application as Artisan;
 use Illuminate\Contracts\Foundation\Application;
+use LaravelZero\Framework\Contracts\BoostrapperContract;
 use Illuminate\Foundation\Bootstrap\LoadConfiguration as BaseLoadConfiguration;
 
-/**
- * This is the Laravel Zero Framework Bootstrap Load Configuration implementation.
- */
-class LoadConfiguration extends BaseLoadConfiguration
+final class LoadConfiguration extends BaseLoadConfiguration implements BoostrapperContract
 {
     /**
-     * Bootstrap configurations.
-     *
-     * @param \Illuminate\Contracts\Foundation\Application $app
+     * {@inheritdoc}
      */
     public function bootstrap(Application $app): void
     {
         parent::bootstrap($app);
 
-        $app->detectEnvironment(function () use ($app) {
-            return $app['config']->get('app.production', true) ? 'production' : 'development';
-        });
+        $app->detectEnvironment(
+            function () use ($app) {
+                return $app['config']->get('app.production', true) ? 'production' : 'development';
+            }
+        );
 
         /*
-         * When artisan starts, sets the application name
-         * and the application version.
+         * When artisan starts, sets the application name and the application version.
          */
-        Artisan::starting(function ($artisan) use ($app) {
-            $artisan->setName($app['config']->get('app.name', 'Laravel Zero'));
-            $artisan->setVersion($app->version());
-        });
+        Artisan::starting(
+            function ($artisan) use ($app) {
+                $artisan->setName($app['config']->get('app.name', 'Laravel Zero'));
+                $artisan->setVersion($app->version());
+            }
+        );
     }
 
     /**
@@ -64,7 +67,7 @@ class LoadConfiguration extends BaseLoadConfiguration
 
         foreach ($configFiles as $file) {
             $directory = $this->getNestedDirectory($file, $configPath);
-            $files[$directory.basename($file->getPathName(), '.php')] = $file->getPathName();
+            $files[$directory . basename($file->getPathName(), '.php')] = $file->getPathName();
         }
 
         ksort($files, SORT_NATURAL);

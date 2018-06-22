@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of Laravel Zero.
  *
@@ -20,9 +22,6 @@ use LaravelZero\Framework\Exceptions\ConsoleException;
 use Illuminate\Foundation\Application as BaseApplication;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
 
-/**
- * This is the Laravel Zero Framework Application implementation.
- */
 class Application extends BaseApplication
 {
     /**
@@ -34,13 +33,13 @@ class Application extends BaseApplication
      */
     public function buildsPath(string $path = ''): string
     {
-        return $this->basePath('builds'.($path ? DIRECTORY_SEPARATOR.$path : $path));
+        return $this->basePath('builds' . ($path ? DIRECTORY_SEPARATOR . $path : $path));
     }
 
     /**
      * {@inheritdoc}
      */
-    protected function registerBaseBindings()
+    protected function registerBaseBindings(): void
     {
         parent::registerBaseBindings();
 
@@ -53,7 +52,7 @@ class Application extends BaseApplication
     /**
      * {@inheritdoc}
      */
-    protected function registerBaseServiceProviders()
+    protected function registerBaseServiceProviders(): void
     {
         $this->register(new EventServiceProvider($this));
     }
@@ -69,7 +68,7 @@ class Application extends BaseApplication
     /**
      * {@inheritdoc}
      */
-    public function runningInConsole()
+    public function runningInConsole(): bool
     {
         return true;
     }
@@ -77,7 +76,7 @@ class Application extends BaseApplication
     /**
      * {@inheritdoc}
      */
-    public function isDownForMaintenance()
+    public function isDownForMaintenance(): bool
     {
         return false;
     }
@@ -85,7 +84,7 @@ class Application extends BaseApplication
     /**
      * {@inheritdoc}
      */
-    public function configurationIsCached()
+    public function configurationIsCached(): bool
     {
         return false;
     }
@@ -95,17 +94,28 @@ class Application extends BaseApplication
      *
      * @return void
      */
-    public function registerConfiguredProviders()
+    public function registerConfiguredProviders(): void
     {
-        $providers = Collection::make($this->config['app.providers'])
-                        ->partition(function ($provider) {
-                            return Str::startsWith($provider, 'Illuminate\\');
-                        });
+        $providers = Collection::make($this['config']['app.providers'])
+            ->partition(
+                function ($provider) {
+                    return Str::startsWith($provider, 'Illuminate\\');
+                }
+            );
 
-        $providers->splice(1, 0, [$this->make(PackageManifest::class)->providers()]);
+        $providers->splice(
+            1,
+            0,
+            [
+                $this->make(PackageManifest::class)
+                    ->providers(),
+            ]
+        );
 
-        (new ProviderRepository($this, new Filesystem, $this->getCachedServicesPath()))
-                    ->load($providers->collapse()->toArray());
+        (new ProviderRepository($this, new Filesystem, $this->getCachedServicesPath()))->load(
+            $providers->collapse()
+                ->toArray()
+        );
     }
 
     /**
@@ -117,11 +127,11 @@ class Application extends BaseApplication
      * @return void
      *
      * @throws \Symfony\Component\Console\Exception\CommandNotFoundException
-     * @throws \LaravelZero\Framework\Contracts\Exceptions\ConsoleException
+     * @throws \LaravelZero\Framework\Contracts\Exceptions\ConsoleExceptionContract
      */
-    public function abort($code, $message = '', array $headers = [])
+    public function abort($code, $message = '', array $headers = []): void
     {
-        if ($code == 404) {
+        if ($code === 404) {
             throw new CommandNotFoundException($message);
         }
 

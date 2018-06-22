@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of Laravel Zero.
  *
@@ -12,11 +14,8 @@
 namespace LaravelZero\Framework\Exceptions;
 
 use Exception;
-use LaravelZero\Framework\Contracts\Exceptions\ConsoleException as ConsoleExceptionContract;
+use LaravelZero\Framework\Contracts\Exceptions\ConsoleExceptionContract;
 
-/**
- * This is the Laravel Zero Framework Console Exception Implementation.
- */
 class ConsoleException extends Exception implements ConsoleExceptionContract
 {
     /**
@@ -43,7 +42,11 @@ class ConsoleException extends Exception implements ConsoleExceptionContract
      * @param int code
      */
     public function __construct(
-        int $exitCode, string $message = null, array $headers = [], \Exception $previous = null, ?int $code = 0
+        int $exitCode,
+        string $message = null,
+        array $headers = [],
+        \Exception $previous = null,
+        ?int $code = 0
     ) {
         $this->exitCode = $exitCode;
         $this->headers = $headers;

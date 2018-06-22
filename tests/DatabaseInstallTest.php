@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
-use LaravelZero\Framework\Contracts\Providers\Composer;
+use LaravelZero\Framework\Contracts\Providers\ComposerContract;
 
-class DatabaseInstallTest extends TestCase
+final class DatabaseInstallTest extends TestCase
 {
     public function tearDown()
     {
@@ -18,11 +20,11 @@ class DatabaseInstallTest extends TestCase
     /** @test */
     public function it_requires_packages(): void
     {
-        $composerMock = $this->createMock(Composer::class);
+        $composerMock = $this->createMock(ComposerContract::class);
 
         $composerMock->expects($this->once())->method('require')->with('illuminate/database "5.6.*"');
 
-        $this->app->instance(Composer::class, $composerMock);
+        $this->app->instance(ComposerContract::class, $composerMock);
 
         Artisan::call('app:install', ['component' => 'database']);
     }
@@ -30,9 +32,9 @@ class DatabaseInstallTest extends TestCase
     /** @test */
     public function it_copy_stubs(): void
     {
-        $composerMock = $this->createMock(Composer::class);
+        $composerMock = $this->createMock(ComposerContract::class);
         $composerMock->method('require');
-        $this->app->instance(Composer::class, $composerMock);
+        $this->app->instance(ComposerContract::class, $composerMock);
 
         Artisan::call('app:install', ['component' => 'database']);
 

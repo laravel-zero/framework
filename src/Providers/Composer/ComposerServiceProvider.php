@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of Laravel Zero.
  *
@@ -12,17 +14,12 @@
 namespace LaravelZero\Framework\Providers\Composer;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
-use LaravelZero\Framework\Contracts\Providers\Composer as ComposerContract;
+use LaravelZero\Framework\Contracts\Providers\ComposerContract;
 
-/**
- * This is the Laravel Zero Framework Composer Service Provider implementation.
- */
-class ComposerServiceProvider extends BaseServiceProvider
+final class ComposerServiceProvider extends BaseServiceProvider
 {
     /**
-     * Register composer service.
-     *
-     * @return void
+     * {@inheritdoc}
      */
     public function register(): void
     {

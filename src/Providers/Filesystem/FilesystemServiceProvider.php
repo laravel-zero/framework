@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of Laravel Zero.
  *
@@ -14,15 +16,10 @@ namespace LaravelZero\Framework\Providers\Filesystem;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Filesystem\FilesystemServiceProvider as BaseServiceProvider;
 
-/**
- * This is the Laravel Zero Framework Filesystem Service Provider implementation.
- */
-class FilesystemServiceProvider extends BaseServiceProvider
+final class FilesystemServiceProvider extends BaseServiceProvider
 {
     /**
-     * Register Filesystem service.
-     *
-     * @return void
+     * {@inheritdoc}
      */
     public function register(): void
     {

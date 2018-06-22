@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of Laravel Zero.
  *
@@ -13,13 +15,10 @@ namespace LaravelZero\Framework\Components;
 
 use Illuminate\Filesystem\Filesystem;
 use LaravelZero\Framework\Commands\Command;
-use LaravelZero\Framework\Contracts\Commands\Component\Installer;
-use LaravelZero\Framework\Contracts\Providers\Composer as ComposerContract;
+use LaravelZero\Framework\Contracts\Providers\ComposerContract;
+use LaravelZero\Framework\Contracts\Commands\Component\InstallerContract;
 
-/**
- * This is the Laravel Zero Framework Abstract Installer Implementation.
- */
-abstract class AbstractInstaller extends Command implements Installer
+abstract class AbstractInstaller extends Command implements InstallerContract
 {
     /**
      * Holds an instance of Files.
@@ -39,7 +38,7 @@ abstract class AbstractInstaller extends Command implements Installer
      * Installer constructor.
      *
      * @param \Illuminate\Filesystem\Filesystem $files
-     * @param \LaravelZero\Framework\Contracts\Providers\Composer $composer
+     * @param \LaravelZero\Framework\Contracts\Providers\ComposerContract $composer
      */
     public function __construct(Filesystem $files, ComposerContract $composer)
     {
@@ -63,9 +62,9 @@ abstract class AbstractInstaller extends Command implements Installer
      *
      * @param  string $package
      *
-     * @return \LaravelZero\Framework\Contracts\Commands\Component\Installer
+     * @return \LaravelZero\Framework\Contracts\Commands\Component\InstallerContract
      */
-    protected function require(string $package): Installer
+    protected function require(string $package): InstallerContract
     {
         $this->task(
             'Require package via composer',

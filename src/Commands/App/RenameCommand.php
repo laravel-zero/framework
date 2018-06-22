@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of Laravel Zero.
  *
@@ -11,14 +13,12 @@
 
 namespace LaravelZero\Framework\Commands\App;
 
+use function sprintf;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Commands\Command;
 
-/**
- * This is the Laravel Zero Framework Renamer Command implementation.
- */
-class Renamer extends Command
+final class RenameCommand extends Command
 {
     /**
      * {@inheritdoc}
@@ -46,14 +46,15 @@ class Renamer extends Command
      *
      * @return $this
      */
-    protected function rename(): Renamer
+    private function rename(): RenameCommand
     {
         $name = $this->asksForApplicationName();
 
-        if (File::exists(base_path($name))) {
+        if (File::exists($this->app->basePath($name))) {
             $this->app->abort(403, 'Folder or file already exists.');
         } else {
-            $this->renameBinary($name)->updateComposer($name);
+            $this->renameBinary($name)
+                ->updateComposer($name);
         }
 
         return $this;
@@ -66,7 +67,7 @@ class Renamer extends Command
      *
      * @return string
      */
-    protected function asksForApplicationName(): string
+    private function asksForApplicationName(): string
     {
         if (empty($name = $this->input->getArgument('name'))) {
             $name = $this->ask('What is your application name?');
@@ -86,49 +87,44 @@ class Renamer extends Command
      *
      * @return $this
      */
-    protected function updateComposer(string $name): Renamer
+    private function updateComposer(string $name): RenameCommand
     {
         $this->task(
             'Updating config/app.php "name" property',
             function () use ($name) {
-                $neededLine = "'name' => '".Str::ucfirst($this->getCurrentBinaryName())."'";
+                $neededLine = "'name' => '" . Str::ucfirst($this->getCurrentBinaryName()) . "'";
 
-                if (Str::contains($contents = $this->getConfig(), $neededLine)) {
-                    File::put(
-                        config_path('app.php'),
-                        Str::replaceFirst(
-                            $neededLine,
-                            "'name' => '".Str::ucfirst($name)."'",
-                            $contents
-                        )
-                    );
-
-                    return true;
+                if (! Str::contains($contents = $this->getConfig(), $neededLine)) {
+                    return false;
                 }
-
-                return false;
+                File::put(
+                    $this->app->configPath('app.php'),
+                    Str::replaceFirst(
+                        $neededLine,
+                        "'name' => '" . Str::ucfirst($name) . "'",
+                        $contents
+                    )
+                );
             }
         );
 
         $this->task(
             'Updating composer "bin"',
             function () use ($name) {
-                $neededLine = '"bin": ["'.$this->getCurrentBinaryName().'"]';
+                $neededLine = '"bin": ["' . $this->getCurrentBinaryName() . '"]';
 
-                if (Str::contains($contents = $this->getComposer(), $neededLine)) {
-                    File::put(
-                        base_path('composer.json'),
-                        Str::replaceFirst(
-                            $neededLine,
-                            '"bin": ["'.$name.'"]',
-                            $contents
-                        )
-                    );
-
-                    return true;
+                if (! Str::contains($contents = $this->getComposer(), $neededLine)) {
+                    return false;
                 }
 
-                return false;
+                File::put(
+                    $this->app->basePath('composer.json'),
+                    Str::replaceFirst(
+                        $neededLine,
+                        '"bin": ["' . $name . '"]',
+                        $contents
+                    )
+                );
             }
         );
 
@@ -142,7 +138,7 @@ class Renamer extends Command
      *
      * @return $this
      */
-    protected function renameBinary(string $name): Renamer
+    private function renameBinary(string $name): RenameCommand
     {
         $this->task(
             sprintf('Renaming application to "%s"', $name),
@@ -159,7 +155,7 @@ class Renamer extends Command
      *
      * @return string
      */
-    protected function getCurrentBinaryName(): string
+    private function getCurrentBinaryName(): string
     {
         $composer = $this->getComposer();
 
@@ -167,34 +163,34 @@ class Renamer extends Command
     }
 
     /**
-     * Get composer file.
+     * Returns the composer.json file contents.
      *
      * @return string
      */
-    protected function getComposer(): string
+    private function getComposer(): string
     {
-        $file = $this->app->basePath('composer.json');
+        $filePath = $this->app->basePath('composer.json');
 
-        if (! File::exists($file)) {
-            abort(400, 'The file composer.json not found');
+        if (! File::exists($filePath)) {
+            $this->app->abort(400, 'The file composer.json not found');
         }
 
-        return File::get($file);
+        return File::get($filePath);
     }
 
     /**
-     * Get config file.
+     * Returns the config file contents.
      *
      * @return string
      */
-    protected function getConfig(): string
+    private function getConfig(): string
     {
-        $file = config_path('app.php');
+        $filePath = $this->app->configPath('app.php');
 
-        if (! File::exists($file)) {
-            abort(400, 'The file config/app.php not found');
+        if (! File::exists($filePath)) {
+            $this->app->abort(400, 'The file config/app.php not found');
         }
 
-        return File::get($file);
+        return File::get($filePath);
     }
 }

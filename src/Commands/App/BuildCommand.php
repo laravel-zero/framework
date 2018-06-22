@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of Laravel Zero.
  *
@@ -11,7 +13,6 @@
 
 namespace LaravelZero\Framework\Commands\App;
 
-use Phar;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Process\Process;
 use LaravelZero\Framework\Commands\Command;
@@ -20,10 +21,7 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-/**
- * This is the Laravel Zero Framework Builder Command implementation.
- */
-class Builder extends Command
+final class BuildCommand extends Command
 {
     /**
      * {@inheritdoc}
@@ -38,16 +36,16 @@ class Builder extends Command
     /**
      * Holds the configuration on is original state.
      *
-     * @var string
+     * @var string|null
      */
-    protected static $config;
+    private static $config;
 
     /**
      * Holds the command original output.
      *
      * @var \Symfony\Component\Console\Output\OutputInterface
      */
-    protected $originalOutput;
+    private $originalOutput;
 
     /**
      * {@inheritdoc}
@@ -74,7 +72,7 @@ class Builder extends Command
      *
      * @return $this
      */
-    protected function build(string $name): Builder
+    private function build(string $name): BuildCommand
     {
         /*
          * We prepare the application for a build, moving it to production. Then,
@@ -97,29 +95,24 @@ class Builder extends Command
      *
      * @return $this
      */
-    protected function compile(string $name): Builder
+    private function compile(string $name): BuildCommand
     {
         if (! File::exists($this->app->buildsPath())) {
             File::makeDirectory($this->app->buildsPath());
         }
 
         $process = new Process(
-            './box compile'
-                .' --working-dir='.base_path()
-                .' --config='.base_path('box.json'),
-            dirname(dirname(dirname(__DIR__))).'/bin'
+            './box compile' . ' --working-dir=' . base_path() . ' --config=' . base_path('box.json'),
+            dirname(dirname(dirname(__DIR__))) . '/bin'
         );
 
-        $section = $this->originalOutput->section();
-        $section->write('');
+        $section = tap($this->originalOutput->section())->write('');
 
-        $progressBar = new ProgressBar(
-            $this->output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL ?
-                new NullOutput() : $section,
-            25
-        );
-
-        $progressBar->setProgressCharacter("\xF0\x9F\x8D\xBA");
+        $progressBar = tap(
+            new ProgressBar(
+                $this->output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL ? new NullOutput() : $section, 25
+            )
+        )->setProgressCharacter("\xF0\x9F\x8D\xBA");
 
         foreach (tap($process)->start() as $type => $data) {
             $progressBar->advance();
@@ -137,7 +130,7 @@ class Builder extends Command
 
         $this->output->newLine();
 
-        File::move($this->app->basePath(ARTISAN_BINARY).'.phar', $this->app->buildsPath($name));
+        File::move($this->app->basePath(ARTISAN_BINARY) . '.phar', $this->app->buildsPath($name));
 
         return $this;
     }
@@ -145,7 +138,7 @@ class Builder extends Command
     /**
      * @return $this
      */
-    protected function prepare(): Builder
+    private function prepare(): BuildCommand
     {
         $file = $this->app->configPath('app.php');
         static::$config = File::get($file);
@@ -153,9 +146,12 @@ class Builder extends Command
 
         $config['production'] = true;
 
-        $this->task('   1. Moving application to <fg=yellow>production mode</>', function () use ($file, $config) {
-            File::put($file, '<?php return '.var_export($config, true).';'.PHP_EOL);
-        });
+        $this->task(
+            '   1. Moving application to <fg=yellow>production mode</>',
+            function () use ($file, $config) {
+                File::put($file, '<?php return ' . var_export($config, true) . ';' . PHP_EOL);
+            }
+        );
 
         return $this;
     }
@@ -163,7 +159,7 @@ class Builder extends Command
     /**
      * @return $this
      */
-    protected function clear(): Builder
+    private function clear(): BuildCommand
     {
         File::put($this->app->configPath('app.php'), static::$config);
 

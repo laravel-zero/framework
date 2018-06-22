@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of Laravel Zero.
  *
@@ -11,12 +13,12 @@
 
 namespace LaravelZero\Framework\Components\Database;
 
+use function collect;
+use function is_array;
+use function class_exists;
 use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
 
-/**
- * This is the Laravel Zero Framework Database Component Provider Implementation.
- */
 class Provider extends AbstractComponentProvider
 {
     /**
@@ -24,8 +26,9 @@ class Provider extends AbstractComponentProvider
      */
     public function isAvailable(): bool
     {
-        return class_exists(\Illuminate\Database\DatabaseServiceProvider::class)
-            && is_array(config('database', false));
+        return class_exists(\Illuminate\Database\DatabaseServiceProvider::class) && is_array(
+                $this->app['config']->get('database', false)
+            );
     }
 
     /**
@@ -33,8 +36,8 @@ class Provider extends AbstractComponentProvider
      */
     public function register(): void
     {
-        if (File::exists(config_path('database.php'))) {
-            $this->mergeConfigFrom(config_path('database.php'), 'database');
+        if (File::exists($this->app->configPath('database.php'))) {
+            $this->mergeConfigFrom($this->app->configPath('database.php'), 'database');
         }
 
         $this->registerDatabaseService();
@@ -48,12 +51,14 @@ class Provider extends AbstractComponentProvider
     public function boot(): void
     {
         if ($this->app->environment() !== 'production') {
-            $this->commands([
-                \Illuminate\Database\Console\Migrations\MigrateMakeCommand::class,
-                \Illuminate\Database\Console\Seeds\SeederMakeCommand::class,
-                \Illuminate\Foundation\Console\ModelMakeCommand::class,
-                \Illuminate\Database\Console\Seeds\SeedCommand::class,
-            ]);
+            $this->commands(
+                [
+                    \Illuminate\Database\Console\Migrations\MigrateMakeCommand::class,
+                    \Illuminate\Database\Console\Seeds\SeederMakeCommand::class,
+                    \Illuminate\Foundation\Console\ModelMakeCommand::class,
+                    \Illuminate\Database\Console\Seeds\SeedCommand::class,
+                ]
+            );
         }
 
         $this->commands(
@@ -111,11 +116,14 @@ class Provider extends AbstractComponentProvider
             \Illuminate\Database\Migrations\MigrationRepositoryInterface::class
         );
 
-        $this->app->singleton('migrator', function ($app) {
-            $repository = $app['migration.repository'];
+        $this->app->singleton(
+            'migrator',
+            function ($app) {
+                $repository = $app['migration.repository'];
 
-            return new Migrator($repository, $app['db'], $app['files']);
-        });
+                return new Migrator($repository, $app['db'], $app['files']);
+            }
+        );
 
         $this->app->alias(
             'migrator',

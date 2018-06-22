@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
-use LaravelZero\Framework\Contracts\Providers\Composer;
+use LaravelZero\Framework\Contracts\Providers\ComposerContract;
 
-class DotenvInstallTest extends TestCase
+final class DotenvInstallTest extends TestCase
 {
     public function tearDown()
     {
@@ -17,9 +19,9 @@ class DotenvInstallTest extends TestCase
     /** @test */
     public function it_requires_packages(): void
     {
-        $composerMock = $this->createMock(Composer::class);
+        $composerMock = $this->createMock(ComposerContract::class);
         $composerMock->expects($this->once())->method('require')->with('vlucas/phpdotenv');
-        $this->app->instance(Composer::class, $composerMock);
+        $this->app->instance(ComposerContract::class, $composerMock);
 
         Artisan::call('app:install', ['component' => 'dotenv']);
     }
@@ -27,9 +29,9 @@ class DotenvInstallTest extends TestCase
     /** @test */
     public function it_copy_stubs(): void
     {
-        $composerMock = $this->createMock(Composer::class);
+        $composerMock = $this->createMock(ComposerContract::class);
         $composerMock->expects($this->once())->method('require')->with('vlucas/phpdotenv');
-        $this->app->instance(Composer::class, $composerMock);
+        $this->app->instance(ComposerContract::class, $composerMock);
 
         Artisan::call('app:install', ['component' => 'dotenv']);
 

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
 
-class RenamerTest extends TestCase
+final class RenamerTest extends TestCase
 {
     public function tearDown()
     {

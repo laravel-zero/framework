@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of Laravel Zero.
  *
@@ -11,12 +13,10 @@
 
 namespace LaravelZero\Framework\Components\ConsoleDusk;
 
+use function class_exists;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
 
-/**
- * This is the Laravel Zero Framework Console Dusk Component Provider Implementation.
- */
-class Provider extends AbstractComponentProvider
+final class Provider extends AbstractComponentProvider
 {
     /**
      * {@inheritdoc}

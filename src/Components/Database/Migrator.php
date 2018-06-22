@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of Laravel Zero.
  *
@@ -11,34 +13,51 @@
 
 namespace LaravelZero\Framework\Components\Database;
 
+use function collect;
 use Symfony\Component\Finder\Finder;
 use Illuminate\Database\Migrations\Migrator as BaseMigrator;
 
-/**
- * This is the Laravel Zero Framework Database Component Migrator Implementation.
- */
 class Migrator extends BaseMigrator
 {
     /**
      * Get all of the migration files in a given path.
      *
      * Differs from the original `getMigrationFiles` because
-     * the build feature don't support globs.
+     * the phar don't support globs.
      *
-     * @param  string|array  $paths
+     * @param  string|array $paths
      *
      * @return array
      */
-    public function getMigrationFiles($paths)
+    public function getMigrationFiles($paths): array
     {
-        return collect($paths)->flatMap(function ($path) {
-            return collect((new Finder)->in([$path])->files())->map(function ($file) {
-                return $file->getPathname();
-            })->all();
-        })->filter()->sortBy(function ($file) {
-            return $this->getMigrationName($file);
-        })->values()->keyBy(function ($file) {
-            return $this->getMigrationName($file);
-        })->all();
+        return collect($paths)
+            ->flatMap(
+                function ($path) {
+                    return collect(
+                        (new Finder)->in([$path])
+                            ->files()
+                    )
+                        ->map(
+                            function ($file) {
+                                return $file->getPathname();
+                            }
+                        )
+                        ->all();
+                }
+            )
+            ->filter()
+            ->sortBy(
+                function ($file) {
+                    return $this->getMigrationName($file);
+                }
+            )
+            ->values()
+            ->keyBy(
+                function ($file) {
+                    return $this->getMigrationName($file);
+                }
+            )
+            ->all();
     }
 }

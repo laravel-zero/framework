@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of Laravel Zero.
  *
@@ -13,10 +15,7 @@ namespace LaravelZero\Framework\Components\ConsoleDusk;
 
 use LaravelZero\Framework\Components\AbstractInstaller;
 
-/**
- * This is the Laravel Zero Framework Console Dusk Component Installer Implementation.
- */
-class Installer extends AbstractInstaller
+final class Installer extends AbstractInstaller
 {
     /**
      * {@inheritdoc}

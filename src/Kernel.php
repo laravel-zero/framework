@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of Laravel Zero.
  *
@@ -12,14 +14,15 @@
 namespace LaravelZero\Framework;
 
 use ReflectionClass;
+use function define;
+use function collect;
+use function defined;
+use function in_array;
+use function get_class;
 use Illuminate\Console\Application as Artisan;
-use Illuminate\Contracts\Foundation\Application;
 use Symfony\Component\Console\Output\OutputInterface;
 use Illuminate\Foundation\Console\Kernel as BaseKernel;
 
-/**
- * This is the Laravel Zero Kernel implementation.
- */
 class Kernel extends BaseKernel
 {
     /**
@@ -28,10 +31,10 @@ class Kernel extends BaseKernel
      * @var string[]
      */
     protected $developmentCommands = [
-        Commands\App\Builder::class,
-        Commands\App\Renamer::class,
-        Commands\App\CommandMaker::class,
-        Commands\App\Installer::class,
+        Commands\App\BuildCommand::class,
+        Commands\App\RenameCommand::class,
+        Commands\App\MakeCommand::class,
+        Commands\App\InstallCommand::class,
     ];
 
     /**
@@ -69,7 +72,7 @@ class Kernel extends BaseKernel
     /**
      * {@inheritdoc}
      */
-    public function handle($input, $output = null)
+    public function handle($input, $output = null): int
     {
         $this->app->instance(OutputInterface::class, $output);
 
@@ -79,7 +82,7 @@ class Kernel extends BaseKernel
     /**
      * {@inheritdoc}
      */
-    public function bootstrap()
+    public function bootstrap(): void
     {
         parent::bootstrap();
 
@@ -106,8 +109,7 @@ class Kernel extends BaseKernel
         /**
          * Loads configurated commands.
          */
-        $commands = collect($config->get('commands.add', []))
-            ->merge($config->get('commands.hidden', []));
+        $commands = collect($config->get('commands.add', []))->merge($config->get('commands.hidden', []));
 
         if ($command = $config->get('commands.default')) {
             $commands->push($config->get('commands.default'));
@@ -122,45 +124,52 @@ class Kernel extends BaseKernel
 
         $commands = $commands->diff($toRemoveCommands = $config->get('commands.remove', []));
 
-        Artisan::starting(function ($artisan) use ($toRemoveCommands) {
-            $reflectionClass = new ReflectionClass(Artisan::class);
-            $commands = collect($artisan->all())
-                ->filter(
-                    function ($command) use ($toRemoveCommands) {
-                        return ! in_array(get_class($command), $toRemoveCommands);
-                    }
-                )
-                ->toArray();
+        Artisan::starting(
+            function ($artisan) use ($toRemoveCommands) {
+                $reflectionClass = new ReflectionClass(Artisan::class);
+                $commands = collect($artisan->all())
+                    ->filter(
+                        function ($command) use ($toRemoveCommands) {
+                            return ! in_array(get_class($command), $toRemoveCommands, true);
+                        }
+                    )
+                    ->toArray();
 
-            $property = $reflectionClass->getParentClass()
-                ->getProperty('commands');
+                $property = $reflectionClass->getParentClass()
+                    ->getProperty('commands');
 
-            $property->setAccessible(true);
-            $property->setValue($artisan, $commands);
-            $property->setAccessible(false);
-        });
+                $property->setAccessible(true);
+                $property->setValue($artisan, $commands);
+                $property->setAccessible(false);
+            }
+        );
 
         /*
          * Registers a bootstrap callback on the artisan console application
          * in order to call the schedule method on each Laravel Zero
          * command class.
          */
-        Artisan::starting(function ($artisan) use ($commands) {
-            $artisan->resolveCommands($commands->toArray());
-        });
-
-        Artisan::starting(function ($artisan) use ($config) {
-            collect($artisan->all())->each(function ($command) use ($config) {
-                if (in_array(get_class($command), $config->get('commands.hidden', []))) {
-                    $command->setHidden(true);
-                }
-
-                if ($command instanceof Commands\Command) {
-                    $this->app->call([$command, 'schedule']);
-                }
+        Artisan::starting(
+            function ($artisan) use ($commands) {
+                $artisan->resolveCommands($commands->toArray());
             }
-            );
-        });
+        );
+
+        Artisan::starting(
+            function ($artisan) use ($config) {
+                collect($artisan->all())->each(
+                    function ($command) use ($config) {
+                        if (in_array(get_class($command), $config->get('commands.hidden', []), true)) {
+                            $command->setHidden(true);
+                        }
+
+                        if ($command instanceof Commands\Command) {
+                            $this->app->call([$command, 'schedule']);
+                        }
+                    }
+                );
+            }
+        );
     }
 
     /**

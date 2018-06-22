@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of Laravel Zero.
  *
@@ -13,10 +15,7 @@ namespace LaravelZero\Framework\Contracts\Exceptions;
 
 use Symfony\Component\Console\Exception\ExceptionInterface;
 
-/**
- * This is the Laravel Zero Framework Console Exception Contract.
- */
-interface ConsoleException extends ExceptionInterface
+interface ConsoleExceptionContract extends ExceptionInterface
 {
     /**
      * Returns the exit code.
@@ -37,7 +36,7 @@ interface ConsoleException extends ExceptionInterface
      *
      * @param array $headers
      *
-     * @return \LaravelZero\Framework\Contracts\Exceptions\ConsoleException
+     * @return \LaravelZero\Framework\Contracts\Exceptions\ConsoleExceptionContract
      */
-    public function setHeaders(array $headers): ConsoleException;
+    public function setHeaders(array $headers): ConsoleExceptionContract;
 }

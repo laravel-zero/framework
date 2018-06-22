@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Illuminate\Support\Facades\Artisan;
 
-class DatabaseProviderTest extends TestCase
+final class DatabaseProviderTest extends TestCase
 {
     /** @test */
     public function it_adds_commands(): void

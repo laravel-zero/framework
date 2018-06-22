@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of Laravel Zero.
  *
@@ -11,12 +13,10 @@
 
 namespace LaravelZero\Framework\Commands\App;
 
+use function ucfirst;
 use Illuminate\Foundation\Console\ConsoleMakeCommand;
 
-/**
- * This is the Laravel Zero Framework Maker Command implementation.
- */
-class CommandMaker extends ConsoleMakeCommand
+final class MakeCommand extends ConsoleMakeCommand
 {
     /**
      * {@inheritdoc}
@@ -26,7 +26,7 @@ class CommandMaker extends ConsoleMakeCommand
     /**
      * {@inheritdoc}
      */
-    protected function getNameInput()
+    protected function getNameInput(): string
     {
         return ucfirst(parent::getNameInput());
     }
@@ -34,16 +34,16 @@ class CommandMaker extends ConsoleMakeCommand
     /**
      * {@inheritdoc}
      */
-    protected function getStub()
+    protected function getStub(): string
     {
-        return __DIR__.'/stubs/console.stub';
+        return __DIR__ . DIRECTORY_SEPARATOR . 'stubs' . DIRECTORY_SEPARATOR . 'console.stub';
     }
 
     /**
      * {@inheritdoc}
      */
-    protected function getDefaultNamespace($rootNamespace)
+    protected function getDefaultNamespace($rootNamespace): string
     {
-        return $rootNamespace.'\Commands';
+        return $rootNamespace . '\Commands';
     }
 }

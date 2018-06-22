@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
-class ConstantsTest extends TestCase
+final class ConstantsTest extends TestCase
 {
     /** @test */
     public function it_defines_the_artisan_binary()

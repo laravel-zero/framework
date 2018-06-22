@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of Laravel Zero.
  *
@@ -11,18 +13,15 @@
 
 namespace LaravelZero\Framework\Bootstrap;
 
+use function class_exists;
 use Illuminate\Contracts\Foundation\Application;
+use LaravelZero\Framework\Contracts\BoostrapperContract;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables as BaseLoadEnvironmentVariables;
 
-/**
- * This is the Laravel Zero Framework Bootstrap Load Environment Variables implementation.
- */
-class LoadEnvironmentVariables extends BaseLoadEnvironmentVariables
+final class LoadEnvironmentVariables extends BaseLoadEnvironmentVariables implements BoostrapperContract
 {
     /**
-     * If component is installed, bootstrap Environment Variables.
-     *
-     * @param \Illuminate\Contracts\Foundation\Application $app
+     * {@inheritdoc}
      */
     public function bootstrap(Application $app): void
     {

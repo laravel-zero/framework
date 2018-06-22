@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of Laravel Zero.
  *
@@ -15,10 +17,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Components\AbstractInstaller;
 
-/**
- * This is the Laravel Zero Framework Component Database Installer Implementation.
- */
-class Installer extends AbstractInstaller
+final class Installer extends AbstractInstaller
 {
     /**
      * {@inheritdoc}
@@ -33,12 +32,12 @@ class Installer extends AbstractInstaller
     /**
      * The config file path.
      */
-    const CONFIG_FILE = __DIR__.DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'database.php';
+    private const CONFIG_FILE = __DIR__ . DIRECTORY_SEPARATOR . 'stubs' . DIRECTORY_SEPARATOR . 'database.php';
 
     /**
-     * The seeder file.
+     * The seeder file path.
      */
-    const SEEDER_FILE = __DIR__.DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php';
+    private const SEEDER_FILE = __DIR__ . DIRECTORY_SEPARATOR . 'stubs' . DIRECTORY_SEPARATOR . 'DatabaseSeeder.php';
 
     /**
      * {@inheritdoc}
@@ -50,52 +49,44 @@ class Installer extends AbstractInstaller
         $this->task(
             'Creating a default SQLite database',
             function () {
-                if (! File::exists(database_path('database.sqlite'))) {
-                    File::makeDirectory(database_path('migrations'), 0755, true, true);
-
-                    File::put(
-                        database_path('database.sqlite'),
-                        ''
-                    );
-
-                    return true;
+                if (File::exists(database_path('database.sqlite'))) {
+                    return false;
                 }
+                File::makeDirectory($this->app->databasePath('migrations'), 0755, true, true);
 
-                return false;
+                File::put(
+                    $this->app->databasePath('database.sqlite'),
+                    ''
+                );
             }
         );
 
         $this->task(
             'Creating seeds folders and files',
             function () {
-                if (! File::exists(database_path('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php'))) {
-                    File::makeDirectory(database_path('seeds'), 0755, false, true);
-
-                    File::copy(
-                        static::SEEDER_FILE,
-                        database_path('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php')
-                    );
-
-                    return true;
+                if (File::exists($this->app->databasePath('seeds' . DIRECTORY_SEPARATOR . 'DatabaseSeeder.php'))) {
+                    return false;
                 }
 
-                return false;
+                File::makeDirectory($this->app->databasePath('seeds'), 0755, false, true);
+
+                File::copy(
+                    self::SEEDER_FILE,
+                    $this->app->databasePath('seeds' . DIRECTORY_SEPARATOR . 'DatabaseSeeder.php')
+                );
             }
         );
 
         $this->task(
             'Creating default database configuration',
             function () {
-                if (! File::exists(config_path('database.php'))) {
-                    File::copy(
-                        static::CONFIG_FILE,
-                        config_path('database.php')
-                    );
-
-                    return true;
+                if (File::exists(config_path('database.php'))) {
+                    return false;
                 }
-
-                return false;
+                File::copy(
+                    self::CONFIG_FILE,
+                    config_path('database.php')
+                );
             }
         );
 
@@ -107,7 +98,7 @@ class Installer extends AbstractInstaller
                     $contents = File::get($gitignorePath);
                     $neededLine = '/database/database.sqlite';
                     if (! Str::contains($contents, $neededLine)) {
-                        File::append($gitignorePath, $neededLine.PHP_EOL);
+                        File::append($gitignorePath, $neededLine . PHP_EOL);
 
                         return true;
                     }

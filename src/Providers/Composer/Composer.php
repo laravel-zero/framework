@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of Laravel Zero.
  *
@@ -12,22 +14,23 @@
 namespace LaravelZero\Framework\Providers\Composer;
 
 use Throwable;
+use function collect;
 use Symfony\Component\Process\Process;
 use Illuminate\Contracts\Foundation\Application;
 use Symfony\Component\Console\Output\OutputInterface;
-use LaravelZero\Framework\Contracts\Providers\Composer as ComposerContract;
+use LaravelZero\Framework\Contracts\Providers\ComposerContract;
 
 /**
- * This is the Laravel Zero Framework Composer implementation.
+ * @codeCoverageIgnore
  */
-class Composer implements ComposerContract
+final class Composer implements ComposerContract
 {
     /**
      * Holds an instance of the app.
      *
      * @var \Illuminate\Contracts\Foundation\Application
      */
-    protected $app;
+    private $app;
 
     /**
      * Composer constructor.
@@ -48,9 +51,11 @@ class Composer implements ComposerContract
     {
         $cmd = 'composer install';
 
-        collect($options)->each(function ($option) use (&$cmd) {
-            $cmd .= " $option";
-        });
+        collect($options)->each(
+            function ($option) use (&$cmd) {
+                $cmd .= " $option";
+            }
+        );
 
         return $this->run($cmd, $this->app->basePath());
     }
@@ -70,9 +75,11 @@ class Composer implements ComposerContract
     {
         $cmd = "composer create-project $package $name";
 
-        collect($options)->each(function ($option) use (&$cmd) {
-            $cmd .= " $option";
-        });
+        collect($options)->each(
+            function ($option) use (&$cmd) {
+                $cmd .= " $option";
+            }
+        );
 
         return $this->run($cmd);
     }
@@ -81,6 +88,7 @@ class Composer implements ComposerContract
      * Runs the provided command.
      *
      * @param  string $cmd
+     * @param string|null $cwd
      *
      * @return bool
      */
@@ -100,9 +108,11 @@ class Composer implements ComposerContract
 
         if ($output) {
             $output->write("\n");
-            $process->run(function ($type, $line) use ($output) {
-                $output->write($line);
-            });
+            $process->run(
+                function ($type, $line) use ($output) {
+                    $output->write($line);
+                }
+            );
         } else {
             $process->run();
         }

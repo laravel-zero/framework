@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of Laravel Zero.
  *
@@ -11,12 +13,12 @@
 
 namespace LaravelZero\Framework\Commands;
 
+use strlen;
+use str_repeat;
+use LogicException;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Console\Command as BaseCommand;
 
-/**
- * This is the Laravel Zero Framework Abstract Command Implementation.
- */
 abstract class Command extends BaseCommand
 {
     /**
@@ -30,8 +32,13 @@ abstract class Command extends BaseCommand
      * Execute the console command.
      *
      * @return void
+     *
+     * @throws \LogicException
      */
-    abstract public function handle(): void;
+    public function handle(): void
+    {
+        throw new LogicException('You must override the handle() method in the concrete command class.');
+    }
 
     /**
      * Define the command's schedule.
@@ -47,11 +54,18 @@ abstract class Command extends BaseCommand
     /**
      * {@inheritdoc}
      */
-    public function setLaravel($laravel)
+    public function setLaravel($laravel): void
     {
         parent::setLaravel($this->app = $laravel);
     }
 
+    /**
+     * Displays a title.
+     *
+     * @param  string $title
+     *
+     * @return \LaravelZero\Framework\Commands\Command
+     */
     public function title(string $title): Command
     {
         $size = strlen($title);

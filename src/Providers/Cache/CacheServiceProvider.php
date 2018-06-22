@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of Laravel Zero.
  *
@@ -13,15 +15,10 @@ namespace LaravelZero\Framework\Providers\Cache;
 
 use Illuminate\Cache\CacheServiceProvider as BaseServiceProvider;
 
-/**
- * This is the Laravel Zero Framework Cache Service Provider implementation.
- */
-class CacheServiceProvider extends BaseServiceProvider
+final class CacheServiceProvider extends BaseServiceProvider
 {
     /**
-     * Register the Cache Service Provider.
-     *
-     * @return void
+     * {@inheritdoc}
      */
     public function register(): void
     {
@@ -39,7 +36,7 @@ class CacheServiceProvider extends BaseServiceProvider
      *
      * @return array
      */
-    protected function getDefaultConfig(): array
+    private function getDefaultConfig(): array
     {
         return [
             'default' => 'array',

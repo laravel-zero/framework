@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of Laravel Zero.
  *
@@ -13,9 +15,6 @@ namespace LaravelZero\Framework\Components;
 
 use Illuminate\Support\ServiceProvider;
 
-/**
- * This is the Laravel Zero Framework Abstract Component Provider Implementation.
- */
 abstract class AbstractComponentProvider extends ServiceProvider
 {
     /**

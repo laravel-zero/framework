@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of Laravel Zero.
  *
@@ -14,10 +16,7 @@ namespace LaravelZero\Framework\Components\Log;
 use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Components\AbstractInstaller;
 
-/**
- * This is the Laravel Zero Framework Log Component Installer Implementation.
- */
-class Installer extends AbstractInstaller
+final class Installer extends AbstractInstaller
 {
     /**
      * {@inheritdoc}
@@ -32,7 +31,7 @@ class Installer extends AbstractInstaller
     /**
      * The config file path.
      */
-    const CONFIG_FILE = __DIR__.DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'logging.php';
+    private const CONFIG_FILE = __DIR__ . DIRECTORY_SEPARATOR . 'stubs' . DIRECTORY_SEPARATOR . 'logging.php';
 
     /**
      * {@inheritdoc}
@@ -47,7 +46,7 @@ class Installer extends AbstractInstaller
                 if (! File::exists(config_path('logging.php'))) {
                     return File::copy(
                         static::CONFIG_FILE,
-                        config_path('logging.php')
+                        $this->app->configPath('logging.php')
                     );
                 }
 

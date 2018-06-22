@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
-use LaravelZero\Framework\Contracts\Exceptions\ConsoleException;
+use LaravelZero\Framework\Contracts\Exceptions\ConsoleExceptionContract;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
 
-class ApplicationTest extends TestCase
+final class ApplicationTest extends TestCase
 {
     /** @test */
     public function it_has_environment_getter()
@@ -42,10 +44,10 @@ class ApplicationTest extends TestCase
 
         try {
             abort(200, 'Bar', ['Foo' => 'Bar']);
-        } catch (ConsoleException $consoleException) {
+        } catch (ConsoleExceptionContract $consoleException) {
         }
 
-        $this->assertInstanceOf(ConsoleException::class, $consoleException);
+        $this->assertInstanceOf(ConsoleExceptionContract::class, $consoleException);
         $this->assertEquals($consoleException->getExitCode(), 200);
         $this->assertEquals($consoleException->getMessage(), 'Bar');
         $this->assertEquals($consoleException->getHeaders(), ['Foo' => 'Bar']);

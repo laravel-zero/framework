@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of Laravel Zero.
  *
@@ -11,17 +13,15 @@
 
 namespace LaravelZero\Framework;
 
+use function array_merge;
 use Illuminate\Foundation\ProviderRepository as BaseProviderRepository;
 
-/**
- * This is the Laravel Zero ProviderRepository implementation.
- */
-class ProviderRepository extends BaseProviderRepository
+final class ProviderRepository extends BaseProviderRepository
 {
     /**
      * {@inheritdoc}
      */
-    public function writeManifest($manifest)
+    public function writeManifest($manifest): array
     {
         return array_merge(['when' => []], $manifest);
     }

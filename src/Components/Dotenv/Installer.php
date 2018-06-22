@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of Laravel Zero.
  *
@@ -15,10 +17,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Components\AbstractInstaller;
 
-/**
- * This is the Laravel Zero Framework Dot Env Component Installer Implementation.
- */
-class Installer extends AbstractInstaller
+final class Installer extends AbstractInstaller
 {
     /**
      * {@inheritdoc}
@@ -59,19 +58,22 @@ class Installer extends AbstractInstaller
             }
         );
 
-        $this->task('Updating .gitignore', function () {
-            $gitignorePath = base_path('.gitignore');
-            if (File::exists($gitignorePath)) {
-                $contents = File::get($gitignorePath);
-                $neededLine = '.env';
-                if (! Str::contains($contents, $neededLine)) {
-                    File::append($gitignorePath, $neededLine.PHP_EOL);
+        $this->task(
+            'Updating .gitignore',
+            function () {
+                $gitignorePath = base_path('.gitignore');
+                if (File::exists($gitignorePath)) {
+                    $contents = File::get($gitignorePath);
+                    $neededLine = '.env';
+                    if (! Str::contains($contents, $neededLine)) {
+                        File::append($gitignorePath, $neededLine . PHP_EOL);
 
-                    return true;
+                        return true;
+                    }
                 }
-            }
 
-            return false;
-        });
+                return false;
+            }
+        );
     }
 }

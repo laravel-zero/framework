@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of Laravel Zero.
  *
@@ -11,10 +13,7 @@
 
 namespace LaravelZero\Framework\Contracts\Commands\Component;
 
-/**
- * This is the Laravel Zero Framework Component Installer Contract.
- */
-interface Installer
+interface InstallerContract
 {
     /**
      * Installs a component.

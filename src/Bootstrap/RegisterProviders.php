@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of Laravel Zero.
  *
@@ -11,22 +13,21 @@
 
 namespace LaravelZero\Framework\Bootstrap;
 
+use function collect;
 use LaravelZero\Framework\Providers;
 use LaravelZero\Framework\Components;
 use Illuminate\Contracts\Foundation\Application;
+use LaravelZero\Framework\Contracts\BoostrapperContract;
 use NunoMaduro\LaravelConsoleMenu\LaravelConsoleMenuServiceProvider;
 use NunoMaduro\LaravelConsoleTask\LaravelConsoleTaskServiceProvider;
 use NunoMaduro\LaravelConsoleSummary\LaravelConsoleSummaryServiceProvider;
 use NunoMaduro\LaravelDesktopNotifier\LaravelDesktopNotifierServiceProvider;
 use Illuminate\Foundation\Bootstrap\RegisterProviders as BaseRegisterProviders;
 
-/**
- * This is the Laravel Zero Framework Bootstrap Register Providers implementation.
- */
-class RegisterProviders extends BaseRegisterProviders
+class RegisterProviders extends BaseRegisterProviders implements BoostrapperContract
 {
     /**
-     * Framework core providers.
+     * Core providers.
      *
      * @var string[]
      */
@@ -41,7 +42,7 @@ class RegisterProviders extends BaseRegisterProviders
     ];
 
     /**
-     * Framework optional components.
+     * Optional components.
      *
      * @var string[]
      */
@@ -64,14 +65,20 @@ class RegisterProviders extends BaseRegisterProviders
         parent::bootstrap($app);
 
         /*
-         * Then we register Laravel Zero providers.
+         * Then we register Laravel Zero available providers.
          */
-        collect($this->providers)->merge(
-            collect($this->components)->filter(function ($component) use ($app) {
-                return (new $component($app))->isAvailable();
-            })
-        )->each(function ($serviceProviderClass) use ($app) {
-            $app->register($serviceProviderClass);
-        });
+        collect($this->providers)
+            ->merge(
+                collect($this->components)->filter(
+                    function ($component) use ($app) {
+                        return (new $component($app))->isAvailable();
+                    }
+                )
+            )
+            ->each(
+                function ($serviceProviderClass) use ($app) {
+                    $app->register($serviceProviderClass);
+                }
+            );
     }
 }
