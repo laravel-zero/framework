@@ -36,7 +36,7 @@ final class MakeCommand extends ConsoleMakeCommand
      */
     protected function getStub(): string
     {
-        return __DIR__ . DIRECTORY_SEPARATOR . 'stubs' . DIRECTORY_SEPARATOR . 'console.stub';
+        return __DIR__.DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'console.stub';
     }
 
     /**
@@ -44,6 +44,6 @@ final class MakeCommand extends ConsoleMakeCommand
      */
     protected function getDefaultNamespace($rootNamespace): string
     {
-        return $rootNamespace . '\Commands';
+        return $rootNamespace.'\Commands';
     }
 }
