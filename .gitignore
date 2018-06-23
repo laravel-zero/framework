@@ -1,4 +1,5 @@
-/vendor/
-.idea/*
+/vendor
+/.idea
+/.vscode
+/.vagrant
 composer.lock
-.twgit_features_subject
