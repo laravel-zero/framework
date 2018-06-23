@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace LaravelZero\Framework\Commands;
 
 use LaravelZero\Framework\Components;
-use LaravelZero\Framework\Commands\Command;
 use PhpSchool\CliMenu\Terminal\TerminalFactory;
 use Symfony\Component\Console\Input\ArrayInput;
 
