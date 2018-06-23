@@ -32,12 +32,12 @@ final class Installer extends AbstractInstaller
     /**
      * The config file path.
      */
-    private const CONFIG_FILE = __DIR__ . DIRECTORY_SEPARATOR . 'stubs' . DIRECTORY_SEPARATOR . 'database.php';
+    private const CONFIG_FILE = __DIR__.DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'database.php';
 
     /**
      * The seeder file path.
      */
-    private const SEEDER_FILE = __DIR__ . DIRECTORY_SEPARATOR . 'stubs' . DIRECTORY_SEPARATOR . 'DatabaseSeeder.php';
+    private const SEEDER_FILE = __DIR__.DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php';
 
     /**
      * {@inheritdoc}
@@ -64,7 +64,7 @@ final class Installer extends AbstractInstaller
         $this->task(
             'Creating seeds folders and files',
             function () {
-                if (File::exists($this->app->databasePath('seeds' . DIRECTORY_SEPARATOR . 'DatabaseSeeder.php'))) {
+                if (File::exists($this->app->databasePath('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php'))) {
                     return false;
                 }
 
@@ -72,7 +72,7 @@ final class Installer extends AbstractInstaller
 
                 File::copy(
                     self::SEEDER_FILE,
-                    $this->app->databasePath('seeds' . DIRECTORY_SEPARATOR . 'DatabaseSeeder.php')
+                    $this->app->databasePath('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php')
                 );
             }
         );
@@ -98,7 +98,7 @@ final class Installer extends AbstractInstaller
                     $contents = File::get($gitignorePath);
                     $neededLine = '/database/database.sqlite';
                     if (! Str::contains($contents, $neededLine)) {
-                        File::append($gitignorePath, $neededLine . PHP_EOL);
+                        File::append($gitignorePath, $neededLine.PHP_EOL);
 
                         return true;
                     }
