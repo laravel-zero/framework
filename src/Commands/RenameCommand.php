@@ -16,7 +16,6 @@ namespace LaravelZero\Framework\Commands;
 use function sprintf;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
-use LaravelZero\Framework\Commands\Command;
 
 final class RenameCommand extends Command
 {
@@ -92,7 +91,7 @@ final class RenameCommand extends Command
         $this->task(
             'Updating config/app.php "name" property',
             function () use ($name) {
-                $neededLine = "'name' => '" . Str::ucfirst($this->getCurrentBinaryName()) . "'";
+                $neededLine = "'name' => '".Str::ucfirst($this->getCurrentBinaryName())."'";
 
                 if (! Str::contains($contents = $this->getConfig(), $neededLine)) {
                     return false;
@@ -101,7 +100,7 @@ final class RenameCommand extends Command
                     $this->app->configPath('app.php'),
                     Str::replaceFirst(
                         $neededLine,
-                        "'name' => '" . Str::ucfirst($name) . "'",
+                        "'name' => '".Str::ucfirst($name)."'",
                         $contents
                     )
                 );
@@ -111,7 +110,7 @@ final class RenameCommand extends Command
         $this->task(
             'Updating composer "bin"',
             function () use ($name) {
-                $neededLine = '"bin": ["' . $this->getCurrentBinaryName() . '"]';
+                $neededLine = '"bin": ["'.$this->getCurrentBinaryName().'"]';
 
                 if (! Str::contains($contents = $this->getComposer(), $neededLine)) {
                     return false;
@@ -121,7 +120,7 @@ final class RenameCommand extends Command
                     $this->app->basePath('composer.json'),
                     Str::replaceFirst(
                         $neededLine,
-                        '"bin": ["' . $name . '"]',
+                        '"bin": ["'.$name.'"]',
                         $contents
                     )
                 );

@@ -15,7 +15,6 @@ namespace LaravelZero\Framework\Commands;
 
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Process\Process;
-use LaravelZero\Framework\Commands\Command;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
@@ -102,8 +101,8 @@ final class BuildCommand extends Command
         }
 
         $process = new Process(
-            './box compile' . ' --working-dir=' . base_path() . ' --config=' . base_path('box.json'),
-            dirname(dirname(__DIR__)) . '/bin'
+            './box compile'.' --working-dir='.base_path().' --config='.base_path('box.json'),
+            dirname(dirname(__DIR__)).'/bin'
         );
 
         $section = tap($this->originalOutput->section())->write('');
@@ -130,7 +129,7 @@ final class BuildCommand extends Command
 
         $this->output->newLine();
 
-        File::move($this->app->basePath(ARTISAN_BINARY) . '.phar', $this->app->buildsPath($name));
+        File::move($this->app->basePath(ARTISAN_BINARY).'.phar', $this->app->buildsPath($name));
 
         return $this;
     }
@@ -149,7 +148,7 @@ final class BuildCommand extends Command
         $this->task(
             '   1. Moving application to <fg=yellow>production mode</>',
             function () use ($file, $config) {
-                File::put($file, '<?php return ' . var_export($config, true) . ';' . PHP_EOL);
+                File::put($file, '<?php return '.var_export($config, true).';'.PHP_EOL);
             }
         );
 
