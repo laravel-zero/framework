@@ -178,7 +178,6 @@ final class BuildCommand extends Command
     {
         if (static::$config !== null) {
             $this->clear();
-            $this->error('Something went wrong.');
         }
     }
 }

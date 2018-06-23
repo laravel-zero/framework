@@ -7,7 +7,7 @@ namespace Tests;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
 
-final class RenamerTest extends TestCase
+final class RenameCommandTest extends TestCase
 {
     public function tearDown()
     {

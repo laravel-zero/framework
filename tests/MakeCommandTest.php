@@ -7,7 +7,7 @@ namespace Tests;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
 
-final class CommandMakerTest extends TestCase
+final class MakeCommandTest extends TestCase
 {
     public function tearDown()
     {
