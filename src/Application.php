@@ -33,7 +33,7 @@ class Application extends BaseApplication
      */
     public function buildsPath(string $path = ''): string
     {
-        return $this->basePath('builds' . ($path ? DIRECTORY_SEPARATOR . $path : $path));
+        return $this->basePath('builds'.($path ? DIRECTORY_SEPARATOR.$path : $path));
     }
 
     /**
