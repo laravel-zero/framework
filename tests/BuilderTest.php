@@ -22,12 +22,10 @@ final class BuilderTest extends TestCase
         $composerMock = $this->createMock(ComposerContract::class);
         $this->app->instance(ComposerContract::class, $composerMock);
 
-        $output = new class() extends NullOutput
-        {
+        $output = new class() extends NullOutput {
             public function section()
             {
-                return new class() extends NullOutput
-                {
+                return new class() extends NullOutput {
                     public function clear()
                     {
                     }
@@ -37,10 +35,10 @@ final class BuilderTest extends TestCase
 
         Artisan::call('app:build', [], $output);
 
-        $this->assertTrue(File::exists(base_path('builds' . DIRECTORY_SEPARATOR . 'application')));
+        $this->assertTrue(File::exists(base_path('builds'.DIRECTORY_SEPARATOR.'application')));
 
         Artisan::call('app:build', ['name' => 'zonda'], $output);
 
-        $this->assertTrue(File::exists(base_path('builds' . DIRECTORY_SEPARATOR . 'zonda')));
+        $this->assertTrue(File::exists(base_path('builds'.DIRECTORY_SEPARATOR.'zonda')));
     }
 }
