@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changes
 - Internal behavior of command `app:build`. Using "humbug/box" to provide fast application bundling.
 - Option `with-dev` on the command `app:build` got removed.
+- Internal framework classes are now not avaiable for inheritance.
+- Internal framework structure main contain some changes, e.g: `Commands/App/Builder::class` got moved to `Commands\BuildCommand::class`
 
 ### Fixes
 - Removes seed command from production commands.
