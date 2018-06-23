@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework;
 
-use ReflectionClass;
 use function define;
+use ReflectionClass;
 use function collect;
 use function defined;
 use function in_array;
