@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use Illuminate\Support\Facades\Artisan;
 use LaravelZero\Framework\Application;
+use Illuminate\Support\Facades\Artisan;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
