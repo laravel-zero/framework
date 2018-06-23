@@ -11,7 +11,7 @@ declare(strict_types=1);
  *  file that was distributed with this source code.
  */
 
-namespace LaravelZero\Framework\Commands\App;
+namespace LaravelZero\Framework\Commands;
 
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Process\Process;
@@ -103,7 +103,7 @@ final class BuildCommand extends Command
 
         $process = new Process(
             './box compile' . ' --working-dir=' . base_path() . ' --config=' . base_path('box.json'),
-            dirname(dirname(dirname(__DIR__))) . '/bin'
+            dirname(dirname(__DIR__)) . '/bin'
         );
 
         $section = tap($this->originalOutput->section())->write('');

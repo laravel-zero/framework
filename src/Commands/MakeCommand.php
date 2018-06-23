@@ -11,7 +11,7 @@ declare(strict_types=1);
  *  file that was distributed with this source code.
  */
 
-namespace LaravelZero\Framework\Commands\App;
+namespace LaravelZero\Framework\Commands;
 
 use function ucfirst;
 use Illuminate\Foundation\Console\ConsoleMakeCommand;

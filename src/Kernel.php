@@ -31,10 +31,10 @@ class Kernel extends BaseKernel
      * @var string[]
      */
     protected $developmentCommands = [
-        Commands\App\BuildCommand::class,
-        Commands\App\RenameCommand::class,
-        Commands\App\MakeCommand::class,
-        Commands\App\InstallCommand::class,
+        Commands\BuildCommand::class,
+        Commands\RenameCommand::class,
+        Commands\MakeCommand::class,
+        Commands\InstallCommand::class,
     ];
 
     /**
