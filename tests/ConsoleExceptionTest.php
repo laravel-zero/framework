@@ -22,5 +22,9 @@ final class ConsoleExceptionTest extends TestCase
         $exception = new ConsoleException(404, 'Foo', ['bar' => 'etc']);
 
         $this->assertEquals(['bar' => 'etc'], $exception->getHeaders());
+
+        $exception->setHeaders(['foo' => 'zero']);
+
+        $this->assertEquals(['foo' => 'zero'], $exception->getHeaders());
     }
 }
