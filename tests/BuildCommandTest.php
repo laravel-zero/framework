@@ -23,12 +23,10 @@ final class BuildCommandTest extends TestCase
     {
         $this->mockComposer();
 
-        $output = new class() extends NullOutput
-        {
+        $output = new class() extends NullOutput {
             public function section()
             {
-                return new class() extends NullOutput
-                {
+                return new class() extends NullOutput {
                     public function clear()
                     {
                     }
@@ -38,11 +36,11 @@ final class BuildCommandTest extends TestCase
 
         Artisan::call('app:build', [], $output);
 
-        $this->assertTrue(File::exists(base_path('builds' . DIRECTORY_SEPARATOR . 'application')));
+        $this->assertTrue(File::exists(base_path('builds'.DIRECTORY_SEPARATOR.'application')));
 
         Artisan::call('app:build', ['name' => 'zonda'], $output);
 
-        $this->assertTrue(File::exists(base_path('builds' . DIRECTORY_SEPARATOR . 'zonda')));
+        $this->assertTrue(File::exists(base_path('builds'.DIRECTORY_SEPARATOR.'zonda')));
     }
 
     /** @test */
@@ -52,12 +50,10 @@ final class BuildCommandTest extends TestCase
 
         $contents = File::get(config_path('app.php'));
 
-        $output = new class() extends NullOutput
-        {
+        $output = new class() extends NullOutput {
             public function section()
             {
-                return new class() extends NullOutput
-                {
+                return new class() extends NullOutput {
                     public function clear()
                     {
                         throw new Exception('Foo bar');
