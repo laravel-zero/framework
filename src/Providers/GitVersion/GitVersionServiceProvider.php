@@ -16,6 +16,9 @@ namespace LaravelZero\Framework\Providers\GitVersion;
 use Symfony\Component\Process\Process;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * @codeCoverageIgnore
+ */
 final class GitVersionServiceProvider extends ServiceProvider
 {
     /**

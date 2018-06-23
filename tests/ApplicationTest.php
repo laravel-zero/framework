@@ -10,7 +10,7 @@ use Symfony\Component\Console\Exception\CommandNotFoundException;
 final class ApplicationTest extends TestCase
 {
     /** @test */
-    public function it_has_environment_getter()
+    public function it_respects_the_version_in_config()
     {
         $this->assertSame('Test version', $this->app->version());
     }
