@@ -14,7 +14,9 @@ final class DatabaseInstallTest extends TestCase
     {
         File::delete(database_path('database.sqlite'));
         File::delete(database_path('migrations'));
-        File::delete(database_path('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php'));
+        File::delete(database_path('seeds' . DIRECTORY_SEPARATOR . 'DatabaseSeeder.php'));
+        File::delete(base_path('.gitignore'));
+        touch(base_path('.gitignore'));
     }
 
     /** @test */
@@ -22,7 +24,9 @@ final class DatabaseInstallTest extends TestCase
     {
         $composerMock = $this->createMock(ComposerContract::class);
 
-        $composerMock->expects($this->once())->method('require')->with('illuminate/database "5.6.*"');
+        $composerMock->expects($this->once())
+            ->method('require')
+            ->with('illuminate/database "5.6.*"');
 
         $this->app->instance(ComposerContract::class, $composerMock);
 
@@ -32,15 +36,30 @@ final class DatabaseInstallTest extends TestCase
     /** @test */
     public function it_copy_stubs(): void
     {
-        $composerMock = $this->createMock(ComposerContract::class);
-        $composerMock->method('require');
-        $this->app->instance(ComposerContract::class, $composerMock);
+        $this->mockComposer();
 
         Artisan::call('app:install', ['component' => 'database']);
 
         $this->assertTrue(File::exists(config_path('database.php')));
         $this->assertTrue(File::exists(database_path('database.sqlite')));
         $this->assertTrue(File::exists(database_path('migrations')));
-        $this->assertTrue(File::exists(database_path('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php')));
+        $this->assertTrue(File::exists(database_path('seeds' . DIRECTORY_SEPARATOR . 'DatabaseSeeder.php')));
+    }
+
+    /** @test */
+    public function it_adds_line_on_gitignore(): void
+    {
+        $this->mockComposer();
+
+        Artisan::call('app:install', ['component' => 'database']);
+
+        $this->assertTrue(str_contains(File::get(base_path('.gitignore')), '/database/database.sqlite'));
+    }
+
+    private function mockComposer(): void
+    {
+        $composerMock = $this->createMock(ComposerContract::class);
+        $composerMock->method('require');
+        $this->app->instance(ComposerContract::class, $composerMock);
     }
 }

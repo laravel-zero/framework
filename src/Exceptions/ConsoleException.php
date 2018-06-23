@@ -16,7 +16,7 @@ namespace LaravelZero\Framework\Exceptions;
 use Exception;
 use LaravelZero\Framework\Contracts\Exceptions\ConsoleExceptionContract;
 
-class ConsoleException extends Exception implements ConsoleExceptionContract
+final class ConsoleException extends Exception implements ConsoleExceptionContract
 {
     /**
      * The exit code.
