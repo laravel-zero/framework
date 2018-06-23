@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Commands;
 
-use strlen;
-use str_repeat;
 use LogicException;
+use function strlen;
+use function str_repeat;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Console\Command as BaseCommand;
 
