@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use LaravelZero\Framework\Contracts\Exceptions\ConsoleExceptionContract;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
+use LaravelZero\Framework\Contracts\Exceptions\ConsoleExceptionContract;
 
 final class ApplicationTest extends TestCase
 {
