@@ -17,6 +17,9 @@ use function collect;
 use Symfony\Component\Finder\Finder;
 use Illuminate\Database\Migrations\Migrator as BaseMigrator;
 
+/**
+ * @codeCoverageIgnore
+ */
 class Migrator extends BaseMigrator
 {
     /**
