@@ -15,8 +15,7 @@ final class LogInstallTest extends TestCase
         File::delete(config_path('logging.php'));
     }
 
-    /** @test */
-    public function it_requires_packages(): void
+    public function testRequiredPackages(): void
     {
         $composerMock = $this->createMock(ComposerContract::class);
 
@@ -29,8 +28,7 @@ final class LogInstallTest extends TestCase
         Artisan::call('app:install', ['component' => 'log']);
     }
 
-    /** @test */
-    public function it_copy_stubs(): void
+    public function testCopyStubs(): void
     {
         $composerMock = $this->createMock(ComposerContract::class);
         $composerMock->method('require');

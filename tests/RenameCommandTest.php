@@ -17,8 +17,7 @@ final class RenameCommandTest extends TestCase
         File::delete(base_path('zonda'));
     }
 
-    /** @test */
-    public function it_renames_the_binary(): void
+    public function testBinaryRename(): void
     {
         Artisan::call('app:rename', ['name' => 'zonda']);
 

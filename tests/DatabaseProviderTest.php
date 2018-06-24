@@ -4,16 +4,20 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use function get_class;
 use Illuminate\Support\Facades\Artisan;
 
 final class DatabaseProviderTest extends TestCase
 {
-    /** @test */
-    public function it_adds_commands(): void
+    public function testAddCommands(): void
     {
-        $commands = collect(Artisan::all())->map(function ($command) {
-            return get_class($command);
-        })->flip();
+        $commands = collect(Artisan::all())
+            ->map(
+                function ($command) {
+                    return get_class($command);
+                }
+            )
+            ->flip();
 
         collect(
             [

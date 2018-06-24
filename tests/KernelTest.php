@@ -12,8 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class KernelTest extends TestCase
 {
-    /** @test */
-    public function it_binds_the_output_into_the_container(): void
+    public function testBindedOutputIntoContainer(): void
     {
         Artisan::handle(new ArrayInput([]), $output = new NullOutput);
 

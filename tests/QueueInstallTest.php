@@ -19,8 +19,7 @@ final class QueueInstallTest extends TestCase
         touch(base_path('.gitignore'));
     }
 
-    /** @test */
-    public function it_requires_packages(): void
+    public function testRequiredPackages(): void
     {
         $composerMock = $this->createMock(ComposerContract::class);
 

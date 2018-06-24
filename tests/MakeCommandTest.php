@@ -14,8 +14,7 @@ final class MakeCommandTest extends TestCase
         File::delete(app_path('Commands'.DIRECTORY_SEPARATOR.'FooCommand.php'));
     }
 
-    /** @test */
-    public function it_creates_commands(): void
+    public function testCommandCreation(): void
     {
         Artisan::call('make:command', ['name' => 'FooCommand']);
 

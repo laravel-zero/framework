@@ -9,8 +9,7 @@ use LaravelZero\Framework\Contracts\Providers\ComposerContract;
 
 final class ConsoleDuskInstallTest extends TestCase
 {
-    /** @test */
-    public function it_requires_packages(): void
+    public function testRequiredPackages(): void
     {
         $composerMock = $this->createMock(ComposerContract::class);
 

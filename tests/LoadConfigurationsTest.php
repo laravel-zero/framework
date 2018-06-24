@@ -12,8 +12,7 @@ use App\HiddenCommands\FakeHiddenCommand;
 
 final class LoadConfigurationsTest extends TestCase
 {
-    /** @test */
-    public function it_reads_configuration_files()
+    public function testThatApplicationConfigurationIsAvailable(): void
     {
         $this->assertSame('Application', Artisan::getName());
         $this->assertSame('Test version', $this->app->version());
@@ -23,8 +22,7 @@ final class LoadConfigurationsTest extends TestCase
         );
     }
 
-    /** @test */
-    public function it_reads_commands()
+    public function testAddCommands(): void
     {
         $commands = [
             FakeDefaultCommand::class,
@@ -33,25 +31,25 @@ final class LoadConfigurationsTest extends TestCase
             FakeHiddenCommand::class,
         ];
 
-        $appCommands = collect(Artisan::all())->map(
-            function ($command) {
-                return get_class($command);
-            }
-        )->toArray();
+        $appCommands = collect(Artisan::all())
+            ->map(
+                function ($command) {
+                    return get_class($command);
+                }
+            )
+            ->toArray();
 
         foreach ($commands as $command) {
             $this->assertContains($command, $appCommands);
         }
     }
 
-    /** @test */
-    public function it_allows_hidden_commands()
+    public function testHideCommands(): void
     {
         $this->assertTrue(Artisan::all()['fake:hidden']->isHidden());
     }
 
-    /** @test */
-    public function it_allows_remove_commands()
+    public function testRemoveCommands(): void
     {
         $this->assertArrayNotHasKey('fake:removed', Artisan::all());
     }

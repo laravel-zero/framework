@@ -18,15 +18,16 @@ final class BuildCommandTest extends TestCase
         File::delete(base_path('application.phar'));
     }
 
-    /** @test */
-    public function it_builds_the_application(): void
+    public function testBuild(): void
     {
         $this->mockComposer();
 
-        $output = new class() extends NullOutput {
+        $output = new class() extends NullOutput
+        {
             public function section()
             {
-                return new class() extends NullOutput {
+                return new class() extends NullOutput
+                {
                     public function clear()
                     {
                     }
@@ -43,17 +44,18 @@ final class BuildCommandTest extends TestCase
         $this->assertTrue(File::exists(base_path('builds'.DIRECTORY_SEPARATOR.'zonda')));
     }
 
-    /** @test */
-    public function it_maintains_the_state_of_the_config(): void
+    public function testConfigStateAfterBuild(): void
     {
         $this->mockComposer();
 
         $contents = File::get(config_path('app.php'));
 
-        $output = new class() extends NullOutput {
+        $output = new class() extends NullOutput
+        {
             public function section()
             {
-                return new class() extends NullOutput {
+                return new class() extends NullOutput
+                {
                     public function clear()
                     {
                         throw new Exception('Foo bar');

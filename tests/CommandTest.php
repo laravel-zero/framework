@@ -10,10 +10,10 @@ use LaravelZero\Framework\Commands\Command;
 
 final class CommandTest extends TestCase
 {
-    /** @test */
-    public function it_forces_the_override_of_the_handle_method(): void
+    public function testThatHandleMethodMustBeOverwritten(): void
     {
-        $command = new class() extends Command {
+        $command = new class() extends Command
+        {
             protected $name = 'handle:test';
         };
 

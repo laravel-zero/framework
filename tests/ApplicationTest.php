@@ -9,30 +9,22 @@ use LaravelZero\Framework\Contracts\Exceptions\ConsoleExceptionContract;
 
 final class ApplicationTest extends TestCase
 {
-    /** @test */
-    public function it_respects_the_version_in_config()
+    public function testVersionFromConfig(): void
     {
         $this->assertSame('Test version', $this->app->version());
     }
 
-    /** @test */
-    public function it_confirms_the_running_in_console()
+    public function testRunningInConsole(): void
     {
-        $this->assertTrue(
-            $this->app->runningInConsole()
-        );
+        $this->assertTrue($this->app->runningInConsole());
     }
 
-    /** @test */
-    public function it_confirms_that_is_not_down_for_maintenance()
+    public function testIsDownForMaintenance(): void
     {
-        $this->assertFalse(
-            $this->app->isDownForMaintenance()
-        );
+        $this->assertFalse($this->app->isDownForMaintenance());
     }
 
-    /** @test */
-    public function it_can_abort(): void
+    public function testThatCanAbort(): void
     {
         try {
             $this->app->abort(404, 'Foo');
