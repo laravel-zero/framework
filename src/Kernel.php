@@ -158,10 +158,12 @@ class Kernel extends BaseKernel
         Artisan::starting(
             function ($artisan) use ($config) {
                 collect($artisan->all())->each(
-                    function ($command) use ($config) {
+                    function ($command) use ($config, $artisan) {
                         if (in_array(get_class($command), $config->get('commands.hidden', []), true)) {
                             $command->setHidden(true);
                         }
+                        
+                        $command->setApplication($artisan);
 
                         if ($command instanceof Commands\Command) {
                             $this->app->call([$command, 'schedule']);
