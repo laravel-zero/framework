@@ -162,7 +162,7 @@ class Kernel extends BaseKernel
                         if (in_array(get_class($command), $config->get('commands.hidden', []), true)) {
                             $command->setHidden(true);
                         }
-                        
+
                         $command->setApplication($artisan);
 
                         if ($command instanceof Commands\Command) {
