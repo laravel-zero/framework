@@ -14,7 +14,7 @@ final class QueueInstallTest extends TestCase
     {
         File::delete(database_path('database.sqlite'));
         File::delete(database_path('migrations'));
-        File::delete(database_path('seeds' . DIRECTORY_SEPARATOR . 'DatabaseSeeder.php'));
+        File::delete(database_path('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php'));
         File::delete(base_path('.gitignore'));
         touch(base_path('.gitignore'));
     }
