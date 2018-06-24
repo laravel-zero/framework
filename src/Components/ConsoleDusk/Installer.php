@@ -25,7 +25,7 @@ final class Installer extends AbstractInstaller
     /**
      * {@inheritdoc}
      */
-    protected $description = 'Installs nunomaduro/laravel-console-dusk';
+    protected $description = 'Console Dusk. Easy-to-use browser automation.';
 
     /**
      * {@inheritdoc}

@@ -11,7 +11,7 @@ declare(strict_types=1);
  *  file that was distributed with this source code.
  */
 
-namespace LaravelZero\Framework\Components\Log;
+namespace LaravelZero\Framework\Components\Queue;
 
 use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Components\AbstractInstaller;
@@ -21,53 +21,40 @@ final class Installer extends AbstractInstaller
     /**
      * {@inheritdoc}
      */
-    protected $name = 'install:log';
+    protected $name = 'install:queue';
 
     /**
      * {@inheritdoc}
      */
-    protected $description = 'Logging. The robust Laravel logging services.';
+    protected $description = 'The Laravel Queue component. Provides a unified API across a variety of different queue services.';
 
     /**
      * The config file path.
      */
-    private const CONFIG_FILE = __DIR__.DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'logging.php';
+    private const CONFIG_FILE = __DIR__.DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'queue.php';
 
     /**
      * {@inheritdoc}
      */
     public function install(): void
     {
-        $this->require('illuminate/log "5.6.*"');
+        $this->call('app:install', ['component' => 'database']);
+
+        $this->require('illuminate/bus "5.6.*"');
+        $this->require('illuminate/queue "5.6.*"');
 
         $this->task(
-            'Creating default logging configuration',
+            'Creating default queue configuration',
             function () {
-                if (! File::exists(config_path('logging.php'))) {
+                if (! File::exists(config_path('queue.php'))) {
                     return File::copy(
                         static::CONFIG_FILE,
-                        $this->app->configPath('logging.php')
+                        $this->app->configPath('queue.php')
                     );
                 }
 
                 return false;
             }
-        );
-
-        $this->info('Usage:');
-        $this->comment(
-            '
-use Illuminate\Support\Facades\Log;
-
-Log::emergency($message);
-Log::alert($message);
-Log::critical($message);
-Log::error($message);
-Log::warning($message);
-Log::notice($message);
-Log::info($message);
-Log::debug($message);
-'
         );
     }
 }

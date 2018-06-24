@@ -27,7 +27,7 @@ final class Installer extends AbstractInstaller
     /**
      * {@inheritdoc}
      */
-    protected $description = 'Installs vlucas/phpdotenv';
+    protected $description = 'Dotenv. Loads environment variables from `.env`.';
 
     /**
      * {@inheritdoc}

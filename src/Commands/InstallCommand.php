@@ -39,6 +39,7 @@ final class InstallCommand extends Command
         'database' => Components\Database\Installer::class,
         'dotenv' => Components\Dotenv\Installer::class,
         'log' => Components\Log\Installer::class,
+        'queue' => Components\Queue\Installer::class,
     ];
 
     /**
@@ -48,12 +49,10 @@ final class InstallCommand extends Command
     {
         $title = 'Laravel Zero - Component installer';
 
-        $choices = [
-            'console-dusk' => 'Console Dusk - Laravel Dusk on artisan commands',
-            'database' => 'Database     - Laravel Eloquent',
-            'dotenv' => 'Dotenv       - Loads environment variables from `.env`',
-            'log' => 'Log          - Laravel Log component',
-        ];
+        $choices = [];
+        foreach ($this->components as $name => $componentClass) {
+            $choices[$name] = $this->app->make($componentClass)->getDescription();
+        }
 
         if (! TerminalFactory::fromSystem()
             ->isTTY()) {
@@ -70,6 +69,8 @@ final class InstallCommand extends Command
 
         if ($option !== null && ! empty($this->components[$option])) {
             $command = tap($this->app[$this->components[$option]])->setLaravel($this->app);
+
+            $command->setApplication($this->getApplication());
 
             $this->info("Installing {$option} component...");
 

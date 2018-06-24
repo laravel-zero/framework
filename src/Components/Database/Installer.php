@@ -27,7 +27,7 @@ final class Installer extends AbstractInstaller
     /**
      * {@inheritdoc}
      */
-    protected $description = 'Installs illuminate/database - Eloquent';
+    protected $description = 'Eloquent ORM. Simple ActiveRecord implementation for working with your database.';
 
     /**
      * The config file path.

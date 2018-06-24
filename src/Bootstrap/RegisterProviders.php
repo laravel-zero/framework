@@ -48,6 +48,7 @@ class RegisterProviders extends BaseRegisterProviders implements BoostrapperCont
      */
     protected $components = [
         Components\Log\Provider::class,
+        Components\Queue\Provider::class,
         Components\Database\Provider::class,
         Components\ConsoleDusk\Provider::class,
     ];

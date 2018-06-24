@@ -83,13 +83,8 @@ class Provider extends AbstractComponentProvider
      */
     protected function registerDatabaseService(): void
     {
-        $this->app['config']->set('database.migrations', 'migrations');
         $this->app->alias('db', \Illuminate\Database\ConnectionResolverInterface::class);
-
         $this->app->register(\Illuminate\Database\DatabaseServiceProvider::class);
-
-        $this->app->make(\Illuminate\Database\Capsule\Manager::class)
-            ->setAsGlobal();
 
         if (File::exists($this->app->databasePath('seeds'))) {
             collect(File::files($this->app->databasePath('seeds')))->each(
