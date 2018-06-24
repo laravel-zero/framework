@@ -12,8 +12,7 @@ final class CommandTest extends TestCase
 {
     public function testThatHandleMethodMustBeOverwritten(): void
     {
-        $command = new class() extends Command
-        {
+        $command = new class() extends Command {
             protected $name = 'handle:test';
         };
 
