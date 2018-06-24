@@ -15,6 +15,7 @@ namespace LaravelZero\Framework\Commands;
 
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Process\Process;
+use Illuminate\Console\Application as Artisan;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
@@ -53,7 +54,7 @@ final class BuildCommand extends Command
     {
         $this->title('Building process');
 
-        $this->build($this->input->getArgument('name') ?? ARTISAN_BINARY);
+        $this->build($this->input->getArgument('name') ?? $this->getBinary());
     }
 
     /**
@@ -129,7 +130,7 @@ final class BuildCommand extends Command
 
         $this->output->newLine();
 
-        File::move($this->app->basePath(ARTISAN_BINARY).'.phar', $this->app->buildsPath($name));
+        File::move($this->app->basePath($this->getBinary()).'.phar', $this->app->buildsPath($name));
 
         return $this;
     }
@@ -165,6 +166,16 @@ final class BuildCommand extends Command
         static::$config = null;
 
         return $this;
+    }
+
+    /**
+     * Returns the artisan binary.
+     *
+     * @return string
+     */
+    private function getBinary(): string
+    {
+        return str_replace("'", '', Artisan::artisanBinary());
     }
 
     /**

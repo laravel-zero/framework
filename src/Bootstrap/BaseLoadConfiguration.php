@@ -1,0 +1,51 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * This file is part of Laravel Zero.
+ *
+ * (c) Nuno Maduro <enunomaduro@gmail.com>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
+namespace LaravelZero\Framework\Bootstrap;
+
+use function ksort;
+use function basename;
+use Symfony\Component\Finder\Finder;
+use Illuminate\Foundation\Bootstrap\LoadConfiguration;
+use Illuminate\Contracts\Foundation\Application as ApplicationContract;
+
+final class BaseLoadConfiguration extends LoadConfiguration
+{
+    /**
+     * Get all of the configuration files for the application.
+     *
+     * @param  \Illuminate\Contracts\Foundation\Application $app
+     *
+     * @return array
+     */
+    protected function getConfigurationFiles(ApplicationContract $app): array
+    {
+        $files = [];
+
+        $configPath = $app->configPath();
+
+        $configFiles = Finder::create()
+            ->files()
+            ->name('*.php')
+            ->in($configPath);
+
+        foreach ($configFiles as $file) {
+            $directory = $this->getNestedDirectory($file, $configPath);
+            $files[$directory.basename($file->getPathname(), '.php')] = $file->getPathname();
+        }
+
+        ksort($files, SORT_NATURAL);
+
+        return $files;
+    }
+}

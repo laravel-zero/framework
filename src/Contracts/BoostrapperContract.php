@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Contracts;
 
-use Illuminate\Contracts\Foundation\Application;
+use LaravelZero\Framework\Application;
 
 interface BoostrapperContract
 {
@@ -21,7 +21,9 @@ interface BoostrapperContract
      * Performs a core task that needs to be performed on
      * early stages of the framework.
      *
-     * @param \Illuminate\Contracts\Foundation\Application $app
+     * @param \LaravelZero\Framework\Application $app
+     *
+     * @return void
      */
     public function bootstrap(Application $app): void;
 }

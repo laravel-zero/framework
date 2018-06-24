@@ -37,7 +37,7 @@
         "illuminate/bus": "^5.6",
         "illuminate/log": "5.6.*",
         "illuminate/queue": "^5.6",
-        "phpstan/phpstan": "^0.9.2",
+        "phpstan/phpstan": "^0.10",
         "phpunit/phpunit": "^7.2",
         "vlucas/phpdotenv": "^2.4",
         "illuminate/database": "5.6.*",
@@ -52,7 +52,10 @@
         "psr-4": {
             "Tests\\": "tests",
             "App\\": "tests/Application/app"
-        }
+        },
+        "classmap": [
+            "src/Components/Database/stubs"
+        ]
     },
     "config": {
         "sort-packages": true

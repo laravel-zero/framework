@@ -22,7 +22,7 @@ use LaravelZero\Framework\Exceptions\ConsoleException;
 use Illuminate\Foundation\Application as BaseApplication;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
 
-class Application extends BaseApplication
+final class Application extends BaseApplication
 {
     /**
      * Get the builds path.

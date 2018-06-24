@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Bootstrap;
 
-use Illuminate\Contracts\Foundation\Application;
+use LaravelZero\Framework\Application;
 use LaravelZero\Framework\Contracts\BoostrapperContract;
 use LaravelZero\Framework\Providers\GitVersion\GitVersionServiceProvider;
 

@@ -14,11 +14,11 @@ declare(strict_types=1);
 namespace LaravelZero\Framework\Bootstrap;
 
 use function class_exists;
-use Illuminate\Contracts\Foundation\Application;
+use LaravelZero\Framework\Application;
 use LaravelZero\Framework\Contracts\BoostrapperContract;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables as BaseLoadEnvironmentVariables;
 
-final class LoadEnvironmentVariables extends BaseLoadEnvironmentVariables implements BoostrapperContract
+final class LoadEnvironmentVariables implements BoostrapperContract
 {
     /**
      * {@inheritdoc}
@@ -26,7 +26,7 @@ final class LoadEnvironmentVariables extends BaseLoadEnvironmentVariables implem
     public function bootstrap(Application $app): void
     {
         if (class_exists(\Dotenv\Dotenv::class)) {
-            parent::bootstrap($app);
+            $app->make(BaseLoadEnvironmentVariables::class)->bootstrap($app);
         }
     }
 }

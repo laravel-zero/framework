@@ -16,19 +16,20 @@ namespace LaravelZero\Framework\Bootstrap;
 use function ksort;
 use function basename;
 use Symfony\Component\Finder\Finder;
+use LaravelZero\Framework\Application;
 use Illuminate\Console\Application as Artisan;
-use Illuminate\Contracts\Foundation\Application;
 use LaravelZero\Framework\Contracts\BoostrapperContract;
-use Illuminate\Foundation\Bootstrap\LoadConfiguration as BaseLoadConfiguration;
+use LaravelZero\Framework\Bootstrap\BaseLoadConfiguration;
 
-final class LoadConfiguration extends BaseLoadConfiguration implements BoostrapperContract
+final class LoadConfiguration implements BoostrapperContract
 {
     /**
      * {@inheritdoc}
      */
     public function bootstrap(Application $app): void
     {
-        parent::bootstrap($app);
+        $app->make(BaseLoadConfiguration::class)
+            ->bootstrap($app);
 
         $app->detectEnvironment(
             function () use ($app) {
@@ -45,33 +46,5 @@ final class LoadConfiguration extends BaseLoadConfiguration implements Boostrapp
                 $artisan->setVersion($app->version());
             }
         );
-    }
-
-    /**
-     * Get all of the configuration files for the application.
-     *
-     * @param  \Illuminate\Contracts\Foundation\Application $app
-     *
-     * @return array
-     */
-    protected function getConfigurationFiles(Application $app): array
-    {
-        $files = [];
-
-        $configPath = $app->configPath();
-
-        $configFiles = Finder::create()
-            ->files()
-            ->name('*.php')
-            ->in($configPath);
-
-        foreach ($configFiles as $file) {
-            $directory = $this->getNestedDirectory($file, $configPath);
-            $files[$directory.basename($file->getPathName(), '.php')] = $file->getPathName();
-        }
-
-        ksort($files, SORT_NATURAL);
-
-        return $files;
     }
 }

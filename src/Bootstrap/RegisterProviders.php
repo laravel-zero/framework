@@ -16,7 +16,7 @@ namespace LaravelZero\Framework\Bootstrap;
 use function collect;
 use LaravelZero\Framework\Providers;
 use LaravelZero\Framework\Components;
-use Illuminate\Contracts\Foundation\Application;
+use LaravelZero\Framework\Application;
 use LaravelZero\Framework\Contracts\BoostrapperContract;
 use NunoMaduro\LaravelConsoleMenu\LaravelConsoleMenuServiceProvider;
 use NunoMaduro\LaravelConsoleTask\LaravelConsoleTaskServiceProvider;
@@ -24,7 +24,7 @@ use NunoMaduro\LaravelConsoleSummary\LaravelConsoleSummaryServiceProvider;
 use NunoMaduro\LaravelDesktopNotifier\LaravelDesktopNotifierServiceProvider;
 use Illuminate\Foundation\Bootstrap\RegisterProviders as BaseRegisterProviders;
 
-class RegisterProviders extends BaseRegisterProviders implements BoostrapperContract
+class RegisterProviders implements BoostrapperContract
 {
     /**
      * Core providers.
@@ -54,16 +54,15 @@ class RegisterProviders extends BaseRegisterProviders implements BoostrapperCont
     ];
 
     /**
-     * Bootstrap register providers.
-     *
-     * @param \Illuminate\Contracts\Foundation\Application $app
+     * {@inheritdoc}
      */
     public function bootstrap(Application $app): void
     {
         /*
          * First, we register Laravel Foundation providers.
          */
-        parent::bootstrap($app);
+        $app->make(BaseRegisterProviders::class)
+            ->bootstrap($app);
 
         /*
          * Then we register Laravel Zero available providers.

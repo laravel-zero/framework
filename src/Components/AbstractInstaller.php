@@ -30,7 +30,7 @@ abstract class AbstractInstaller extends Command implements InstallerContract
     /**
      * Holds an instance of composer.
      *
-     * @var \LaravelZero\Framework\Contracts\Providers\Composer
+     * @var \LaravelZero\Framework\Contracts\Providers\ComposerContract
      */
     protected $composer;
 

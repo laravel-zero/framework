@@ -16,6 +16,8 @@ namespace LaravelZero\Framework\Commands;
 use LogicException;
 use function strlen;
 use function str_repeat;
+use function func_get_args;
+use NunoMaduro\LaravelConsoleMenu\Menu;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Console\Command as BaseCommand;
 
@@ -24,7 +26,7 @@ abstract class Command extends BaseCommand
     /**
      * Holds an instance of the app, if any.
      *
-     * @var \Illuminate\Contracts\Foundation\Application|null
+     * @var \LaravelZero\Framework\Application
      */
     protected $app;
 
@@ -57,6 +59,33 @@ abstract class Command extends BaseCommand
     public function setLaravel($laravel): void
     {
         parent::setLaravel($this->app = $laravel);
+    }
+
+    /*
+     * Returns a menu builder.
+     *
+     * @param  string $title
+     * @param  array $options
+     *
+     * @return \NunoMaduro\LaravelConsoleMenu\Menu
+     */
+    public function menu(string $title, array $options = []): Menu
+    {
+        return $this->__call('menu', func_get_args());
+    }
+
+    /*
+     * Performs the given task, outputs and
+     * returns the result.
+     *
+     * @param  string $title
+     * @param  callable|null $task
+     *
+     * @return bool With the result of the task.
+     */
+    public function task(string $title = '', $task = null): bool
+    {
+        return $this->__call('task', func_get_args());
     }
 
     /**
