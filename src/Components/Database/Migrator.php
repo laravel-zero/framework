@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Components\Database;
 
-
 use SplFileInfo;
 use function collect;
 use Symfony\Component\Finder\Finder;
