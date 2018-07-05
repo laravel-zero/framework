@@ -96,13 +96,8 @@ final class Composer implements ComposerContract
     {
         $process = new Process($cmd, $cwd);
 
-        if ('\\' !== DIRECTORY_SEPARATOR && file_exists('/dev/tty') && is_readable('/dev/tty')) {
-            try {
-                $process->setTty(true);
-            } catch (Throwable $e) {
-                // Ignore this error, as it just indicates there is no working TTY available
-                // and the rude check above failed to detect that.
-            }
+        if ($process->isTty()) {
+            $process->setTty(true);
         }
 
         try {
