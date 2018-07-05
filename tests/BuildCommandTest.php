@@ -22,12 +22,10 @@ final class BuildCommandTest extends TestCase
     {
         $this->mockComposer();
 
-        $output = new class() extends NullOutput
-        {
+        $output = new class() extends NullOutput {
             public function section()
             {
-                return new class() extends NullOutput
-                {
+                return new class() extends NullOutput {
                     public function clear()
                     {
                     }
@@ -50,12 +48,10 @@ final class BuildCommandTest extends TestCase
 
         $contents = File::get(config_path('app.php'));
 
-        $output = new class() extends NullOutput
-        {
+        $output = new class() extends NullOutput {
             public function section()
             {
-                return new class() extends NullOutput
-                {
+                return new class() extends NullOutput {
                     public function clear()
                     {
                         throw new Exception('Foo bar');
