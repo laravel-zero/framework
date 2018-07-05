@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Components\Database;
 
+
+use SplFileInfo;
 use function collect;
 use Symfony\Component\Finder\Finder;
 use Illuminate\Database\Migrations\Migrator as BaseMigrator;
@@ -42,7 +44,7 @@ class Migrator extends BaseMigrator
                             ->files()
                     )
                         ->map(
-                            function ($file) {
+                            function (SplFileInfo $file) {
                                 return $file->getPathname();
                             }
                         )

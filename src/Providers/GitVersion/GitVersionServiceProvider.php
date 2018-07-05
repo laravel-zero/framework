@@ -15,6 +15,7 @@ namespace LaravelZero\Framework\Providers\GitVersion;
 
 use Symfony\Component\Process\Process;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Foundation\Application;
 
 /**
  * @codeCoverageIgnore
@@ -28,7 +29,7 @@ final class GitVersionServiceProvider extends ServiceProvider
     {
         $this->app->bind(
             'git.version',
-            function ($app) {
+            function (Application $app) {
                 $task = 'git describe --tags $(git rev-list --tags --max-count=1)';
 
                 $process = tap(new Process($task, $app->basePath()))->run();
