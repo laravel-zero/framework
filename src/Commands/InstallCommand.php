@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace LaravelZero\Framework\Commands;
 
 use LaravelZero\Framework\Components;
-use PhpSchool\CliMenu\Terminal\TerminalFactory;
+use Symfony\Component\Process\Process;
 use Symfony\Component\Console\Input\ArrayInput;
 
 final class InstallCommand extends Command
@@ -54,8 +54,7 @@ final class InstallCommand extends Command
             $choices[$name] = $this->app->make($componentClass)->getDescription();
         }
 
-        if (! TerminalFactory::fromSystem()
-            ->isTTY()) {
+        if (! Process::isTtySupported()) {
             $option = $this->choice($title, $choices);
         } else {
             $option = $this->argument('component') ?: $this->menu(
