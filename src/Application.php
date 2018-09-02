@@ -25,7 +25,7 @@ use Symfony\Component\Console\Exception\CommandNotFoundException;
 final class Application extends BaseApplication
 {
     /**
-     * Get the builds path. With, optionally, a path to append to the base path
+     * Get the builds path. With, optionally, a path to append to the base path.
      */
     public function buildsPath(string $path = ''): string
     {
