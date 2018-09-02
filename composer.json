@@ -35,7 +35,7 @@
     },
     "require-dev": {
         "phpstan/phpstan": "^0.10",
-        "phpunit/phpunit": "^7.2",
+        "phpunit/phpunit": "^7.3",
         "vlucas/phpdotenv": "^2.4",
         "illuminate/bus": "5.7.*-dev",
         "illuminate/log": "5.7.*-dev",
