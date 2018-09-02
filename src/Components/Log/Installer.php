@@ -38,7 +38,7 @@ final class Installer extends AbstractInstaller
      */
     public function install(): void
     {
-        $this->require('illuminate/log "5.6.*"');
+        $this->require('illuminate/log "5.7.*-dev"');
 
         $this->task(
             'Creating default logging configuration',
