@@ -35,10 +35,7 @@ abstract class AbstractInstaller extends Command implements InstallerContract
     protected $composer;
 
     /**
-     * Installer constructor.
-     *
-     * @param \Illuminate\Filesystem\Filesystem $files
-     * @param \LaravelZero\Framework\Contracts\Providers\ComposerContract $composer
+     * AbstractInstaller constructor.
      */
     public function __construct(Filesystem $files, ComposerContract $composer)
     {
@@ -52,7 +49,7 @@ abstract class AbstractInstaller extends Command implements InstallerContract
     /**
      * {@inheritdoc}
      */
-    public function handle(): void
+    public function handle()
     {
         $this->install();
     }

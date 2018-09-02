@@ -16,9 +16,8 @@ namespace LaravelZero\Framework\Contracts\Commands\Component;
 interface InstallerContract
 {
     /**
-     * Installs a component.
-     *
-     * @return void
+     * Installs the component on the
+     * Laravel Zero application.
      */
     public function install(): void;
 }

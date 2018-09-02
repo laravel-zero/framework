@@ -38,8 +38,6 @@ final class FilesystemServiceProvider extends BaseServiceProvider
      * Returns the default application filesystems config.
      *
      * We it simple we use the `local` driver.
-     *
-     * @return array
      */
     protected function getDefaultConfig(): array
     {

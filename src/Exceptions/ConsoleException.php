@@ -34,12 +34,6 @@ final class ConsoleException extends Exception implements ConsoleExceptionContra
 
     /**
      * ConsoleException constructor.
-     *
-     * @param int $exitCode
-     * @param string|null $message
-     * @param \Exception|null $previous
-     * @param array $headers
-     * @param int code
      */
     public function __construct(
         int $exitCode,

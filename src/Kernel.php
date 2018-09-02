@@ -54,9 +54,6 @@ final class Kernel extends BaseKernel
 
     /**
      * Kernel constructor.
-     *
-     * @param \Illuminate\Contracts\Foundation\Application $app
-     * @param \Illuminate\Contracts\Events\Dispatcher $events
      */
     public function __construct(
         \Illuminate\Contracts\Foundation\Application $app,
@@ -176,8 +173,6 @@ final class Kernel extends BaseKernel
 
     /**
      * Gets the application name.
-     *
-     * @return string
      */
     public function getName(): string
     {

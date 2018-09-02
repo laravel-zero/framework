@@ -28,10 +28,6 @@ class Migrator extends BaseMigrator
      *
      * Differs from the original `getMigrationFiles` because
      * the phar don't support globs.
-     *
-     * @param  string|array $paths
-     *
-     * @return array
      */
     public function getMigrationFiles($paths): array
     {

@@ -33,8 +33,6 @@ final class CacheServiceProvider extends BaseServiceProvider
      * Returns the default application cache config.
      *
      * We keep it simple using the `array` driver.
-     *
-     * @return array
      */
     private function getDefaultConfig(): array
     {

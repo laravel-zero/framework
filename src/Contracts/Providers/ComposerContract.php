@@ -16,37 +16,25 @@ namespace LaravelZero\Framework\Contracts\Providers;
 interface ComposerContract
 {
     /**
-     * Runs a composer install.
-     *
-     * @param  array  $options
-     *
-     * @return bool
+     * Runs a composer install with
+     * the provided options.
      */
     public function install(array $options = []): bool;
 
     /**
-     * Pulls the provided package.
-     *
-     * @param  string $package
-     *
-     * @return bool
+     * Runs a composer require with
+     * the provided package.
      */
     public function require(string $package): bool;
 
     /**
-     * Creates an project.
+     * Runs a composer create-project.
      *
      * Usage: createProject(
      *     'laravel-zero/laravel-zero',
      *     'my-project-name',
      *     [--prefer-dist]
      * )
-     *
-     * @param  string $package
-     * @param  string $name
-     * @param  array $options
-     *
-     * @return bool
      */
-    public function createProject(string $package, string $name, array $options): bool;
+    public function createProject(string $skeleton, string $projectName, array $options): bool;
 }

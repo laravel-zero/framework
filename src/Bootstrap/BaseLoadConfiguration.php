@@ -23,10 +23,6 @@ final class BaseLoadConfiguration extends LoadConfiguration
 {
     /**
      * Get all of the configuration files for the application.
-     *
-     * @param  \Illuminate\Contracts\Foundation\Application $app
-     *
-     * @return array
      */
     protected function getConfigurationFiles(ApplicationContract $app): array
     {

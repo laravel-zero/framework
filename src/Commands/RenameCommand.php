@@ -32,7 +32,7 @@ final class RenameCommand extends Command
     /**
      * {@inheritdoc}
      */
-    public function handle(): void
+    public function handle()
     {
         $this->info('Renaming the application...');
 
@@ -42,8 +42,6 @@ final class RenameCommand extends Command
     /**
      * Updates the binary name and the application
      * name on the composer.json.
-     *
-     * @return $this
      */
     private function rename(): RenameCommand
     {
@@ -63,8 +61,6 @@ final class RenameCommand extends Command
      * Asks for the application name.
      *
      * If there is no interaction, we take the folder basename.
-     *
-     * @return string
      */
     private function asksForApplicationName(): string
     {
@@ -81,10 +77,6 @@ final class RenameCommand extends Command
 
     /**
      * Update composer json with related information.
-     *
-     * @param string $name
-     *
-     * @return $this
      */
     private function updateComposer(string $name): RenameCommand
     {
@@ -132,10 +124,6 @@ final class RenameCommand extends Command
 
     /**
      * Renames the application binary.
-     *
-     * @param string $name
-     *
-     * @return $this
      */
     private function renameBinary(string $name): RenameCommand
     {
@@ -151,8 +139,6 @@ final class RenameCommand extends Command
 
     /**
      * Returns the current binary name.
-     *
-     * @return string
      */
     private function getCurrentBinaryName(): string
     {
@@ -163,8 +149,6 @@ final class RenameCommand extends Command
 
     /**
      * Returns the composer.json file contents.
-     *
-     * @return string
      */
     private function getComposer(): string
     {
@@ -179,8 +163,6 @@ final class RenameCommand extends Command
 
     /**
      * Returns the config file contents.
-     *
-     * @return string
      */
     private function getConfig(): string
     {

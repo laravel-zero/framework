@@ -11,12 +11,7 @@ use Illuminate\Support\ServiceProvider;
  */
 class FakeServiceProvider extends ServiceProvider
 {
-    /**
-     * Register composer service.
-     *
-     * @return void
-     */
-    public function register(): void
+    public function register()
     {
         $this->app->bind(
             'foo',

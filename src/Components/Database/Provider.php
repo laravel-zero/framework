@@ -78,8 +78,6 @@ class Provider extends AbstractComponentProvider
      * Registers the database service.
      *
      * Makes this Capsule Instance available globally via static methods.
-     *
-     * @return void
      */
     protected function registerDatabaseService(): void
     {
@@ -97,8 +95,6 @@ class Provider extends AbstractComponentProvider
 
     /**
      * Registers the migration service.
-     *
-     * @return void
      */
     protected function registerMigrationService(): void
     {

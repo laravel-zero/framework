@@ -45,7 +45,7 @@ final class InstallCommand extends Command
     /**
      * {@inheritdoc}
      */
-    public function handle(): void
+    public function handle()
     {
         $title = 'Laravel Zero - Component installer';
 

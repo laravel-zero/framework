@@ -71,9 +71,9 @@ final class Composer implements ComposerContract
     /**
      * {@inheritdoc}
      */
-    public function createProject(string $package, string $name, array $options): bool
+    public function createProject(string $skeleton, string $projectName, array $options): bool
     {
-        $cmd = "composer create-project $package $name";
+        $cmd = "composer create-project $skeleton $projectName";
 
         collect($options)->each(
             function ($option) use (&$cmd) {
@@ -85,12 +85,7 @@ final class Composer implements ComposerContract
     }
 
     /**
-     * Runs the provided command.
-     *
-     * @param  string $cmd
-     * @param string|null $cwd
-     *
-     * @return bool
+     * Runs the provided command on the provided folder.
      */
     private function run(string $cmd, string $cwd = null): bool
     {

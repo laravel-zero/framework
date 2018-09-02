@@ -6,17 +6,9 @@ use LaravelZero\Framework\Commands\Command;
 
 class FakeFooCommand extends Command
 {
-    /**
-     * The name of the console command.
-     *
-     * @var string
-     */
     protected $name = 'fake:foo';
 
-    /**
-     * {@inheritdoc}
-     */
-    public function handle(): void
+    public function handle()
     {
         $this->info('Foo bar');
     }

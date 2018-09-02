@@ -18,25 +18,17 @@ use Symfony\Component\Console\Exception\ExceptionInterface;
 interface ConsoleExceptionContract extends ExceptionInterface
 {
     /**
-     * Returns the exit code.
-     *
-     * @return int
+     * Gets the exit code.
      */
     public function getExitCode(): int;
 
     /**
-     * Returns the headers.
-     *
-     * @return array
+     * Gets the headers.
      */
     public function getHeaders(): array;
 
     /**
      * Sets the headers.
-     *
-     * @param array $headers
-     *
-     * @return \LaravelZero\Framework\Contracts\Exceptions\ConsoleExceptionContract
      */
     public function setHeaders(array $headers): ConsoleExceptionContract;
 }

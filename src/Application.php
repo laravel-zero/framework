@@ -25,11 +25,7 @@ use Symfony\Component\Console\Exception\CommandNotFoundException;
 final class Application extends BaseApplication
 {
     /**
-     * Get the builds path.
-     *
-     * @param  string $path Optionally, a path to append to the base path
-     *
-     * @return string
+     * Get the builds path. With, optionally, a path to append to the base path
      */
     public function buildsPath(string $path = ''): string
     {
@@ -91,8 +87,6 @@ final class Application extends BaseApplication
 
     /**
      * Register all of the configured providers.
-     *
-     * @return void
      */
     public function registerConfiguredProviders(): void
     {
@@ -120,14 +114,6 @@ final class Application extends BaseApplication
 
     /**
      * Throw an Console Exception with the given data unless the given condition is true.
-     *
-     * @param  int $code
-     * @param  string $message
-     * @param  array $headers
-     * @return void
-     *
-     * @throws \Symfony\Component\Console\Exception\CommandNotFoundException
-     * @throws \LaravelZero\Framework\Contracts\Exceptions\ConsoleExceptionContract
      */
     public function abort($code, $message = '', array $headers = []): void
     {

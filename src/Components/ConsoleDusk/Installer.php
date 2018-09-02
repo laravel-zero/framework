@@ -39,11 +39,6 @@ final class Installer extends AbstractInstaller
             '
 class VisitLaravelZeroCommand extends Command
 {
-    /**
-     * Execute the console command.
-     *
-     * @return void
-     */
     public function handle()
     {
         $this->browse(function ($browser) {

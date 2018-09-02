@@ -20,10 +20,6 @@ interface BoostrapperContract
     /**
      * Performs a core task that needs to be performed on
      * early stages of the framework.
-     *
-     * @param \LaravelZero\Framework\Application $app
-     *
-     * @return void
      */
     public function bootstrap(Application $app): void;
 }

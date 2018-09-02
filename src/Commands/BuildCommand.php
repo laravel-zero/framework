@@ -50,7 +50,7 @@ final class BuildCommand extends Command
     /**
      * {@inheritdoc}
      */
-    public function handle(): void
+    public function handle()
     {
         $this->title('Building process');
 
@@ -67,10 +67,6 @@ final class BuildCommand extends Command
 
     /**
      * Builds the application into a single file.
-     *
-     * @param string $name The file name.
-     *
-     * @return $this
      */
     private function build(string $name): BuildCommand
     {
@@ -90,11 +86,6 @@ final class BuildCommand extends Command
         return $this;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return $this
-     */
     private function compile(string $name): BuildCommand
     {
         if (! File::exists($this->app->buildsPath())) {
@@ -135,9 +126,6 @@ final class BuildCommand extends Command
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     private function prepare(): BuildCommand
     {
         $file = $this->app->configPath('app.php');
@@ -156,9 +144,6 @@ final class BuildCommand extends Command
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     private function clear(): BuildCommand
     {
         File::put($this->app->configPath('app.php'), static::$config);
@@ -170,8 +155,6 @@ final class BuildCommand extends Command
 
     /**
      * Returns the artisan binary.
-     *
-     * @return string
      */
     private function getBinary(): string
     {

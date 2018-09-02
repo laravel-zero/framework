@@ -33,21 +33,17 @@ abstract class Command extends BaseCommand
     /**
      * Execute the console command.
      *
-     * @return void
-     *
      * @throws \LogicException
+     *
+     * @return mixed
      */
-    public function handle(): void
+    public function handle()
     {
         throw new LogicException('You must override the handle() method in the concrete command class.');
     }
 
     /**
      * Define the command's schedule.
-     *
-     * @param  \Illuminate\Console\Scheduling\Schedule $schedule
-     *
-     * @return void
      */
     public function schedule(Schedule $schedule): void
     {
@@ -61,39 +57,25 @@ abstract class Command extends BaseCommand
         parent::setLaravel($this->app = $laravel);
     }
 
-    /*
+    /**
      * Returns a menu builder.
-     *
-     * @param  string $title
-     * @param  array $options
-     *
-     * @return \NunoMaduro\LaravelConsoleMenu\Menu
      */
     public function menu(string $title, array $options = []): Menu
     {
         return $this->__call('menu', func_get_args());
     }
 
-    /*
+    /**
      * Performs the given task, outputs and
      * returns the result.
-     *
-     * @param  string $title
-     * @param  callable|null $task
-     *
-     * @return bool With the result of the task.
      */
     public function task(string $title = '', $task = null): bool
     {
         return $this->__call('task', func_get_args());
     }
 
-    /**
-     * Displays a title.
-     *
-     * @param  string $title
-     *
-     * @return \LaravelZero\Framework\Commands\Command
+    /*
+     * Displays the given string as title.
      */
     public function title(string $title): Command
     {
