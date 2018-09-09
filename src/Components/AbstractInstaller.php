@@ -18,6 +18,9 @@ use LaravelZero\Framework\Commands\Command;
 use LaravelZero\Framework\Contracts\Providers\ComposerContract;
 use LaravelZero\Framework\Contracts\Commands\Component\InstallerContract;
 
+/**
+ * @internal
+ */
 abstract class AbstractInstaller extends Command implements InstallerContract
 {
     /**

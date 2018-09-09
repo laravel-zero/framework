@@ -17,6 +17,9 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Components\AbstractInstaller;
 
+/**
+ * @internal
+ */
 final class Installer extends AbstractInstaller
 {
     /**

@@ -16,6 +16,9 @@ namespace LaravelZero\Framework\Providers\Composer;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use LaravelZero\Framework\Contracts\Providers\ComposerContract;
 
+/**
+ * @internal
+ */
 final class ComposerServiceProvider extends BaseServiceProvider
 {
     /**

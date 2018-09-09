@@ -18,6 +18,9 @@ use LaravelZero\Framework\Application;
 use LaravelZero\Framework\Contracts\BoostrapperContract;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables as BaseLoadEnvironmentVariables;
 
+/**
+ * @internal
+ */
 final class LoadEnvironmentVariables implements BoostrapperContract
 {
     /**

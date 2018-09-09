@@ -15,6 +15,9 @@ namespace LaravelZero\Framework\Providers\Collision;
 
 use NunoMaduro\Collision\Adapters\Laravel\CollisionServiceProvider as BaseCollisionServiceProvider;
 
+/**
+ * @internal
+ */
 final class CollisionServiceProvider extends BaseCollisionServiceProvider
 {
     /**

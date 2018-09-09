@@ -15,6 +15,9 @@ namespace LaravelZero\Framework\Contracts;
 
 use LaravelZero\Framework\Application;
 
+/**
+ * @internal
+ */
 interface BoostrapperContract
 {
     /**

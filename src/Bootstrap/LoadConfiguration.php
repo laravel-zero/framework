@@ -17,6 +17,9 @@ use LaravelZero\Framework\Application;
 use Illuminate\Console\Application as Artisan;
 use LaravelZero\Framework\Contracts\BoostrapperContract;
 
+/**
+ * @internal
+ */
 final class LoadConfiguration implements BoostrapperContract
 {
     /**

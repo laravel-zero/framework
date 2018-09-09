@@ -16,6 +16,9 @@ namespace LaravelZero\Framework\Components\ConsoleDusk;
 use function class_exists;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
 
+/**
+ * @internal
+ */
 final class Provider extends AbstractComponentProvider
 {
     /**

@@ -16,6 +16,9 @@ namespace LaravelZero\Framework;
 use function array_merge;
 use Illuminate\Foundation\ProviderRepository as BaseProviderRepository;
 
+/**
+ * @internal
+ */
 final class ProviderRepository extends BaseProviderRepository
 {
     /**

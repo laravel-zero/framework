@@ -16,6 +16,9 @@ namespace LaravelZero\Framework\Components\Queue;
 use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Components\AbstractInstaller;
 
+/**
+ * @internal
+ */
 final class Installer extends AbstractInstaller
 {
     /**

@@ -15,6 +15,9 @@ namespace LaravelZero\Framework\Components\ConsoleDusk;
 
 use LaravelZero\Framework\Components\AbstractInstaller;
 
+/**
+ * @internal
+ */
 final class Installer extends AbstractInstaller
 {
     /**

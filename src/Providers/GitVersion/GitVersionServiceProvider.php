@@ -19,6 +19,7 @@ use Illuminate\Contracts\Foundation\Application;
 
 /**
  * @codeCoverageIgnore
+ * @internal
  */
 final class GitVersionServiceProvider extends ServiceProvider
 {

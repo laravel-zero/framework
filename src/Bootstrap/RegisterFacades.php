@@ -17,6 +17,9 @@ use LaravelZero\Framework\Application;
 use LaravelZero\Framework\Contracts\BoostrapperContract;
 use Illuminate\Foundation\Bootstrap\RegisterFacades as BaseRegisterFacades;
 
+/**
+ * @internal
+ */
 final class RegisterFacades implements BoostrapperContract
 {
     private $aliases = [

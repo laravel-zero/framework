@@ -13,6 +13,9 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Contracts\Providers;
 
+/**
+ * @internal
+ */
 interface ComposerContract
 {
     /**

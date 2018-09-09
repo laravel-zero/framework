@@ -15,6 +15,9 @@ namespace LaravelZero\Framework\Contracts\Exceptions;
 
 use Symfony\Component\Console\Exception\ExceptionInterface;
 
+/**
+ * @internal
+ */
 interface ConsoleExceptionContract extends ExceptionInterface
 {
     /**

@@ -15,6 +15,9 @@ namespace LaravelZero\Framework\Components;
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * @internal
+ */
 abstract class AbstractComponentProvider extends ServiceProvider
 {
     /**

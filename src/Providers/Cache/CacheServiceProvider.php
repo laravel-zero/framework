@@ -15,6 +15,9 @@ namespace LaravelZero\Framework\Providers\Cache;
 
 use Illuminate\Cache\CacheServiceProvider as BaseServiceProvider;
 
+/**
+ * @internal
+ */
 final class CacheServiceProvider extends BaseServiceProvider
 {
     /**

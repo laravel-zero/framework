@@ -17,6 +17,9 @@ use LaravelZero\Framework\Application;
 use LaravelZero\Framework\Contracts\BoostrapperContract;
 use LaravelZero\Framework\Providers\GitVersion\GitVersionServiceProvider;
 
+/**
+ * @internal
+ */
 final class CoreBindings implements BoostrapperContract
 {
     /**

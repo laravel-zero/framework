@@ -19,6 +19,9 @@ use function class_exists;
 use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
 
+/**
+ * @internal
+ */
 class Provider extends AbstractComponentProvider
 {
     /**

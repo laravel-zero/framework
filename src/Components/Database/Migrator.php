@@ -20,6 +20,7 @@ use Illuminate\Database\Migrations\Migrator as BaseMigrator;
 
 /**
  * @codeCoverageIgnore
+ * @internal
  */
 class Migrator extends BaseMigrator
 {

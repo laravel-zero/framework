@@ -22,6 +22,7 @@ use LaravelZero\Framework\Contracts\Providers\ComposerContract;
 
 /**
  * @codeCoverageIgnore
+ * @internal
  */
 final class Composer implements ComposerContract
 {

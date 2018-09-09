@@ -19,6 +19,9 @@ use Symfony\Component\Finder\Finder;
 use Illuminate\Foundation\Bootstrap\LoadConfiguration;
 use Illuminate\Contracts\Foundation\Application as ApplicationContract;
 
+/**
+ * @internal
+ */
 final class BaseLoadConfiguration extends LoadConfiguration
 {
     /**
