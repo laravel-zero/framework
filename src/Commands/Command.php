@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Commands;
 
-use LogicException;
 use function strlen;
 use function str_repeat;
 use function func_get_args;
