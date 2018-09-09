@@ -26,7 +26,7 @@
         "nunomaduro/collision": "^2.0",
         "illuminate/container": "5.7.*",
         "illuminate/filesystem": "5.7.*",
-        "laravel-zero/foundation": "5.6.*",
+        "laravel-zero/foundation": "5.7.*",
         "dragonmantank/cron-expression": "^2.0",
         "nunomaduro/laravel-console-menu":"^2.0",
         "nunomaduro/laravel-console-task": "^1.0.6",
