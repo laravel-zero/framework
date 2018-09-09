@@ -69,7 +69,7 @@ class Kernel extends BaseKernel
     /**
      * {@inheritdoc}
      */
-    public function handle($input, $output = null): int
+    public function handle($input, $output = null)
     {
         $this->app->instance(OutputInterface::class, $output);
 
