@@ -40,8 +40,8 @@ final class Installer extends AbstractInstaller
     {
         $this->call('app:install', ['component' => 'database']);
 
-        $this->require('illuminate/bus "5.7.*-dev"');
-        $this->require('illuminate/queue "5.7.*-dev"');
+        $this->require('illuminate/bus "5.7.*"');
+        $this->require('illuminate/queue "5.7.*"');
 
         $this->task(
             'Creating default queue configuration',
