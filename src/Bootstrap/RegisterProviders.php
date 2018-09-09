@@ -25,7 +25,7 @@ use NunoMaduro\LaravelConsoleSummary\LaravelConsoleSummaryServiceProvider;
 use NunoMaduro\LaravelDesktopNotifier\LaravelDesktopNotifierServiceProvider;
 use Illuminate\Foundation\Bootstrap\RegisterProviders as BaseRegisterProviders;
 
-class RegisterProviders implements BoostrapperContract
+final class RegisterProviders implements BoostrapperContract
 {
     /**
      * Core providers.
