@@ -47,7 +47,7 @@ class Kernel extends BaseKernel
         \LaravelZero\Framework\Bootstrap\LoadEnvironmentVariables::class,
         \LaravelZero\Framework\Bootstrap\LoadConfiguration::class,
         \Illuminate\Foundation\Bootstrap\HandleExceptions::class,
-        \Illuminate\Foundation\Bootstrap\RegisterFacades::class,
+        \LaravelZero\Framework\Bootstrap\RegisterFacades::class,
         \LaravelZero\Framework\Bootstrap\RegisterProviders::class,
         \Illuminate\Foundation\Bootstrap\BootProviders::class,
     ];
