@@ -23,7 +23,7 @@ use Illuminate\Console\Application as Artisan;
 use Symfony\Component\Console\Output\OutputInterface;
 use Illuminate\Foundation\Console\Kernel as BaseKernel;
 
-final class Kernel extends BaseKernel
+class Kernel extends BaseKernel
 {
     /**
      * The application's development commands.
