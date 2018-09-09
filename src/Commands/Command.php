@@ -31,18 +31,6 @@ abstract class Command extends BaseCommand
     protected $app;
 
     /**
-     * Execute the console command.
-     *
-     * @throws \LogicException
-     *
-     * @return mixed
-     */
-    public function handle()
-    {
-        throw new LogicException('You must override the handle() method in the concrete command class.');
-    }
-
-    /**
      * Define the command's schedule.
      *
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
