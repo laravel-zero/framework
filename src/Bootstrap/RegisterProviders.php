@@ -18,6 +18,7 @@ use LaravelZero\Framework\Providers;
 use LaravelZero\Framework\Components;
 use LaravelZero\Framework\Application;
 use LaravelZero\Framework\Contracts\BoostrapperContract;
+use NunoMaduro\Collision\Adapters\Laravel\CollisionServiceProvider;
 use NunoMaduro\LaravelConsoleMenu\LaravelConsoleMenuServiceProvider;
 use NunoMaduro\LaravelConsoleTask\LaravelConsoleTaskServiceProvider;
 use NunoMaduro\LaravelConsoleSummary\LaravelConsoleSummaryServiceProvider;
@@ -32,6 +33,7 @@ class RegisterProviders implements BoostrapperContract
      * @var string[]
      */
     protected $providers = [
+        CollisionServiceProvider::class,
         Providers\Cache\CacheServiceProvider::class,
         Providers\Filesystem\FilesystemServiceProvider::class,
         Providers\Composer\ComposerServiceProvider::class,
