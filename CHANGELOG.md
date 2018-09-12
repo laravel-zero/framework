@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Database component now adds the `make:model` command.
 - Mockery as dev-dependency.
 
-### Changes
+## [5.7.0] - 2018-09-12
 - Internal behavior of build feature. Using "humbug/box" to provide fast application bundling.
 - Option `with-dev` on the command `app:build` got removed.
 - Internal framework classes may not available for inheritance.
