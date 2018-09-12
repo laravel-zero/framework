@@ -22,6 +22,7 @@
         "league/flysystem": "^1.0.8",
         "illuminate/events": "5.7.*",
         "illuminate/config": "5.7.*",
+        "symfony/var-dumper": "^4.1",
         "illuminate/console": "5.7.*",
         "nunomaduro/collision": "^2.0",
         "illuminate/container": "5.7.*",
