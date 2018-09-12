@@ -117,7 +117,7 @@ final class Installer extends AbstractInstaller
 $ php <your-application-name> make:migration create_users_table
 $ php <your-application-name> migrate
 
-use Illuminate\Support\Facades\DB;
+use DB;
 
 DB::table(\'users\')->insert(
     [\'email\' => \'enunomaduro@gmail.com\']

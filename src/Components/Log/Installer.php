@@ -60,7 +60,7 @@ final class Installer extends AbstractInstaller
         $this->info('Usage:');
         $this->comment(
             '
-use Illuminate\Support\Facades\Log;
+use Log;
 
 Log::emergency($message);
 Log::alert($message);
