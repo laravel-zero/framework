@@ -6,10 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [5.7.0] - 2018-09-12
 ### Adds
+- Adds queue component. Usage: `php application app:install queue`.
+- Adds `command::title($title)` method.
 - Database component now adds the `make:model` command.
 - Mockery as dev-dependency.
 
-## [5.7.0] - 2018-09-12
+### Changes
 - Internal behavior of build feature. Using "humbug/box" to provide fast application bundling.
 - Option `with-dev` on the command `app:build` got removed.
 - Internal framework classes may not available for inheritance.
