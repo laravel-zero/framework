@@ -4,8 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-
-## [Unreleased]
+## [5.7.0] - 2018-09-12
 ### Adds
 - Database component now adds the `make:model` command.
 - Mockery as dev-dependency.
