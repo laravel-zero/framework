@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changes
 - Internal behavior of build feature. Using "humbug/box" to provide fast application bundling.
 - Option `with-dev` on the command `app:build` got removed.
-- Internal framework classes are now not available for inheritance.
+- Internal framework classes may not available for inheritance.
 - Internal framework structure main contain some changes, e.g: `Commands/App/Builder::class` got moved to `Commands\BuildCommand::class`
 - Removed return type from `Command::handle()`.
 - Removed return type from `Command::schedule()`.
@@ -21,7 +21,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixes
 - Removes seed command from production commands.
 - `.env` are no longer included in builds.
-
 
 ## [5.6.20] - 2018-07-05
 ### Fixes
