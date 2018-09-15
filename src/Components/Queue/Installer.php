@@ -29,7 +29,7 @@ final class Installer extends AbstractInstaller
     /**
      * {@inheritdoc}
      */
-    protected $description = 'The Laravel Queue component. Provides a unified API across a variety of different queue services.';
+    protected $description = 'Queues. Provides a unified API across a variety of different queue services.';
 
     /**
      * The config file path.
