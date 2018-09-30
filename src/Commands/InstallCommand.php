@@ -27,7 +27,7 @@ final class InstallCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected $description = 'Installs a new component';
+    protected $description = 'Install optional components';
 
     /**
      * The list of components installers.

@@ -31,7 +31,7 @@ final class BuildCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected $description = 'Compile your application into a single file';
+    protected $description = 'Build a single file executable';
 
     /**
      * Holds the configuration on is original state.

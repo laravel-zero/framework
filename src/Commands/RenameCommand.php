@@ -27,7 +27,7 @@ final class RenameCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected $description = 'Change the application name';
+    protected $description = 'Set the application name';
 
     /**
      * {@inheritdoc}
