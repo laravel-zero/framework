@@ -29,7 +29,7 @@ final class Installer extends AbstractInstaller
     /**
      * {@inheritdoc}
      */
-    protected $description = 'Queues. Provides a unified API across a variety of different queue services.';
+    protected $description = 'Queues: Unified API across a variety of queue services';
 
     /**
      * The config file path.

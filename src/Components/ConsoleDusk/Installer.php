@@ -28,7 +28,7 @@ final class Installer extends AbstractInstaller
     /**
      * {@inheritdoc}
      */
-    protected $description = 'Console Dusk. Easy-to-use browser automation.';
+    protected $description = 'Console Dusk: Browser automation';
 
     /**
      * {@inheritdoc}

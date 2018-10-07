@@ -30,7 +30,7 @@ final class Installer extends AbstractInstaller
     /**
      * {@inheritdoc}
      */
-    protected $description = 'Dotenv. Loads environment variables from `.env`.';
+    protected $description = 'Dotenv: Loads environment variables from ".env"';
 
     /**
      * {@inheritdoc}

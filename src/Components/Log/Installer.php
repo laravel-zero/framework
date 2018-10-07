@@ -29,7 +29,7 @@ final class Installer extends AbstractInstaller
     /**
      * {@inheritdoc}
      */
-    protected $description = 'Logging. The robust Laravel logging services.';
+    protected $description = 'Log: Robust logging services';
 
     /**
      * The config file path.
