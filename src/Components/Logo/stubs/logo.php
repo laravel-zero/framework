@@ -25,7 +25,7 @@ return [
     |
     */
 
-    'font' => base_path('vendor/laravel-zero/framework/src/Components/Logo/fonts/big.flf'),
+    'font' => \LaravelZero\Framework\Components\Logo\FigletString::DEFAULT_FONT,
 
     /*
     |--------------------------------------------------------------------------

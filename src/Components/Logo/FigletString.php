@@ -24,24 +24,26 @@ final class FigletString
 
     private $figlet;
 
-    public function __construct(string $name, $config)
+    public const DEFAULT_FONT = __DIR__.DIRECTORY_SEPARATOR.'fonts'.DIRECTORY_SEPARATOR.'big.flf';
+
+    public function __construct(string $string, array $options)
     {
-        $this->string = $name;
+        $this->string = $string;
         $this->figlet = new ZendFiglet();
 
-        $this->parseOptions($config);
+        $this->parseOptions($options);
     }
 
-    private function parseOptions($config)
+    private function parseOptions(array $config)
     {
         $this
-            ->font($config->get('logo.font'))
-            ->outputWidth($config->get('logo.outputWidth'))
-            ->justification($config->get('logo.justification'))
-            ->rightToLeft($config->get('logo.rightToLeft'));
+            ->font($config['font'] ?? self::DEFAULT_FONT)
+            ->outputWidth($config['outputWidth'] ?? 80)
+            ->justification($config['justification'] ?? null)
+            ->rightToLeft($config['rightToLeft'] ?? null);
     }
 
-    private function font($font)
+    private function font(?string $font)
     {
         if (is_null($font)) {
             return $this;
@@ -52,14 +54,14 @@ final class FigletString
         return $this;
     }
 
-    private function outputWidth($outputWidth)
+    private function outputWidth(int $outputWidth)
     {
         $this->figlet->setOutputWidth($outputWidth);
 
         return $this;
     }
 
-    private function justification($justification)
+    private function justification(?string $justification)
     {
         switch ($justification) {
             case 'left':
@@ -81,7 +83,7 @@ final class FigletString
         return $this;
     }
 
-    private function rightToLeft($rightToLeft)
+    private function rightToLeft(?string $rightToLeft)
     {
         switch ($rightToLeft) {
             case 'right-to-left':
