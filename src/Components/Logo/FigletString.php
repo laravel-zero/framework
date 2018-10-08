@@ -20,7 +20,6 @@ use Zend\Text\Figlet\Figlet as ZendFiglet;
  */
 final class FigletString
 {
-
     private $string;
 
     private $figlet;
@@ -44,17 +43,19 @@ final class FigletString
 
     private function font($font)
     {
-        if(is_null($font)) {
+        if (is_null($font)) {
             return $this;
         }
 
         $this->figlet->setFont($font);
+
         return $this;
     }
 
     private function outputWidth($outputWidth)
     {
         $this->figlet->setOutputWidth($outputWidth);
+
         return $this;
     }
 
@@ -74,7 +75,7 @@ final class FigletString
                 // Let ZendFiglet handle the justification
                 break;
             default:
-                throw new \InvalidArgumentException("Invalid value given for the `logo.justification` option");
+                throw new \InvalidArgumentException('Invalid value given for the `logo.justification` option');
         }
 
         return $this;
@@ -93,7 +94,7 @@ final class FigletString
                 // Let ZendFiglet handle this
                 break;
             default:
-                throw new \InvalidArgumentException("Invalid value given for the `logo.rightToLeft` option");
+                throw new \InvalidArgumentException('Invalid value given for the `logo.rightToLeft` option');
         }
 
         return $this;
@@ -105,5 +106,4 @@ final class FigletString
 
         return "\n$rendered\n";
     }
-
 }

@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Components\Logo;
 
+use function class_exists;
 use Illuminate\Console\Application as Artisan;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
-use function class_exists;
 
 /**
  * @internal
@@ -37,7 +37,7 @@ final class Provider extends AbstractComponentProvider
     {
         $config = $this->app['config'];
 
-        if($config->get('logo.enabled', false)) {
+        if ($config->get('logo.enabled', false)) {
             Artisan::starting(
                 function ($artisan) use ($config) {
                     $artisan->setName(
