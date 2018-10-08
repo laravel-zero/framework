@@ -53,6 +53,7 @@ final class RegisterProviders implements BoostrapperContract
      */
     protected $components = [
         Components\Log\Provider::class,
+        Components\Logo\Provider::class,
         Components\Queue\Provider::class,
         Components\Database\Provider::class,
         Components\ConsoleDusk\Provider::class,
