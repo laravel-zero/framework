@@ -45,6 +45,7 @@
         "illuminate/log": "5.7.*",
         "illuminate/queue": "5.7.*",
         "illuminate/database": "5.7.*",
+        "zendframework/zend-text": "^2.7",
         "nunomaduro/laravel-console-dusk": "^1.0"
     },
     "autoload": {
