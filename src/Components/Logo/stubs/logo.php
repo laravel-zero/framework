@@ -35,7 +35,7 @@ return [
     |
     | This option defines the maximum width of the output string. This is
     | used for word-wrap as well as justification. Be careful when using
-    | small values, because they may result in an undefined behaviour.
+    | small values, because they may result in an undefined behavior.
     |
     */
 
@@ -59,7 +59,7 @@ return [
     | Right To Left
     |--------------------------------------------------------------------------
     |
-    | This options defines the option in which the text is written. By default
+    | This option defines the option in which the text is written. By, default
     | the setting of the font-file is used. When justification is not defined,
     | a text written from right-to-left is automatically right-aligned.
     |
