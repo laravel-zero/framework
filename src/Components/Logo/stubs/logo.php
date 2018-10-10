@@ -7,8 +7,9 @@ return [
     | Enabled
     |--------------------------------------------------------------------------
     |
-    | This option specifies if the app name should be represented as an ASCII
-    | logo.
+    | This value determines if the app name should be represented as an
+    | ASCII logo. This file provides a sane default location for all
+    | information concerning the logo and is display customization.
     |
     */
 
@@ -19,9 +20,9 @@ return [
     | Default Font
     |--------------------------------------------------------------------------
     |
-    | This option defines the font which should be used for rendering. By
-    | default, one standard font is shipped, but you can download additional
-    | fonts at http://www.figlet.org.
+    | This option defines the font which should be used for rendering.
+    | By default, one default font is shipped. However, you are free
+    | to download and use additional fonts: http://www.figlet.org.
     |
     */
 
@@ -32,9 +33,9 @@ return [
     | Output Width
     |--------------------------------------------------------------------------
     |
-    | This option defines the maximum width of the output string. This is used
-    | for word-wrap as well as justification. Be careful when using small
-    |  values; they may result in an undefined behaviour.
+    | This option defines the maximum width of the output string. This is
+    | used for word-wrap as well as justification. Be careful when using
+    | small values, because they may result in an undefined behaviour.
     |
     */
 
@@ -45,10 +46,9 @@ return [
     | Justification
     |--------------------------------------------------------------------------
     |
-    | This option defines the justification of the text. The default
-    | justification is defined by the Right To Left option.
-    |
-    | Possible values: "left", "center", "right", null
+    | This option defines the justification of the logo text. By default,
+    | justification is provided, which will work well on most of your
+    | console apps. Of course, you are free to change this value.
     |
     */
 
