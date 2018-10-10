@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Components\Logo;
 
+use InvalidArgumentException;
 use Zend\Text\Figlet\Figlet as ZendFiglet;
 
 /**
@@ -77,7 +78,7 @@ final class FigletString
                 // Let ZendFiglet handle the justification
                 break;
             default:
-                throw new \InvalidArgumentException('Invalid value given for the `logo.justification` option');
+                throw new InvalidArgumentException('Invalid value given for the `logo.justification` option');
         }
 
         return $this;
