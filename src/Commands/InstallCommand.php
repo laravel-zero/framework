@@ -62,8 +62,6 @@ final class InstallCommand extends Command
                 $title,
                 $choices
             )
-                ->setForegroundColour('green')
-                ->setBackgroundColour('black')
                 ->open();
         }
 
