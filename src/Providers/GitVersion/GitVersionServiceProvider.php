@@ -35,11 +35,11 @@ final class GitVersionServiceProvider extends ServiceProvider
 
                 if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
                     $taskGetLastRevisionTag = 'git rev-list --tags --max-count=1';
-                    
+
                     $process = tap(new Process($taskGetLastRevisionTag, $app->basePath()))->run();
-                    
+
                     $lastRevisionTag = trim($process->getOutput()) ?: 'unreleased';
-                    
+
                     if ($lastRevisionTag === 'unreleased') {
                         return 'unreleased';
                     }
