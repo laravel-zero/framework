@@ -33,7 +33,7 @@
         "laravel-zero/foundation": "5.7.*",
         "dragonmantank/cron-expression": "^2.0",
         "nunomaduro/laravel-console-menu":"^2.0",
-        "nunomaduro/laravel-console-task": "^1.0.6",
+        "nunomaduro/laravel-console-task": "^1.0.7",
         "nunomaduro/laravel-console-summary": "^1.0",
         "nunomaduro/laravel-desktop-notifier": "^2.0"
     },
