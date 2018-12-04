@@ -69,10 +69,10 @@ final class FigletString
                 $this->figlet->setJustification(ZendFiglet::JUSTIFICATION_LEFT);
                 break;
             case 'center':
-                $this->figlet->setJustification(ZendFiglet::JUSTIFICATION_LEFT);
+                $this->figlet->setJustification(ZendFiglet::JUSTIFICATION_CENTER);
                 break;
             case 'right':
-                $this->figlet->setJustification(ZendFiglet::JUSTIFICATION_LEFT);
+                $this->figlet->setJustification(ZendFiglet::JUSTIFICATION_RIGHT);
                 break;
             case null:
                 // Let ZendFiglet handle the justification
