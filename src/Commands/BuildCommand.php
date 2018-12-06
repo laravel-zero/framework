@@ -158,7 +158,7 @@ final class BuildCommand extends Command
      */
     private function getBinary(): string
     {
-        return str_replace(["'", "\""], '', Artisan::artisanBinary());
+        return str_replace(["'", '"'], '', Artisan::artisanBinary());
     }
 
     /**
