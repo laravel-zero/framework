@@ -21,6 +21,7 @@ use LaravelZero\Framework\Contracts\BoostrapperContract;
 use NunoMaduro\LaravelConsoleMenu\LaravelConsoleMenuServiceProvider;
 use NunoMaduro\LaravelConsoleTask\LaravelConsoleTaskServiceProvider;
 use LaravelZero\Framework\Providers\Collision\CollisionServiceProvider;
+use LaravelZero\Framework\Providers\NullLogger\NullLoggerServiceProvider;
 use NunoMaduro\LaravelConsoleSummary\LaravelConsoleSummaryServiceProvider;
 use NunoMaduro\LaravelDesktopNotifier\LaravelDesktopNotifierServiceProvider;
 use Illuminate\Foundation\Bootstrap\RegisterProviders as BaseRegisterProviders;
@@ -36,6 +37,7 @@ final class RegisterProviders implements BoostrapperContract
      * @var string[]
      */
     protected $providers = [
+        NullLoggerServiceProvider::class,
         CollisionServiceProvider::class,
         Providers\Cache\CacheServiceProvider::class,
         Providers\Filesystem\FilesystemServiceProvider::class,
