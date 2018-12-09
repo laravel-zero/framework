@@ -28,6 +28,6 @@ final class NullLoggerServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(LoggerInterface::class, NullLogger::class);
+        $this->app->singleton('log', NullLogger::class);
     }
 }
