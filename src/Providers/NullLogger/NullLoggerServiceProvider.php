@@ -16,7 +16,6 @@ namespace LaravelZero\Framework\Providers\NullLogger;
 use Psr\Log\NullLogger;
 use Psr\Log\LoggerInterface;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Contracts\Foundation\Application;
 
 /**
  * @internal
