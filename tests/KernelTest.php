@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use Psr\Log\NullLogger;
 use Psr\Log\LoggerInterface;
 use LaravelZero\Framework\Application;
 use Illuminate\Support\Facades\Artisan;
@@ -25,8 +24,8 @@ final class KernelTest extends TestCase
         );
     }
 
-    public function testBindedNullLoggerIntoContainer(): void
+    public function testBindedLoggerIntoContainer(): void
     {
-        $this->assertInstanceOf(NullLogger::class, app(LoggerInterface::class));
+        $this->assertInstanceOf(LoggerInterface::class, app('log'));
     }
 }
