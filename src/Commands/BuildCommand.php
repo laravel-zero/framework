@@ -173,7 +173,7 @@ final class BuildCommand extends Command
      */
     private function getTimeout(): ?float
     {
-        if (! s_numeric($this->option('timeout'))) {
+        if (! is_numeric($this->option('timeout'))) {
             throw new \InvalidArgumentException('The timeout value must be a number.');
         }
 
