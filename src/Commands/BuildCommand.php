@@ -26,7 +26,7 @@ final class BuildCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected $signature = 'app:build {name? : The build name}';
+    protected $signature = 'app:build {name? : The build name} {--timeout=300 : The timeout in seconds or 0 to disable}';
 
     /**
      * {@inheritdoc}
@@ -94,7 +94,10 @@ final class BuildCommand extends Command
 
         $process = new Process(
             './box compile'.' --working-dir='.base_path().' --config='.base_path('box.json'),
-            dirname(dirname(__DIR__)).'/bin'
+            dirname(dirname(__DIR__)).'/bin',
+            null,
+            null,
+            $this->getTimeout()
         );
 
         $section = tap($this->originalOutput->section())->write('');
@@ -159,6 +162,24 @@ final class BuildCommand extends Command
     private function getBinary(): string
     {
         return str_replace(["'", '"'], '', Artisan::artisanBinary());
+    }
+
+    /**
+     * Returns a valid timeout value. Non positive values are converted to null,
+     * meaning no timeout.
+     *
+     * @return float|null
+     * @throws \InvalidArgumentException
+     */
+    private function getTimeout(): ?float
+    {
+        if(!is_numeric($this->option('timeout'))) {
+            throw new \InvalidArgumentException('The timeout value must be a number.');
+        }
+
+        $timeout = (float) $this->option('timeout');
+
+        return $timeout > 0 ? $timeout : null;
     }
 
     /**
