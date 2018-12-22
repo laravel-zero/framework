@@ -4,17 +4,26 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use Illuminate\Support\Facades\Artisan;
 use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorder;
 
 final class RecordCommandsTest extends TestCase
 {
-    public function testThatCommandsCanBeRecorded()
+    public function testThatRecorderWorks()
     {
         app(CommandRecorder::class)->record('dummy:command', ['foo' => 'bar']);
 
         $this->assertCommandNotCalled('foo:bar');
         $this->assertCommandNotCalled('dummy:command');
         $this->assertCommandCalled('dummy:command', ['foo' => 'bar']);
+    }
+
+    public function testThatRecorderTracksKernelAndCommand()
+    {
+        Artisan::call('app:install');
+
+        $this->assertCommandNotCalled('app:install', ['foo' => 'bar']);
+        $this->assertCommandCalled('app:install');
     }
 
     /**
