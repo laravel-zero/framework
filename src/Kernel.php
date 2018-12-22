@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace LaravelZero\Framework;
 
 use function define;
+use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorder;
 use ReflectionClass;
 use function collect;
 use function defined;
@@ -178,5 +179,15 @@ class Kernel extends BaseKernel
     {
         return $this->getArtisan()
             ->getName();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function call($command, array $parameters = [], $outputBuffer = null)
+    {
+        app(CommandRecorder::class)->record($command, $parameters);
+
+        return parent::call($command, $parameters, $outputBuffer);
     }
 }

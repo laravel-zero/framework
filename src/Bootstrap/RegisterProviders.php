@@ -18,6 +18,7 @@ use LaravelZero\Framework\Providers;
 use LaravelZero\Framework\Components;
 use LaravelZero\Framework\Application;
 use LaravelZero\Framework\Contracts\BoostrapperContract;
+use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorderServiceProvider;
 use NunoMaduro\LaravelConsoleMenu\LaravelConsoleMenuServiceProvider;
 use NunoMaduro\LaravelConsoleTask\LaravelConsoleTaskServiceProvider;
 use LaravelZero\Framework\Providers\Collision\CollisionServiceProvider;
@@ -46,6 +47,7 @@ final class RegisterProviders implements BoostrapperContract
         LaravelConsoleTaskServiceProvider::class,
         LaravelConsoleMenuServiceProvider::class,
         LaravelConsoleSummaryServiceProvider::class,
+        CommandRecorderServiceProvider::class,
     ];
 
     /**

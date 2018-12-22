@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Commands;
 
+use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorder;
 use function strlen;
 use function str_repeat;
 use function func_get_args;
@@ -28,6 +29,18 @@ abstract class Command extends BaseCommand
      * @var \LaravelZero\Framework\Application
      */
     protected $app;
+
+    /**
+     * @var CommandRecorder
+     */
+    protected $recorder;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->recorder = app(CommandRecorder::class);
+    }
 
     /**
      * Define the command's schedule.
@@ -79,5 +92,24 @@ abstract class Command extends BaseCommand
         $this->output->newLine();
 
         return $this;
+    }
+
+    public function call($command, array $arguments = [])
+    {
+        $this->record($command, $arguments);
+
+        return parent::call($command, $arguments);
+    }
+
+    public function callSilent($command, array $arguments = [])
+    {
+        $this->record($command, $arguments, CommandRecorder::MODE_SILENT);
+
+        return parent::callSilent($command, $arguments);
+    }
+
+    protected function record($command, $arguments, $mode = CommandRecorder::MODE_DEFAULT)
+    {
+        $this->recorder->record($command, $arguments, $mode);
     }
 }
