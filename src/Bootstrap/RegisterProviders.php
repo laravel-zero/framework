@@ -46,6 +46,7 @@ final class RegisterProviders implements BoostrapperContract
         LaravelConsoleTaskServiceProvider::class,
         LaravelConsoleMenuServiceProvider::class,
         LaravelConsoleSummaryServiceProvider::class,
+        Providers\Built\BuiltServiceProvider::class,
     ];
 
     /**
