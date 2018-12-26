@@ -182,7 +182,7 @@ class Kernel extends BaseKernel
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function call($command, array $parameters = [], $outputBuffer = null)
     {
