@@ -13,13 +13,13 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Commands;
 
-use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorder;
 use function strlen;
 use function str_repeat;
 use function func_get_args;
 use NunoMaduro\LaravelConsoleMenu\Menu;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Console\Command as BaseCommand;
+use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorderRepository;
 
 abstract class Command extends BaseCommand
 {
@@ -31,21 +31,9 @@ abstract class Command extends BaseCommand
     protected $app;
 
     /**
-     * @var CommandRecorder
-     */
-    protected $recorder;
-
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->recorder = app(CommandRecorder::class);
-    }
-
-    /**
      * Define the command's schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @param  \Illuminate\Console\Scheduling\Schedule $schedule
      * @return void
      */
     public function schedule(Schedule $schedule)
@@ -94,22 +82,23 @@ abstract class Command extends BaseCommand
         return $this;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function call($command, array $arguments = [])
     {
-        $this->record($command, $arguments);
+        resolve(CommandRecorderRepository::class)->create($command, $arguments);
 
         return parent::call($command, $arguments);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function callSilent($command, array $arguments = [])
     {
-        $this->record($command, $arguments, CommandRecorder::MODE_SILENT);
+        resolve(CommandRecorderRepository::class)->create($command, $arguments, CommandRecorderRepository::MODE_SILENT);
 
         return parent::callSilent($command, $arguments);
-    }
-
-    protected function record($command, $arguments, $mode = CommandRecorder::MODE_DEFAULT)
-    {
-        $this->recorder->record($command, $arguments, $mode);
     }
 }

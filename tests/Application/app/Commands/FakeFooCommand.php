@@ -6,7 +6,7 @@ use LaravelZero\Framework\Commands\Command;
 
 class FakeFooCommand extends Command
 {
-    protected $name = 'fake:foo';
+    protected $signature = 'fake:foo {foo? : The bar}';
 
     public function handle()
     {

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests;
 
 use LaravelZero\Framework\Application;
-use PHPUnit\Framework\TestCase as BaseTestCase;
+use LaravelZero\Framework\Testing\TestCase as BaseTestCase;
 use Illuminate\Contracts\Foundation\Application as ApplicationContract;
 
 /**
@@ -31,6 +31,8 @@ abstract class TestCase extends BaseTestCase
             define('ARTISAN_BINARY', 'application');
         }
 
+        parent::setUp();
+
         $this->app = $this->createApplication();
     }
 
@@ -39,14 +41,14 @@ abstract class TestCase extends BaseTestCase
      *
      * @return \Illuminate\Contracts\Foundation\Application
      */
-    protected function createApplication(): ApplicationContract
+    public function createApplication(): ApplicationContract
     {
-        $app = require __DIR__.DIRECTORY_SEPARATOR.'Application'.DIRECTORY_SEPARATOR.'bootstrap'.DIRECTORY_SEPARATOR.'app.php';
+        $app = require __DIR__.DIRECTORY_SEPARATOR.'Application'.DIRECTORY_SEPARATOR.'bootstrap'.DIRECTORY_SEPARATOR.
+            'app.php';
 
         Application::setInstance($app);
 
-        $app->make(\Illuminate\Contracts\Console\Kernel::class)
-            ->bootstrap();
+        $app->make(\Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
         return $app;
     }

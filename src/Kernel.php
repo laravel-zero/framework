@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace LaravelZero\Framework;
 
 use function define;
-use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorder;
 use ReflectionClass;
 use function collect;
 use function defined;
@@ -23,6 +22,7 @@ use function get_class;
 use Illuminate\Console\Application as Artisan;
 use Symfony\Component\Console\Output\OutputInterface;
 use Illuminate\Foundation\Console\Kernel as BaseKernel;
+use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorderRepository;
 
 class Kernel extends BaseKernel
 {
@@ -186,7 +186,7 @@ class Kernel extends BaseKernel
      */
     public function call($command, array $parameters = [], $outputBuffer = null)
     {
-        app(CommandRecorder::class)->record($command, $parameters);
+        resolve(CommandRecorderRepository::class)->create($command, $parameters);
 
         return parent::call($command, $parameters, $outputBuffer);
     }
