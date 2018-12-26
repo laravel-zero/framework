@@ -12,21 +12,20 @@
 
 namespace LaravelZero\Framework\Providers\Built;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Str;
 
 class BuiltServiceProvider extends ServiceProvider
 {
-
-    const CONFIG_KEY  = 'app-built';
+    const CONFIG_KEY = 'app-built';
 
     /**
      * {@inheritdoc}
      */
     public function boot(): void
     {
-        if( $this->canReplace('filesystems') ){
+        if ($this->canReplace('filesystems')) {
             $this->replaceFileSystems();
         }
     }
@@ -38,34 +37,30 @@ class BuiltServiceProvider extends ServiceProvider
     {
         $config = $this->app->make('config');
 
-        if ($config->get( self::CONFIG_KEY ) === null) {
-            $config->set( self::CONFIG_KEY , $this->getDefaultConfig());
+        if ($config->get(self::CONFIG_KEY) === null) {
+            $config->set(self::CONFIG_KEY, $this->getDefaultConfig());
         }
     }
 
     /**
-     * Replace keys inside the filesystems config
+     * Replace keys inside the filesystems config.
      */
     protected function replaceFileSystems(): void
     {
         $currentFileSystems = config('filesystems');
 
-        if( isset( $currentFileSystems['disks'] ) && count( $currentFileSystems['disks'] ) > 0 ){
+        if (isset($currentFileSystems['disks']) && count($currentFileSystems['disks']) > 0) {
+            if ($this->canReplace('filesystems.drivers')) {
+                foreach ($this->get('filesystems.drivers') as $driver => $replace) {
+                    foreach ($replace as $key => $replacements) {
+                        $old = array_shift($replacements);
+                        $new = array_shift($replacements);
 
-            if( $this->canReplace('filesystems.drivers') ){
-
-                foreach( $this->get('filesystems.drivers') as $driver => $replace ){
-
-                    foreach( $replace as $key => $replacements ){
-
-                        $old = array_shift( $replacements );
-                        $new = array_shift( $replacements );
-
-                        if( !empty( $old ) && !empty( $new ) ){
-                            foreach( $currentFileSystems['disks'] as $diskName => $diskConfig ){
-                                if( $diskConfig['driver'] === $driver && Str::startsWith( $diskConfig[ $key ], $old ) ){
-                                    $diskConfig[ $key ] = str_replace( $old, $new, $diskConfig[ $key ] );
-                                    Config::set('filesystems.disks.' . $diskName, $diskConfig );
+                        if (! empty($old) && ! empty($new)) {
+                            foreach ($currentFileSystems['disks'] as $diskName => $diskConfig) {
+                                if ($diskConfig['driver'] === $driver && Str::startsWith($diskConfig[$key], $old)) {
+                                    $diskConfig[$key] = str_replace($old, $new, $diskConfig[$key]);
+                                    Config::set('filesystems.disks.'.$diskName, $diskConfig);
                                 }
                             }
                         }
@@ -76,16 +71,16 @@ class BuiltServiceProvider extends ServiceProvider
     }
 
     /**
-     * Verify if we can replace settings when app is in production
+     * Verify if we can replace settings when app is in production.
      *
      * @param null $what
      * @return bool
      */
-    protected function canReplace( $what=null ): bool
+    protected function canReplace($what = null): bool
     {
         $canReplace = true;
-        if( !is_null( $what ) ){
-            if( is_null( config( self::CONFIG_KEY . '.' . $what ) ) ){
+        if (! is_null($what)) {
+            if (is_null(config(self::CONFIG_KEY.'.'.$what))) {
                 $canReplace = false;
             }
         }
@@ -98,15 +93,14 @@ class BuiltServiceProvider extends ServiceProvider
      *
      * @return \Illuminate\Config\Repository|mixed|null
      */
-    protected function get( $what=null )
+    protected function get($what = null)
     {
-        if( is_null( $what ) ){
-            return config( self::CONFIG_KEY );
+        if (is_null($what)) {
+            return config(self::CONFIG_KEY);
         }
 
-        return config( self::CONFIG_KEY . '.' . $what );
+        return config(self::CONFIG_KEY.'.'.$what);
     }
-
 
     /**
      * Returns the default application build config.
@@ -119,7 +113,7 @@ class BuiltServiceProvider extends ServiceProvider
                     'local' => [
                         'root' => [
                             $this->app->storagePath(),
-                            rtrim( getcwd(), DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR . 'storage',
+                            rtrim(getcwd(), DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR.'storage',
                         ],
                     ],
                 ],
