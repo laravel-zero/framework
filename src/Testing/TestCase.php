@@ -14,9 +14,9 @@ declare(strict_types=1);
 namespace LaravelZero\Framework\Testing;
 
 use Illuminate\Support\Facades\Facade;
+use NunoMaduro\Collision\ArgumentFormatter;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorderRepository;
-use NunoMaduro\Collision\ArgumentFormatter;
 
 abstract class TestCase extends BaseTestCase
 {
