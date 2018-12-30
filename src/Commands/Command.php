@@ -101,4 +101,16 @@ abstract class Command extends BaseCommand
 
         return parent::callSilent($command, $arguments);
     }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see {https://github.com/laravel/framework/pull/27005}
+     */
+    public function setHidden($hidden)
+    {
+        parent::setHidden($this->hidden = $hidden);
+
+        return $this;
+    }
 }
