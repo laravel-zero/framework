@@ -50,7 +50,7 @@ final class DotenvInstallTest extends TestCase
         $composerMock = $this->createMock(ComposerContract::class);
         $composerMock->expects($this->once())
             ->method('require')
-            ->with('vlucas/phpdotenv');
+            ->with('vlucas/phpdotenv "^2.0"');
         $this->app->instance(ComposerContract::class, $composerMock);
     }
 }
