@@ -18,7 +18,6 @@ use LaravelZero\Framework\Providers;
 use LaravelZero\Framework\Components;
 use LaravelZero\Framework\Application;
 use LaravelZero\Framework\Contracts\BoostrapperContract;
-use NunoMaduro\LaravelConsoleMenu\LaravelConsoleMenuServiceProvider;
 use NunoMaduro\LaravelConsoleTask\LaravelConsoleTaskServiceProvider;
 use LaravelZero\Framework\Providers\Collision\CollisionServiceProvider;
 use LaravelZero\Framework\Providers\NullLogger\NullLoggerServiceProvider;
