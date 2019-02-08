@@ -18,10 +18,11 @@ Laravel Zero was created by, and is maintained by [Nuno Maduro](https://github.c
 > **Note:** This repository contains the core code of the Laravel Zero framework. If you want to build an application using Laravel Zero, visit the main [Laravel Zero repository](https://github.com/laravel-zero/laravel-zero).
 
 - Built on top of the [Laravel](https://laravel.com) components.
-- Optional installation of Laravel [Eloquent](http://laravel-zero.com/#/?id=database), Laravel [Logging](http://laravel-zero.com/#/?id=log) and many others.
-- Supports interactive [menus](http://laravel-zero.com/#/?id=interactive-menus) and [desktop notifications](http://laravel-zero.com/#/?id=desktop-notifications) on Linux, Windows & MacOS.
-- Ships with a [Scheduler](http://laravel-zero.com/#/?id=scheduler) and a [Standalone Compiler](http://laravel-zero.com/#/?id=build-a-standalone-application).
+- Optional installation of Laravel [Eloquent](https://laravel-zero.com/docs/database/), Laravel [Logging](https://laravel-zero.com/docs/logging/) and many others.
+- Supports interactive [menus](https://laravel-zero.com/docs/build-interactive-menus/) and [desktop notifications](https://laravel-zero.com/docs/send-desktop-notifications/) on Linux, Windows & MacOS.
+- Ships with a [Scheduler](https://laravel-zero.com/docs/task-scheduling/) and  a [Standalone Compiler](https://laravel-zero.com/docs/build-a-standalone-application/).
 - Integration with [Collision](https://github.com/nunomaduro/collision) - Beautiful error reporting
+
 ------
 
 ## Documentation
