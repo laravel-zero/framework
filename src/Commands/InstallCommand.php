@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace LaravelZero\Framework\Commands;
 
 use LaravelZero\Framework\Components;
-use Symfony\Component\Process\Process;
 use Symfony\Component\Console\Input\ArrayInput;
 
 final class InstallCommand extends Command
