@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [5.7.20] - 2019-02-11
 ### Fixed
-- Installation of dotenv component ([#310](https://github.com/laravel-zero/framework/pull/310))
+- Allow spaces in directory names when building the app ([#310](https://github.com/laravel-zero/framework/pull/310))
 
 ## [5.7.19] - 2019-01-04
 ### Fixed
