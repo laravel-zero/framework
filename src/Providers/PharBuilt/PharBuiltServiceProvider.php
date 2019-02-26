@@ -27,7 +27,7 @@ final class PharBuiltServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind('phar.built', function(Application $app) {
+        $this->app->bind('phar.built', function (Application $app) {
             return new PharBuilt();
         });
     }

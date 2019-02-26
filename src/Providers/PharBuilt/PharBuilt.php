@@ -46,7 +46,7 @@ class PharBuilt
      */
     public function dotEnvWithPharBuilt(): string
     {
-        return $this->pharDirPath() . DIRECTORY_SEPARATOR . $this->dotEnvFilename;
+        return $this->pharDirPath().DIRECTORY_SEPARATOR.$this->dotEnvFilename;
     }
 
     /**
