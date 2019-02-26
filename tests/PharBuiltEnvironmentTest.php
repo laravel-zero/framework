@@ -60,7 +60,5 @@ final class PharBuiltEnvironmentTest extends TestCase
          * Is it not using the mocked instance??
          */
         Artisan::call('fake:environmentValue');
-
-
     }
 }
