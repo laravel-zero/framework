@@ -27,7 +27,10 @@ abstract class AbstractComponentProvider extends ServiceProvider
      *
      * @return void
      */
-    abstract public function register(): void;
+    public function register(): void
+    {
+        // ..
+    }
 
     /**
      * Checks if the component is available.

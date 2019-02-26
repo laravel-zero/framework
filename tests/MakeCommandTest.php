@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Artisan;
 
 final class MakeCommandTest extends TestCase
 {
-    public function tearDown()
+    public function tearDown(): void
     {
         File::delete(app_path('Commands'.DIRECTORY_SEPARATOR.'FooCommand.php'));
     }

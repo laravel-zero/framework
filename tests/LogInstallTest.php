@@ -10,7 +10,7 @@ use LaravelZero\Framework\Contracts\Providers\ComposerContract;
 
 final class LogInstallTest extends TestCase
 {
-    public function tearDown()
+    public function tearDown(): void
     {
         File::delete(config_path('logging.php'));
     }
@@ -21,7 +21,7 @@ final class LogInstallTest extends TestCase
 
         $composerMock->expects($this->once())
             ->method('require')
-            ->with('illuminate/log "5.7.*"');
+            ->with('illuminate/log "5.8.*"');
 
         $this->app->instance(ComposerContract::class, $composerMock);
 

@@ -12,7 +12,7 @@ use LaravelZero\Framework\Contracts\Providers\ComposerContract;
 
 final class BuildCommandTest extends TestCase
 {
-    public function tearDown()
+    public function tearDown(): void
     {
         File::deleteDirectory(base_path('builds'));
         File::delete(base_path('application.phar'));

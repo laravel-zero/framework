@@ -10,7 +10,7 @@ use LaravelZero\Framework\Contracts\Providers\ComposerContract;
 
 final class LogoInstallTest extends TestCase
 {
-    public function tearDown()
+    public function tearDown(): void
     {
         File::delete(config_path('logo.php'));
     }

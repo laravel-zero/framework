@@ -10,7 +10,7 @@ use LaravelZero\Framework\Contracts\Providers\ComposerContract;
 
 final class QueueInstallTest extends TestCase
 {
-    public function tearDown()
+    public function tearDown(): void
     {
         File::delete(database_path('database.sqlite'));
         File::delete(database_path('migrations'));

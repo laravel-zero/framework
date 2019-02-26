@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Artisan;
 
 final class RenameCommandTest extends TestCase
 {
-    public function tearDown()
+    public function tearDown(): void
     {
         File::copy(base_path('save-composer.json'), base_path('composer.json'));
         File::copy(base_path('save-application'), base_path('application'));

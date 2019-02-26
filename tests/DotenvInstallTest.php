@@ -11,7 +11,7 @@ use LaravelZero\Framework\Contracts\Providers\ComposerContract;
 
 final class DotenvInstallTest extends TestCase
 {
-    public function tearDown()
+    public function tearDown(): void
     {
         File::delete(base_path('.env'));
         File::delete(base_path('.env.example'));
