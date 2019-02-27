@@ -60,5 +60,7 @@ final class BuildEnvironmentVariablesTest extends TestCase
          * Is it not using the mocked instance??
          */
         Artisan::call('fake:environmentValue');
+
+        $this->assertTrue(Str::contains(Artisan::output(), 'PRODUCTION_ENV_VALUE'));
     }
 }
