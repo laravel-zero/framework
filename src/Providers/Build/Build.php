@@ -20,7 +20,12 @@ use Phar;
  */
 final class Build
 {
-    protected $dotEnvFilename = '.env';
+    /**
+     * The name of the environment file.
+     *
+     * @var string
+     */
+    private $dotEnvFilename = '.env';
 
     /**
      * Checks if the application is running from a Phar file.
@@ -50,6 +55,16 @@ final class Build
     public function environmentFilePath(): string
     {
         return $this->getPath().DIRECTORY_SEPARATOR.$this->dotEnvFilename;
+    }
+
+    /**
+     * Checks if the build is running and there's an available environment file.
+     *
+     * @return bool
+     */
+    public function canUseEnvironmentFile(): bool
+    {
+        return $this->isRunning() && file_exists($this->environmentFilePath());
     }
 
     /**

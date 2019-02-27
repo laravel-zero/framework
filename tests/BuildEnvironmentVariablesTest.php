@@ -13,11 +13,11 @@ final class BuildEnvironmentVariablesTest extends TestCase
 {
     public function setUp(): void
     {
-        File::put(base_path('.env'), 'CONSUMER_KEY=LOCAL_ENV_VALUE');
+       file_put_contents(__DIR__.'/Application/.env', 'CONSUMER_KEY=LOCAL_ENV_VALUE');
 
-        File::makeDirectory(base_path('builds'));
+        mkdir(__DIR__.'/Application/builds');
 
-        File::put(base_path('builds/.env'), 'CONSUMER_KEY=PRODUCTION_ENV_VALUE');
+        file_put_contents(__DIR__.'/Application/builds/.env', 'CONSUMER_KEY=PRODUCTION_ENV_VALUE');
 
         parent::setUp();
     }
@@ -40,7 +40,7 @@ final class BuildEnvironmentVariablesTest extends TestCase
 
     public function testProductionEnvironment(): void
     {
-        $pharBuiltMock = $this->createMock(Build::class);
+        $pharBuiltMock = $this->createMock(new Build());
 
         $pharBuiltMock->expects($this->atLeastOnce())
             ->method('isPharBuilt')

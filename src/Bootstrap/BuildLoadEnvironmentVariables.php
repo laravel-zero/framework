@@ -26,18 +26,18 @@ use LaravelZero\Framework\Contracts\BoostrapperContract;
 final class BuildLoadEnvironmentVariables implements BoostrapperContract
 {
     /**
-     * @var Build
+     * @var \LaravelZero\Framework\Providers\Build\Build
      */
     private $build;
 
     /**
      * BuildLoadEnvironmentVariables constructor.
      *
-     * @param Build $pharBuilt
+     * @param \LaravelZero\Framework\Providers\Build\Build $build
      */
-    public function __construct(Build $pharBuilt)
+    public function __construct(Build $build)
     {
-        $this->build = $pharBuilt;
+        $this->build = $build;
     }
 
     /**
@@ -48,7 +48,7 @@ final class BuildLoadEnvironmentVariables implements BoostrapperContract
         /*
          * Override environment variables with the environment file along side the Phar file.
          */
-        if ($this->build->isRunning() && file_exists($this->build->environmentFilePath())) {
+        if ($this->build->canUseEnvironmentFile()) {
             try {
                 (
                 new Dotenv(
