@@ -11,11 +11,14 @@ declare(strict_types=1);
  *  file that was distributed with this source code.
  */
 
-namespace LaravelZero\Framework\Providers\PharBuilt;
+namespace LaravelZero\Framework\Providers\Build;
 
 use Phar;
 
-class PharBuilt
+/**
+ * @internal
+ */
+final class Build
 {
     protected $dotEnvFilename = '.env';
 
@@ -24,7 +27,7 @@ class PharBuilt
      *
      * @return bool
      */
-    public function isPharBuilt(): bool
+    public function isRunning(): bool
     {
         return Phar::running() !== '';
     }
@@ -34,7 +37,7 @@ class PharBuilt
      *
      * @return string
      */
-    public function pharDirPath(): string
+    public function getPath(): string
     {
         return dirname(Phar::running(false));
     }
@@ -44,9 +47,9 @@ class PharBuilt
      *
      * @return string
      */
-    public function dotEnvWithPharBuilt(): string
+    public function environmentFilePath(): string
     {
-        return $this->pharDirPath().DIRECTORY_SEPARATOR.$this->dotEnvFilename;
+        return $this->getPath().DIRECTORY_SEPARATOR.$this->dotEnvFilename;
     }
 
     /**

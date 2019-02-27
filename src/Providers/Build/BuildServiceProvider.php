@@ -11,7 +11,7 @@ declare(strict_types=1);
  *  file that was distributed with this source code.
  */
 
-namespace LaravelZero\Framework\Providers\PharBuilt;
+namespace LaravelZero\Framework\Providers\Build;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Foundation\Application;
@@ -20,7 +20,7 @@ use Illuminate\Contracts\Foundation\Application;
  * @codeCoverageIgnore
  * @internal
  */
-final class PharBuiltServiceProvider extends ServiceProvider
+final class BuildServiceProvider extends ServiceProvider
 {
     /**
      * {@inheritdoc}
@@ -28,7 +28,7 @@ final class PharBuiltServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind('phar.built', function (Application $app) {
-            return new PharBuilt();
+            return new Build();
         });
     }
 }

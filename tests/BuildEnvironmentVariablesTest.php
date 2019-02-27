@@ -7,9 +7,9 @@ namespace Tests;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
-use LaravelZero\Framework\Providers\PharBuilt\PharBuilt;
+use LaravelZero\Framework\Providers\Build\Build;
 
-final class PharBuiltEnvironmentTest extends TestCase
+final class BuildEnvironmentVariablesTest extends TestCase
 {
     public function setUp(): void
     {
@@ -40,7 +40,7 @@ final class PharBuiltEnvironmentTest extends TestCase
 
     public function testProductionEnvironment(): void
     {
-        $pharBuiltMock = $this->createMock(PharBuilt::class);
+        $pharBuiltMock = $this->createMock(Build::class);
 
         $pharBuiltMock->expects($this->atLeastOnce())
             ->method('isPharBuilt')
