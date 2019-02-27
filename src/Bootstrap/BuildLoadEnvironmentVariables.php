@@ -53,7 +53,7 @@ final class BuildLoadEnvironmentVariables implements BoostrapperContract
                 (
                 new Dotenv(
                     $this->build->getPath(),
-                    $this->build->getDotEnvFilename()
+                    $this->build->environmentFilename()
                 )
                 )->overload();
             } catch (InvalidPathException $e) {

@@ -25,7 +25,7 @@ final class Build
      *
      * @var string
      */
-    private $dotEnvFilename = '.env';
+    private $environmentFilename = '.env';
 
     /**
      * Checks if the application is running from a Phar file.
@@ -54,7 +54,7 @@ final class Build
      */
     public function environmentFilePath(): string
     {
-        return $this->getPath().DIRECTORY_SEPARATOR.$this->dotEnvFilename;
+        return $this->getPath().DIRECTORY_SEPARATOR.$this->environmentFilename;
     }
 
     /**
@@ -72,8 +72,8 @@ final class Build
      *
      * @return string
      */
-    public function getDotEnvFilename(): string
+    public function environmentFilename(): string
     {
-        return $this->dotEnvFilename;
+        return $this->environmentFilename;
     }
 }
