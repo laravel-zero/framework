@@ -13,7 +13,7 @@ final class BuildEnvironmentVariablesTest extends TestCase
 {
     public function setUp(): void
     {
-       file_put_contents(__DIR__.'/Application/.env', 'CONSUMER_KEY=LOCAL_ENV_VALUE');
+        file_put_contents(__DIR__.'/Application/.env', 'CONSUMER_KEY=LOCAL_ENV_VALUE');
 
         mkdir(__DIR__.'/Application/builds');
 
