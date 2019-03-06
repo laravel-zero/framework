@@ -24,12 +24,12 @@ final class Installer extends AbstractInstaller
     /**
      * {@inheritdoc}
      */
-    protected $name = 'install:updater';
+    protected $name = 'install:build-updater';
 
     /**
      * {@inheritdoc}
      */
-    protected $description = 'Updater: Self update your APP phar file';
+    protected $description = 'Updater: Allows to self-update a build application';
 
     /**
      * The config file path.
@@ -44,7 +44,7 @@ final class Installer extends AbstractInstaller
         $this->require('padraic/phar-updater "^1.0.6"');
 
         $this->task(
-            'Creating default self update configuration',
+            'Creating default self-update configuration file',
             function () {
                 if (! File::exists(config_path('updater.php'))) {
                     return File::copy(

@@ -24,21 +24,34 @@ use RuntimeException;
 final class Updater
 {
 
+    /** @var \Humbug\SelfUpdate\Updater */
     private $updater;
+
+
+    /** @var string */
     private $pharFileName;
+
+    /** @var string */
     private $strategy = 'github';
 
-    public function __construct(string $pharFileName, array $options)
+    /**
+     * Updater constructor.
+     * @param string $pharFileName
+     * @param array $options
+     * @param \Humbug\SelfUpdate\Updater $updater
+     */
+    public function __construct(string $pharFileName, array $options, PharUpdater $updater)
     {
-        $this->updater = new PharUpdater();
+        $this->updater = $updater;
         $this->pharFileName = $pharFileName;
 
         $this->parseOptions($options);
-
-        $this->update();
     }
 
-    private function update()
+    /**
+     *
+     */
+    public function update()
     {
 
         try {
@@ -52,10 +65,12 @@ final class Updater
                     $this->updater->getNewVersion()
                 );
             } elseif (false === $this->updater->getNewVersion()) {
-                echo 'There are no stable builds available.'. PHP_EOL;
+                $message = 'There are no stable builds available.'. PHP_EOL;
             } else {
-                echo 'You have the current stable build installed.' . PHP_EOL;
+                $message = 'You have the current stable build installed.' . PHP_EOL;
             }
+
+            return $message;
 
         } catch (Exception $e) {
             throw new RuntimeException('Something happened while trying to update the app.');
@@ -63,6 +78,9 @@ final class Updater
 
     }
 
+    /**
+     * @param array $config
+     */
     private function parseOptions(array $config)
     {
         $this
@@ -74,6 +92,10 @@ final class Updater
             ->version($config['version'] ?? null);
     }
 
+    /**
+     * @param string|null $packageName
+     * @return $this
+     */
     private function packageName(?string $packageName)
     {
         if( null === $packageName) {
@@ -85,6 +107,10 @@ final class Updater
         return $this;
     }
 
+    /**
+     * @param string $pharFileName
+     * @return $this
+     */
     private function pharFileName(string $pharFileName)
     {
         $this->updater->getStrategy()->setPharName($pharFileName);
@@ -92,6 +118,10 @@ final class Updater
         return $this;
     }
 
+    /**
+     * @param string|null $version
+     * @return $this
+     */
     private function version(?string $version)
     {
         $this->updater->getStrategy()->setCurrentLocalVersion($version);
@@ -99,6 +129,10 @@ final class Updater
         return $this;
     }
 
+    /**
+     * @param string|null $strategy
+     * @return $this
+     */
     private function strategy(?string $strategy)
     {
         if($strategy === 'github') {
@@ -108,6 +142,10 @@ final class Updater
         return $this;
     }
 
+    /**
+     * @param string|null $pharFileUrl
+     * @return $this
+     */
     private function pharFileUrl(?string $pharFileUrl)
     {
         if($this->strategy === 'basic') {
@@ -121,6 +159,10 @@ final class Updater
         return $this;
     }
 
+    /**
+     * @param string|null $versionUrl
+     * @return $this
+     */
     private function versionUrl(?string $versionUrl)
     {
         if($this->strategy === 'basic') {

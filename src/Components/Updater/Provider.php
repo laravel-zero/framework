@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace LaravelZero\Framework\Components\Updater;
 
 use function class_exists;
-use Illuminate\Console\Application as Artisan;
+use Humbug\SelfUpdate\Updater as PharUpdater;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
 
 /**
@@ -27,7 +27,19 @@ final class Provider extends AbstractComponentProvider
      */
     public function isAvailable(): bool
     {
-        return class_exists(\Humbug\SelfUpdate\Updater::class);
+        return class_exists(\Humbug\SelfUpdate\Updater::class) && file_exists($this->app->configPath('updater.php'));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function boot(): void
+    {
+        if ($this->app->environment() === 'production') {
+            $this->commands([
+                UpdateCommand::class,
+            ]);
+        }
     }
 
     /**
@@ -38,13 +50,20 @@ final class Provider extends AbstractComponentProvider
         $config = $this->app['config'];
 
         if ($config->get('app.production', false)) {
-            Artisan::starting(
-                function ($artisan) use ($config) {
-                    $artisan->setName(
-                        new Updater($config->get('app.name'), $config->get('updater', []))
-                    );
-                }
-            );
+
+            $this->app->singleton(PharUpdater::class, function ($app) {
+                return new PharUpdater();
+            });
+
+            $this->app->singleton(Updater::class, function ($app) {
+                return new Updater(
+                    $app['config']->get('app.name'),
+                    $app['config']->get('updater', []),
+                    new PharUpdater
+                );
+            });
         }
+
+
     }
 }
