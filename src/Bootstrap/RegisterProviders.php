@@ -59,6 +59,7 @@ final class RegisterProviders implements BoostrapperContract
         Components\Log\Provider::class,
         Components\Logo\Provider::class,
         Components\Queue\Provider::class,
+        Components\Updater\Provider::class,
         Components\Database\Provider::class,
         Components\ConsoleDusk\Provider::class,
     ];
