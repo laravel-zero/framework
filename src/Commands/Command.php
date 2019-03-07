@@ -16,7 +16,6 @@ namespace LaravelZero\Framework\Commands;
 use function strlen;
 use function str_repeat;
 use function func_get_args;
-use NunoMaduro\LaravelConsoleMenu\Menu;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Console\Command as BaseCommand;
 use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorderRepository;
@@ -46,14 +45,6 @@ abstract class Command extends BaseCommand
     public function setLaravel($laravel): void
     {
         parent::setLaravel($this->app = $laravel);
-    }
-
-    /**
-     * Returns a menu builder.
-     */
-    public function menu(string $title, array $options = []): Menu
-    {
-        return $this->__call('menu', func_get_args());
     }
 
     /**
