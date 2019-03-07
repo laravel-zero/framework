@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Bootstrap;
 
+use Dotenv\Dotenv;
 use function class_exists;
 use LaravelZero\Framework\Application;
 use LaravelZero\Framework\Contracts\BoostrapperContract;
@@ -28,8 +29,9 @@ final class LoadEnvironmentVariables implements BoostrapperContract
      */
     public function bootstrap(Application $app): void
     {
-        if (class_exists(\Dotenv\Dotenv::class)) {
+        if (class_exists(Dotenv::class)) {
             $app->make(BaseLoadEnvironmentVariables::class)->bootstrap($app);
+            $app->make(BuildLoadEnvironmentVariables::class)->bootstrap($app);
         }
     }
 }
