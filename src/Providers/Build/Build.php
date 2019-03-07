@@ -25,7 +25,7 @@ final class Build
      *
      * @var string
      */
-    private $environmentFilename = '.env';
+    private $environmentFile = '.env';
 
     /**
      * Checks if the application is running from a Phar file.
@@ -54,7 +54,7 @@ final class Build
      */
     public function environmentFilePath(): string
     {
-        return $this->getPath().DIRECTORY_SEPARATOR.$this->environmentFilename;
+        return $this->getPath().DIRECTORY_SEPARATOR.$this->environmentFile;
     }
 
     /**
@@ -62,18 +62,18 @@ final class Build
      *
      * @return bool
      */
-    public function canUseEnvironmentFile(): bool
+    public function shouldUseEnvironmentFile(): bool
     {
         return $this->isRunning() && file_exists($this->environmentFilePath());
     }
 
     /**
-     * The filename for environment file.
+     * The file for environment file.
      *
      * @return string
      */
-    public function environmentFilename(): string
+    public function environmentFile(): string
     {
-        return $this->environmentFilename;
+        return $this->environmentFile;
     }
 }

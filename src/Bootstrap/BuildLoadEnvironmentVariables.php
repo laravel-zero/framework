@@ -48,21 +48,11 @@ final class BuildLoadEnvironmentVariables implements BoostrapperContract
         /*
          * Override environment variables with the environment file along side the Phar file.
          */
-        if ($this->build->canUseEnvironmentFile()) {
-            try {
-                (
-                new Dotenv(
-                    $this->build->getPath(),
-                    $this->build->environmentFilename()
-                )
-                )->overload();
-            } catch (InvalidPathException $e) {
-                echo 'The path is invalid: '.$e->getMessage();
-                die(1);
-            } catch (InvalidFileException $e) {
-                echo 'The environment file is invalid: '.$e->getMessage();
-                die(1);
-            }
+        if ($this->build->shouldUseEnvironmentFile()) {
+            (new Dotenv(
+                $this->build->getPath(),
+                $this->build->environmentFile()
+            ))->overload();
         }
     }
 }
