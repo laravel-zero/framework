@@ -15,8 +15,6 @@ namespace LaravelZero\Framework\Bootstrap;
 
 use Dotenv\Dotenv;
 use LaravelZero\Framework\Application;
-use Dotenv\Exception\InvalidFileException;
-use Dotenv\Exception\InvalidPathException;
 use LaravelZero\Framework\Providers\Build\Build;
 use LaravelZero\Framework\Contracts\BoostrapperContract;
 
