@@ -35,7 +35,7 @@ final class Provider extends AbstractComponentProvider
      */
     public function boot(): void
     {
-        if ($this->app->environment() === 'production') {
+        if ($this->isRunningWithinPhar() && $this->app->environment() === 'production') {
             $this->commands([
                 UpdateCommand::class,
             ]);
@@ -49,12 +49,7 @@ final class Provider extends AbstractComponentProvider
     {
         $config = $this->app['config'];
 
-        if ($config->get('app.production', false)) {
-
-            $this->app->singleton(PharUpdater::class, function ($app) {
-                return new PharUpdater();
-            });
-
+        if ($this->isRunningWithinPhar() && $config->get('app.production', false)) {
             $this->app->singleton(Updater::class, function ($app) {
                 return new Updater(
                     $app['config']->get('app.name'),
@@ -63,7 +58,10 @@ final class Provider extends AbstractComponentProvider
                 );
             });
         }
+    }
 
-
+    private function isRunningWithinPhar()
+    {
+        return \Phar::running() !== '';
     }
 }
