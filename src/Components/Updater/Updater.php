@@ -14,19 +14,17 @@ declare(strict_types=1);
 namespace LaravelZero\Framework\Components\Updater;
 
 use Exception;
+use RuntimeException;
 use InvalidArgumentException;
 use Humbug\SelfUpdate\Updater as PharUpdater;
-use RuntimeException;
 
 /**
  * @internal
  */
 final class Updater
 {
-
     /** @var \Humbug\SelfUpdate\Updater */
     private $updater;
-
 
     /** @var string */
     private $pharFileName;
@@ -48,14 +46,9 @@ final class Updater
         $this->parseOptions($options);
     }
 
-    /**
-     *
-     */
     public function update()
     {
-
         try {
-
             $result = $this->updater->update();
 
             if ($result) {
@@ -65,17 +58,15 @@ final class Updater
                     $this->updater->getNewVersion()
                 );
             } elseif (false === $this->updater->getNewVersion()) {
-                $message = 'There are no stable builds available.'. PHP_EOL;
+                $message = 'There are no stable builds available.'.PHP_EOL;
             } else {
-                $message = 'You have the current stable build installed.' . PHP_EOL;
+                $message = 'You have the current stable build installed.'.PHP_EOL;
             }
 
             return $message;
-
         } catch (Exception $e) {
             throw new RuntimeException('Something happened while trying to update the app.');
         }
-
     }
 
     /**
@@ -98,7 +89,7 @@ final class Updater
      */
     private function packageName(?string $packageName)
     {
-        if( null === $packageName) {
+        if (null === $packageName) {
             throw new InvalidArgumentException('Invalid value given for the `updater.packageName` option');
         }
 
@@ -135,7 +126,7 @@ final class Updater
      */
     private function strategy(?string $strategy)
     {
-        if($strategy === 'github') {
+        if ($strategy === 'github') {
             $this->updater->setStrategy(PharUpdater::STRATEGY_GITHUB);
         }
 
@@ -148,10 +139,10 @@ final class Updater
      */
     private function pharFileUrl(?string $pharFileUrl)
     {
-        if($this->strategy === 'basic') {
-            if(null !== $pharFileUrl) {
+        if ($this->strategy === 'basic') {
+            if (null !== $pharFileUrl) {
                 $this->updater->getStrategy()->setPharUrl($pharFileUrl);
-            } elseif( null === $pharFileUrl) {
+            } elseif (null === $pharFileUrl) {
                 throw new InvalidArgumentException('Invalid value given for the `updater.pharFileUrl` option');
             }
         }
@@ -165,10 +156,10 @@ final class Updater
      */
     private function versionUrl(?string $versionUrl)
     {
-        if($this->strategy === 'basic') {
-            if(null !== $versionUrl) {
+        if ($this->strategy === 'basic') {
+            if (null !== $versionUrl) {
                 $this->updater->getStrategy()->setVersionUrl($versionUrl);
-            } elseif( null === $versionUrl) {
+            } elseif (null === $versionUrl) {
                 throw new InvalidArgumentException('Invalid value given for the `updater.versionUrl` option');
             }
         }
