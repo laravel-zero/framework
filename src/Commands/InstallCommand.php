@@ -41,6 +41,7 @@ final class InstallCommand extends Command
         'log' => Components\Log\Installer::class,
         'logo' => Components\Logo\Installer::class,
         'queue' => Components\Queue\Installer::class,
+        'updater' => Components\Updater\Installer::class,
     ];
 
     /**
