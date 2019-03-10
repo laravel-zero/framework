@@ -20,6 +20,6 @@ final class GithubStrategy extends \Humbug\SelfUpdate\Strategy\GithubStrategy
 
         $downloadUrl = str_replace('releases/download', 'raw', $downloadUrl);
 
-        return $downloadUrl . '/builds/' . basename(Phar::running());
+        return $downloadUrl.'/builds/'.basename(Phar::running());
     }
 }
