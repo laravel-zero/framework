@@ -137,7 +137,7 @@ final class BuildCommand extends Command
 
         $config['production'] = true;
 
-        $version = $this->ask('Build version?', static::$config['version']);
+        $version = $this->ask('Build version?', $config['version']);
         $config['version'] = $version;
 
         $this->task(
