@@ -48,7 +48,7 @@ final class Updater
         $result = $this->updater->update();
 
         if ($result) {
-            $output->success(printf('Updated from version %s to %s', $this->updater->getOldVersion(),
+            $output->success(printf('Updated from version %s to %s.', $this->updater->getOldVersion(),
                 $this->updater->getNewVersion()));
             exit(0);
         } elseif (! $this->updater->getNewVersion()) {
