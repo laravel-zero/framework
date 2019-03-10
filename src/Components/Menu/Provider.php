@@ -11,11 +11,9 @@ declare(strict_types=1);
  *  file that was distributed with this source code.
  */
 
-namespace LaravelZero\Framework\Components\Updater;
+namespace LaravelZero\Framework\Components\Menu;
 
 use function class_exists;
-use Humbug\SelfUpdate\Updater as PharUpdater;
-use LaravelZero\Framework\Providers\Build\Build;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
 
 /**
