@@ -10,11 +10,6 @@ use LaravelZero\Framework\Contracts\Providers\ComposerContract;
 
 final class UpdaterInstallTest extends TestCase
 {
-    public function tearDown(): void
-    {
-        File::delete(config_path('updater.php'));
-    }
-
     public function testRequiredPackages(): void
     {
         $composerMock = $this->createMock(ComposerContract::class);
@@ -23,6 +18,6 @@ final class UpdaterInstallTest extends TestCase
 
         $this->app->instance(ComposerContract::class, $composerMock);
 
-        Artisan::call('app:install', ['component' => 'updater']);
+        Artisan::call('app:install', ['component' => 'self-update']);
     }
 }
