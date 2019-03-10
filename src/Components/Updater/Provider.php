@@ -62,6 +62,8 @@ final class Provider extends AbstractComponentProvider
                 $composer = json_decode(file_get_contents(base_path('composer.json')), true);
                 $name = $composer['name'];
 
+                $updater->setStrategy(new GithubStrategy);
+
                 $updater->getStrategy()->setPackageName($name);
 
                 return new Updater($updater);
