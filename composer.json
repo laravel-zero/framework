@@ -29,7 +29,7 @@
         "illuminate/support": "5.8.*",
         "laravel-zero/foundation": "5.8.*",
         "league/flysystem": "^1.0.8",
-        "nunomaduro/collision": "^2.0",
+        "nunomaduro/collision": "^3.0",
         "nunomaduro/laravel-console-summary": "^1.0",
         "nunomaduro/laravel-console-task": "^1.0.6",
         "nunomaduro/laravel-desktop-notifier": "^2.0",
