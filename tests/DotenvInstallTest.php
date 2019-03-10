@@ -7,7 +7,6 @@ namespace Tests;
 use function touch;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
-use LaravelZero\Framework\Contracts\Providers\ComposerContract;
 
 final class DotenvInstallTest extends TestCase
 {
