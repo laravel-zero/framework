@@ -41,6 +41,13 @@ final class BuildCommand extends Command
     private static $config;
 
     /**
+     * Holds the box.json on is original state.
+     *
+     * @var string|null
+     */
+    private static $box;
+
+    /**
      * Holds the command original output.
      *
      * @var \Symfony\Component\Console\Output\OutputInterface
@@ -93,7 +100,7 @@ final class BuildCommand extends Command
         }
 
         $process = new Process(
-            './box compile'.' --working-dir="'.base_path().'" --config="'.base_path('box.json').'"',
+            './box compile --working-dir="'.base_path().'" --config="'.base_path('box.json').'"',
             dirname(dirname(__DIR__)).'/bin',
             null,
             null,
@@ -131,21 +138,30 @@ final class BuildCommand extends Command
 
     private function prepare(): BuildCommand
     {
-        $file = $this->app->configPath('app.php');
-        static::$config = File::get($file);
-        $config = include $file;
+        $configFile = $this->app->configPath('app.php');
+        static::$config = File::get($configFile);
+
+        $config = include $configFile;
 
         $config['production'] = true;
-
         $version = $this->ask('Build version?', $config['version']);
         $config['version'] = $version;
 
+        $boxFile = $this->app->basePath('box.json');
+        static::$box = File::get($boxFile);
+
         $this->task(
             '   1. Moving application to <fg=yellow>production mode</>',
-            function () use ($file, $config) {
-                File::put($file, '<?php return '.var_export($config, true).';'.PHP_EOL);
+            function () use ($configFile, $config) {
+                File::put($configFile, '<?php return '.var_export($config, true).';'.PHP_EOL);
             }
         );
+
+        $boxContents = json_decode(static::$box, true);
+        $boxContents['main'] = $this->getBinary();
+        File::put($boxFile, json_encode($boxContents));
+
+        File::put($configFile, '<?php return '.var_export($config, true).';'.PHP_EOL);
 
         return $this;
     }
@@ -154,7 +170,11 @@ final class BuildCommand extends Command
     {
         File::put($this->app->configPath('app.php'), static::$config);
 
+        File::put($this->app->basePath('box.json'), static::$box);
+
         static::$config = null;
+
+        static::$box = null;
 
         return $this;
     }
