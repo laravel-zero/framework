@@ -41,7 +41,7 @@ final class InstallCommand extends Command
         'logo' => Components\Logo\Installer::class,
         'menu' => Components\Menu\Installer::class,
         'queue' => Components\Queue\Installer::class,
-        'updater' => Components\Updater\Installer::class,
+        'self-update' => Components\Updater\Installer::class,
     ];
 
     /**
