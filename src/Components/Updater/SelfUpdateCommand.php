@@ -15,17 +15,17 @@ namespace LaravelZero\Framework\Components\Updater;
 
 use LaravelZero\Framework\Commands\Command;
 
-class UpdateCommand extends Command
+class SelfUpdateCommand extends Command
 {
     /**
      * {@inheritdoc}
      */
-    protected $name = 'build-updater';
+    protected $name = 'self-update';
 
     /**
      * {@inheritdoc}
      */
-    protected $description = 'Updater: Allows to self-update a build application';
+    protected $description = 'Allows to self-update a build application';
 
     /**
      * {@inheritdoc}
@@ -34,12 +34,6 @@ class UpdateCommand extends Command
     {
         $this->output->title('Checking for a new version...');
 
-        try {
-            $result = $updater->update();
-
-            $this->info($result);
-        } catch (\RuntimeException $exception) {
-            $this->error($exception->getMessage());
-        }
+        $result = $updater->update($this->output);
     }
 }
