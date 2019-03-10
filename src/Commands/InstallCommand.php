@@ -39,6 +39,7 @@ final class InstallCommand extends Command
         'dotenv' => Components\Dotenv\Installer::class,
         'log' => Components\Log\Installer::class,
         'logo' => Components\Logo\Installer::class,
+        'menu' => Components\Menu\Installer::class,
         'queue' => Components\Queue\Installer::class,
         'updater' => Components\Updater\Installer::class,
     ];
