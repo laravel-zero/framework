@@ -66,6 +66,8 @@ final class Provider extends AbstractComponentProvider
 
                 $updater->getStrategy()->setPackageName($name);
 
+                $updater->getStrategy()->setCurrentLocalVersion(config('app.version'));
+
                 return new Updater($updater);
             });
         }
