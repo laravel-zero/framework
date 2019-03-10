@@ -137,6 +137,9 @@ final class BuildCommand extends Command
 
         $config['production'] = true;
 
+        $version = $this->ask('Build version?', static::$config['version']);
+        $config['version'] = $version;
+
         $this->task(
             '   1. Moving application to <fg=yellow>production mode</>',
             function () use ($file, $config) {
