@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - `self:update` command on build commands
 - reads `.env` files from the root of build commands
 
+### Changed
+- The `Command::menu()` method is now optional
+
 ## [5.7.20] - 2019-02-11
 ### Fixed
 - Allow spaces in directory names when building the app ([#310](https://github.com/laravel-zero/framework/pull/310))
