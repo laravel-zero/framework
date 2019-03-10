@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace LaravelZero\Framework\Providers\Build;
 
 use Phar;
+use function dirname;
 
 /**
  * @internal
@@ -42,9 +43,19 @@ final class Build
      *
      * @return string
      */
+    public function getDirectoryPath(): string
+    {
+        return dirname($this->getPath());
+    }
+
+    /**
+     * Returns the path from where the Phar is running.
+     *
+     * @return string
+     */
     public function getPath(): string
     {
-        return dirname(Phar::running(false));
+        return Phar::running(false);
     }
 
     /**
@@ -54,7 +65,7 @@ final class Build
      */
     public function environmentFilePath(): string
     {
-        return $this->getPath().DIRECTORY_SEPARATOR.$this->environmentFile;
+        return $this->getDirectoryPath().DIRECTORY_SEPARATOR.$this->environmentFile;
     }
 
     /**

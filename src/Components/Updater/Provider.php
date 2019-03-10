@@ -16,6 +16,7 @@ namespace LaravelZero\Framework\Components\Updater;
 use function class_exists;
 use Humbug\SelfUpdate\Updater as PharUpdater;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
+use LaravelZero\Framework\Providers\Build\Build;
 
 /**
  * @internal
@@ -27,7 +28,7 @@ final class Provider extends AbstractComponentProvider
      */
     public function isAvailable(): bool
     {
-        return class_exists(\Humbug\SelfUpdate\Updater::class) && file_exists($this->app->configPath('updater.php'));
+        return class_exists(\Humbug\SelfUpdate\Updater::class);
     }
 
     /**
@@ -49,19 +50,20 @@ final class Provider extends AbstractComponentProvider
     {
         $config = $this->app['config'];
 
-        if ($this->isRunningWithinPhar() && $config->get('app.production', false)) {
-            $this->app->singleton(Updater::class, function ($app) {
-                return new Updater(
-                    $app['config']->get('app.name'),
-                    $app['config']->get('updater', []),
-                    new PharUpdater
-                );
+        $build = $this->app->make(Build::class);
+
+        if ($build->isRunning() && $config->get('app.production', false)) {
+            $this->app->singleton(Updater::class, function () use ($build) {
+
+                $updater = new PharUpdater($build->getPath(), false, PharUpdater::STRATEGY_GITHUB);
+
+                $composer = json_decode(file_get_contents(base_path('composer.json')), true);
+                $name = $composer['name'];
+
+                $updater->getStrategy()->setPackageName($name);
+
+                return new Updater($updater);
             });
         }
-    }
-
-    private function isRunningWithinPhar()
-    {
-        return \Phar::running() !== '';
     }
 }
