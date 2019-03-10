@@ -15,7 +15,6 @@ namespace LaravelZero\Framework\Bootstrap;
 
 use LaravelZero\Framework\Application;
 use LaravelZero\Framework\Contracts\BoostrapperContract;
-use LaravelZero\Framework\Providers\Build\BuildServiceProvider;
 use LaravelZero\Framework\Providers\GitVersion\GitVersionServiceProvider;
 
 /**
