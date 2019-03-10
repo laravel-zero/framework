@@ -3,3 +3,4 @@
 /.vscode
 /.vagrant
 composer.lock
+.phpunit.result.cache
