@@ -25,7 +25,7 @@ final class DatabaseInstallTest extends TestCase
 
         $composerMock->expects($this->once())
             ->method('require')
-            ->with('illuminate/database "5.7.*"');
+            ->with('illuminate/database "5.8.*"');
 
         $this->app->instance(ComposerContract::class, $composerMock);
 

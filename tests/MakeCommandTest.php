@@ -21,6 +21,6 @@ final class MakeCommandTest extends TestCase
         $file = app_path('Commands'.DIRECTORY_SEPARATOR.'FooCommand.php');
 
         $this->assertTrue(File::exists($file));
-        $this->assertContains('class FooCommand extends Command', File::get($file));
+        $this->assertStringContainsString('class FooCommand extends Command', File::get($file));
     }
 }

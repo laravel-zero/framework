@@ -33,11 +33,11 @@ final class BuildCommandTest extends TestCase
             }
         };
 
-        Artisan::call('app:build', [], $output);
+        Artisan::call('app:build', ['--no-interaction' => true], $output);
 
         $this->assertTrue(File::exists(base_path('builds'.DIRECTORY_SEPARATOR.'application')));
 
-        Artisan::call('app:build', ['name' => 'zonda'], $output);
+        Artisan::call('app:build', ['name' => 'zonda', '--no-interaction' => true], $output);
 
         $this->assertTrue(File::exists(base_path('builds'.DIRECTORY_SEPARATOR.'zonda')));
     }
@@ -62,7 +62,7 @@ final class BuildCommandTest extends TestCase
 
         $this->expectException(Exception::class);
 
-        Artisan::call('app:build', [], $output);
+        Artisan::call('app:build', ['--no-interaction' => true], $output);
 
         $this->assertEquals($contents, File::get(config_path('app.php')));
     }

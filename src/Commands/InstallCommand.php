@@ -55,7 +55,9 @@ final class InstallCommand extends Command
             $choices[$name] = $this->app->make($componentClass)->getDescription();
         }
 
-        $option = $this->choice($title, $choices);
+        if (! $option = $this->argument('component')) {
+            $option = $this->choice($title, $choices);
+        }
 
         if ($option !== null && ! empty($this->components[$option])) {
             $command = tap($this->app[$this->components[$option]])->setLaravel($this->app);

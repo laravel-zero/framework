@@ -22,7 +22,7 @@ final class RenameCommandTest extends TestCase
         Artisan::call('app:rename', ['name' => 'zonda']);
 
         $this->assertTrue(File::exists(base_path('zonda')));
-        $this->assertContains('"bin": ["zonda"]', File::get(base_path('composer.json')));
-        $this->assertContains("'name' => 'Zonda'", File::get(config_path('app.php')));
+        $this->assertStringContainsString('"bin": ["zonda"]', File::get(base_path('composer.json')));
+        $this->assertStringContainsString("'name' => 'Zonda'", File::get(config_path('app.php')));
     }
 }

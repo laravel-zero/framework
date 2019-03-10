@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
 use LaravelZero\Framework\Providers\Build\Build;
+use LaravelZero\Framework\Bootstrap\BuildLoadEnvironmentVariables;
 
 final class BuildEnvironmentVariablesTest extends TestCase
 {
@@ -40,27 +41,24 @@ final class BuildEnvironmentVariablesTest extends TestCase
 
     public function testProductionEnvironment(): void
     {
-        $pharBuiltMock = $this->createMock(new Build());
+        $buildMock = $this->createMock(Build::class, ['shouldUseEnvironmentFile', 'getDirectoryPath', 'environmentFile']);
 
-        $pharBuiltMock->expects($this->atLeastOnce())
-            ->method('isPharBuilt')
+        $buildMock->expects($this->atLeastOnce())
+            ->method('shouldUseEnvironmentFile')
             ->willReturn(true);
 
-        $pharBuiltMock->expects($this->atLeastOnce())
-            ->method('pharDirPath')
+        $buildMock->expects($this->atLeastOnce())
+            ->method('getDirectoryPath')
             ->willReturn(base_path('builds'));
 
-        $pharBuiltMock->expects($this->atLeastOnce())
-            ->method('dotEnvWithPharBuilt')
-            ->willReturn(base_path('builds/.env'));
+        $buildMock->expects($this->atLeastOnce())
+            ->method('environmentFile')
+            ->willReturn('.env');
 
-        $this->app->instance('phar.built', $pharBuiltMock);
+        $this->app->instance(Build::class, $buildMock);
 
-        /*
-         * Is it not using the mocked instance??
-         */
-        Artisan::call('fake:environmentValue');
+        (new BuildLoadEnvironmentVariables($buildMock))->bootstrap(app());
 
-        $this->assertTrue(Str::contains(Artisan::output(), 'PRODUCTION_ENV_VALUE'));
+        $this->assertEquals(env('CONSUMER_KEY'), 'PRODUCTION_ENV_VALUE');
     }
 }

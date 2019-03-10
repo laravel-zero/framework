@@ -29,6 +29,5 @@ final class CoreBindings implements BoostrapperContract
     public function bootstrap(Application $app): void
     {
         (new GitVersionServiceProvider($app))->register();
-        (new BuildServiceProvider($app))->register();
     }
 }

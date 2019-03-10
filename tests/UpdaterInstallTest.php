@@ -25,15 +25,4 @@ final class UpdaterInstallTest extends TestCase
 
         Artisan::call('app:install', ['component' => 'updater']);
     }
-
-    public function testCopyStubs(): void
-    {
-        $composerMock = $this->createMock(ComposerContract::class);
-        $composerMock->method('require');
-        $this->app->instance(ComposerContract::class, $composerMock);
-
-        Artisan::call('app:install', ['component' => 'updater']);
-
-        $this->assertTrue(File::exists(config_path('updater.php')));
-    }
 }

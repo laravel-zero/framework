@@ -19,7 +19,7 @@ use function dirname;
 /**
  * @internal
  */
-final class Build
+class Build
 {
     /**
      * The name of the environment file.
