@@ -36,7 +36,9 @@ final class Provider extends AbstractComponentProvider
      */
     public function boot(): void
     {
-        if ($this->isRunningWithinPhar() && $this->app->environment() === 'production') {
+        $build = $this->app->make(Build::class);
+
+        if ($build->isRunning() && $this->app->environment() === 'production') {
             $this->commands([
                 UpdateCommand::class,
             ]);

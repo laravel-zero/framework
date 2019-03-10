@@ -10,7 +10,7 @@ use LaravelZero\Framework\Contracts\Providers\ComposerContract;
 
 final class UpdaterInstallTest extends TestCase
 {
-    public function tearDown()
+    public function tearDown(): void
     {
         File::delete(config_path('updater.php'));
     }
@@ -19,9 +19,7 @@ final class UpdaterInstallTest extends TestCase
     {
         $composerMock = $this->createMock(ComposerContract::class);
 
-        $composerMock->expects($this->once())
-            ->method('require')
-            ->with('padraic/phar-updater "^1.0.6"');
+        $composerMock->expects($this->once())->method('require')->with('padraic/phar-updater "^1.0.6"');
 
         $this->app->instance(ComposerContract::class, $composerMock);
 
