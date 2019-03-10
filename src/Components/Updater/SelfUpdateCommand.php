@@ -20,6 +20,11 @@ class SelfUpdateCommand extends Command
     /**
      * {@inheritdoc}
      */
+    protected $hidden = true;
+
+    /**
+     * {@inheritdoc}
+     */
     protected $name = 'self-update';
 
     /**
