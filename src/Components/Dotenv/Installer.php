@@ -37,8 +37,6 @@ final class Installer extends AbstractInstaller
      */
     public function install(): void
     {
-        $this->require('vlucas/phpdotenv "^3.0"');
-
         $this->task(
             'Creating .env',
             function () {

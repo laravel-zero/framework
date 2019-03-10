@@ -24,6 +24,7 @@
         "illuminate/container": "5.8.*",
         "illuminate/contracts": "5.8.*",
         "illuminate/events": "5.8.*",
+        "vlucas/phpdotenv": "^3.0",
         "illuminate/filesystem": "5.8.*",
         "illuminate/support": "5.8.*",
         "laravel-zero/foundation": "5.8.*",

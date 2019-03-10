@@ -19,17 +19,8 @@ final class DotenvInstallTest extends TestCase
         touch(base_path('.gitignore'));
     }
 
-    public function testRequiredPackages(): void
-    {
-        $this->mockComposer();
-
-        Artisan::call('app:install', ['component' => 'dotenv']);
-    }
-
     public function testCopyStubs(): void
     {
-        $this->mockComposer();
-
         Artisan::call('app:install', ['component' => 'dotenv']);
 
         $this->assertTrue(File::exists(base_path('.env')));
@@ -38,19 +29,8 @@ final class DotenvInstallTest extends TestCase
 
     public function testNewGitIgnoreLines(): void
     {
-        $this->mockComposer();
-
         Artisan::call('app:install', ['component' => 'dotenv']);
 
         $this->assertTrue(str_contains(File::get(base_path('.gitignore')), '.env'));
-    }
-
-    private function mockComposer(): void
-    {
-        $composerMock = $this->createMock(ComposerContract::class);
-        $composerMock->expects($this->once())
-            ->method('require')
-            ->with('vlucas/phpdotenv "^3.0"');
-        $this->app->instance(ComposerContract::class, $composerMock);
     }
 }
