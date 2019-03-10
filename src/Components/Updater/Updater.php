@@ -50,6 +50,7 @@ final class Updater
         if ($result) {
             $output->success(printf('Updated from version %s to %s', $this->updater->getOldVersion(),
                 $this->updater->getNewVersion()));
+            exit(0);
         } elseif (! $this->updater->getNewVersion()) {
             $output->success('There are no stable builds available.');
         } else {

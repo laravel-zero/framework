@@ -18,6 +18,8 @@ final class GithubStrategy extends \Humbug\SelfUpdate\Strategy\GithubStrategy
     {
         $downloadUrl = parent::getDownloadUrl($package);
 
-        return $downloadUrl;
+        $downloadUrl = str_replace('releases/download', 'raw', $downloadUrl);
+
+        return $downloadUrl . '/builds/' . basename(Phar::running());
     }
 }
