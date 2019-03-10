@@ -2,6 +2,8 @@
 
 namespace LaravelZero\Framework\Components\Updater;
 
+use Phar;
+
 /**
  * @internal
  */
