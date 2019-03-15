@@ -100,8 +100,8 @@ final class BuildCommand extends Command
         }
 
         $process = new Process(
-            './box compile --working-dir="'.base_path().'" --config="'.base_path('box.json').'"',
-            dirname(dirname(__DIR__)).'/bin',
+            (! windows_os() ? './box' : 'box.bat').' compile --working-dir="'.base_path().'" --config="'.base_path('box.json').'"',
+            ! windows_os() ? dirname(dirname(__DIR__)).'/bin' : base_path('vendor'),
             null,
             null,
             $this->getTimeout()
