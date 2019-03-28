@@ -88,7 +88,7 @@ final class Composer implements ComposerContract
     /**
      * Runs the provided command on the provided folder.
      */
-    private function run(string $cmd, string $cwd = npull): bool
+    private function run(string $cmd, string $cwd = null): bool
     {
         $process = new Process($cmd, $cwd);
 
