@@ -88,9 +88,11 @@ final class Composer implements ComposerContract
     /**
      * Runs the provided command on the provided folder.
      */
-    private function run(string $cmd, string $cwd = null): bool
+    private function run(string $cmd, string $cwd = npull): bool
     {
         $process = new Process($cmd, $cwd);
+
+        $process->setTimeout(0);
 
         if ($process->isTty()) {
             $process->setTty(true);
