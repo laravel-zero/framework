@@ -92,7 +92,7 @@ final class Composer implements ComposerContract
     {
         $process = new Process($cmd, $cwd);
 
-        $process->setTimeout(0);
+        $process->setTimeout(300);
 
         if ($process->isTty()) {
             $process->setTty(true);
