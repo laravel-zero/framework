@@ -26,7 +26,10 @@ final class BuildCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected $signature = 'app:build {name? : The build name} {--timeout=300 : The timeout in seconds or 0 to disable}';
+    protected $signature = 'app:build
+                            {name? : The build name}
+                            {--build-version= : The build version, if not provided it will be asked}
+                            {--timeout=300 : The timeout in seconds or 0 to disable}';
 
     /**
      * {@inheritdoc}
@@ -144,7 +147,7 @@ final class BuildCommand extends Command
         $config = include $configFile;
 
         $config['production'] = true;
-        $version = $this->ask('Build version?', $config['version']);
+        $version = $this->option('build-version') ?: $this->ask('Build version?', $config['version']);
         $config['version'] = $version;
 
         $boxFile = $this->app->basePath('box.json');
