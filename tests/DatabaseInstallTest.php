@@ -24,9 +24,12 @@ final class DatabaseInstallTest extends TestCase
     {
         $composerMock = $this->createMock(ComposerContract::class);
 
-        $composerMock->expects($this->once())
+        $composerMock->expects($this->exactly(2))
             ->method('require')
-            ->with('illuminate/database "5.8.*"');
+            ->withConsecutive(
+                ['illuminate/database "5.8.*"', false],
+                ['fzaninotto/faker "^1.4"', true]
+            );
 
         $this->app->instance(ComposerContract::class, $composerMock);
 

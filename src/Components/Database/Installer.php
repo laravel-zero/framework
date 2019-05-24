@@ -48,6 +48,7 @@ final class Installer extends AbstractInstaller
     public function install(): void
     {
         $this->require('illuminate/database "5.8.*"');
+        $this->require('fzaninotto/faker "^1.4"', true);
 
         $this->task(
             'Creating a default SQLite database',

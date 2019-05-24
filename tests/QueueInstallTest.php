@@ -24,7 +24,7 @@ final class QueueInstallTest extends TestCase
         $composerMock = $this->createMock(ComposerContract::class);
 
         // database, queue, bus...
-        $composerMock->expects($this->exactly(3))
+        $composerMock->expects($this->exactly(4))
             ->method('require');
 
         $this->app->instance(ComposerContract::class, $composerMock);
