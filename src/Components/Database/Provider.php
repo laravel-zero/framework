@@ -57,6 +57,7 @@ class Provider extends AbstractComponentProvider
             $this->commands(
                 [
                     \Illuminate\Database\Console\Migrations\MigrateMakeCommand::class,
+                    \Illuminate\Database\Console\Factories\FactoryMakeCommand::class,
                     \Illuminate\Database\Console\Seeds\SeederMakeCommand::class,
                     \Illuminate\Foundation\Console\ModelMakeCommand::class,
                     \Illuminate\Database\Console\Seeds\SeedCommand::class,
