@@ -81,6 +81,17 @@ final class Installer extends AbstractInstaller
         );
 
         $this->task(
+            'Creating factories folder',
+            function () {
+                if (File::exists($this->app->databasePath('factories'))) {
+                    return false;
+                }
+
+                File::makeDirectory($this->app->databasePath('factories'), 0755, true, true);
+            }
+        );
+
+        $this->task(
             'Creating default database configuration',
             function () {
                 if (File::exists(config_path('database.php'))) {

@@ -14,6 +14,7 @@ final class DatabaseInstallTest extends TestCase
     {
         File::delete(database_path('database.sqlite'));
         File::delete(database_path('migrations'));
+        File::delete(database_path('factories'));
         File::delete(database_path('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php'));
         File::delete(base_path('.gitignore'));
         touch(base_path('.gitignore'));
@@ -41,6 +42,7 @@ final class DatabaseInstallTest extends TestCase
         $this->assertTrue(File::exists(config_path('database.php')));
         $this->assertTrue(File::exists(database_path('database.sqlite')));
         $this->assertTrue(File::exists(database_path('migrations')));
+        $this->assertTrue(File::exists(database_path('factories')));
         $this->assertTrue(File::exists(database_path('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php')));
     }
 
