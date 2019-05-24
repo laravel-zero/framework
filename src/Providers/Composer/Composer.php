@@ -64,9 +64,9 @@ final class Composer implements ComposerContract
     /**
      * {@inheritdoc}
      */
-    public function require(string $package): bool
+    public function require(string $package, bool $dev = false): bool
     {
-        return $this->run("composer require $package", $this->app->basePath());
+        return $this->run("composer require $package".($dev ? ' --dev' : ''), $this->app->basePath());
     }
 
     /**
