@@ -55,12 +55,24 @@ final class Installer extends AbstractInstaller
                 if (File::exists(database_path('database.sqlite'))) {
                     return false;
                 }
-                File::makeDirectory($this->app->databasePath('migrations'), 0755, true, true);
+
+                File::makeDirectory($this->app->databasePath(), 0755, true, true);
 
                 File::put(
                     $this->app->databasePath('database.sqlite'),
                     ''
                 );
+            }
+        );
+
+        $this->task(
+            'Creating migrations folder',
+            function () {
+                if (File::exists($this->app->databasePath('migrations'))) {
+                    return false;
+                }
+
+                File::makeDirectory($this->app->databasePath('migrations'), 0755, true, true);
             }
         );
 
