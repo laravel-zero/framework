@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Components\Updater;
 
-use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Components\AbstractInstaller;
 
 /**
