@@ -12,9 +12,7 @@ final class QueueInstallTest extends TestCase
 {
     public function tearDown(): void
     {
-        File::delete(database_path('database.sqlite'));
-        File::delete(database_path('migrations'));
-        File::delete(database_path('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php'));
+        File::deleteDirectory(database_path());
         File::delete(base_path('.gitignore'));
         touch(base_path('.gitignore'));
     }
@@ -24,7 +22,7 @@ final class QueueInstallTest extends TestCase
         $composerMock = $this->createMock(ComposerContract::class);
 
         // database, queue, bus...
-        $composerMock->expects($this->exactly(3))
+        $composerMock->expects($this->exactly(4))
             ->method('require');
 
         $this->app->instance(ComposerContract::class, $composerMock);
