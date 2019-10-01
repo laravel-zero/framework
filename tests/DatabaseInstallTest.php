@@ -25,7 +25,7 @@ final class DatabaseInstallTest extends TestCase
         $composerMock->expects($this->exactly(2))
             ->method('require')
             ->withConsecutive(
-                ['illuminate/database "5.8.*"', false],
+                ['illuminate/database "^6.0"', false],
                 ['fzaninotto/faker "^1.4"', true]
             );
 
