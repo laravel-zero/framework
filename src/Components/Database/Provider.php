@@ -112,6 +112,7 @@ class Provider extends AbstractComponentProvider
     {
         $config = $this->app['config'];
         $config->set('database.migrations', $config->get('database.migrations') ?: 'migrations');
+        $this->app->register(\Illuminate\Foundation\Providers\ComposerServiceProvider::class); // dependency
         $this->app->register(\Illuminate\Database\MigrationServiceProvider::class);
 
         $this->app->alias(

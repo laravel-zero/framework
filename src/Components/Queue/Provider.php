@@ -68,6 +68,13 @@ final class Provider extends AbstractComponentProvider
         $this->app->register(\Illuminate\Queue\QueueServiceProvider::class);
 
         $this->app->bind(
+            \Illuminate\Queue\Worker::class,
+            function ($app) {
+                return $app['queue.worker'];
+            }
+        );
+
+        $this->app->bind(
             \Illuminate\Queue\Listener::class,
             function ($app) {
                 return $app['queue.listener'];
