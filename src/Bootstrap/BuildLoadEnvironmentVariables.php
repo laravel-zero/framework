@@ -15,8 +15,8 @@ namespace LaravelZero\Framework\Bootstrap;
 
 use Dotenv\Dotenv;
 use LaravelZero\Framework\Application;
-use LaravelZero\Framework\Providers\Build\Build;
 use LaravelZero\Framework\Contracts\BoostrapperContract;
+use LaravelZero\Framework\Providers\Build\Build;
 
 /**
  * @internal

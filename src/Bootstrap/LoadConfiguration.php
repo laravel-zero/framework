@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Bootstrap;
 
-use LaravelZero\Framework\Application;
 use Illuminate\Console\Application as Artisan;
+use LaravelZero\Framework\Application;
 use LaravelZero\Framework\Contracts\BoostrapperContract;
 
 /**

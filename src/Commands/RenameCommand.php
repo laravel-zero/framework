@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Commands;
 
-use function sprintf;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
+use function sprintf;
 
 final class RenameCommand extends Command
 {

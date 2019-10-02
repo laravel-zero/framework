@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Bootstrap;
 
+use Illuminate\Foundation\Bootstrap\RegisterFacades as BaseRegisterFacades;
 use LaravelZero\Framework\Application;
 use LaravelZero\Framework\Contracts\BoostrapperContract;
-use Illuminate\Foundation\Bootstrap\RegisterFacades as BaseRegisterFacades;
 
 /**
  * @internal
