@@ -13,12 +13,12 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Providers\Composer;
 
-use Throwable;
 use function collect;
-use Symfony\Component\Process\Process;
 use Illuminate\Contracts\Foundation\Application;
-use Symfony\Component\Console\Output\OutputInterface;
 use LaravelZero\Framework\Contracts\Providers\ComposerContract;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Process\Process;
+use Throwable;
 
 /**
  * @codeCoverageIgnore

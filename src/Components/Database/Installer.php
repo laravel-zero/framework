@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Components\Database;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use LaravelZero\Framework\Components\AbstractInstaller;
 
 /**
