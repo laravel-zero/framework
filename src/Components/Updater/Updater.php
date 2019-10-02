@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Components\Updater;
 
-use Illuminate\Console\OutputStyle;
 use Humbug\SelfUpdate\Updater as PharUpdater;
+use Illuminate\Console\OutputStyle;
 
 /**
  * @internal

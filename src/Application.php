@@ -13,13 +13,13 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework;
 
-use Illuminate\Support\Str;
-use Illuminate\Support\Collection;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Foundation\PackageManifest;
 use Illuminate\Events\EventServiceProvider;
-use LaravelZero\Framework\Exceptions\ConsoleException;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Application as BaseApplication;
+use Illuminate\Foundation\PackageManifest;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
+use LaravelZero\Framework\Exceptions\ConsoleException;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
 
 class Application extends BaseApplication

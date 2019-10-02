@@ -15,8 +15,8 @@ namespace LaravelZero\Framework\Components;
 
 use Illuminate\Filesystem\Filesystem;
 use LaravelZero\Framework\Commands\Command;
-use LaravelZero\Framework\Contracts\Providers\ComposerContract;
 use LaravelZero\Framework\Contracts\Commands\Component\InstallerContract;
+use LaravelZero\Framework\Contracts\Providers\ComposerContract;
 
 /**
  * @internal

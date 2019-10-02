@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use Illuminate\Contracts\Foundation\Application as ApplicationContract;
 use LaravelZero\Framework\Application;
 use LaravelZero\Framework\Testing\TestCase as BaseTestCase;
-use Illuminate\Contracts\Foundation\Application as ApplicationContract;
 
 /**
  * This is the Laravel Zero Framework test case class.

@@ -13,16 +13,16 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework;
 
-use function define;
-use ReflectionClass;
 use function collect;
+use function define;
 use function defined;
-use function in_array;
 use function get_class;
 use Illuminate\Console\Application as Artisan;
-use Symfony\Component\Console\Output\OutputInterface;
 use Illuminate\Foundation\Console\Kernel as BaseKernel;
+use function in_array;
 use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorderRepository;
+use ReflectionClass;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class Kernel extends BaseKernel
 {
