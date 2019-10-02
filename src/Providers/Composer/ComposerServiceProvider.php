@@ -27,12 +27,10 @@ final class ComposerServiceProvider extends BaseServiceProvider
     public function register(): void
     {
         $this->app->singleton(
-            'composer',
+            ComposerContract::class,
             function ($app) {
                 return new Composer($app);
             }
         );
-
-        $this->app->alias('composer', ComposerContract::class);
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
 use LaravelZero\Framework\Contracts\Providers\ComposerContract;
@@ -24,7 +25,7 @@ final class DatabaseInstallTest extends TestCase
         $composerMock->expects($this->exactly(2))
             ->method('require')
             ->withConsecutive(
-                ['illuminate/database "5.8.*"', false],
+                ['illuminate/database "^6.0"', false],
                 ['fzaninotto/faker "^1.4"', true]
             );
 
@@ -52,7 +53,7 @@ final class DatabaseInstallTest extends TestCase
 
         Artisan::call('app:install', ['component' => 'database']);
 
-        $this->assertTrue(str_contains(File::get(base_path('.gitignore')), '/database/database.sqlite'));
+        $this->assertTrue(Str::contains(File::get(base_path('.gitignore')), '/database/database.sqlite'));
     }
 
     private function mockComposer(): void
