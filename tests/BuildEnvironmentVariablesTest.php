@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
-use LaravelZero\Framework\Providers\Build\Build;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use LaravelZero\Framework\Bootstrap\BuildLoadEnvironmentVariables;
+use LaravelZero\Framework\Providers\Build\Build;
 
 final class BuildEnvironmentVariablesTest extends TestCase
 {

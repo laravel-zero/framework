@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Tests;
 
 use Exception;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
-use Symfony\Component\Console\Output\NullOutput;
+use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Contracts\Providers\ComposerContract;
+use Symfony\Component\Console\Output\NullOutput;
 
 final class BuildCommandTest extends TestCase
 {

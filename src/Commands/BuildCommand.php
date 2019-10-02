@@ -13,13 +13,13 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Commands;
 
-use Illuminate\Support\Facades\File;
-use Symfony\Component\Process\Process;
 use Illuminate\Console\Application as Artisan;
-use Symfony\Component\Console\Output\NullOutput;
+use Illuminate\Support\Facades\File;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Process\Process;
 
 final class BuildCommand extends Command
 {

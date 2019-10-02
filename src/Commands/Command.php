@@ -13,12 +13,12 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Commands;
 
-use function strlen;
-use function str_repeat;
 use function func_get_args;
-use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Console\Command as BaseCommand;
+use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorderRepository;
+use function str_repeat;
+use function strlen;
 
 abstract class Command extends BaseCommand
 {

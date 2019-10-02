@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Providers\GitVersion;
 
-use Symfony\Component\Process\Process;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Support\ServiceProvider;
+use Symfony\Component\Process\Process;
 
 /**
  * @codeCoverageIgnore
