@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use LaravelZero\Framework\Contracts\Providers\ComposerContract;
 
 final class DatabaseInstallTest extends TestCase

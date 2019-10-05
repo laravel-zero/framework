@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use function touch;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
+use function touch;
 
 final class DotenvInstallTest extends TestCase
 {
