@@ -40,6 +40,10 @@ final class BuildCommandTest extends TestCase
         Artisan::call('app:build', ['name' => 'zonda', '--no-interaction' => true], $output);
 
         $this->assertTrue(File::exists(base_path('builds'.DIRECTORY_SEPARATOR.'zonda')));
+
+        Artisan::call('app:build', ['name' => 'version', '--no-interaction' => true, '--build-version' => 'v0'], $output);
+
+        $this->assertTrue(File::exists(base_path('builds'.DIRECTORY_SEPARATOR.'version')));
     }
 
     public function testConfigStateAfterBuild(): void

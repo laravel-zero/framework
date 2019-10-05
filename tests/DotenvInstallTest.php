@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use function touch;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
-use function touch;
 
 final class DotenvInstallTest extends TestCase
 {
@@ -30,6 +32,6 @@ final class DotenvInstallTest extends TestCase
     {
         Artisan::call('app:install', ['component' => 'dotenv']);
 
-        $this->assertTrue(str_contains(File::get(base_path('.gitignore')), '.env'));
+        $this->assertTrue(Str::contains(File::get(base_path('.gitignore')), '.env'));
     }
 }

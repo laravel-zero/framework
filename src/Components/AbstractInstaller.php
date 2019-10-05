@@ -61,15 +61,16 @@ abstract class AbstractInstaller extends Command implements InstallerContract
      * Requires the provided package.
      *
      * @param  string $package
+     * @param  bool $dev
      *
      * @return \LaravelZero\Framework\Contracts\Commands\Component\InstallerContract
      */
-    protected function require(string $package): InstallerContract
+    protected function require(string $package, bool $dev = false): InstallerContract
     {
         $this->task(
             'Require package via composer',
-            function () use ($package) {
-                return $this->composer->require($package);
+            function () use ($package, $dev) {
+                return $this->composer->require($package, $dev);
             }
         );
 

@@ -47,7 +47,8 @@ final class Installer extends AbstractInstaller
      */
     public function install(): void
     {
-        $this->require('illuminate/database "5.8.*"');
+        $this->require('illuminate/database "^6.0"');
+        $this->require('fzaninotto/faker "^1.4"', true);
 
         $this->task(
             'Creating a default SQLite database',
@@ -89,6 +90,17 @@ final class Installer extends AbstractInstaller
                     self::SEEDER_FILE,
                     $this->app->databasePath('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php')
                 );
+            }
+        );
+
+        $this->task(
+            'Creating factories folder',
+            function () {
+                if (File::exists($this->app->databasePath('factories'))) {
+                    return false;
+                }
+
+                File::makeDirectory($this->app->databasePath('factories'), 0755, true, true);
             }
         );
 

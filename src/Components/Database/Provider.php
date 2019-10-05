@@ -57,6 +57,7 @@ class Provider extends AbstractComponentProvider
             $this->commands(
                 [
                     \Illuminate\Database\Console\Migrations\MigrateMakeCommand::class,
+                    \Illuminate\Database\Console\Factories\FactoryMakeCommand::class,
                     \Illuminate\Database\Console\Seeds\SeederMakeCommand::class,
                     \Illuminate\Foundation\Console\ModelMakeCommand::class,
                     \Illuminate\Database\Console\Seeds\SeedCommand::class,
@@ -94,6 +95,14 @@ class Provider extends AbstractComponentProvider
                 }
             );
         }
+
+        if (File::exists($this->app->databasePath('factories'))) {
+            collect(File::files($this->app->databasePath('factories')))->each(
+                function ($file) {
+                    File::requireOnce($file);
+                }
+            );
+        }
     }
 
     /**
@@ -103,6 +112,7 @@ class Provider extends AbstractComponentProvider
     {
         $config = $this->app['config'];
         $config->set('database.migrations', $config->get('database.migrations') ?: 'migrations');
+        $this->app->register(\Illuminate\Foundation\Providers\ComposerServiceProvider::class);
         $this->app->register(\Illuminate\Database\MigrationServiceProvider::class);
 
         $this->app->alias(
