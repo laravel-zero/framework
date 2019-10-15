@@ -62,6 +62,16 @@ final class BuildCommand extends Command
      */
     public function handle()
     {
+        pcntl_async_signals(true);
+
+        pcntl_signal(SIGINT, function () {
+            if (static::$config !== null) {
+                $this->clear();
+            }
+
+            exit;
+        });
+
         $this->title('Building process');
 
         $this->build($this->input->getArgument('name') ?? $this->getBinary());
