@@ -62,15 +62,9 @@ final class BuildCommand extends Command
      */
     public function handle()
     {
-        pcntl_async_signals(true);
-
-        pcntl_signal(SIGINT, function () {
-            if (static::$config !== null) {
-                $this->clear();
-            }
-
-            exit;
-        });
+        if ($this->supportsAsyncSignals()) {
+            $this->listenForSignals();
+        }
 
         $this->title('Building process');
 
@@ -216,6 +210,30 @@ final class BuildCommand extends Command
         $timeout = (float) $this->option('timeout');
 
         return $timeout > 0 ? $timeout : null;
+    }
+
+    /**
+     * Enable and listen to async signals for the process.
+     */
+    private function listenForSignals(): void
+    {
+        pcntl_async_signals(true);
+
+        pcntl_signal(SIGINT, function () {
+            if (static::$config !== null) {
+                $this->clear();
+            }
+
+            exit;
+        });
+    }
+
+    /**
+     * Determine if "async" signals are supported.
+     */
+    private function supportsAsyncSignals(): bool
+    {
+        return extension_loaded('pcntl');
     }
 
     /**
