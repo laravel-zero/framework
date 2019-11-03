@@ -32,6 +32,7 @@ final class DatabaseProviderTest extends TestCase
                 \Illuminate\Database\Console\Migrations\RollbackCommand::class,
                 \Illuminate\Database\Console\Migrations\StatusCommand::class,
                 \Illuminate\Database\Console\Factories\FactoryMakeCommand::class,
+                \Illuminate\Database\Console\WipeCommand::class,
             ]
         )->map(
             function ($commandClass) use ($commands) {
