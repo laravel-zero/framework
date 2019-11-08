@@ -8,6 +8,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Use Default Logging Provider
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify if you are using a logging provider or the default.
+    | If you wish to extend the logging provider you can set this to false
+    | and it add your provider in to override the defaults.
+    |
+    */
+
+    'useDefaultProvider' => true,
+
+    /*
+    |--------------------------------------------------------------------------
     | Default Log Channel
     |--------------------------------------------------------------------------
     |
