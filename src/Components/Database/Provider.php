@@ -96,14 +96,6 @@ class Provider extends AbstractComponentProvider
                 }
             );
         }
-
-        if (File::exists($this->app->databasePath('factories'))) {
-            collect(File::files($this->app->databasePath('factories')))->each(
-                function ($file) {
-                    File::requireOnce($file);
-                }
-            );
-        }
     }
 
     /**
