@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace LaravelZero\Framework\Components\ScheduleList;
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use LaravelZero\Framework\Components\AbstractInstaller;
 
 /**
@@ -54,6 +55,23 @@ final class Installer extends AbstractInstaller
                 }
 
                 return false;
+            }
+        );
+
+        $this->task(
+            'Setting application name in configuration',
+            function () {
+                if (! File::exists($this->app->configPath('schedule-list.php'))) {
+                    return false;
+                }
+
+                $updatedConfig = File::get($this->app->configPath('schedule-list.php'));
+                $updatedConfig = str_replace('%APPLICATION_NAME%', Str::slug(config('app.name')), $updatedConfig);
+
+                return File::put(
+                    $this->app->configPath('schedule-list.php'),
+                    $updatedConfig
+                );
             }
         );
     }
