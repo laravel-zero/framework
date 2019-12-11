@@ -47,7 +47,7 @@ final class Installer extends AbstractInstaller
         $this->task(
             'Creating default schedule list configuration',
             function () {
-                if (! File::exists(config_path('schedule-list.php'))) {
+                if (! File::exists($this->app->configPath('schedule-list.php'))) {
                     return File::copy(
                         static::CONFIG_FILE,
                         $this->app->configPath('schedule-list.php')
