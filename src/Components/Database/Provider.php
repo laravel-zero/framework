@@ -29,9 +29,9 @@ class Provider extends AbstractComponentProvider
      */
     public function isAvailable(): bool
     {
-        return class_exists(\Illuminate\Database\DatabaseServiceProvider::class) && is_array(
-                $this->app['config']->get('database', false)
-            );
+        return class_exists(\Illuminate\Database\DatabaseServiceProvider::class)
+            && is_array($this->app['config']->get('database', false))
+            && $this->app['config']->get('database.useDefaultProvider', true) === true;
     }
 
     /**

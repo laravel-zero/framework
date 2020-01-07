@@ -26,7 +26,8 @@ final class Provider extends AbstractComponentProvider
      */
     public function isAvailable(): bool
     {
-        return class_exists(\Illuminate\Log\LogServiceProvider::class);
+        return class_exists(\Illuminate\Log\LogServiceProvider::class)
+            && $this->app['config']->get('logging.useDefaultProvider', true) === true;
     }
 
     /**

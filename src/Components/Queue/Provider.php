@@ -26,9 +26,10 @@ final class Provider extends AbstractComponentProvider
      */
     public function isAvailable(): bool
     {
-        return class_exists(\Illuminate\Bus\BusServiceProvider::class) && class_exists(
-                \Illuminate\Queue\QueueServiceProvider::class
-            ) && file_exists($this->app->configPath('queue.php'));
+        return class_exists(\Illuminate\Bus\BusServiceProvider::class)
+            && class_exists(\Illuminate\Queue\QueueServiceProvider::class)
+            && file_exists($this->app->configPath('queue.php'))
+            && $this->app['config']->get('queue.useDefaultProvider', true) === true;
     }
 
     /**

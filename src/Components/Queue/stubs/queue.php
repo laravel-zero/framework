@@ -4,6 +4,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Use Default Queue Provider
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify if you are using a queue provider or the default.
+    | If you wish to extend the queue provider you can set this to false
+    | and then add your provider in to override the defaults.
+    |
+    */
+
+    'useDefaultProvider' => true,
+
+    /*
+    |--------------------------------------------------------------------------
     | Default Queue Connection Name
     |--------------------------------------------------------------------------
     |
