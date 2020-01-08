@@ -6,19 +6,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Use Default Database Provider
-    |--------------------------------------------------------------------------
-    |
-    | Here you may specify if you are using a database provider or the default.
-    | If you wish to extend the database provider you can set this to false
-    | and then add your provider in to override the defaults.
-    |
-    */
-
-    'useDefaultProvider' => true,
-
-    /*
-    |--------------------------------------------------------------------------
     | Default Database Connection Name
     |--------------------------------------------------------------------------
     |
