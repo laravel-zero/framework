@@ -27,9 +27,8 @@ final class Provider extends AbstractComponentProvider
      */
     public function isAvailable(): bool
     {
-        return class_exists(\Zend\Text\Figlet\Figlet::class) && is_array(
-                $this->app['config']->get('logo', false)
-            );
+        return class_exists(\Laminas\Text\Figlet\Figlet::class)
+            && is_array($this->app['config']->get('logo', false));
     }
 
     /**
