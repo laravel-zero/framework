@@ -46,6 +46,7 @@
         "illuminate/log": "^7.0",
         "illuminate/queue": "^7.0",
         "illuminate/database": "^7.0",
+        "laminas/laminas-text": "^2.7",
         "padraic/phar-updater": "^1.0.6",
         "zendframework/zend-text": "^2.7",
         "nunomaduro/laravel-console-menu": "^2.3",
