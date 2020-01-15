@@ -15,7 +15,7 @@
         }
     ],
     "require": {
-        "php": "^7.2",
+        "php": "^7.2.5",
         "ext-json": "*",
         "dragonmantank/cron-expression": "^2.0",
         "illuminate/cache": "^7.0",
