@@ -27,7 +27,7 @@
         "vlucas/phpdotenv": "^3.0",
         "illuminate/filesystem": "^7.0",
         "illuminate/support": "^7.0",
-        "laravel-zero/foundation": "^6.0",
+        "laravel-zero/foundation": "^7.0",
         "league/flysystem": "^1.0.8",
         "nunomaduro/collision": "^3.0",
         "nunomaduro/laravel-console-summary": "^1.3",
