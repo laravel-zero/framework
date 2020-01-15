@@ -49,7 +49,7 @@
         "illuminate/database": "^6.0",
         "laminas/laminas-text": "^2.7",
         "padraic/phar-updater": "^1.0.6",
-        "nunomaduro/laravel-console-menu": "^2.2",
+        "nunomaduro/laravel-console-menu": "^2.3",
         "nunomaduro/laravel-console-dusk": "^1.4",
         "hmazter/laravel-schedule-list": "^2.0"
     },
