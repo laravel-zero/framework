@@ -47,8 +47,8 @@
         "illuminate/log": "^6.0",
         "illuminate/queue": "^6.0",
         "illuminate/database": "^6.0",
+        "laminas/laminas-text": "^2.7",
         "padraic/phar-updater": "^1.0.6",
-        "zendframework/zend-text": "^2.7",
         "nunomaduro/laravel-console-menu": "^2.2",
         "nunomaduro/laravel-console-dusk": "^1.4",
         "hmazter/laravel-schedule-list": "^2.0"
