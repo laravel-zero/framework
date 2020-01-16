@@ -51,7 +51,7 @@
         "padraic/phar-updater": "^1.0.6",
         "nunomaduro/laravel-console-menu": "^2.3",
         "nunomaduro/laravel-console-dusk": "^1.6",
-        "hmazter/laravel-schedule-list": "^2.0"
+        "hmazter/laravel-schedule-list": "^2.1"
     },
     "autoload": {
         "psr-4": {
