@@ -16,7 +16,7 @@ final class ScheduleListInstallTest extends TestCase
 
         $composerMock->expects($this->once())
             ->method('require')
-            ->with('hmazter/laravel-schedule-list "^2.0"');
+            ->with('hmazter/laravel-schedule-list "^2.1"');
 
         $this->app->instance(ComposerContract::class, $composerMock);
 
