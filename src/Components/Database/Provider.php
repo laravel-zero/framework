@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Components\Database;
 
-use Illuminate\Database\Migrations\MigrationCreator;
 use function class_exists;
 use function collect;
+use Illuminate\Database\Migrations\MigrationCreator;
 use Illuminate\Support\Facades\File;
 use function is_array;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
