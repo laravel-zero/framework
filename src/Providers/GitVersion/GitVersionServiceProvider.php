@@ -34,7 +34,7 @@ final class GitVersionServiceProvider extends ServiceProvider
                 $lastRevisionTag = '$(git rev-list --tags --max-count=1)';
 
                 if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-                    $taskGetLastRevisionTag = 'git rev-list --tags --max-count=1';
+                    $taskGetLastRevisionTag = ['git', 'rev-list', '--tags', '--max-count=1'];
 
                     $process = tap(new Process($taskGetLastRevisionTag, $app->basePath()))->run();
 
@@ -44,7 +44,7 @@ final class GitVersionServiceProvider extends ServiceProvider
                         return 'unreleased';
                     }
                 }
-                $task = "git describe --tags $lastRevisionTag";
+                $task = ['git', 'describe', '--tags', $lastRevisionTag];
 
                 $process = tap(new Process($task, $app->basePath()))->run();
 
