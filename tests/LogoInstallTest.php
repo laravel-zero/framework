@@ -21,7 +21,7 @@ final class LogoInstallTest extends TestCase
 
         $composerMock->expects($this->once())
             ->method('require')
-            ->with('laminas/laminas-text "^2.7"');
+            ->with('zendframework/zend-text "^2.7"');
 
         $this->app->instance(ComposerContract::class, $composerMock);
 

@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace LaravelZero\Framework\Components\Logo;
 
 use InvalidArgumentException;
-use Laminas\Text\Figlet\Figlet;
+use Zend\Text\Figlet\Figlet as ZendFiglet;
 
 /**
  * @internal
@@ -23,7 +23,6 @@ final class FigletString
 {
     private $string;
 
-    /** @var Figlet */
     private $figlet;
 
     public const DEFAULT_FONT = __DIR__.DIRECTORY_SEPARATOR.'fonts'.DIRECTORY_SEPARATOR.'big.flf';
@@ -31,7 +30,7 @@ final class FigletString
     public function __construct(string $string, array $options)
     {
         $this->string = $string;
-        $this->figlet = new Figlet();
+        $this->figlet = new ZendFiglet();
 
         $this->parseOptions($options);
     }
@@ -67,16 +66,16 @@ final class FigletString
     {
         switch ($justification) {
             case 'left':
-                $this->figlet->setJustification(Figlet::JUSTIFICATION_LEFT);
+                $this->figlet->setJustification(ZendFiglet::JUSTIFICATION_LEFT);
                 break;
             case 'center':
-                $this->figlet->setJustification(Figlet::JUSTIFICATION_CENTER);
+                $this->figlet->setJustification(ZendFiglet::JUSTIFICATION_CENTER);
                 break;
             case 'right':
-                $this->figlet->setJustification(Figlet::JUSTIFICATION_RIGHT);
+                $this->figlet->setJustification(ZendFiglet::JUSTIFICATION_RIGHT);
                 break;
             case null:
-                // Let Figlet handle the justification
+                // Let ZendFiglet handle the justification
                 break;
             default:
                 throw new InvalidArgumentException('Invalid value given for the `logo.justification` option');
@@ -89,13 +88,13 @@ final class FigletString
     {
         switch ($rightToLeft) {
             case 'right-to-left':
-                $this->figlet->setRightToLeft(Figlet::DIRECTION_RIGHT_TO_LEFT);
+                $this->figlet->setRightToLeft(ZendFiglet::DIRECTION_RIGHT_TO_LEFT);
                 break;
             case 'left-to-right':
-                $this->figlet->setRightToLeft(Figlet::DIRECTION_LEFT_TO_RIGHT);
+                $this->figlet->setRightToLeft(ZendFiglet::DIRECTION_LEFT_TO_RIGHT);
                 break;
             case null:
-                // Let Figlet handle this
+                // Let ZendFiglet handle this
                 break;
             default:
                 throw new \InvalidArgumentException('Invalid value given for the `logo.rightToLeft` option');
