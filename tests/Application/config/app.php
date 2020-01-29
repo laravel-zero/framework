@@ -3,7 +3,7 @@
 return [
     'name' => 'Application',
     'version' => 'Test version',
-    'production' => false,
+    'env' => 'development',
     'providers' => [
         App\Providers\FakeServiceProvider::class,
     ],

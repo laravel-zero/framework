@@ -43,8 +43,7 @@ abstract class TestCase extends BaseTestCase
      */
     public function createApplication(): ApplicationContract
     {
-        $app = require __DIR__.DIRECTORY_SEPARATOR.'Application'.DIRECTORY_SEPARATOR.'bootstrap'.DIRECTORY_SEPARATOR.
-            'app.php';
+        $app = require __DIR__.'/Application/bootstrap/app.php';
 
         Application::setInstance($app);
 
