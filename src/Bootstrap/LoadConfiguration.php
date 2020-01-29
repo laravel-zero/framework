@@ -32,7 +32,7 @@ final class LoadConfiguration implements BoostrapperContract
 
         $app->detectEnvironment(
             function () use ($app) {
-                return $app['config']->get('app.production', true) ? 'production' : 'development';
+                return $app['config']->get('app.env', 'production');
             }
         );
 
