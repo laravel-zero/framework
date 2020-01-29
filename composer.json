@@ -24,9 +24,9 @@
         "illuminate/container": "^7.0",
         "illuminate/contracts": "^7.0",
         "illuminate/events": "^7.0",
-        "vlucas/phpdotenv": "^4.0",
         "illuminate/filesystem": "^7.0",
         "illuminate/support": "^7.0",
+        "illuminate/testing": "^7.0",
         "laravel-zero/foundation": "^7.0",
         "league/flysystem": "^1.0.8",
         "nunomaduro/collision": "^4.0",
@@ -37,7 +37,8 @@
         "symfony/console": "^5.0",
         "symfony/debug": "^4.0",
         "symfony/process": "^5.0",
-        "symfony/var-dumper": "^5.0"
+        "symfony/var-dumper": "^5.0",
+        "vlucas/phpdotenv": "^4.0"
     },
     "require-dev": {
         "phpstan/phpstan": "^0.12",
