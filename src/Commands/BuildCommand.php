@@ -150,7 +150,7 @@ final class BuildCommand extends Command
 
         $config = include $configFile;
 
-        $config['production'] = true;
+        $config['env'] = 'production';
         $version = $this->option('build-version') ?: $this->ask('Build version?', $config['version']);
         $config['version'] = $version;
 

@@ -50,11 +50,9 @@ final class Provider extends AbstractComponentProvider
      */
     public function register(): void
     {
-        $config = $this->app['config'];
-
         $build = $this->app->make(Build::class);
 
-        if ($build->isRunning() && $config->get('app.production', false)) {
+        if ($build->isRunning() && $this->app->environment('production')) {
             $this->app->singleton(Updater::class, function () use ($build) {
                 $updater = new PharUpdater($build->getPath(), false, PharUpdater::STRATEGY_GITHUB);
 
