@@ -48,16 +48,6 @@ final class Composer implements ComposerContract
     /**
      * {@inheritdoc}
      */
-    public function install(array $options = []): bool
-    {
-        $cmd = collect('composer install')->merge($options)->implode(' ');
-
-        return $this->run($cmd, $this->app->basePath());
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function require(string $package, bool $dev = false): bool
     {
         return $this->run("composer require $package".($dev ? ' --dev' : ''), $this->app->basePath());
