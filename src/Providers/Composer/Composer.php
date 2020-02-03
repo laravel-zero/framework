@@ -51,7 +51,7 @@ final class Composer implements ComposerContract
     public function require(string $package, bool $dev = false): bool
     {
         return $this->run(
-            "composer require $package" . ($dev ? ' --dev' : ''),
+            "composer require $package".($dev ? ' --dev' : ''),
             $this->app->basePath()
         );
     }
