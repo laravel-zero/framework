@@ -50,7 +50,10 @@ final class Composer implements ComposerContract
      */
     public function require(string $package, bool $dev = false): bool
     {
-        return $this->run("composer require $package".($dev ? ' --dev' : ''), $this->app->basePath());
+        return $this->run(
+            "composer require $package" . ($dev ? ' --dev' : ''),
+            $this->app->basePath()
+        );
     }
 
     /**
@@ -58,7 +61,9 @@ final class Composer implements ComposerContract
      */
     public function createProject(string $skeleton, string $projectName, array $options): bool
     {
-        $cmd = collect("composer create-project $skeleton $projectName")->merge($options)->implode(' ');
+        $cmd = collect("composer create-project $skeleton $projectName")
+            ->merge($options)
+            ->implode(' ');
 
         return $this->run($cmd);
     }
