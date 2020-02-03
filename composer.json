@@ -35,7 +35,7 @@
         "nunomaduro/laravel-desktop-notifier": "^2.3",
         "psr/log": "^1.1",
         "symfony/console": "^5.0",
-        "symfony/debug": "^4.0",
+        "symfony/error-handler": "^5.0",
         "symfony/process": "^5.0",
         "symfony/var-dumper": "^5.0",
         "vlucas/phpdotenv": "^4.0"
