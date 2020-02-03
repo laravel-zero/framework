@@ -41,7 +41,7 @@ final class Installer extends AbstractInstaller
      */
     public function install(): void
     {
-        $this->require('illuminate/log "^6.0"');
+        $this->require('illuminate/log "^7.0"');
 
         $this->task(
             'Creating default logging configuration',

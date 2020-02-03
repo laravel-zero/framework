@@ -21,7 +21,7 @@ final class LogInstallTest extends TestCase
 
         $composerMock->expects($this->once())
             ->method('require')
-            ->with('illuminate/log "^6.0"');
+            ->with('illuminate/log "^7.0"');
 
         $this->app->instance(ComposerContract::class, $composerMock);
 
