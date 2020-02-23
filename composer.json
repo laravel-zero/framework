@@ -81,6 +81,7 @@
         ]
     },
     "suggest": {
-        "ext-pcntl": "Required to ensure that data is cleared when cancelling the build process."
+        "ext-pcntl": "Required to ensure that data is cleared when cancelling the build process.",
+        "illuminate/validation": "Require this package to be able to use validation rules directly in the ask method"
     }
 }
