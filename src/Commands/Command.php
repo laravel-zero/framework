@@ -104,7 +104,7 @@ abstract class Command extends BaseCommand
 
         return $this;
     }
-    
+
     /**
      * Prompt the user for input.
      *
