@@ -104,4 +104,29 @@ abstract class Command extends BaseCommand
 
         return $this;
     }
+    
+    /**
+     * Prompt the user for input.
+     *
+     * @param  string  $question
+     * @param  string|null  $default
+     * @param  array|string|null  $validationRule
+     * @return mixed
+     */
+    public function ask($question, $default = null, $validationRule = null)
+    {
+        if (! class_exists(\Illuminate\Validation\Validator::class) || ! $this->app->bound('validator')) {
+            throw new \RuntimeException('The "illuminate/validation" package is required to use validation rules');
+        }
+
+        $validator = null;
+        if ($validationRule) {
+            $validator = function ($answer) use ($question, $validationRule) {
+                \Illuminate\Support\Facades\Validator::make([$question => $answer], [
+                    $question => $validationRule,
+                ])->validate();
+            };
+        }
+        return $this->output->ask($question, $default, $validator);
+    }
 }
