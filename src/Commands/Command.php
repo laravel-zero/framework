@@ -127,6 +127,7 @@ abstract class Command extends BaseCommand
                 ])->validate();
             };
         }
+
         return $this->output->ask($question, $default, $validator);
     }
 }
