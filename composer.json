@@ -47,6 +47,7 @@
         "illuminate/log": "^6.0",
         "illuminate/queue": "^6.0",
         "illuminate/database": "^6.0",
+        "illuminate/validation": "^6    .0",
         "padraic/phar-updater": "^1.0.6",
         "zendframework/zend-text": "^2.7",
         "nunomaduro/laravel-console-menu": "^2.3",
