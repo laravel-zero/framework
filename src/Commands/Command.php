@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Commands;
 
-use function func_get_args;
 use Illuminate\Console\Command as BaseCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorderRepository;
+use function func_get_args;
 use function str_repeat;
 use function strlen;
 
@@ -32,7 +32,7 @@ abstract class Command extends BaseCommand
     /**
      * Define the command's schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule $schedule
+     * @param \Illuminate\Console\Scheduling\Schedule $schedule
      * @return void
      */
     public function schedule(Schedule $schedule)
@@ -104,4 +104,86 @@ abstract class Command extends BaseCommand
 
         return $this;
     }
+
+    /**
+     * @param int $count
+     * @return Command
+     */
+    public function newLine(int $count = 1)
+    {
+        $this->output->newLine($count);
+
+        return $this;
+    }
+
+    /**
+     * @param string|string[] $message
+     * @return Command
+     */
+    public function successBlock($message)
+    {
+        $this->output->success($message);
+
+        return $this;
+    }
+
+    /**
+     * @param array $elements
+     * @return $this
+     */
+    public function listing(array $elements)
+    {
+        $this->output->listing($elements);
+
+        return $this;
+    }
+
+    /**
+     * @param string|string[] $message
+     * @return $this
+     */
+    public function write($message)
+    {
+        $this->output->write($message);
+
+        return $this;
+    }
+
+    /**
+     * @param string|string[] $message
+     */
+    public function errorBlock($message)
+    {
+        $this->output->error($message);
+    }
+
+    /**
+     * @return self
+     */
+    public function progressStart()
+    {
+        $this->output->progressStart();
+
+        return $this;
+    }
+
+    /**
+     * @param int $step
+     * @return self
+     */
+    public function progressAdvance(int $step = 1)
+    {
+        $this->output->progressAdvance($step);
+
+        return $this;
+    }
+
+    public function progressFinish()
+    {
+        $this->output->progressFinish();
+
+        return $this;
+    }
+
+
 }
