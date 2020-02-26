@@ -128,6 +128,17 @@ abstract class Command extends BaseCommand
     }
 
     /**
+     * @param string|string[] $message
+     * @return Command
+     */
+    public function warningBlock($message)
+    {
+        $this->output->warning($message);
+
+        return $this;
+    }
+
+    /**
      * @param array $elements
      * @return $this
      */
@@ -184,6 +195,4 @@ abstract class Command extends BaseCommand
 
         return $this;
     }
-
-
 }
