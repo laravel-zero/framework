@@ -19,12 +19,6 @@ namespace LaravelZero\Framework\Contracts\Providers;
 interface ComposerContract
 {
     /**
-     * Runs a composer install with
-     * the provided options.
-     */
-    public function install(array $options = []): bool;
-
-    /**
      * Runs a composer require with
      * the provided package.
      */
