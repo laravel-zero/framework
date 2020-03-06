@@ -35,6 +35,6 @@ final class Installer extends AbstractInstaller
      */
     public function install(): void
     {
-        $this->require('nunomaduro/laravel-console-menu "^2.3"');
+        $this->require('nunomaduro/laravel-console-menu "^3.0"');
     }
 }
