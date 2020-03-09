@@ -32,7 +32,7 @@ final class HttpComponentTest extends TestCase
     {
         Http::fake();
 
-        Http::withHeaders([
+        $response = Http::withHeaders([
             'X-Faked' => 'enabled',
         ])->get('https://faked.test');
 
@@ -40,5 +40,8 @@ final class HttpComponentTest extends TestCase
             return $request->hasHeader('X-Faked', 'enabled')
                 && $request->url('https://faked.test');
         });
+
+        $this->assertTrue($response->ok());
+        $this->assertEmpty($response->body());
     }
 }
