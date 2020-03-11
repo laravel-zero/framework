@@ -19,9 +19,9 @@ use function defined;
 use function get_class;
 use Illuminate\Console\Application as Artisan;
 use Illuminate\Foundation\Console\Kernel as BaseKernel;
-use NunoMaduro\Collision\Adapters\Laravel\Commands\TestCommand;
 use function in_array;
 use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorderRepository;
+use NunoMaduro\Collision\Adapters\Laravel\Commands\TestCommand;
 use ReflectionClass;
 use Symfony\Component\Console\Output\OutputInterface;
 
