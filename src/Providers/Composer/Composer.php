@@ -48,25 +48,12 @@ final class Composer implements ComposerContract
     /**
      * {@inheritdoc}
      */
-    public function install(array $options = []): bool
-    {
-        $cmd = 'composer install';
-
-        collect($options)->each(
-            function ($option) use (&$cmd) {
-                $cmd .= " $option";
-            }
-        );
-
-        return $this->run($cmd, $this->app->basePath());
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function require(string $package, bool $dev = false): bool
     {
-        return $this->run("composer require $package".($dev ? ' --dev' : ''), $this->app->basePath());
+        return $this->run(
+            "composer require $package".($dev ? ' --dev' : ''),
+            $this->app->basePath()
+        );
     }
 
     /**
@@ -74,13 +61,9 @@ final class Composer implements ComposerContract
      */
     public function createProject(string $skeleton, string $projectName, array $options): bool
     {
-        $cmd = "composer create-project $skeleton $projectName";
-
-        collect($options)->each(
-            function ($option) use (&$cmd) {
-                $cmd .= " $option";
-            }
-        );
+        $cmd = collect("composer create-project $skeleton $projectName")
+            ->merge($options)
+            ->implode(' ');
 
         return $this->run($cmd);
     }
@@ -90,7 +73,7 @@ final class Composer implements ComposerContract
      */
     private function run(string $cmd, string $cwd = null): bool
     {
-        $process = new Process($cmd, $cwd);
+        $process = Process::fromShellCommandline($cmd, $cwd);
 
         $process->setTimeout(300);
 

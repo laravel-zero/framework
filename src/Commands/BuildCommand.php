@@ -107,8 +107,8 @@ final class BuildCommand extends Command
         }
 
         $process = new Process(
-            './box compile --working-dir="'.base_path().'" --config="'.base_path('box.json').'"',
-            dirname(dirname(__DIR__)).'/bin',
+            ['./box', 'compile', '--working-dir='.base_path(), '--config='.base_path('box.json')],
+            dirname(__DIR__, 2).'/bin',
             null,
             null,
             $this->getTimeout()
@@ -150,7 +150,7 @@ final class BuildCommand extends Command
 
         $config = include $configFile;
 
-        $config['production'] = true;
+        $config['env'] = 'production';
         $version = $this->option('build-version') ?: $this->ask('Build version?', $config['version']);
         $config['version'] = $version;
 

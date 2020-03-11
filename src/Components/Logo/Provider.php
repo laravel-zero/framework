@@ -27,9 +27,8 @@ final class Provider extends AbstractComponentProvider
      */
     public function isAvailable(): bool
     {
-        return class_exists(\Zend\Text\Figlet\Figlet::class) && is_array(
-                $this->app['config']->get('logo', false)
-            );
+        return class_exists(\Laminas\Text\Figlet\Figlet::class)
+            && is_array($this->app['config']->get('logo', false));
     }
 
     /**
@@ -43,7 +42,7 @@ final class Provider extends AbstractComponentProvider
             Artisan::starting(
                 function ($artisan) use ($config) {
                     $artisan->setName(
-                        new FigletString($config->get('app.name'), $config->get('logo', []))
+                        (string) new FigletString($config->get('app.name'), $config->get('logo', []))
                     );
                 }
             );

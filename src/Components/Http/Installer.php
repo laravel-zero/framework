@@ -11,7 +11,7 @@ declare(strict_types=1);
  *  file that was distributed with this source code.
  */
 
-namespace LaravelZero\Framework\Components\Menu;
+namespace LaravelZero\Framework\Components\Http;
 
 use LaravelZero\Framework\Components\AbstractInstaller;
 
@@ -23,18 +23,19 @@ final class Installer extends AbstractInstaller
     /**
      * {@inheritdoc}
      */
-    protected $name = 'install:menu';
+    protected $name = 'install:http';
 
     /**
      * {@inheritdoc}
      */
-    protected $description = 'Menu: Build beautiful CLI interactive menus';
+    protected $description = 'Http: Manage web requests using a fluent HTTP client';
 
     /**
      * {@inheritdoc}
      */
     public function install(): void
     {
-        $this->require('nunomaduro/laravel-console-menu "^3.0"');
+        $this->require('guzzlehttp/guzzle "^6.3.1"');
+        $this->require('illuminate/http "^7.0"');
     }
 }

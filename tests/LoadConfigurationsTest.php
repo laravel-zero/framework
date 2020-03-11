@@ -16,10 +16,7 @@ final class LoadConfigurationsTest extends TestCase
     {
         $this->assertSame('Application', Artisan::getName());
         $this->assertSame('Test version', $this->app->version());
-        $this->assertEquals(
-            $this->app->environment(),
-            'development'
-        );
+        $this->assertEquals($this->app->environment(), 'development');
     }
 
     public function testAddCommands(): void

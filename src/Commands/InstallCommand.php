@@ -37,6 +37,7 @@ final class InstallCommand extends Command
         'console-dusk' => Components\ConsoleDusk\Installer::class,
         'database' => Components\Database\Installer::class,
         'dotenv' => Components\Dotenv\Installer::class,
+        'http' => Components\Http\Installer::class,
         'log' => Components\Log\Installer::class,
         'logo' => Components\Logo\Installer::class,
         'menu' => Components\Menu\Installer::class,

@@ -8,4 +8,4 @@
  * @author   Nuno Maduro <enunomaduro@gmail.com>
  */
 
-require_once __DIR__ . '/bootstrap/init.php';
+require_once __DIR__ . '/bootstrap/app.php';

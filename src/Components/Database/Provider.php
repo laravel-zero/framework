@@ -15,6 +15,7 @@ namespace LaravelZero\Framework\Components\Database;
 
 use function class_exists;
 use function collect;
+use Illuminate\Database\Migrations\MigrationCreator;
 use Illuminate\Support\Facades\File;
 use function is_array;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
@@ -107,6 +108,7 @@ class Provider extends AbstractComponentProvider
         $config->set('database.migrations', $config->get('database.migrations') ?: 'migrations');
         $this->app->register(\Illuminate\Foundation\Providers\ComposerServiceProvider::class);
         $this->app->register(\Illuminate\Database\MigrationServiceProvider::class);
+        $this->app->alias('migration.creator', MigrationCreator::class);
 
         $this->app->alias(
             'migration.repository',
