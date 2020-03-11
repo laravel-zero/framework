@@ -123,13 +123,13 @@ class Kernel extends BaseKernel
 
         $toRemoveCommands = $config->get('commands.remove', []);
 
-        if ($this->app->environment() === 'production') {
-            $toRemoveLaravelCommands = [
+        if ($this->app->environment('production')) {
+            $toRemoveCommands = array_merge($toRemoveCommands, [
                 TestCommand::class,
-            ];
+            ]);
         }
 
-        $commands = $commands->diff(array_merge($toRemoveCommands, $toRemoveLaravelCommands ?? []));
+        $commands = $commands->diff($toRemoveCommands);
 
         Artisan::starting(
             function ($artisan) use ($toRemoveCommands) {
