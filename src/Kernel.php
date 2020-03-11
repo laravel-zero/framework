@@ -19,6 +19,7 @@ use function defined;
 use function get_class;
 use Illuminate\Console\Application as Artisan;
 use Illuminate\Foundation\Console\Kernel as BaseKernel;
+use Illuminate\Foundation\Console\TestMakeCommand;
 use function in_array;
 use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorderRepository;
 use ReflectionClass;
@@ -120,7 +121,15 @@ class Kernel extends BaseKernel
             $commands = $commands->merge($this->developmentCommands);
         }
 
-        $commands = $commands->diff($toRemoveCommands = $config->get('commands.remove', []));
+        $toRemoveCommands = $config->get('commands.remove', []);
+
+        if ($this->app->environment() === 'production') {
+            $toRemoveLaravelCommands = [
+                TestMakeCommand::class,
+            ];
+        }
+
+        $commands = $commands->diff(array_merge($toRemoveCommands, $toRemoveLaravelCommands ?? []));
 
         Artisan::starting(
             function ($artisan) use ($toRemoveCommands) {

@@ -53,4 +53,9 @@ final class LoadConfigurationsTest extends TestCase
     {
         $this->assertArrayNotHasKey('fake:removed', Artisan::all());
     }
+
+    public function testMakeTestCommandIsRemoved(): void
+    {
+        $this->assertArrayNotHasKey('make:test', Artisan::all());
+    }
 }
