@@ -125,7 +125,7 @@ class Kernel extends BaseKernel
 
         if ($this->app->environment() === 'production') {
             $toRemoveLaravelCommands = [
-                TestMakeCommand::class,
+                TestCommand::class,
             ];
         }
 
