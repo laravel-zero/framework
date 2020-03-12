@@ -143,10 +143,6 @@ $ php <your-application-name> migrate
 
 use DB;
 
-DB::table(\'users\')->insert(
-    [\'email\' => \'enunomaduro@gmail.com\']
-);
-
 $users = DB::table(\'users\')->get();
         '
         );
