@@ -9,7 +9,6 @@ use App\Commands\FakeFooCommand;
 use App\HiddenCommands\FakeHiddenCommand;
 use App\OtherCommands\FakeOtherCommand;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\File;
 
 final class LoadConfigurationsTest extends TestCase
 {
@@ -50,20 +49,5 @@ final class LoadConfigurationsTest extends TestCase
     public function testRemoveCommands(): void
     {
         $this->assertArrayNotHasKey('fake:removed', Artisan::all());
-    }
-
-    public function testMakeTestCommandIsRemoved(): void
-    {
-        File::copy(base_path('production-config-app.php'), config_path('app.php'));
-
-        $this->refreshApplication();
-
-        $this->assertSame('production', $this->app->environment());
-        $this->assertArrayNotHasKey('test', Artisan::all());
-    }
-
-    public function tearDown(): void
-    {
-        File::copy(base_path('save-config-app.php'), config_path('app.php'));
     }
 }
