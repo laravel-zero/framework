@@ -9,7 +9,6 @@ use App\Commands\FakeFooCommand;
 use App\HiddenCommands\FakeHiddenCommand;
 use App\OtherCommands\FakeOtherCommand;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\File;
 
 final class LoadConfigurationsTest extends TestCase
 {
