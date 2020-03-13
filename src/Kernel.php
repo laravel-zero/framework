@@ -21,6 +21,7 @@ use Illuminate\Console\Application as Artisan;
 use Illuminate\Foundation\Console\Kernel as BaseKernel;
 use function in_array;
 use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorderRepository;
+use NunoMaduro\Collision\Adapters\Laravel\Commands\TestCommand;
 use ReflectionClass;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -120,7 +121,15 @@ class Kernel extends BaseKernel
             $commands = $commands->merge($this->developmentCommands);
         }
 
-        $commands = $commands->diff($toRemoveCommands = $config->get('commands.remove', []));
+        $toRemoveCommands = $config->get('commands.remove', []);
+
+        if ($this->app->environment('production')) {
+            $toRemoveCommands = array_merge($toRemoveCommands, [
+                TestCommand::class,
+            ]);
+        }
+
+        $commands = $commands->diff($toRemoveCommands);
 
         Artisan::starting(
             function ($artisan) use ($toRemoveCommands) {
