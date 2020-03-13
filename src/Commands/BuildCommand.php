@@ -106,8 +106,10 @@ final class BuildCommand extends Command
             File::makeDirectory($this->app->buildsPath());
         }
 
+        $boxBinary = windows_os() ? '.\box.bat' : './box';
+
         $process = new Process(
-            ['./box', 'compile', '--working-dir='.base_path(), '--config='.base_path('box.json')],
+            [$boxBinary, 'compile', '--working-dir='.base_path(), '--config='.base_path('box.json')],
             dirname(__DIR__, 2).'/bin',
             null,
             null,
