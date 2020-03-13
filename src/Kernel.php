@@ -40,6 +40,15 @@ class Kernel extends BaseKernel
     ];
 
     /**
+     * Commands that should be removed in production.
+     *
+     * @var string[]
+     */
+    protected $developmentOnlyCommands = [
+        TestCommand::class,
+    ];
+
+    /**
      * The application's bootstrap classes.
      *
      * @var string[]
@@ -124,9 +133,7 @@ class Kernel extends BaseKernel
         $toRemoveCommands = $config->get('commands.remove', []);
 
         if ($this->app->environment('production')) {
-            $toRemoveCommands = array_merge($toRemoveCommands, [
-                TestCommand::class,
-            ]);
+            $toRemoveCommands = array_merge($toRemoveCommands, $this->developmentOnlyCommands);
         }
 
         $commands = $commands->diff($toRemoveCommands);
