@@ -34,14 +34,6 @@ final class MakeCommand extends ConsoleMakeCommand
     /**
      * {@inheritdoc}
      */
-    protected function getStub(): string
-    {
-        return __DIR__.DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'console.stub';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     protected function getDefaultNamespace($rootNamespace): string
     {
         return $rootNamespace.'\Commands';

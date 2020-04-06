@@ -37,6 +37,7 @@ class Kernel extends BaseKernel
         Commands\RenameCommand::class,
         Commands\MakeCommand::class,
         Commands\InstallCommand::class,
+        Commands\StubPublishCommand::class,
     ];
 
     /**
