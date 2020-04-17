@@ -23,6 +23,7 @@ use function in_array;
 use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorderRepository;
 use NunoMaduro\Collision\Adapters\Laravel\Commands\TestCommand;
 use ReflectionClass;
+use Symfony\Component\Console\Exception\CommandNotFoundException;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class Kernel extends BaseKernel
@@ -85,7 +86,40 @@ class Kernel extends BaseKernel
     {
         $this->app->instance(OutputInterface::class, $output);
 
+        $this->ensureDefaultCommand($input);
+
         return parent::handle($input, $output);
+    }
+
+    /**
+     * With Symfony's default commands, you cannot pass any argument
+     * or option because they are ignored. When the first argument
+     * does not match any commands, this method ensures given
+     * arguments/options are proxied to the default command.
+     */
+    protected function ensureDefaultCommand($input): void
+    {
+        $this->bootstrap();
+
+        $application = $this->getArtisan();
+
+        try {
+            /**
+             * First, we are going to see if the first argument
+             * matches any command on our console application.
+             */
+            if ($commandName = $input->getFirstArgument()) {
+                $application->find($commandName);
+            }
+        } catch (CommandNotFoundException $e) {
+            /**
+             * If none, the given arguments and options should
+             * be proxied to the application default command.
+             */
+            $application->setDefaultCommand(
+                resolve(config('commands.default'))->getName(), true
+            );
+        }
     }
 
     /**
