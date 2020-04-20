@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Components\Updater;
 
-use LaravelZero\Framework\Components\Updater\Strategy\GithubStrategy;
 use function class_exists;
 use Humbug\SelfUpdate\Updater as PharUpdater;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
+use LaravelZero\Framework\Components\Updater\Strategy\GithubStrategy;
 use LaravelZero\Framework\Providers\Build\Build;
 
 /**
