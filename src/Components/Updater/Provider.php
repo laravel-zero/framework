@@ -38,6 +38,14 @@ final class Provider extends AbstractComponentProvider
     {
         $build = $this->app->make(Build::class);
 
+        if (! $this->app->environment('production')) {
+            $this->publishes([
+                __DIR__.'/config/updater.php' => $this->app->configPath('updater.php'),
+            ]);
+        }
+
+        $this->mergeConfigFrom(__DIR__.'/config/updater.php', 'updater');
+
         if ($build->isRunning() && $this->app->environment() === 'production') {
             $this->commands([
                 SelfUpdateCommand::class,
