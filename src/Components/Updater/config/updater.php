@@ -1,6 +1,6 @@
 <?php
 
-use LaravelZero\Framework\Components\Updater\GithubStrategy;
+use LaravelZero\Framework\Components\Updater\Strategy\GithubStrategy;
 
 return [
 
