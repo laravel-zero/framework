@@ -1,13 +1,10 @@
 <?php
 
-namespace LaravelZero\Framework\Components\Updater;
+namespace LaravelZero\Framework\Components\Updater\Strategy;
 
 use Phar;
 
-/**
- * @internal
- */
-final class GithubStrategy extends \Humbug\SelfUpdate\Strategy\GithubStrategy
+final class GithubStrategy extends \Humbug\SelfUpdate\Strategy\GithubStrategy implements StrategyInterface
 {
     /**
      * Returns the Download Url.

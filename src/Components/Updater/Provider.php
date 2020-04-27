@@ -16,6 +16,7 @@ namespace LaravelZero\Framework\Components\Updater;
 use function class_exists;
 use Humbug\SelfUpdate\Updater as PharUpdater;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
+use LaravelZero\Framework\Components\Updater\Strategy\GithubStrategy;
 use LaravelZero\Framework\Providers\Build\Build;
 
 /**
@@ -38,6 +39,14 @@ final class Provider extends AbstractComponentProvider
     {
         $build = $this->app->make(Build::class);
 
+        if (! $this->app->environment('production')) {
+            $this->publishes([
+                __DIR__.'/config/updater.php' => $this->app->configPath('updater.php'),
+            ]);
+        }
+
+        $this->mergeConfigFrom(__DIR__.'/config/updater.php', 'updater');
+
         if ($build->isRunning() && $this->app->environment() === 'production') {
             $this->commands([
                 SelfUpdateCommand::class,
@@ -59,7 +68,8 @@ final class Provider extends AbstractComponentProvider
                 $composer = json_decode(file_get_contents(base_path('composer.json')), true);
                 $name = $composer['name'];
 
-                $updater->setStrategyObject(new GithubStrategy);
+                $strategy = $this->app['config']->get('updater.strategy', GithubStrategy::class);
+                $updater->setStrategyObject(new $strategy);
 
                 $updater->getStrategy()->setPackageName($name);
 
