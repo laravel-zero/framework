@@ -1,2 +1,2 @@
 @echo off
-php %~dp0/box %*
+php "%~dp0box" %*
