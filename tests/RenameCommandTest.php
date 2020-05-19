@@ -15,7 +15,7 @@ afterEach(function () {
 it('can rename the application binary', function () {
     Artisan::call('app:rename', ['name' => 'zonda']);
 
-    $this->assertTrue(File::exists(base_path('zonda')));
-    $this->assertStringContainsString('"bin": ["zonda"]', File::get(base_path('composer.json')));
-    $this->assertStringContainsString("'name' => 'Zonda'", File::get(config_path('app.php')));
+    assertTrue(File::exists(base_path('zonda')));
+    assertStringContainsString('"bin": ["zonda"]', File::get(base_path('composer.json')));
+    assertStringContainsString("'name' => 'Zonda'", File::get(config_path('app.php')));
 });
