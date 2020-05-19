@@ -2,40 +2,33 @@
 
 declare(strict_types=1);
 
-namespace Tests;
-
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Contracts\Providers\ComposerContract;
 
-final class LogoInstallTest extends TestCase
-{
-    public function tearDown(): void
-    {
-        File::delete(config_path('logo.php'));
-    }
 
-    public function testRequiredPackages(): void
-    {
-        $composerMock = $this->createMock(ComposerContract::class);
+afterEach(function () {
+    File::delete(config_path('logo.php'));
+});
 
-        $composerMock->expects($this->once())
-            ->method('require')
-            ->with('laminas/laminas-text "^2.7"');
+it('installs the required packages', function () {
+    $composerMock = $this->createMock(ComposerContract::class);
 
-        $this->app->instance(ComposerContract::class, $composerMock);
+    $composerMock->expects($this->once())
+        ->method('require')
+        ->with('laminas/laminas-text "^2.7"');
 
-        Artisan::call('app:install', ['component' => 'logo']);
-    }
+    $this->app->instance(ComposerContract::class, $composerMock);
 
-    public function testCopyStubs(): void
-    {
-        $composerMock = $this->createMock(ComposerContract::class);
-        $composerMock->method('require');
-        $this->app->instance(ComposerContract::class, $composerMock);
+    Artisan::call('app:install', ['component' => 'logo']);
+});
 
-        Artisan::call('app:install', ['component' => 'logo']);
+it('copies the required stubs', function () {
+    $composerMock = $this->createMock(ComposerContract::class);
+    $composerMock->method('require');
+    $this->app->instance(ComposerContract::class, $composerMock);
 
-        $this->assertTrue(File::exists(config_path('logo.php')));
-    }
-}
+    Artisan::call('app:install', ['component' => 'logo']);
+
+    assertTrue(File::exists(config_path('logo.php')));
+});

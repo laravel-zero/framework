@@ -2,40 +2,32 @@
 
 declare(strict_types=1);
 
-namespace Tests;
-
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Contracts\Providers\ComposerContract;
 
-final class LogInstallTest extends TestCase
-{
-    public function tearDown(): void
-    {
-        File::delete(config_path('logging.php'));
-    }
+afterEach(function () {
+    File::delete(config_path('logging.php'));
+});
 
-    public function testRequiredPackages(): void
-    {
-        $composerMock = $this->createMock(ComposerContract::class);
+it('installs the required packages', function () {
+    $composerMock = $this->createMock(ComposerContract::class);
 
-        $composerMock->expects($this->once())
-            ->method('require')
-            ->with('illuminate/log "^7.0"');
+    $composerMock->expects($this->once())
+        ->method('require')
+        ->with('illuminate/log "^7.0"');
 
-        $this->app->instance(ComposerContract::class, $composerMock);
+    $this->app->instance(ComposerContract::class, $composerMock);
 
-        Artisan::call('app:install', ['component' => 'log']);
-    }
+    Artisan::call('app:install', ['component' => 'log']);
+});
 
-    public function testCopyStubs(): void
-    {
-        $composerMock = $this->createMock(ComposerContract::class);
-        $composerMock->method('require');
-        $this->app->instance(ComposerContract::class, $composerMock);
+it('copies the required stubs', function () {
+    $composerMock = $this->createMock(ComposerContract::class);
+    $composerMock->method('require');
+    $this->app->instance(ComposerContract::class, $composerMock);
 
-        Artisan::call('app:install', ['component' => 'log']);
+    Artisan::call('app:install', ['component' => 'log']);
 
-        $this->assertTrue(File::exists(config_path('logging.php')));
-    }
-}
+    assertTrue(File::exists(config_path('logging.php')));
+});
