@@ -22,5 +22,4 @@ it('adds the components commands to the application', function () {
             assertArrayHasKey($commandClass, $commands);
         }
     );
-
 });

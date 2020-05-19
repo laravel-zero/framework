@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Contracts\Providers\ComposerContract;
 
-
 afterEach(function () {
     File::delete(config_path('logo.php'));
 });

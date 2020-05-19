@@ -5,7 +5,7 @@ declare(strict_types=1);
 use LaravelZero\Framework\Components\Logo\FigletString;
 
 it('can generate the application logo', function () {
-        $logo = <<<LOGO
+    $logo = <<<LOGO
 
                       _ _           _   _             
     /\               | (_)         | | (_)            
@@ -19,7 +19,7 @@ it('can generate the application logo', function () {
 
 LOGO;
 
-        $figlet = new FigletString('Application', []);
+    $figlet = new FigletString('Application', []);
 
-        assertEquals($logo, (string) $figlet);
-    });
+    assertEquals($logo, (string) $figlet);
+});
