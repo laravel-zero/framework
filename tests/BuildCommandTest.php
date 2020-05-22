@@ -10,6 +10,8 @@ use Symfony\Component\Console\Output\NullOutput;
 afterEach(function () {
     File::deleteDirectory(base_path('builds'));
     File::delete(base_path('application.phar'));
+
+    $this->refreshApplication();
 });
 
 it('can build the application', function () {
