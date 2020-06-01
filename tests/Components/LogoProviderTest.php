@@ -2,15 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests;
-
 use LaravelZero\Framework\Components\Logo\FigletString;
 
-final class LogoProviderTest extends TestCase
-{
-    public function testLogoCanBeGenerated(): void
-    {
-        $logo = <<<LOGO
+it('can generate the application logo', function () {
+    $logo = <<<LOGO
 
                       _ _           _   _             
     /\               | (_)         | | (_)            
@@ -24,8 +19,7 @@ final class LogoProviderTest extends TestCase
 
 LOGO;
 
-        $figlet = new FigletString('Application', []);
+    $figlet = new FigletString('Application', []);
 
-        $this->assertEquals($logo, (string) $figlet);
-    }
-}
+    assertEquals($logo, (string) $figlet);
+});

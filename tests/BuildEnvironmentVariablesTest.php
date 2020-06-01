@@ -2,63 +2,51 @@
 
 declare(strict_types=1);
 
-namespace Tests;
-
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 use LaravelZero\Framework\Bootstrap\BuildLoadEnvironmentVariables;
 use LaravelZero\Framework\Providers\Build\Build;
 
-final class BuildEnvironmentVariablesTest extends TestCase
-{
-    public function setUp(): void
-    {
-        file_put_contents(__DIR__.'/Application/.env', 'CONSUMER_KEY=LOCAL_ENV_VALUE');
+beforeEach(function () {
+    File::put(base_path('.env'), 'CONSUMER_KEY=LOCAL_ENV_VALUE');
 
-        mkdir(__DIR__.'/Application/builds');
+    File::makeDirectory(base_path('builds'));
 
-        file_put_contents(__DIR__.'/Application/builds/.env', 'CONSUMER_KEY=PRODUCTION_ENV_VALUE');
+    File::put(base_path('builds/.env'), 'CONSUMER_KEY=PRODUCTION_ENV_VALUE');
 
-        parent::setUp();
-    }
+    $this->refreshApplication();
+});
 
-    public function tearDown(): void
-    {
-        parent::tearDown();
+afterEach(function () {
+    File::delete(base_path('.env'));
 
-        File::delete(base_path('.env'));
+    File::deleteDirectory(base_path('builds'));
+});
 
-        File::deleteDirectory(base_path('builds'));
-    }
+it('can retrieve an environment variable in local', function () {
+    Artisan::call('fake:environmentValue');
 
-    public function testLocalEnvironment(): void
-    {
-        Artisan::call('fake:environmentValue');
+    assertStringContainsString('LOCAL_ENV_VALUE', Artisan::output());
+});
 
-        $this->assertTrue(Str::contains(Artisan::output(), 'LOCAL_ENV_VALUE'));
-    }
+it('can retrieve an environment variable in production', function () {
+    $buildMock = $this->createMock(Build::class, ['shouldUseEnvironmentFile', 'getDirectoryPath', 'environmentFile']);
 
-    public function testProductionEnvironment(): void
-    {
-        $buildMock = $this->createMock(Build::class, ['shouldUseEnvironmentFile', 'getDirectoryPath', 'environmentFile']);
+    $buildMock->expects($this->atLeastOnce())
+        ->method('shouldUseEnvironmentFile')
+        ->willReturn(true);
 
-        $buildMock->expects($this->atLeastOnce())
-            ->method('shouldUseEnvironmentFile')
-            ->willReturn(true);
+    $buildMock->expects($this->atLeastOnce())
+        ->method('getDirectoryPath')
+        ->willReturn(base_path('builds'));
 
-        $buildMock->expects($this->atLeastOnce())
-            ->method('getDirectoryPath')
-            ->willReturn(base_path('builds'));
+    $buildMock->expects($this->atLeastOnce())
+        ->method('environmentFile')
+        ->willReturn('.env');
 
-        $buildMock->expects($this->atLeastOnce())
-            ->method('environmentFile')
-            ->willReturn('.env');
+    $this->app->instance(Build::class, $buildMock);
 
-        $this->app->instance(Build::class, $buildMock);
+    (new BuildLoadEnvironmentVariables($buildMock))->bootstrap(app());
 
-        (new BuildLoadEnvironmentVariables($buildMock))->bootstrap(app());
-
-        $this->assertEquals(env('CONSUMER_KEY'), 'PRODUCTION_ENV_VALUE');
-    }
-}
+    assertEquals(env('CONSUMER_KEY'), 'PRODUCTION_ENV_VALUE');
+});
