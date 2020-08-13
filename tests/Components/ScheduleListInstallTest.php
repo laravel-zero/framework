@@ -25,5 +25,5 @@ it('copies the required stubs', function () {
 
     Artisan::call('app:install', ['component' => 'schedule-list']);
 
-    assertTrue(File::exists(config_path('schedule-list.php')));
+    expect(File::exists(config_path('schedule-list.php')))->toBeTrue();
 });

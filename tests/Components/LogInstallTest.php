@@ -29,5 +29,5 @@ it('copies the required stubs', function () {
 
     Artisan::call('app:install', ['component' => 'log']);
 
-    assertTrue(File::exists(config_path('logging.php')));
+    expect(File::exists(config_path('logging.php')))->toBeTrue();
 });

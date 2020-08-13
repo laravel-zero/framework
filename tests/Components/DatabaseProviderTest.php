@@ -30,7 +30,7 @@ it('adds the components commands to the application', function () {
         ]
     )->map(
         function ($commandClass) use ($commands) {
-            assertArrayHasKey($commandClass, $commands);
+            expect($commands)->toHaveKey($commandClass);
         }
     );
 });

@@ -34,11 +34,11 @@ it('copies the required stubs', function () {
 
     Artisan::call('app:install', ['component' => 'database']);
 
-    assertTrue(File::exists(config_path('database.php')));
-    assertTrue(File::exists(database_path('database.sqlite')));
-    assertTrue(File::exists(database_path('migrations')));
-    assertTrue(File::exists(database_path('factories')));
-    assertTrue(File::exists(database_path('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php')));
+    expect(File::exists(config_path('database.php')))->toBeTrue();
+    expect(File::exists(database_path('database.sqlite')))->toBeTrue();
+    expect(File::exists(database_path('migrations')))->toBeTrue();
+    expect(File::exists(database_path('factories')))->toBeTrue();
+    expect(File::exists(database_path('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php')))->toBeTrue();
 });
 
 it('adds the required lines to the gitignore', function () {
@@ -48,5 +48,5 @@ it('adds the required lines to the gitignore', function () {
 
     Artisan::call('app:install', ['component' => 'database']);
 
-    assertStringContainsString('/database/database.sqlite', File::get(base_path('.gitignore')));
+    expect(File::get(base_path('.gitignore')))->toContain('/database/database.sqlite');
 });

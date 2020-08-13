@@ -33,6 +33,6 @@ it('can use the http client', function () {
             && $request->url('https://faked.test');
     });
 
-    assertTrue($response->ok());
-    assertEmpty($response->body());
+    expect($response->ok())->toBeTrue();
+    expect($response->body())->toBeEmpty();
 });

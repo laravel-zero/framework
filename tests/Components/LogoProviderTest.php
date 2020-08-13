@@ -21,5 +21,5 @@ LOGO;
 
     $figlet = new FigletString('Application', []);
 
-    assertEquals($logo, (string) $figlet);
+    expect((string) $figlet)->toEqual($logo);
 });
