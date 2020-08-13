@@ -16,7 +16,7 @@ afterEach(function () {
 });
 
 it('removes development only commands in production', function () {
-    assertSame('production', $this->app->environment());
+    expect($this->app->environment())->toBe('production');
 
-    assertArrayNotHasKey('test', Artisan::all());
+    expect(Artisan::all())->not->toHaveKey('test');
 });

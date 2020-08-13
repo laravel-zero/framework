@@ -26,7 +26,7 @@ afterEach(function () {
 it('can retrieve an environment variable in local', function () {
     Artisan::call('fake:environmentValue');
 
-    assertStringContainsString('LOCAL_ENV_VALUE', Artisan::output());
+    expect(Artisan::output())->toContain('LOCAL_ENV_VALUE');
 });
 
 it('can retrieve an environment variable in production', function () {
@@ -48,5 +48,5 @@ it('can retrieve an environment variable in production', function () {
 
     (new BuildLoadEnvironmentVariables($buildMock))->bootstrap(app());
 
-    assertEquals(env('CONSUMER_KEY'), 'PRODUCTION_ENV_VALUE');
+    expect(env('CONSUMER_KEY'))->toEqual('PRODUCTION_ENV_VALUE');
 });

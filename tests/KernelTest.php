@@ -12,9 +12,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 it('binds the output into the container', function () {
     Artisan::handle(new ArrayInput([]), $output = new NullOutput);
 
-    assertEquals($output, Application::getInstance()->get(OutputInterface::class));
+    expect($output)->toEqual(Application::getInstance()->get(OutputInterface::class));
 });
 
 it('binds the logger into the container', function () {
-    assertInstanceOf(LoggerInterface::class, app('log'));
+    expect(app('log'))->toBeInstanceOf(LoggerInterface::class);
 });
