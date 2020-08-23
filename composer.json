@@ -50,7 +50,7 @@
         "illuminate/log": "^7.0",
         "illuminate/queue": "^7.0",
         "laminas/laminas-text": "^2.7",
-        "nunomaduro/laravel-console-dusk": "^1.6",
+        "nunomaduro/laravel-console-dusk": "^1.7",
         "nunomaduro/laravel-console-menu": "^2.3",
         "padraic/phar-updater": "^1.0.6",
         "pestphp/pest": "^0.2.2",
