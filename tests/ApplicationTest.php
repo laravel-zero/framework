@@ -6,15 +6,15 @@ use LaravelZero\Framework\Contracts\Exceptions\ConsoleExceptionContract;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
 
 it('retrieves test version from the config', function () {
-    assertSame('Test version', $this->app->version());
+    expect($this->app->version())->toBe('Test version');
 });
 
 it('is running in the console', function () {
-    assertTrue($this->app->runningInConsole());
+    expect($this->app->runningInConsole())->toBeTrue();
 });
 
 it('is not down for maintenance', function () {
-    assertFalse($this->app->isDownForMaintenance());
+    expect($this->app->isDownForMaintenance())->toBeFalse();
 });
 
 it('can abort', function () {
@@ -23,16 +23,16 @@ it('can abort', function () {
     } catch (CommandNotFoundException $notFoundException) {
     }
 
-    assertInstanceOf(CommandNotFoundException::class, $notFoundException);
-    assertEquals($notFoundException->getMessage(), 'Foo');
+    expect($notFoundException)->toBeInstanceOf(CommandNotFoundException::class);
+    expect($notFoundException->getMessage())->toEqual('Foo');
 
     try {
         abort(200, 'Bar', ['Foo' => 'Bar']);
     } catch (ConsoleExceptionContract $consoleException) {
     }
 
-    assertInstanceOf(ConsoleExceptionContract::class, $consoleException);
-    assertEquals($consoleException->getExitCode(), 200);
-    assertEquals($consoleException->getMessage(), 'Bar');
-    assertEquals($consoleException->getHeaders(), ['Foo' => 'Bar']);
+    expect($consoleException)->toBeInstanceOf(ConsoleExceptionContract::class);
+    expect($consoleException->getExitCode())->toEqual(200);
+    expect($consoleException->getMessage())->toEqual('Bar');
+    expect($consoleException->getHeaders())->toEqual(['Foo' => 'Bar']);
 });

@@ -31,15 +31,15 @@ it('can build the application', function () {
 
     Artisan::call('app:build', ['--no-interaction' => true], $output);
 
-    assertTrue(File::exists(base_path('builds'.DIRECTORY_SEPARATOR.'application')));
+    expect(File::exists(base_path('builds'.DIRECTORY_SEPARATOR.'application')))->toBeTrue();
 
     Artisan::call('app:build', ['name' => 'zonda', '--no-interaction' => true], $output);
 
-    assertTrue(File::exists(base_path('builds'.DIRECTORY_SEPARATOR.'zonda')));
+    expect(File::exists(base_path('builds'.DIRECTORY_SEPARATOR.'zonda')))->toBeTrue();
 
     Artisan::call('app:build', ['name' => 'version', '--no-interaction' => true, '--build-version' => 'v0'], $output);
 
-    assertTrue(File::exists(base_path('builds'.DIRECTORY_SEPARATOR.'version')));
+    expect(File::exists(base_path('builds'.DIRECTORY_SEPARATOR.'version')))->toBeTrue();
 });
 
 it('reverts the config state after a build', function () {
@@ -67,8 +67,8 @@ it('reverts the config state after a build', function () {
     } catch (RuntimeException $exception) {
     }
 
-    assertInstanceOf(RuntimeException::class, $exception);
-    assertEquals('Foo bar', $exception->getMessage());
+    expect($exception)->toBeInstanceOf(RuntimeException::class);
+    expect($exception->getMessage())->toEqual('Foo bar');
 
-    assertEquals($contents, File::get(config_path('app.php')));
+    expect($contents)->toEqual(File::get(config_path('app.php')));
 })->skip('This test is currently broken (investigating)');

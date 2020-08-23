@@ -16,16 +16,17 @@ it('can make a new command', function () {
 
     $file = app_path('Commands'.DIRECTORY_SEPARATOR.'FooCommand.php');
 
-    assertTrue(File::exists($file));
-    assertStringContainsString('class FooCommand extends Command', File::get($file));
-    assertStringContainsString('use LaravelZero\Framework\Commands\Command;', File::get($file));
+    expect(File::exists($file))->toBeTrue();
+    expect(File::get($file))
+        ->toContain('class FooCommand extends Command')
+        ->toContain('use LaravelZero\Framework\Commands\Command;');
 });
 
 it('can make a new command from a published stub', function () {
     $consoleStubPath = base_path('stubs/console.stub');
 
     Artisan::call('stub:publish');
-    assertFileExists($consoleStubPath);
+    expect($consoleStubPath)->toBeFile();
 
     File::put(
         $consoleStubPath,
@@ -35,10 +36,8 @@ it('can make a new command from a published stub', function () {
     Artisan::call('make:command', ['name' => 'PublishedStubbedCommand']);
     $file = app_path('Commands/PublishedStubbedCommand.php');
 
-    assertFileExists($file);
-    assertStringContainsString(
-        'class PublishedStubbedCommand extends Command implements FooInterface',
-        File::get($file)
-    );
-    assertStringContainsString('use LaravelZero\Framework\Commands\Command;', File::get($file));
+    expect($file)->toBeFile();
+    expect(File::get($file))
+        ->toContain('class PublishedStubbedCommand extends Command implements FooInterface')
+        ->toContain('use LaravelZero\Framework\Commands\Command;');
 });

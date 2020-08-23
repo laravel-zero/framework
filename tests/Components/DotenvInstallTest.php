@@ -15,12 +15,12 @@ afterEach(function () {
 it('copies the required stubs', function () {
     Artisan::call('app:install', ['component' => 'dotenv']);
 
-    assertTrue(File::exists(base_path('.env')));
-    assertTrue(File::exists(base_path('.env.example')));
+    expect(File::exists(base_path('.env')))->toBeTrue();
+    expect(File::exists(base_path('.env.example')))->toBeTrue();
 });
 
 it('adds the required lines to the gitignore', function () {
     Artisan::call('app:install', ['component' => 'dotenv']);
 
-    assertStringContainsString('.env', File::get(base_path('.gitignore')));
+    expect(File::get(base_path('.gitignore')))->toContain('.env');
 });

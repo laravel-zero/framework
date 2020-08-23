@@ -7,15 +7,15 @@ use LaravelZero\Framework\Exceptions\ConsoleException;
 it('sets console exception exit code', function () {
     $exception = new ConsoleException(404, 'Foo', ['bar' => 'etc']);
 
-    assertEquals(404, $exception->getExitCode());
+    expect($exception->getExitCode())->toEqual(404);
 });
 
 it('sets console exception headers', function () {
     $exception = new ConsoleException(404, 'Foo', ['bar' => 'etc']);
 
-    assertEquals(['bar' => 'etc'], $exception->getHeaders());
+    expect($exception->getHeaders())->toEqual(['bar' => 'etc']);
 
     $exception->setHeaders(['foo' => 'zero']);
 
-    assertEquals(['foo' => 'zero'], $exception->getHeaders());
+    expect($exception->getHeaders())->toEqual(['foo' => 'zero']);
 });
