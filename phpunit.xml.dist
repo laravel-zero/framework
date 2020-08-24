@@ -20,13 +20,13 @@
             <directory suffix="Test.php">./tests</directory>
         </testsuite>
     </testsuites>
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./src</directory>
-            <exclude>
-                <directory suffix=".php">./src/Components/Database/stubs</directory>
-                <directory suffix=".php">./src/Components/Log/stubs</directory>
-            </exclude>
-        </whitelist>
-    </filter>
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+        <exclude>
+            <directory suffix=".php">./src/Components/Database/stubs</directory>
+            <directory suffix=".php">./src/Components/Log/stubs</directory>
+        </exclude>
+    </coverage>
 </phpunit>
