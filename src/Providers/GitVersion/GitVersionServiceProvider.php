@@ -33,7 +33,7 @@ final class GitVersionServiceProvider extends ServiceProvider
             function (Application $app) {
                 $lastRevisionTag = '$(git rev-list --tags --max-count=1)';
 
-                if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+                if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN' || strtoupper(PHP_OS) === 'LINUX') {
                     $taskGetLastRevisionTag = ['git', 'rev-list', '--tags', '--max-count=1'];
 
                     $process = tap(new Process($taskGetLastRevisionTag, $app->basePath()))->run();
