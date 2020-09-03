@@ -11,7 +11,7 @@ it('installs the required packages', function () {
 
     $composerMock->expects($this->once())
         ->method('require')
-        ->with('hmazter/laravel-schedule-list "^2.1"');
+        ->with('hmazter/laravel-schedule-list "^2.2"');
 
     $this->app->instance(ComposerContract::class, $composerMock);
 
