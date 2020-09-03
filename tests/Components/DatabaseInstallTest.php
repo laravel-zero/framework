@@ -18,8 +18,8 @@ it('installs the required packages', function () {
     $composerMock->expects($this->exactly(2))
         ->method('require')
         ->withConsecutive(
-            ['illuminate/database "^7.0"', false],
-            ['fzaninotto/faker "^1.4"', true]
+            ['illuminate/database "^8.0"', false],
+            ['fzaninotto/faker "^1.9"', true]
         );
 
     $this->app->instance(ComposerContract::class, $composerMock);
