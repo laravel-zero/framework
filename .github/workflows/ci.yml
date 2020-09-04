@@ -13,6 +13,10 @@ jobs:
         continue-on-error: [false]
         include:
           - php: 8.0
+            dependency-version: prefer-lowest
+            continue-on-error: true
+          - php: 8.0
+            dependency-version: prefer-stable
             continue-on-error: true
 
     continue-on-error: ${{ matrix.continue-on-error }}
