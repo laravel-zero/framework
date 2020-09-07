@@ -26,6 +26,11 @@ jobs:
         tools: composer:v2
         coverage: pcov
 
+    - name: Setup Problem Matches
+      run: |
+        echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+        echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
     - name: Install Composer dependencies
       run: composer update --${{ matrix.dependency-version }} --no-interaction --prefer-dist --no-suggest
 
