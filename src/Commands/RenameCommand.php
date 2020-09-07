@@ -148,7 +148,7 @@ final class RenameCommand extends Command
     {
         $composer = $this->getComposer();
 
-        return current(@json_decode($composer, true, 512, JSON_THROW_ON_ERROR)->bin);
+        return current(@json_decode($composer)->bin);
     }
 
     /**

@@ -236,7 +236,7 @@ class Kernel extends BaseKernel
     /**
      * {@inheritdoc}
      */
-    public function call($command, array $parameters = [], $outputBuffer = null): int
+    public function call($command, array $parameters = [], $outputBuffer = null): ?int
     {
         resolve(CommandRecorderRepository::class)->create($command, $parameters);
 

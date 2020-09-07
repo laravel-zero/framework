@@ -162,7 +162,11 @@ final class BuildCommand extends Command
         $this->task(
             '   1. Moving application to <fg=yellow>production mode</>',
             static function () use ($configFile, $config): bool {
-                return File::put($configFile, '<?php return '.var_export($config, true).';'.PHP_EOL);
+                if (!File::put($configFile, '<?php return '.var_export($config, true).';'.PHP_EOL)) {
+                    return false;
+                }
+
+                return true;
             }
         );
 
