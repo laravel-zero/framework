@@ -30,10 +30,10 @@ final class GitVersionServiceProvider extends ServiceProvider
     {
         $this->app->bind(
             'git.version',
-            function (Application $app) {
+            static function (Application $app) {
                 $lastRevisionTag = '$(git rev-list --tags --max-count=1)';
 
-                if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+                if (stripos(PHP_OS_FAMILY, 'Windows') === 0) {
                     $taskGetLastRevisionTag = ['git', 'rev-list', '--tags', '--max-count=1'];
 
                     $process = tap(new Process($taskGetLastRevisionTag, $app->basePath()))->run();

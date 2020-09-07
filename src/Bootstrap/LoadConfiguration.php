@@ -34,7 +34,7 @@ final class LoadConfiguration implements BoostrapperContract
          * When artisan starts, sets the application name and the application version.
          */
         Artisan::starting(
-            function ($artisan) use ($app) {
+            static function (Artisan $artisan) use ($app) {
                 $artisan->setName($app['config']->get('app.name', 'Laravel Zero'));
                 $artisan->setVersion($app->version());
             }

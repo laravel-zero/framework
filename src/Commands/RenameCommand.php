@@ -32,7 +32,7 @@ final class RenameCommand extends Command
     /**
      * {@inheritdoc}
      */
-    public function handle()
+    public function handle(): void
     {
         $this->info('Renaming the application...');
 
@@ -82,7 +82,7 @@ final class RenameCommand extends Command
     {
         $this->task(
             'Updating config/app.php "name" property',
-            function () use ($name) {
+            function () use ($name): bool {
                 $neededLine = "'name' => '".Str::ucfirst($this->getCurrentBinaryName())."'";
 
                 if (! Str::contains($contents = $this->getConfig(), $neededLine)) {
@@ -96,12 +96,14 @@ final class RenameCommand extends Command
                         $contents
                     )
                 );
+
+                return true;
             }
         );
 
         $this->task(
             'Updating composer "bin"',
-            function () use ($name) {
+            function () use ($name): bool {
                 $neededLine = '"bin": ["'.$this->getCurrentBinaryName().'"]';
 
                 if (! Str::contains($contents = $this->getComposer(), $neededLine)) {
@@ -116,6 +118,8 @@ final class RenameCommand extends Command
                         $contents
                     )
                 );
+
+                return true;
             }
         );
 
@@ -129,7 +133,7 @@ final class RenameCommand extends Command
     {
         $this->task(
             sprintf('Renaming application to "%s"', $name),
-            function () use ($name) {
+            function () use ($name): bool {
                 return File::move($this->app->basePath($this->getCurrentBinaryName()), $this->app->basePath($name));
             }
         );
@@ -144,7 +148,7 @@ final class RenameCommand extends Command
     {
         $composer = $this->getComposer();
 
-        return current(@json_decode($composer)->bin);
+        return current(@json_decode($composer, true, 512, JSON_THROW_ON_ERROR)->bin);
     }
 
     /**

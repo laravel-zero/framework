@@ -13,6 +13,9 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Components\Queue;
 
+use Illuminate\Queue\Listener;
+use Illuminate\Queue\Worker;
+use LaravelZero\Framework\Application;
 use function class_exists;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
 
@@ -70,14 +73,14 @@ final class Provider extends AbstractComponentProvider
 
         $this->app->bind(
             \Illuminate\Queue\Worker::class,
-            function ($app) {
+            static function (Application $app): Worker {
                 return $app['queue.worker'];
             }
         );
 
         $this->app->bind(
             \Illuminate\Queue\Listener::class,
-            function ($app) {
+            static function (Application $app): Listener {
                 return $app['queue.listener'];
             }
         );

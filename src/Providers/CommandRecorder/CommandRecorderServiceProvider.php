@@ -25,7 +25,7 @@ final class CommandRecorderServiceProvider extends BaseServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(CommandRecorderRepository::class, function () {
+        $this->app->singleton(CommandRecorderRepository::class, static function (): CommandRecorderRepository {
             return new CommandRecorderRepository;
         });
     }

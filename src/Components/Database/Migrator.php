@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Components\Database;
 
+use Illuminate\Support\Collection;
 use function collect;
 use Illuminate\Database\Migrations\Migrator as BaseMigrator;
 use SplFileInfo;
@@ -34,13 +35,13 @@ class Migrator extends BaseMigrator
     {
         return collect($paths)
             ->flatMap(
-                function ($path) {
+                static function (string $path): array {
                     return collect(
                         (new Finder)->in([$path])
                             ->files()
                     )
                         ->map(
-                            function (SplFileInfo $file) {
+                            static function (SplFileInfo $file): string {
                                 return $file->getPathname();
                             }
                         )
@@ -49,13 +50,13 @@ class Migrator extends BaseMigrator
             )
             ->filter()
             ->sortBy(
-                function ($file) {
+                function (string $file): string {
                     return $this->getMigrationName($file);
                 }
             )
             ->values()
             ->keyBy(
-                function ($file) {
+                function (string $file): string {
                     return $this->getMigrationName($file);
                 }
             )

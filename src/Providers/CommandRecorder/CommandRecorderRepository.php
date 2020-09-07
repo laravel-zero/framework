@@ -68,7 +68,7 @@ final class CommandRecorderRepository
      */
     public function exists(string $command, array $arguments = []): bool
     {
-        return $this->storage->contains(function ($value) use ($command, $arguments) {
+        return $this->storage->contains(static function ($value) use ($command, $arguments): bool {
             return $value['command'] === $command && $value['arguments'] === $arguments;
         });
     }

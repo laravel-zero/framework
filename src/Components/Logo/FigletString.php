@@ -36,7 +36,7 @@ final class FigletString
         $this->parseOptions($options);
     }
 
-    private function parseOptions(array $config)
+    private function parseOptions(array $config): void
     {
         $this
             ->font($config['font'] ?? self::DEFAULT_FONT)
@@ -45,7 +45,7 @@ final class FigletString
             ->rightToLeft($config['rightToLeft'] ?? null);
     }
 
-    private function font(?string $font)
+    private function font(?string $font): FigletString
     {
         if (is_null($font)) {
             return $this;
@@ -56,14 +56,14 @@ final class FigletString
         return $this;
     }
 
-    private function outputWidth(int $outputWidth)
+    private function outputWidth(int $outputWidth): FigletString
     {
         $this->figlet->setOutputWidth($outputWidth);
 
         return $this;
     }
 
-    private function justification(?string $justification)
+    private function justification(?string $justification): FigletString
     {
         switch ($justification) {
             case 'left':
@@ -85,7 +85,7 @@ final class FigletString
         return $this;
     }
 
-    private function rightToLeft(?string $rightToLeft)
+    private function rightToLeft(?string $rightToLeft): FigletString
     {
         switch ($rightToLeft) {
             case 'right-to-left':

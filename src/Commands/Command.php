@@ -76,7 +76,7 @@ abstract class Command extends BaseCommand
     /**
      * {@inheritdoc}
      */
-    public function call($command, array $arguments = [])
+    public function call($command, array $arguments = []): int
     {
         resolve(CommandRecorderRepository::class)->create($command, $arguments);
 
@@ -86,7 +86,7 @@ abstract class Command extends BaseCommand
     /**
      * {@inheritdoc}
      */
-    public function callSilent($command, array $arguments = [])
+    public function callSilent($command, array $arguments = []): int
     {
         resolve(CommandRecorderRepository::class)->create($command, $arguments, CommandRecorderRepository::MODE_SILENT);
 
@@ -98,7 +98,7 @@ abstract class Command extends BaseCommand
      *
      * @see {https://github.com/laravel/framework/pull/27005}
      */
-    public function setHidden($hidden)
+    public function setHidden($hidden): self
     {
         parent::setHidden($this->hidden = $hidden);
 

@@ -52,14 +52,16 @@ final class Installer extends AbstractInstaller
 
         $this->task(
             'Creating a default SQLite database',
-            function () {
+            function (): bool {
                 if (File::exists(database_path('database.sqlite'))) {
                     return false;
                 }
 
-                File::makeDirectory($this->app->databasePath(), 0755, true, true);
+                if (!File::makeDirectory($this->app->databasePath(), 0755, true, true)) {
+                    return false;
+                }
 
-                File::put(
+                return File::put(
                     $this->app->databasePath('database.sqlite'),
                     ''
                 );
@@ -68,25 +70,27 @@ final class Installer extends AbstractInstaller
 
         $this->task(
             'Creating migrations folder',
-            function () {
+            function (): bool {
                 if (File::exists($this->app->databasePath('migrations'))) {
                     return false;
                 }
 
-                File::makeDirectory($this->app->databasePath('migrations'), 0755, true, true);
+                return File::makeDirectory($this->app->databasePath('migrations'), 0755, true, true);
             }
         );
 
         $this->task(
             'Creating seeds folders and files',
-            function () {
+            function (): bool {
                 if (File::exists($this->app->databasePath('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php'))) {
                     return false;
                 }
 
-                File::makeDirectory($this->app->databasePath('seeds'), 0755, false, true);
+                if (!File::makeDirectory($this->app->databasePath('seeds'), 0755, false, true)) {
+                    return false;
+                }
 
-                File::copy(
+                return File::copy(
                     self::SEEDER_FILE,
                     $this->app->databasePath('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php')
                 );
@@ -95,22 +99,23 @@ final class Installer extends AbstractInstaller
 
         $this->task(
             'Creating factories folder',
-            function () {
+            function (): bool {
                 if (File::exists($this->app->databasePath('factories'))) {
                     return false;
                 }
 
-                File::makeDirectory($this->app->databasePath('factories'), 0755, true, true);
+                return File::makeDirectory($this->app->databasePath('factories'), 0755, true, true);
             }
         );
 
         $this->task(
             'Creating default database configuration',
-            function () {
+            static function (): bool {
                 if (File::exists(config_path('database.php'))) {
                     return false;
                 }
-                File::copy(
+
+                return File::copy(
                     self::CONFIG_FILE,
                     config_path('database.php')
                 );
@@ -119,7 +124,7 @@ final class Installer extends AbstractInstaller
 
         $this->task(
             'Updating .gitignore',
-            function () {
+            static function () {
                 $gitignorePath = base_path('.gitignore');
                 if (File::exists($gitignorePath)) {
                     $contents = File::get($gitignorePath);

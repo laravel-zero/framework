@@ -48,7 +48,7 @@ final class Installer extends AbstractInstaller
 
         $this->task(
             'Creating default queue configuration',
-            function () {
+            function (): bool {
                 if (! File::exists(config_path('queue.php'))) {
                     return File::copy(
                         static::CONFIG_FILE,

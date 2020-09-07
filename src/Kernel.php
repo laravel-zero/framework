@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework;
 
+use Symfony\Component\Console\Command\Command;
 use function collect;
 use function define;
 use function defined;
@@ -82,7 +83,7 @@ class Kernel extends BaseKernel
     /**
      * {@inheritdoc}
      */
-    public function handle($input, $output = null)
+    public function handle($input, $output = null): int
     {
         $this->app->instance(OutputInterface::class, $output);
 
@@ -174,11 +175,11 @@ class Kernel extends BaseKernel
         $commands = $commands->diff($toRemoveCommands);
 
         Artisan::starting(
-            function ($artisan) use ($toRemoveCommands) {
+            static function (Artisan $artisan) use ($toRemoveCommands) {
                 $reflectionClass = new ReflectionClass(Artisan::class);
                 $commands = collect($artisan->all())
                     ->filter(
-                        function ($command) use ($toRemoveCommands) {
+                        static function (Command $command) use ($toRemoveCommands) {
                             return ! in_array(get_class($command), $toRemoveCommands, true);
                         }
                     )
@@ -199,15 +200,15 @@ class Kernel extends BaseKernel
          * command class.
          */
         Artisan::starting(
-            function ($artisan) use ($commands) {
+            static function (Artisan $artisan) use ($commands) {
                 $artisan->resolveCommands($commands->toArray());
             }
         );
 
         Artisan::starting(
-            function ($artisan) use ($config) {
+            function (Artisan $artisan) use ($config) {
                 collect($artisan->all())->each(
-                    function ($command) use ($config, $artisan) {
+                    function (Command $command) use ($config, $artisan) {
                         if (in_array(get_class($command), $config->get('commands.hidden', []), true)) {
                             $command->setHidden(true);
                         }
@@ -235,7 +236,7 @@ class Kernel extends BaseKernel
     /**
      * {@inheritdoc}
      */
-    public function call($command, array $parameters = [], $outputBuffer = null)
+    public function call($command, array $parameters = [], $outputBuffer = null): int
     {
         resolve(CommandRecorderRepository::class)->create($command, $parameters);
 

@@ -128,7 +128,7 @@ final class BuildCommand extends Command
             $progressBar->advance();
 
             if ($this->output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
-                $process::OUT === $type ? $this->info("$data") : $this->error("$data");
+                $process::OUT === $type ? $this->info((string)$data) : $this->error((string)$data);
             }
         }
 
@@ -161,14 +161,14 @@ final class BuildCommand extends Command
 
         $this->task(
             '   1. Moving application to <fg=yellow>production mode</>',
-            function () use ($configFile, $config) {
-                File::put($configFile, '<?php return '.var_export($config, true).';'.PHP_EOL);
+            static function () use ($configFile, $config): bool {
+                return File::put($configFile, '<?php return '.var_export($config, true).';'.PHP_EOL);
             }
         );
 
-        $boxContents = json_decode(static::$box, true);
+        $boxContents = json_decode(static::$box, true, 512, JSON_THROW_ON_ERROR);
         $boxContents['main'] = $this->getBinary();
-        File::put($boxFile, json_encode($boxContents));
+        File::put($boxFile, json_encode($boxContents, JSON_THROW_ON_ERROR));
 
         File::put($configFile, '<?php return '.var_export($config, true).';'.PHP_EOL);
 

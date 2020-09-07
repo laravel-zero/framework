@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Providers\Composer;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use LaravelZero\Framework\Contracts\Providers\ComposerContract;
 
@@ -28,7 +29,7 @@ final class ComposerServiceProvider extends BaseServiceProvider
     {
         $this->app->singleton(
             ComposerContract::class,
-            function ($app) {
+            static function (Application $app): Composer {
                 return new Composer($app);
             }
         );

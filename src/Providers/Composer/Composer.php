@@ -90,7 +90,7 @@ final class Composer implements ComposerContract
         if ($output) {
             $output->write("\n");
             $process->run(
-                function ($type, $line) use ($output) {
+                static function ($type, $line) use ($output) {
                     $output->write($line);
                 }
             );

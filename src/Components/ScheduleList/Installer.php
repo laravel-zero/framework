@@ -46,7 +46,7 @@ final class Installer extends AbstractInstaller
 
         $this->task(
             'Creating default schedule list configuration',
-            function () {
+            function (): bool {
                 if (! File::exists($this->app->configPath('schedule-list.php'))) {
                     return File::copy(
                         static::CONFIG_FILE,
@@ -60,7 +60,7 @@ final class Installer extends AbstractInstaller
 
         $this->task(
             'Setting application name in configuration',
-            function () {
+            function (): bool {
                 if (! File::exists($this->app->configPath('schedule-list.php'))) {
                     return false;
                 }

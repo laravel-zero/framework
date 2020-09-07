@@ -40,7 +40,7 @@ final class Provider extends AbstractComponentProvider
 
         if ($config->get('logo.enabled', false)) {
             Artisan::starting(
-                function ($artisan) use ($config) {
+                static function (Artisan $artisan) use ($config) {
                     $artisan->setName(
                         (string) new FigletString($config->get('app.name'), $config->get('logo', []))
                     );

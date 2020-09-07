@@ -52,7 +52,7 @@ abstract class AbstractInstaller extends Command implements InstallerContract
     /**
      * {@inheritdoc}
      */
-    public function handle()
+    public function handle(): void
     {
         $this->install();
     }
@@ -69,7 +69,7 @@ abstract class AbstractInstaller extends Command implements InstallerContract
     {
         $this->task(
             'Require package via composer',
-            function () use ($package, $dev) {
+            function () use ($package, $dev): bool {
                 return $this->composer->require($package, $dev);
             }
         );

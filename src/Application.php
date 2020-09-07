@@ -92,7 +92,7 @@ class Application extends BaseApplication
     {
         $providers = Collection::make($this['config']['app.providers'])
             ->partition(
-                function ($provider) {
+                static function (string $provider): bool {
                     return Str::startsWith($provider, 'Illuminate\\');
                 }
             );

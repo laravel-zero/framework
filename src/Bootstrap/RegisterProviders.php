@@ -81,13 +81,13 @@ final class RegisterProviders implements BoostrapperContract
         collect($this->providers)
             ->merge(
                 collect($this->components)->filter(
-                    function ($component) use ($app) {
+                    static function (string $component) use ($app) {
                         return (new $component($app))->isAvailable();
                     }
                 )
             )
             ->each(
-                function ($serviceProviderClass) use ($app) {
+                static function ($serviceProviderClass) use ($app) {
                     $app->register($serviceProviderClass);
                 }
             );

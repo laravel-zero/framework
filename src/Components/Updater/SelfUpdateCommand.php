@@ -30,10 +30,10 @@ class SelfUpdateCommand extends Command
     /**
      * {@inheritdoc}
      */
-    public function handle(Updater $updater)
+    public function handle(Updater $updater): void
     {
         $this->output->title('Checking for a new version...');
 
-        $result = $updater->update($this->output);
+        $updater->update($this->output);
     }
 }

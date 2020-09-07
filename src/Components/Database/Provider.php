@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Components\Database;
 
+use LaravelZero\Framework\Application;
 use function class_exists;
 use function collect;
 use Illuminate\Database\Migrations\MigrationCreator;
@@ -92,7 +93,7 @@ class Provider extends AbstractComponentProvider
 
         if (File::exists($this->app->databasePath('seeds'))) {
             collect(File::files($this->app->databasePath('seeds')))->each(
-                function ($file) {
+                static function ($file) {
                     File::requireOnce($file);
                 }
             );
@@ -117,7 +118,7 @@ class Provider extends AbstractComponentProvider
 
         $this->app->singleton(
             'migrator',
-            function ($app) {
+            static function (Application $app): Migrator {
                 $repository = $app['migration.repository'];
 
                 return new Migrator($repository, $app['db'], $app['files']);
