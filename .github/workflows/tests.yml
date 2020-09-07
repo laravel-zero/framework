@@ -35,8 +35,5 @@ jobs:
     - name: Install Composer dependencies
       run: composer update --${{ matrix.dependency-version }} --no-interaction --prefer-dist --no-suggest
 
-    - name: Type Checks
-      run: vendor/bin/phpstan analyse
-
     - name: Unit Tests
       run: vendor/bin/pest --colors=always
