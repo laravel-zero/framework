@@ -6,21 +6,16 @@ namespace Tests;
 
 use Illuminate\Support\Facades\Artisan;
 
-final class RecordCommandsTest extends TestCase
-{
-    public function testCommandCalledWithoutArguments()
-    {
-        Artisan::call('fake:foo');
+it('can call a command without arguments', function () {
+    Artisan::call('fake:foo');
 
-        $this->assertCommandNotCalled('fake:foo', ['foo' => 'bar']);
-        $this->assertCommandCalled('fake:foo');
-    }
+    $this->assertCommandNotCalled('fake:foo', ['foo' => 'bar']);
+    $this->assertCommandCalled('fake:foo');
+});
 
-    public function testCommandCalledWithArguments()
-    {
-        Artisan::call('fake:foo', ['foo' => 'bar']);
+it('can call a command with arguments', function () {
+    Artisan::call('fake:foo', ['foo' => 'bar']);
 
-        $this->assertCommandCalled('fake:foo', ['foo' => 'bar']);
-        $this->assertCommandNotCalled('fake:foo');
-    }
-}
+    $this->assertCommandCalled('fake:foo', ['foo' => 'bar']);
+    $this->assertCommandNotCalled('fake:foo');
+});

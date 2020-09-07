@@ -2,46 +2,37 @@
 
 declare(strict_types=1);
 
-namespace Tests;
-
 use LaravelZero\Framework\Contracts\Exceptions\ConsoleExceptionContract;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
 
-final class ApplicationTest extends TestCase
-{
-    public function testVersionFromConfig(): void
-    {
-        $this->assertSame('Test version', $this->app->version());
+it('retrieves test version from the config', function () {
+    expect($this->app->version())->toBe('Test version');
+});
+
+it('is running in the console', function () {
+    expect($this->app->runningInConsole())->toBeTrue();
+});
+
+it('is not down for maintenance', function () {
+    expect($this->app->isDownForMaintenance())->toBeFalse();
+});
+
+it('can abort', function () {
+    try {
+        $this->app->abort(404, 'Foo');
+    } catch (CommandNotFoundException $notFoundException) {
     }
 
-    public function testRunningInConsole(): void
-    {
-        $this->assertTrue($this->app->runningInConsole());
+    expect($notFoundException)->toBeInstanceOf(CommandNotFoundException::class);
+    expect($notFoundException->getMessage())->toEqual('Foo');
+
+    try {
+        abort(200, 'Bar', ['Foo' => 'Bar']);
+    } catch (ConsoleExceptionContract $consoleException) {
     }
 
-    public function testIsDownForMaintenance(): void
-    {
-        $this->assertFalse($this->app->isDownForMaintenance());
-    }
-
-    public function testThatCanAbort(): void
-    {
-        try {
-            $this->app->abort(404, 'Foo');
-        } catch (CommandNotFoundException $notFoundException) {
-        }
-
-        $this->assertInstanceOf(CommandNotFoundException::class, $notFoundException);
-        $this->assertEquals($notFoundException->getMessage(), 'Foo');
-
-        try {
-            abort(200, 'Bar', ['Foo' => 'Bar']);
-        } catch (ConsoleExceptionContract $consoleException) {
-        }
-
-        $this->assertInstanceOf(ConsoleExceptionContract::class, $consoleException);
-        $this->assertEquals($consoleException->getExitCode(), 200);
-        $this->assertEquals($consoleException->getMessage(), 'Bar');
-        $this->assertEquals($consoleException->getHeaders(), ['Foo' => 'Bar']);
-    }
-}
+    expect($consoleException)->toBeInstanceOf(ConsoleExceptionContract::class);
+    expect($consoleException->getExitCode())->toEqual(200);
+    expect($consoleException->getMessage())->toEqual('Bar');
+    expect($consoleException->getHeaders())->toEqual(['Foo' => 'Bar']);
+});
