@@ -68,7 +68,7 @@ final class Installer extends AbstractInstaller
                 $updatedConfig = File::get($this->app->configPath('schedule-list.php'));
                 $updatedConfig = str_replace('%APPLICATION_NAME%', Str::slug(config('app.name')), $updatedConfig);
 
-                if (!File::put($this->app->configPath('schedule-list.php'), $updatedConfig)) {
+                if (! File::put($this->app->configPath('schedule-list.php'), $updatedConfig)) {
                     return false;
                 }
 

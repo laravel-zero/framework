@@ -41,7 +41,7 @@ final class Installer extends AbstractInstaller
             'Creating .env',
             static function (): bool {
                 if (! File::exists(base_path('.env'))) {
-                    if (!File::put(base_path('.env'), 'CONSUMER_KEY=')) {
+                    if (! File::put(base_path('.env'), 'CONSUMER_KEY=')) {
                         return false;
                     }
 
@@ -56,7 +56,7 @@ final class Installer extends AbstractInstaller
             'Creating .env.example',
             static function (): bool {
                 if (! File::exists(base_path('.env.example'))) {
-                    if (!File::put(base_path('.env.example'), 'CONSUMER_KEY=')) {
+                    if (! File::put(base_path('.env.example'), 'CONSUMER_KEY=')) {
                         return false;
                     }
 

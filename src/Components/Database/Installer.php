@@ -57,11 +57,11 @@ final class Installer extends AbstractInstaller
                     return false;
                 }
 
-                if (!File::makeDirectory($this->app->databasePath(), 0755, true, true)) {
+                if (! File::makeDirectory($this->app->databasePath(), 0755, true, true)) {
                     return false;
                 }
 
-                if (!File::put($this->app->databasePath('database.sqlite'), '')) {
+                if (! File::put($this->app->databasePath('database.sqlite'), '')) {
                     return false;
                 }
 
@@ -76,7 +76,7 @@ final class Installer extends AbstractInstaller
                     return false;
                 }
 
-                if (!File::makeDirectory($this->app->databasePath('migrations'), 0755, true, true)) {
+                if (! File::makeDirectory($this->app->databasePath('migrations'), 0755, true, true)) {
                     return false;
                 }
 
@@ -91,11 +91,11 @@ final class Installer extends AbstractInstaller
                     return false;
                 }
 
-                if (!File::makeDirectory($this->app->databasePath('seeds'), 0755, false, true)) {
+                if (! File::makeDirectory($this->app->databasePath('seeds'), 0755, false, true)) {
                     return false;
                 }
 
-                if (!File::copy(self::SEEDER_FILE, $this->app->databasePath('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php'))) {
+                if (! File::copy(self::SEEDER_FILE, $this->app->databasePath('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php'))) {
                     return false;
                 }
 
@@ -110,7 +110,7 @@ final class Installer extends AbstractInstaller
                     return false;
                 }
 
-                if (!File::makeDirectory($this->app->databasePath('factories'), 0755, true, true)) {
+                if (! File::makeDirectory($this->app->databasePath('factories'), 0755, true, true)) {
                     return false;
                 }
 
@@ -125,7 +125,7 @@ final class Installer extends AbstractInstaller
                     return false;
                 }
 
-                if (!File::copy(self::CONFIG_FILE, config_path('database.php'))) {
+                if (! File::copy(self::CONFIG_FILE, config_path('database.php'))) {
                     return false;
                 }
 

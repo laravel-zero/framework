@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Components\Database;
 
-use Illuminate\Support\Collection;
 use function collect;
 use Illuminate\Database\Migrations\Migrator as BaseMigrator;
 use SplFileInfo;

@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Components\Queue;
 
+use function class_exists;
 use Illuminate\Queue\Listener;
 use Illuminate\Queue\Worker;
 use LaravelZero\Framework\Application;
-use function class_exists;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
 
 /**

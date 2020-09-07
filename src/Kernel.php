@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework;
 
-use Symfony\Component\Console\Command\Command;
 use function collect;
 use function define;
 use function defined;
@@ -24,6 +23,7 @@ use function in_array;
 use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorderRepository;
 use NunoMaduro\Collision\Adapters\Laravel\Commands\TestCommand;
 use ReflectionClass;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
 use Symfony\Component\Console\Output\OutputInterface;
 
