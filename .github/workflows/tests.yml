@@ -4,14 +4,14 @@ on: ['push', 'pull_request']
 
 jobs:
   ci:
-    runs-on: ubuntu-latest
-
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        php: [7.3, 7.4]
+        os: [ubuntu-latest]
+        php: ['7.3', '7.4']
         dependency-version: [prefer-lowest, prefer-stable]
 
-    name: CI - PHP ${{ matrix.php }} (${{ matrix.dependency-version }})
+    name: PHP ${{ matrix.php }} - ${{ matrix.os }} - ${{ matrix.dependency-version }}
 
     steps:
 
@@ -31,8 +31,13 @@ jobs:
         echo "::add-matcher::${{ runner.tool_cache }}/php.json"
         echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
-    - name: Install Composer dependencies
-      run: composer update --${{ matrix.dependency-version }} --no-interaction --prefer-dist --no-suggest
+    - name: Install PHP 7 dependencies
+      run: composer update --${{ matrix.dependency-version }} --no-interaction --no-progress
+      if: "matrix.php < 8"
+
+    - name: Install PHP 8 dependencies
+      run: composer update --${{ matrix.dependency-version }} --ignore-platform-req=php --no-interaction --no-progress
+      if: "matrix.php >= 8"
 
     - name: Unit Tests
       run: vendor/bin/pest --colors=always
