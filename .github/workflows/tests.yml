@@ -22,9 +22,8 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php }}
-        extensions: mbstring, zip
         tools: composer:v2
-        coverage: pcov
+        coverage: none
 
     - name: Setup Problem Matches
       run: |
