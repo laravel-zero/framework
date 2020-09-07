@@ -5,11 +5,20 @@ on: ['push', 'pull_request']
 jobs:
   ci:
     runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.prerelease }}
     strategy:
       matrix:
         os: [ubuntu-latest]
         php: ['7.3', '7.4']
         dependency-version: [prefer-lowest, prefer-stable]
+        prerelease: [false]
+        include:
+          - php: 8.0
+            dependency-version: prefer-lowest
+            prerelease: true
+          - php: 8.0
+            dependency-version: prefer-stable
+            prerelease: true
 
     name: PHP ${{ matrix.php }} - ${{ matrix.os }} - ${{ matrix.dependency-version }}
 
@@ -39,4 +48,5 @@ jobs:
       if: "matrix.php >= 8"
 
     - name: Unit Tests
+      continue-on-error: ${{ matrix.prerelease }}
       run: vendor/bin/pest --colors=always
