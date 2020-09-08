@@ -31,15 +31,15 @@ final class GitVersionServiceProvider extends ServiceProvider
         $this->app->bind(
             'git.version',
              static function (Application $app): string {
-                $process = Process::fromShellCommandline(
+                 $process = Process::fromShellCommandline(
                     'git describe --tags --abbrev=0',
                     $app->basePath()
-                );
+                 );
 
-                $process->run();
+                 $process->run();
 
-                return trim($process->getOutput()) ?: 'unreleased';
-            }
+                 return trim($process->getOutput()) ?: 'unreleased';
+             }
         );
     }
 }
