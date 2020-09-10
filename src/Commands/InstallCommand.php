@@ -41,6 +41,7 @@ final class InstallCommand extends Command
         'log' => Components\Log\Installer::class,
         'logo' => Components\Logo\Installer::class,
         'menu' => Components\Menu\Installer::class,
+        'pest' => Components\Pest\Installer::class,
         'queue' => Components\Queue\Installer::class,
         'schedule-list' => Components\ScheduleList\Installer::class,
         'self-update' => Components\Updater\Installer::class,
