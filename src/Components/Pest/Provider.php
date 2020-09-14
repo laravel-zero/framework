@@ -15,8 +15,6 @@ namespace LaravelZero\Framework\Components\Pest;
 
 use function class_exists;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
-use Pest\Laravel\Commands\PestDatasetCommand;
-use Pest\Laravel\Commands\PestTestCommand;
 use Pest\Laravel\PestServiceProvider;
 
 /** @internal */
@@ -32,9 +30,6 @@ final class Provider extends AbstractComponentProvider
     /** {@inheritdoc} */
     public function register(): void
     {
-        $this->commands([
-            PestDatasetCommand::class,
-            PestTestCommand::class,
-        ]);
+        $this->app->register(PestServiceProvider::class);
     }
 }
