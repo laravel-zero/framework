@@ -76,4 +76,24 @@ abstract class AbstractInstaller extends Command implements InstallerContract
 
         return $this;
     }
+
+    /**
+     * Removes the provided package.
+     *
+     * @param  string $package
+     * @param  bool $dev
+     *
+     * @return \LaravelZero\Framework\Contracts\Commands\Component\InstallerContract
+     */
+    protected function remove(string $package, bool $dev = false): InstallerContract
+    {
+        $this->task(
+            'Remove package via composer',
+            function () use ($package, $dev) {
+                return $this->composer->remove($package, $dev);
+            }
+        );
+
+        return $this;
+    }
 }

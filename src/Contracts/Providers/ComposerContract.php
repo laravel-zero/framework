@@ -19,10 +19,14 @@ namespace LaravelZero\Framework\Contracts\Providers;
 interface ComposerContract
 {
     /**
-     * Runs a composer require with
-     * the provided package.
+     * Runs a composer require with the provided package.
      */
     public function require(string $package, bool $dev = false): bool;
+
+    /**
+     * Runs a composer remove with the provided package.
+     */
+    public function remove(string $package, bool $dev = false): bool;
 
     /**
      * Runs a composer create-project.

@@ -56,6 +56,15 @@ final class Composer implements ComposerContract
         );
     }
 
+    /** {@inheritdoc} */
+    public function remove(string $package, bool $dev = false): bool
+    {
+        return $this->run(
+            "composer remove $package".($dev ? ' --dev' : ''),
+            $this->app->basePath()
+        );
+    }
+
     /**
      * {@inheritdoc}
      */
