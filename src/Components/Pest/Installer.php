@@ -27,7 +27,7 @@ final class Installer extends AbstractInstaller
     /** {@inheritdoc} */
     public function install(): void
     {
-        $this->remove('phpunit/phpunit');
-        $this->require('pestphp/pest');
+        $this->remove('phpunit/phpunit', true);
+        $this->require('pestphp/pest', true);
     }
 }

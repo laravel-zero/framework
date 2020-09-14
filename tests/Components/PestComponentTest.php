@@ -10,11 +10,11 @@ it('installs the required packages', function () {
 
     $composerMock->expects($this->once())
         ->method('remove')
-        ->with('phpunit/phpunit');
+        ->with('phpunit/phpunit', true);
 
     $composerMock->expects($this->once())
         ->method('require')
-        ->with('pestphp/pest');
+        ->with('pestphp/pest', true);
 
     $this->app->instance(ComposerContract::class, $composerMock);
 
