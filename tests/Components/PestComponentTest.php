@@ -3,23 +3,6 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Artisan;
-use LaravelZero\Framework\Contracts\Providers\ComposerContract;
-
-it('installs the required packages', function () {
-    $composerMock = $this->createMock(ComposerContract::class);
-
-    $composerMock->expects($this->once())
-        ->method('remove')
-        ->with('phpunit/phpunit', true);
-
-    $composerMock->expects($this->once())
-        ->method('require')
-        ->with('pestphp/pest', true);
-
-    $this->app->instance(ComposerContract::class, $composerMock);
-
-    Artisan::call('app:install', ['component' => 'pest']);
-});
 
 it('adds the components commands to the application', function () {
     $commands = collect(Artisan::all())
