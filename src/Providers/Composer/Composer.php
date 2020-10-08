@@ -34,15 +34,23 @@ final class Composer implements ComposerContract
     private $app;
 
     /**
+     * The Composer process timeout in seconds.
+     *
+     * @var int
+     */
+    private $timeout;
+
+    /**
      * Composer constructor.
      *
      * @param \Illuminate\Contracts\Foundation\Application $app
      *
      * @return void
      */
-    public function __construct(Application $app)
+    public function __construct(Application $app, int $timeout = 300)
     {
         $this->app = $app;
+        $this->timeout = $timeout;
     }
 
     /**
@@ -84,7 +92,7 @@ final class Composer implements ComposerContract
     {
         $process = Process::fromShellCommandline($cmd, $cwd);
 
-        $process->setTimeout(300);
+        $process->setTimeout($this->timeout);
 
         if ($process->isTty()) {
             $process->setTty(true);

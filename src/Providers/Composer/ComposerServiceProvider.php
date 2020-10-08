@@ -29,7 +29,7 @@ final class ComposerServiceProvider extends BaseServiceProvider
         $this->app->singleton(
             ComposerContract::class,
             function ($app) {
-                return new Composer($app);
+                return new Composer($app, $this->app['config']->get('app.composer_timeout', 300));
             }
         );
     }
