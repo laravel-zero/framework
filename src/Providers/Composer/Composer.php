@@ -84,7 +84,7 @@ final class Composer implements ComposerContract
     {
         $process = Process::fromShellCommandline($cmd, $cwd);
 
-        $process->setTimeout(300);
+        $process->setTimeout(900);
 
         if ($process->isTty()) {
             $process->setTty(true);
