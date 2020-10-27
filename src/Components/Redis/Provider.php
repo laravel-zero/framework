@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace LaravelZero\Framework\Components\Redis;
 
 use function class_exists;
-use LaravelZero\Framework\Components\AbstractComponentProvider;
 use Illuminate\Redis\RedisServiceProvider;
+use LaravelZero\Framework\Components\AbstractComponentProvider;
 
 /** @internal */
 final class Provider extends AbstractComponentProvider
