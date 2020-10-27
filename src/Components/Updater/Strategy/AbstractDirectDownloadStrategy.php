@@ -7,6 +7,14 @@ use Humbug\SelfUpdate\Exception\HttpRequestException;
 
 abstract class AbstractDirectDownloadStrategy implements StrategyInterface
 {
+    /** @var string */
+    protected $localVersion;
+
+    /** @var string */
+    protected $packageName;
+
+    abstract public function getDownloadUrl(): string;
+
     /** {@inheritdoc} */
     public function download(Updater $updater)
     {
@@ -30,11 +38,24 @@ abstract class AbstractDirectDownloadStrategy implements StrategyInterface
         return 'latest';
     }
 
+    public function setCurrentLocalVersion(string $version): void
+    {
+        $this->localVersion = $version;
+    }
+
     /** {@inheritdoc} */
     public function getCurrentLocalVersion(Updater $updater)
     {
         return $this->localVersion;
     }
 
-    abstract public function getDownloadUrl(): string;
+    public function setPackageName(string $name): void
+    {
+        $this->packageName = $name;
+    }
+
+    public function getPackageName(): string
+    {
+        return $this->packageName;
+    }
 }
