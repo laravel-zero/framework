@@ -2,8 +2,8 @@
 
 namespace LaravelZero\Framework\Components\Updater\Strategy;
 
-use Humbug\SelfUpdate\Updater;
 use Humbug\SelfUpdate\Exception\HttpRequestException;
+use Humbug\SelfUpdate\Updater;
 
 abstract class AbstractDirectDownloadStrategy implements StrategyInterface
 {
@@ -19,7 +19,7 @@ abstract class AbstractDirectDownloadStrategy implements StrategyInterface
     public function download(Updater $updater)
     {
         /** Switch remote request errors to HttpRequestExceptions */
-        set_error_handler(array($updater, 'throwHttpRequestException'));
+        set_error_handler([$updater, 'throwHttpRequestException']);
         $result = humbug_get_contents($this->getDownloadUrl());
         restore_error_handler();
         if (false === $result) {
