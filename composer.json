@@ -49,6 +49,7 @@
         "illuminate/http": "^8.0",
         "illuminate/log": "^8.0",
         "illuminate/queue": "^8.0",
+        "illuminate/redis": "^8.0",
         "laminas/laminas-text": "^2.7",
         "nunomaduro/laravel-console-dusk": "^1.8",
         "nunomaduro/laravel-console-menu": "^3.1",
