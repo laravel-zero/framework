@@ -20,7 +20,9 @@ return [
     | Logo Name
     |--------------------------------------------------------------------------
     |
-    | This value is your logo.
+    | This value determines the text that is rendered for the logo.
+    | It defaults to the app name, but it can be any other text
+    | value if the logo should be different to the app name.
     |
     */
     'name' => config('app.name'),
