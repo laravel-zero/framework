@@ -42,7 +42,7 @@ final class Provider extends AbstractComponentProvider
             Artisan::starting(
                 function ($artisan) use ($config) {
                     $artisan->setName(
-                        (string) new FigletString($config->get('app.name'), $config->get('logo', []))
+                        (string) new FigletString($config->get('logo.name') ?? $config->get('app.name'), $config->get('logo', []))
                     );
                 }
             );
