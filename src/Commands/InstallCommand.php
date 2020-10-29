@@ -42,6 +42,7 @@ final class InstallCommand extends Command
         'logo' => Components\Logo\Installer::class,
         'menu' => Components\Menu\Installer::class,
         'queue' => Components\Queue\Installer::class,
+        'redis' => Components\Redis\Installer::class,
         'schedule-list' => Components\ScheduleList\Installer::class,
         'self-update' => Components\Updater\Installer::class,
     ];
