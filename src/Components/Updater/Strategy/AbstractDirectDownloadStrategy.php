@@ -20,7 +20,7 @@ abstract class AbstractDirectDownloadStrategy implements StrategyInterface
     {
         /** Switch remote request errors to HttpRequestExceptions */
         set_error_handler([$updater, 'throwHttpRequestException']);
-        $result = humbug_get_contents($this->getDownloadUrl());
+        $result = file_get_contents($this->getDownloadUrl());
         restore_error_handler();
         if (false === $result) {
             throw new HttpRequestException(sprintf(
