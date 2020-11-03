@@ -52,7 +52,7 @@
         "illuminate/redis": "^8.0",
         "laminas/laminas-text": "^2.8",
         "nunomaduro/laravel-console-dusk": "^1.8",
-        "nunomaduro/laravel-console-menu": "^3.1",
+        "nunomaduro/laravel-console-menu": "^3.2",
         "padraic/phar-updater": "^1.0.6",
         "pestphp/pest": "^0.3",
         "phpstan/phpstan": "^0.12"
