@@ -15,7 +15,7 @@ it('installs the required packages', function () {
 
     $composerMock->expects($this->once())
         ->method('require')
-        ->with('laminas/laminas-text "^2.7"');
+        ->with('laminas/laminas-text "^2.8"');
 
     $this->app->instance(ComposerContract::class, $composerMock);
 
