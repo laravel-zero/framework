@@ -32,7 +32,7 @@
         "nunomaduro/collision": "^5.0",
         "nunomaduro/laravel-console-summary": "^1.5",
         "nunomaduro/laravel-console-task": "^1.5",
-        "nunomaduro/laravel-desktop-notifier": "^2.4",
+        "nunomaduro/laravel-desktop-notifier": "^2.5.1",
         "psr/log": "^1.1",
         "ramsey/uuid": "^4.0",
         "symfony/console": "^5.1",
