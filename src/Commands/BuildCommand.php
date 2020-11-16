@@ -109,14 +109,8 @@ final class BuildCommand extends Command
 
         $boxBinary = windows_os() ? '.\box.bat' : './box';
 
-        $processArguments = [$boxBinary, 'compile', '--working-dir='.base_path(), '--config='.base_path('box.json')];
-
-        if ($this->input->getOption('with-docker') === true) {
-            $processArguments[] = '--with-docker';
-        }
-
         $process = new Process(
-            $processArguments,
+            [$boxBinary, 'compile', '--working-dir='.base_path(), '--config='.base_path('box.json')],
             dirname(__DIR__, 2).'/bin',
             null,
             null,
@@ -151,15 +145,23 @@ final class BuildCommand extends Command
         File::move($this->app->basePath($this->getBinary()).'.phar', $this->app->buildsPath($name));
 
         if ($this->input->getOption('with-docker') === true) {
-            File::move($this->app->basePath('Dockerfile'), $this->app->buildsPath('Dockerfile'));
-            File::replace(
-                $this->app->buildsPath('Dockerfile'),
-                str_replace(
-                    "{$name}.phar",
-                    $name,
-                    File::get($this->app->buildsPath('Dockerfile'))
-                )
+            $process = new Process(
+                [realpath(dirname(__DIR__, 2).'/bin/'.$boxBinary), 'docker', '--config='.base_path('box.json'), $this->app->buildsPath($name)],
+                $this->app->buildsPath(),
+                null,
+                null,
+                $this->getTimeout()
             );
+
+            $this->task('   3. <fg=yellow>Generate</> a Dockerfile', function () use ($process) {
+                foreach (tap($process)->start() as $type => $data) {
+                    if ($this->output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
+                        $process::OUT === $type ? $this->info("$data") : $this->error("$data");
+                    }
+                }
+
+                return $process->getExitCode() === 0;
+            });
         }
 
         return $this;
