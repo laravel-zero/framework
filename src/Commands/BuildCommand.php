@@ -29,7 +29,8 @@ final class BuildCommand extends Command
     protected $signature = 'app:build
                             {name? : The build name}
                             {--build-version= : The build version, if not provided it will be asked}
-                            {--timeout=300 : The timeout in seconds or 0 to disable}';
+                            {--timeout=300 : The timeout in seconds or 0 to disable}
+                            {--with-docker : Include a Dockerfile in the generated `builds` directory}';
 
     /**
      * {@inheritdoc}
@@ -108,8 +109,14 @@ final class BuildCommand extends Command
 
         $boxBinary = windows_os() ? '.\box.bat' : './box';
 
+        $processArguments = [$boxBinary, 'compile', '--working-dir='.base_path(), '--config='.base_path('box.json')];
+
+        if ($this->input->getOption('with-docker') === true) {
+            $processArguments[] = '--with-docker';
+        }
+
         $process = new Process(
-            [$boxBinary, 'compile', '--working-dir='.base_path(), '--config='.base_path('box.json')],
+            $processArguments,
             dirname(__DIR__, 2).'/bin',
             null,
             null,
@@ -120,7 +127,8 @@ final class BuildCommand extends Command
 
         $progressBar = tap(
             new ProgressBar(
-                $this->output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL ? new NullOutput() : $section, 25
+                $this->output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL ? new NullOutput() : $section,
+                25
             )
         )->setProgressCharacter("\xF0\x9F\x8D\xBA");
 
@@ -141,6 +149,18 @@ final class BuildCommand extends Command
         $this->output->newLine();
 
         File::move($this->app->basePath($this->getBinary()).'.phar', $this->app->buildsPath($name));
+
+        if ($this->input->getOption('with-docker') === true) {
+            File::move($this->app->basePath('Dockerfile'), $this->app->buildsPath('Dockerfile'));
+            File::replace(
+                $this->app->buildsPath('Dockerfile'),
+                str_replace(
+                    "{$name}.phar",
+                    $name,
+                    File::get($this->app->buildsPath('Dockerfile'))
+                )
+            );
+        }
 
         return $this;
     }

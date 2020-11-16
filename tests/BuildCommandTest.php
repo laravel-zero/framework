@@ -42,6 +42,27 @@ it('can build the application', function () {
     expect(File::exists(base_path('builds'.DIRECTORY_SEPARATOR.'version')))->toBeTrue();
 });
 
+it('can build the application with Dockerfile generation', function () {
+    $composerMock = $this->createMock(ComposerContract::class);
+    $this->app->instance(ComposerContract::class, $composerMock);
+
+    $output = new class() extends NullOutput {
+        public function section()
+        {
+            return new class() extends NullOutput {
+                public function clear()
+                {
+                }
+            };
+        }
+    };
+
+    Artisan::call('app:build', ['name' => 'version', '--no-interaction' => true, '--with-docker' => true], $output);
+
+    expect(File::exists(base_path('builds/version')))->toBeTrue();
+    expect(File::exists(base_path('builds/Dockerfile')))->toBeTrue();
+});
+
 it('reverts the config state after a build', function () {
     $composerMock = $this->createMock(ComposerContract::class);
     $this->app->instance(ComposerContract::class, $composerMock);
