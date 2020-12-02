@@ -43,7 +43,7 @@
     },
     "require-dev": {
         "guzzlehttp/guzzle": "^6.3.1|^7.0",
-        "hmazter/laravel-schedule-list": "^2.2",
+        "hmazter/laravel-schedule-list": "^2.2.1",
         "illuminate/bus": "^8.0",
         "illuminate/database": "^8.0",
         "illuminate/http": "^8.0",
