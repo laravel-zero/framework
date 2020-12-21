@@ -42,7 +42,7 @@ final class Installer extends AbstractInstaller
      */
     public function install(): void
     {
-        $this->require('hmazter/laravel-schedule-list "^2.2"');
+        $this->require('hmazter/laravel-schedule-list "^2.2.1"');
 
         $this->task(
             'Creating default schedule list configuration',
