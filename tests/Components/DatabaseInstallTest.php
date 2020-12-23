@@ -19,7 +19,7 @@ it('installs the required packages', function () {
         ->method('require')
         ->withConsecutive(
             ['illuminate/database "^8.0"', false],
-            ['fzaninotto/faker "^1.9"', true]
+            ['fakerphp/faker "^1.9.1"', true]
         );
 
     $this->app->instance(ComposerContract::class, $composerMock);
