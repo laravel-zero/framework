@@ -107,10 +107,9 @@ final class BuildCommand extends Command
         }
 
         $boxBinary = windows_os() ? '.\box.bat' : './box';
-        $extraBoxOptions = $this->getExtraBoxOptions();
 
         $process = new Process(
-            [$boxBinary, 'compile', '--working-dir='.base_path(), '--config='.base_path('box.json')] + $extraBoxOptions,
+            [$boxBinary, 'compile', '--working-dir='.base_path(), '--config='.base_path('box.json')] + $this->getExtraBoxOptions(),
             dirname(__DIR__, 2).'/bin',
             null,
             null,
