@@ -109,7 +109,7 @@ final class BuildCommand extends Command
         $boxBinary = windows_os() ? '.\box.bat' : './box';
 
         $process = new Process(
-            [$boxBinary, 'compile', '--working-dir='.base_path(), '--config='.base_path('box.json')],
+            [$boxBinary, 'compile', '--working-dir='.base_path(), '--config='.base_path('box.json')] + $this->getExtraBoxOptions(),
             dirname(__DIR__, 2).'/bin',
             null,
             null,
@@ -236,6 +236,17 @@ final class BuildCommand extends Command
     private function supportsAsyncSignals(): bool
     {
         return extension_loaded('pcntl');
+    }
+
+    private function getExtraBoxOptions(): array
+    {
+        $extraBoxOptions = [];
+
+        if ($this->output->isDebug()) {
+            $extraBoxOptions[] = '--debug';
+        }
+
+        return $extraBoxOptions;
     }
 
     /**
