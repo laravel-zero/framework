@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [8.5.0] - 2021-01-03
+
+### Added
+- Allow extra box options ([#429](https://github.com/laravel-zero/framework/pull/429))
+
+### Changed
+- Uses stable version of Pest ([5545078](https://github.com/laravel-zero/laravel-zero/commit/55450785e8b85664fbd3d90b57c6615e8f17d7e6))
+- Database component dependencies ([#428](https://github.com/laravel-zero/framework/pull/428))
+
 ## [8.4.0] - 2020-12-21
 
 ### Added
