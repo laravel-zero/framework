@@ -42,7 +42,7 @@
         "vlucas/phpdotenv": "^5.0"
     },
     "require-dev": {
-        "guzzlehttp/guzzle": "^6.3.1|^7.0",
+        "guzzlehttp/guzzle": "^6.5.5|^7.0",
         "hmazter/laravel-schedule-list": "^2.2.1",
         "illuminate/bus": "^8.0",
         "illuminate/database": "^8.0",
@@ -55,7 +55,7 @@
         "nunomaduro/laravel-console-menu": "^3.2",
         "padraic/phar-updater": "^1.0.6",
         "pestphp/pest": "^1.0",
-        "phpstan/phpstan": "^0.12"
+        "phpstan/phpstan": "^0.12.65"
     },
     "autoload": {
         "psr-4": {
