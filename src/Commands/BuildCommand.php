@@ -76,7 +76,7 @@ final class BuildCommand extends Command
      */
     public function run(InputInterface $input, OutputInterface $output)
     {
-        parent::run($input, $this->originalOutput = $output);
+        return parent::run($input, $this->originalOutput = $output);
     }
 
     /**
