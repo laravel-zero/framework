@@ -36,7 +36,6 @@ class Migrator extends BaseMigrator
         return collect($paths)
             ->flatMap(
                 function ($path) {
-                    $finder = null;
                     if (Str::endsWith($path, '.php')) {
                         $finder = (new Finder)->in([dirname($path)])
                             ->files()
