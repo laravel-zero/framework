@@ -39,7 +39,7 @@ final class Updater
     }
 
     /**
-     * @param \Illuminate\Console\OutputStyle
+     * @param \Illuminate\Console\OutputStyle $output
      *
      * @return void
      */
