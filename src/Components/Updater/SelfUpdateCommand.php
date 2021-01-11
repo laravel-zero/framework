@@ -34,6 +34,6 @@ class SelfUpdateCommand extends Command
     {
         $this->output->title('Checking for a new version...');
 
-        $result = $updater->update($this->output);
+        $updater->update($this->output);
     }
 }
