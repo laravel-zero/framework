@@ -33,7 +33,7 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php }}
-        tools: composer:v2
+        tools: composer
         coverage: none
 
     - name: Setup Problem Matches
@@ -41,13 +41,8 @@ jobs:
         echo "::add-matcher::${{ runner.tool_cache }}/php.json"
         echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
-    - name: Install PHP 7 dependencies
+    - name: Install PHP dependencies
       run: composer update --${{ matrix.dependency-version }} --no-interaction --no-progress --ansi
-      if: "matrix.php < 8"
-
-    - name: Install PHP 8 dependencies
-      run: composer update --${{ matrix.dependency-version }} --ignore-platform-req=php --no-interaction --no-progress --ansi
-      if: "matrix.php >= 8"
 
     - name: Unit Tests
       continue-on-error: ${{ matrix.prerelease }}
