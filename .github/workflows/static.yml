@@ -20,7 +20,7 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: 7.3
-        tools: composer:v2
+        tools: composer
         coverage: none
 
     - name: Install Dependencies
