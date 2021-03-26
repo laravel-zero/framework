@@ -62,6 +62,12 @@ final class BuildCommand extends Command
      */
     public function handle()
     {
+        if (! extension_loaded('intl')) {
+            $this->error('The INTL extension is currently required for producing builds.');
+
+            return 1;
+        }
+
         if ($this->supportsAsyncSignals()) {
             $this->listenForSignals();
         }
