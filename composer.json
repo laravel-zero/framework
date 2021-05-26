@@ -53,7 +53,7 @@
         "laminas/laminas-text": "^2.8",
         "nunomaduro/laravel-console-dusk": "^1.8",
         "nunomaduro/laravel-console-menu": "^3.2",
-        "padraic/phar-updater": "^1.0.6",
+        "laravel-zero/phar-updater": "^1.0.6",
         "pestphp/pest": "^1.0",
         "phpstan/phpstan": "^0.12.65"
     },
