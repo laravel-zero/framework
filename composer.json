@@ -45,7 +45,7 @@
         "guzzlehttp/guzzle": "^6.5.5|^7.0",
         "hmazter/laravel-schedule-list": "^2.2.1",
         "illuminate/bus": "^8.0",
-        "illuminate/database": "^8.0",
+        "illuminate/database": "^8.40",
         "illuminate/http": "^8.0",
         "illuminate/log": "^8.0",
         "illuminate/queue": "^8.0",
@@ -54,7 +54,7 @@
         "nunomaduro/laravel-console-dusk": "^1.8",
         "nunomaduro/laravel-console-menu": "^3.2",
         "laravel-zero/phar-updater": "^1.0.6",
-        "pestphp/pest": "^1.0",
+        "pestphp/pest": "^1.3",
         "phpstan/phpstan": "^0.12.65"
     },
     "autoload": {
