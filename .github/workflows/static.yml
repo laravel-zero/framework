@@ -23,7 +23,7 @@ jobs:
     - uses: ramsey/composer-install@v1
       with:
         dependency-versions: highest
-        composer-options: "--prefer-dist --no-progress --ansi"
+        composer-options: "--prefer-dist"
 
     - name: Run PHPStan
       run: vendor/bin/phpstan analyse --no-progress --ansi
