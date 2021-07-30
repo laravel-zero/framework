@@ -6,10 +6,6 @@ jobs:
   phpstan:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        dependency-version: [prefer-lowest, prefer-stable]
-
     name: PHPStan (${{ matrix.dependency-version }})
 
     steps:
@@ -24,8 +20,10 @@ jobs:
         tools: composer
         coverage: none
 
-    - name: Install Dependencies
-      run: composer update --prefer-stable --no-interaction --prefer-dist --no-progress --ansi
+    - uses: ramsey/composer-install@v1
+      with:
+        dependency-versions: highest
+        composer-options: "--prefer-dist --no-progress --ansi"
 
     - name: Run PHPStan
       run: vendor/bin/phpstan analyse --no-progress --ansi
