@@ -34,7 +34,7 @@ jobs:
     - name: Install PHP dependencies
       uses: ramsey/composer-install@v1
       with:
-        dependency-versions: ${{ matrix.depenency-version }}
+        dependency-versions: ${{ matrix.dependency-version }}
         composer-options: "--prefer-dist --no-progress --ansi"
 
     - name: Unit Tests
