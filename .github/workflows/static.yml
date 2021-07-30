@@ -20,7 +20,8 @@ jobs:
         tools: composer
         coverage: none
 
-    - uses: ramsey/composer-install@v1
+    - name: Install PHP dependencies
+      uses: ramsey/composer-install@v1
       with:
         dependency-versions: highest
         composer-options: "--prefer-dist"
