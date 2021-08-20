@@ -77,7 +77,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
-        "test:types": "phpstan analyse --ansi --memory-limit=0",
+        "test:types": "phpstan analyse --ansi --memory-limit=-1",
         "test:unit": "pest --colors=always",
         "test": [
             "@test:types",
