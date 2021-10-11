@@ -19,6 +19,7 @@ use Symfony\Component\Process\Process;
 
 /**
  * @codeCoverageIgnore
+ *
  * @internal
  */
 final class GitVersionServiceProvider extends ServiceProvider
