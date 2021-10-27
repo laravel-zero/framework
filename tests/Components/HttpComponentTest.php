@@ -12,7 +12,7 @@ it('installs the required packages', function () {
     $composerMock->expects($this->exactly(2))
         ->method('require')
         ->withConsecutive(
-            [$this->equalTo('guzzlehttp/guzzle "^6.5.5"')],
+            [$this->equalTo('guzzlehttp/guzzle "^7.4"')],
             [$this->equalTo('illuminate/http "^8.0"')]
         );
 
