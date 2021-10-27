@@ -29,7 +29,7 @@ final class CommandRecorderRepository
     /**
      * CommandRecorderRepository constructor.
      *
-     * @param \Illuminate\Support\Collection|null $storage
+     * @param  \Illuminate\Support\Collection|null  $storage
      */
     public function __construct(Collection $storage = null)
     {
@@ -47,9 +47,9 @@ final class CommandRecorderRepository
     /**
      * Create a new entry of a called command in the storage.
      *
-     * @param string $command
-     * @param array $arguments
-     * @param string $mode
+     * @param  string  $command
+     * @param  array  $arguments
+     * @param  string  $mode
      */
     public function create(string $command, array $arguments = [], string $mode = self::MODE_DEFAULT): void
     {
@@ -63,8 +63,8 @@ final class CommandRecorderRepository
     /**
      * Determine if the given command exists with the given arguments.
      *
-     * @param string $command
-     * @param array $arguments
+     * @param  string  $command
+     * @param  array  $arguments
      */
     public function exists(string $command, array $arguments = []): bool
     {
