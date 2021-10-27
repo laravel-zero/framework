@@ -31,7 +31,7 @@ final class Updater
     /**
      * Updater constructor.
      *
-     * @param \Humbug\SelfUpdate\Updater $updater
+     * @param  \Humbug\SelfUpdate\Updater  $updater
      */
     public function __construct(PharUpdater $updater)
     {
@@ -39,8 +39,7 @@ final class Updater
     }
 
     /**
-     * @param \Illuminate\Console\OutputStyle $output
-     *
+     * @param  \Illuminate\Console\OutputStyle  $output
      * @return void
      */
     public function update(OutputStyle $output): void

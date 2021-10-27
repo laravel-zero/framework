@@ -21,6 +21,7 @@ use Symfony\Component\Finder\Finder;
 
 /**
  * @codeCoverageIgnore
+ *
  * @internal
  */
 class Migrator extends BaseMigrator

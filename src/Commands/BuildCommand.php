@@ -201,6 +201,7 @@ final class BuildCommand extends Command
      * meaning no timeout.
      *
      * @return float|null
+     *
      * @throws \InvalidArgumentException
      */
     private function getTimeout(): ?float
