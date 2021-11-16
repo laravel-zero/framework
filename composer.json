@@ -36,10 +36,10 @@
         "nunomaduro/laravel-desktop-notifier": "^2.5.1",
         "psr/log": "^1.1.4",
         "ramsey/uuid": "^4.2.3",
-        "symfony/console": "^5.1",
-        "symfony/error-handler": "^5.1",
-        "symfony/process": "^5.1",
-        "symfony/var-dumper": "^5.1",
+        "symfony/console": "^5.3",
+        "symfony/error-handler": "^5.3",
+        "symfony/process": "^5.3",
+        "symfony/var-dumper": "^5.3",
         "vlucas/phpdotenv": "^5.4"
     },
     "require-dev": {
