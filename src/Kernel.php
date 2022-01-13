@@ -24,7 +24,6 @@ use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorderRepository;
 use NunoMaduro\Collision\Adapters\Laravel\Commands\TestCommand;
 use ReflectionClass;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
-use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class Kernel extends BaseKernel
