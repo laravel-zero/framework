@@ -74,7 +74,7 @@ final class BuildCommand extends Command
     /**
      * {@inheritdoc}
      */
-    public function run(InputInterface $input, OutputInterface $output)
+    public function run(InputInterface $input, OutputInterface $output): int
     {
         return parent::run($input, $this->originalOutput = $output);
     }

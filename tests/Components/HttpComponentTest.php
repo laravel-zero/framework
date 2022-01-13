@@ -13,7 +13,7 @@ it('installs the required packages', function () {
         ->method('require')
         ->withConsecutive(
             [$this->equalTo('guzzlehttp/guzzle "^7.4"')],
-            [$this->equalTo('illuminate/http "^8.0"')]
+            [$this->equalTo('illuminate/http "^9.0"')]
         );
 
     $this->app->instance(ComposerContract::class, $composerMock);

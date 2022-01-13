@@ -47,7 +47,7 @@ final class Installer extends AbstractInstaller
      */
     public function install(): void
     {
-        $this->require('illuminate/database "^8.40"');
+        $this->require('illuminate/database "^9.0"');
         $this->require('fakerphp/faker "^1.9.1"', true);
 
         $this->task(

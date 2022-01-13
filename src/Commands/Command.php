@@ -98,7 +98,7 @@ abstract class Command extends BaseCommand
      *
      * @see {https://github.com/laravel/framework/pull/27005}
      */
-    public function setHidden($hidden)
+    public function setHidden(bool $hidden = true): static
     {
         parent::setHidden($this->hidden = $hidden);
 

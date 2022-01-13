@@ -18,7 +18,7 @@ it('installs the required packages', function () {
     $composerMock->expects($this->exactly(2))
         ->method('require')
         ->withConsecutive(
-            ['illuminate/database "^8.40"', false],
+            ['illuminate/database "^9.0"', false],
             ['fakerphp/faker "^1.9.1"', true]
         );
 

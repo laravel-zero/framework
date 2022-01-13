@@ -63,7 +63,6 @@ final class RegisterProviders implements BoostrapperContract
         Components\ConsoleDusk\Provider::class,
         Components\Menu\Provider::class,
         Components\Redis\Provider::class,
-        Components\ScheduleList\Provider::class,
     ];
 
     /**
