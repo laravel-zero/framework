@@ -24,6 +24,7 @@ use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorderRepository;
 use NunoMaduro\Collision\Adapters\Laravel\Commands\TestCommand;
 use ReflectionClass;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
+use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class Kernel extends BaseKernel
@@ -85,6 +86,10 @@ class Kernel extends BaseKernel
     public function handle($input, $output = null)
     {
         $this->app->instance(OutputInterface::class, $output);
+
+        if (function_exists('Termwind\renderUsing') && $output instanceof ConsoleOutput) {
+            \Termwind\renderUsing($output);
+        }
 
         $this->ensureDefaultCommand($input);
 
