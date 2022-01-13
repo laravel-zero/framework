@@ -87,7 +87,7 @@ class Kernel extends BaseKernel
     {
         $this->app->instance(OutputInterface::class, $output);
 
-        if (function_exists('Termwind\renderUsing') && $output instanceof ConsoleOutput) {
+        if (function_exists('Termwind\renderUsing') && $output) {
             \Termwind\renderUsing($output);
         }
 
@@ -242,6 +242,10 @@ class Kernel extends BaseKernel
      */
     public function call($command, array $parameters = [], $outputBuffer = null)
     {
+        if (function_exists('Termwind\renderUsing') && $outputBuffer) {
+            \Termwind\renderUsing($outputBuffer);
+        }
+
         resolve(CommandRecorderRepository::class)->create($command, $parameters);
 
         return parent::call($command, $parameters, $outputBuffer);
