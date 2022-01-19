@@ -74,7 +74,7 @@ final class Installer extends AbstractInstaller
             'Creating cache storage folder',
             function () {
                 if (File::exists(base_path('storage/app/.gitignore') &&
-                    File::exists(base_path('storage/framework/views/.gitignore'))) {
+                    File::exists(base_path('storage/framework/views/.gitignore')))) {
                     return false;
                 }
 
