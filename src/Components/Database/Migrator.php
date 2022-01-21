@@ -42,8 +42,12 @@ class Migrator extends BaseMigrator
                             ->files()
                             ->name(basename($path));
                     } else {
-                        $finder = (new Finder)->in([$path])
-                            ->files();
+                        try {
+                            $finder = (new Finder)->in([$path])
+                                ->files();
+                        } catch (DirectoryNotFoundException) {
+                            return [];
+                        }
                     }
 
                     return collect($finder)
