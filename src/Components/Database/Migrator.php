@@ -45,7 +45,7 @@ class Migrator extends BaseMigrator
                         try {
                             $finder = (new Finder)->in([$path])
                                 ->files();
-                        } catch (DirectoryNotFoundException) {
+                        } catch (DirectoryNotFoundException $e) {
                             return [];
                         }
                     }
