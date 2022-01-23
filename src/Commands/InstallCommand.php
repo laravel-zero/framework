@@ -44,6 +44,7 @@ final class InstallCommand extends Command
         'queue' => Components\Queue\Installer::class,
         'redis' => Components\Redis\Installer::class,
         'self-update' => Components\Updater\Installer::class,
+        'view' => Components\View\Installer::class,
     ];
 
     /**
