@@ -51,6 +51,7 @@
         "illuminate/log": "^9.0.0",
         "illuminate/queue": "^9.0.0",
         "illuminate/redis": "^9.0.0",
+        "illuminate/view": "^9.0.0",
         "laminas/laminas-text": "^2.9.0",
         "laravel-zero/phar-updater": "^1.0.6",
         "nunomaduro/laravel-console-dusk": "^1.10.0",
