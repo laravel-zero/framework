@@ -17,6 +17,7 @@ use function class_exists;
 use Humbug\SelfUpdate\Updater as PharUpdater;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
 use LaravelZero\Framework\Components\Updater\Strategy\GithubStrategy;
+use LaravelZero\Framework\Components\Updater\Strategy\StrategyInterface;
 use LaravelZero\Framework\Providers\Build\Build;
 
 /**
@@ -69,11 +70,14 @@ final class Provider extends AbstractComponentProvider
                 $name = $composer['name'];
 
                 $strategy = $this->app['config']->get('updater.strategy', GithubStrategy::class);
+
                 $updater->setStrategyObject(new $strategy);
 
-                $updater->getStrategy()->setPackageName($name);
+                if ($updater->getStrategy() instanceof StrategyInterface) {
+                    $updater->getStrategy()->setPackageName($name);
 
-                $updater->getStrategy()->setCurrentLocalVersion(config('app.version'));
+                    $updater->getStrategy()->setCurrentLocalVersion(config('app.version'));
+                }
 
                 return new Updater($updater);
             });
