@@ -42,7 +42,7 @@ it('can build the application', function () {
     Artisan::call('app:build', ['name' => 'version', '--no-interaction' => true, '--build-version' => 'v0'], $output);
 
     expect(File::exists(base_path('builds'.DIRECTORY_SEPARATOR.'version')))->toBeTrue();
-})->skip(PHP_VERSION_ID >= 80100, 'The build command does not support PHP 8.1.');
+});
 
 it('reverts the config state after a build', function () {
     $composerMock = $this->createMock(ComposerContract::class);
