@@ -73,7 +73,7 @@ final class Provider extends AbstractComponentProvider
 
                 $updater->setStrategyObject(new $strategy);
 
-                if ($strategy instanceof StrategyInterface) {
+                if ($updater->getStrategy() instanceof StrategyInterface) {
                     $updater->getStrategy()->setPackageName($name);
 
                     $updater->getStrategy()->setCurrentLocalVersion(config('app.version'));
