@@ -11,7 +11,7 @@
 
 <h4> <center>This is a <bold>community project</bold> and not an official Laravel one </center></h4>
 
-Laravel Zero was created by, and is maintained by [Nuno Maduro](https://github.com/nunomaduro), and is a micro-framework that provides an elegant starting point for your console application. It is an **unofficial** and customized version of Laravel optimized for building command-line applications.
+Laravel Zero was created by [Nuno Maduro](https://github.com/nunomaduro) and [Owen Voke](https://github.com/owenvoke), and is a micro-framework that provides an elegant starting point for your console application. It is an **unofficial** and customized version of Laravel optimized for building command-line applications.
 
 > **Note:** This repository contains the core code of the Laravel Zero framework. If you want to build an application using Laravel Zero, visit the main [Laravel Zero repository](https://github.com/laravel-zero/laravel-zero).
 
