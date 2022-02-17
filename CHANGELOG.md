@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com) and this p
 ## [9.1.0 - 2022-02-17](https://github.com/laravel-zero/framework/compare/v9.0.0...v9.1.0)
 
 ### Changed
-- Upgrade Box binary to v3.16.0
+- Upgrade Box binary to v3.16.0 ([#460](https://github.com/laravel-zero/framework/pull/460))
 
 ## [9.0.0 - 2022-02-09](https://github.com/laravel-zero/framework/releases/tag/v9.0.0)
 
