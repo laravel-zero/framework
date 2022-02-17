@@ -106,7 +106,11 @@ final class BuildCommand extends Command
             File::makeDirectory($this->app->buildsPath());
         }
 
-        $boxBinary = windows_os() ? '.\box.bat' : './box';
+        if (PHP_VERSION_ID >= 80100) {
+            $boxBinary = windows_os() ? '.\box.bat' : './box';
+        } else {
+            $boxBinary = windows_os() ? '.\box73.bat' : './box73';
+        }
 
         $process = new Process(
             [$boxBinary, 'compile', '--working-dir='.base_path(), '--config='.base_path('box.json')] + $this->getExtraBoxOptions(),
@@ -168,6 +172,14 @@ final class BuildCommand extends Command
 
         $boxContents = json_decode(static::$box, true);
         $boxContents['main'] = $this->getBinary();
+
+        // Exclude Box binaries in output Phar
+        $boxContents['blacklist'] = isset($boxContents['blacklist']) && is_array($boxContents['blacklist']) ? $boxContents['blacklist'] : [];
+        $boxContents['blacklist'][] = 'vendor/laravel-zero/framework/bin/box';
+        $boxContents['blacklist'][] = 'vendor/laravel-zero/framework/bin/box.bat';
+        $boxContents['blacklist'][] = 'vendor/laravel-zero/framework/bin/box73';
+        $boxContents['blacklist'][] = 'vendor/laravel-zero/framework/bin/box73.bat';
+
         File::put($boxFile, json_encode($boxContents));
 
         File::put($configFile, '<?php return '.var_export($config, true).';'.PHP_EOL);
