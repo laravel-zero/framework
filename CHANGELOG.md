@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [8.10.0] - 2022-02-17
+
+### Added
+- Add support for PHP 8.1 ([728b0ca](https://github.com/laravel-zero/framework/commit/728b0ca946b6ac58f4f906197af71492d36218a5))
+- Add Box support for PHP 8.1 ([#459](https://github.com/laravel-zero/framework/pull/459))
+
 ## [8.9.1] - 2021-10-27
 
 ### Changed
