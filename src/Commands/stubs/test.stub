@@ -15,7 +15,7 @@ class {{ class }} extends TestCase
      */
     public function test_example()
     {
-        $this->artisan('inspiring')
+        $this->artisan('inspire')
           // ->expectsOutput('')
              ->assertExitCode(0);
     }
