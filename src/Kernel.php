@@ -19,7 +19,6 @@ use function defined;
 use function get_class;
 use Illuminate\Console\Application as Artisan;
 use Illuminate\Foundation\Console\Kernel as BaseKernel;
-use Illuminate\Foundation\Console\TestMakeCommand;
 use function in_array;
 use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorderRepository;
 use NunoMaduro\Collision\Adapters\Laravel\Commands\TestCommand;
@@ -40,7 +39,7 @@ class Kernel extends BaseKernel
         Commands\MakeCommand::class,
         Commands\InstallCommand::class,
         Commands\StubPublishCommand::class,
-        TestMakeCommand::class,
+        Commands\TestMakeCommand::class,
     ];
 
     /**

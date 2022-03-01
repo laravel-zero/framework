@@ -1,0 +1,7 @@
+<?php
+
+test('inspiring command', function () {
+    $this->artisan('inspiring')
+      // ->expectsOutput('')
+         ->assertExitCode(0);
+});
