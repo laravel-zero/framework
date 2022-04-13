@@ -205,7 +205,8 @@ class Kernel extends BaseKernel
          */
         Artisan::starting(
             function ($artisan) use ($commands) {
-                $artisan->resolveCommands($commands->toArray());
+                $artisan->resolveCommands($commands->toArray())
+                        ->setContainerCommandLoader();
             }
         );
 
