@@ -46,7 +46,7 @@ final class Installer extends AbstractInstaller
         $this->task(
             'Creating resources/views folder',
             function () {
-                if (! File::exists(base_path('resources/views'))) {
+                if (!File::exists(base_path('resources/views'))) {
                     File::makeDirectory(base_path('resources/views'), 0755, true, true);
 
                     return true;
@@ -59,7 +59,7 @@ final class Installer extends AbstractInstaller
         $this->task(
             'Creating default view configuration',
             function () {
-                if (! File::exists(config_path('view.php'))) {
+                if (!File::exists(config_path('view.php'))) {
                     return File::copy(
                         static::CONFIG_FILE,
                         $this->app->configPath('view.php')
@@ -78,19 +78,19 @@ final class Installer extends AbstractInstaller
                     return false;
                 }
 
-                if (! File::exists(base_path('storage/app'))) {
+                if (!File::exists(base_path('storage/app'))) {
                     File::makeDirectory(base_path('storage/app'), 0755, true, true);
                 }
 
-                if (! File::exists(base_path('storage/app/.gitignore'))) {
+                if (!File::exists(base_path('storage/app/.gitignore'))) {
                     File::append(base_path('storage/app/.gitignore'), "*\n!.gitignore");
                 }
 
-                if (! File::exists(base_path('storage/framework/views'))) {
+                if (!File::exists(base_path('storage/framework/views'))) {
                     File::makeDirectory(base_path('storage/framework/views'), 0755, true, true);
                 }
 
-                if (! File::exists(base_path('storage/framework/views/.gitignore'))) {
+                if (!File::exists(base_path('storage/framework/views/.gitignore'))) {
                     File::append(base_path('storage/framework/views/.gitignore'), "*\n!.gitignore");
                 }
 

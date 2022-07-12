@@ -25,7 +25,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function setUp(): void
     {
-        if (! $this->app) {
+        if (!$this->app) {
             $this->refreshApplication();
         }
 
@@ -47,30 +47,34 @@ abstract class TestCase extends BaseTestCase
     /**
      * Assert that a command was called using the given arguments.
      *
-     * @param  string  $command
-     * @param  array  $arguments
+     * @param string $command
+     * @param array  $arguments
      */
     protected function assertCommandCalled(string $command, array $arguments = []): void
     {
-        $argumentsAsString = (new ArgumentFormatter)->format($arguments);
+        $argumentsAsString = (new ArgumentFormatter())->format($arguments);
         $recorder = app(CommandRecorderRepository::class);
 
-        static::assertTrue($recorder->exists($command, $arguments),
-            'Failed asserting that \''.$command.'\' was called with the given arguments: '.$argumentsAsString);
+        static::assertTrue(
+            $recorder->exists($command, $arguments),
+            'Failed asserting that \''.$command.'\' was called with the given arguments: '.$argumentsAsString
+        );
     }
 
     /**
      * Assert that a command was not called using the given arguments.
      *
-     * @param  string  $command
-     * @param  array  $arguments
+     * @param string $command
+     * @param array  $arguments
      */
     protected function assertCommandNotCalled(string $command, array $arguments = []): void
     {
-        $argumentsAsString = (new ArgumentFormatter)->format($arguments);
+        $argumentsAsString = (new ArgumentFormatter())->format($arguments);
         $recorder = app(CommandRecorderRepository::class);
 
-        static::assertFalse($recorder->exists($command, $arguments),
-            'Failed asserting that \''.$command.'\' was not called with the given arguments: '.$argumentsAsString);
+        static::assertFalse(
+            $recorder->exists($command, $arguments),
+            'Failed asserting that \''.$command.'\' was not called with the given arguments: '.$argumentsAsString
+        );
     }
 }

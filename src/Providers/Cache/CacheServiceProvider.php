@@ -41,7 +41,7 @@ final class CacheServiceProvider extends BaseServiceProvider
     {
         return [
             'default' => 'array',
-            'stores' => [
+            'stores'  => [
                 'array' => [
                     'driver' => 'array',
                 ],

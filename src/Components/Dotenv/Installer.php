@@ -40,7 +40,7 @@ final class Installer extends AbstractInstaller
         $this->task(
             'Creating .env',
             function () {
-                if (! File::exists(base_path('.env'))) {
+                if (!File::exists(base_path('.env'))) {
                     return File::put(base_path('.env'), 'CONSUMER_KEY=');
                 }
 
@@ -51,7 +51,7 @@ final class Installer extends AbstractInstaller
         $this->task(
             'Creating .env.example',
             function () {
-                if (! File::exists(base_path('.env.example'))) {
+                if (!File::exists(base_path('.env.example'))) {
                     return File::put(base_path('.env.example'), 'CONSUMER_KEY=');
                 }
 
@@ -66,7 +66,7 @@ final class Installer extends AbstractInstaller
                 if (File::exists($gitignorePath)) {
                     $contents = File::get($gitignorePath);
                     $neededLine = '.env';
-                    if (! Str::contains($contents, $neededLine)) {
+                    if (!Str::contains($contents, $neededLine)) {
                         File::append($gitignorePath, $neededLine.PHP_EOL);
 
                         return true;

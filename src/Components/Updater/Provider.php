@@ -40,7 +40,7 @@ final class Provider extends AbstractComponentProvider
     {
         $build = $this->app->make(Build::class);
 
-        if (! $this->app->environment('production')) {
+        if (!$this->app->environment('production')) {
             $this->publishes([
                 __DIR__.'/config/updater.php' => $this->app->configPath('updater.php'),
             ]);
@@ -71,7 +71,7 @@ final class Provider extends AbstractComponentProvider
 
                 $strategy = $this->app['config']->get('updater.strategy', GithubStrategy::class);
 
-                $updater->setStrategyObject(new $strategy);
+                $updater->setStrategyObject(new $strategy());
 
                 if ($updater->getStrategy() instanceof StrategyInterface) {
                     $updater->getStrategy()->setPackageName($name);

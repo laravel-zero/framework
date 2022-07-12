@@ -2,8 +2,8 @@
 
 return [
     'default' => App\Commands\FakeDefaultCommand::class,
-    'paths' => [app_path('Commands')],
-    'add' => [
+    'paths'   => [app_path('Commands')],
+    'add'     => [
         App\OtherCommands\FakeOtherCommand::class,
     ],
     'hidden' => [

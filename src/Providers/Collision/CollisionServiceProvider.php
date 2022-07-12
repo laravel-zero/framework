@@ -25,7 +25,7 @@ final class CollisionServiceProvider extends BaseCollisionServiceProvider
      */
     public function register(): void
     {
-        if (! $this->app->environment('production')) {
+        if (!$this->app->environment('production')) {
             $this->app->register(BaseCollisionServiceProvider::class);
         }
     }

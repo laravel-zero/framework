@@ -27,7 +27,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function setUp(): void
     {
-        if (! defined('ARTISAN_BINARY')) {
+        if (!defined('ARTISAN_BINARY')) {
             define('ARTISAN_BINARY', 'application');
         }
 

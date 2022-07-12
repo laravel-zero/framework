@@ -102,7 +102,7 @@ final class BuildCommand extends Command
 
     private function compile(string $name): BuildCommand
     {
-        if (! File::exists($this->app->buildsPath())) {
+        if (!File::exists($this->app->buildsPath())) {
             File::makeDirectory($this->app->buildsPath());
         }
 
@@ -120,7 +120,8 @@ final class BuildCommand extends Command
 
         $progressBar = tap(
             new ProgressBar(
-                $this->output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL ? new NullOutput() : $section, 25
+                $this->output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL ? new NullOutput() : $section,
+                25
             )
         )->setProgressCharacter("\xF0\x9F\x8D\xBA");
 
@@ -200,13 +201,13 @@ final class BuildCommand extends Command
      * Returns a valid timeout value. Non positive values are converted to null,
      * meaning no timeout.
      *
-     * @return float|null
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return float|null
      */
     private function getTimeout(): ?float
     {
-        if (! is_numeric($this->option('timeout'))) {
+        if (!is_numeric($this->option('timeout'))) {
             throw new \InvalidArgumentException('The timeout value must be a number.');
         }
 

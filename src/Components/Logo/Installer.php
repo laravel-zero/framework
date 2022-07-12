@@ -46,7 +46,7 @@ final class Installer extends AbstractInstaller
         $this->task(
             'Creating default logo configuration',
             function () {
-                if (! File::exists(config_path('logo.php'))) {
+                if (!File::exists(config_path('logo.php'))) {
                     return File::copy(
                         static::CONFIG_FILE,
                         $this->app->configPath('logo.php')

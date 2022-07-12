@@ -46,10 +46,10 @@ final class FilesystemServiceProvider extends BaseServiceProvider
     {
         return [
             'default' => 'local',
-            'disks' => [
+            'disks'   => [
                 'local' => [
                     'driver' => 'local',
-                    'root' => $this->app->storagePath('app'),
+                    'root'   => $this->app->storagePath('app'),
                 ],
             ],
         ];

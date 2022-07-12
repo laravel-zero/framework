@@ -85,7 +85,7 @@ final class RenameCommand extends Command
             function () use ($name) {
                 $neededLine = "'name' => '".Str::ucfirst($this->getCurrentBinaryName())."'";
 
-                if (! Str::contains($contents = $this->getConfig(), $neededLine)) {
+                if (!Str::contains($contents = $this->getConfig(), $neededLine)) {
                     return false;
                 }
                 File::put(
@@ -104,7 +104,7 @@ final class RenameCommand extends Command
             function () use ($name) {
                 $neededLine = '"bin": ["'.$this->getCurrentBinaryName().'"]';
 
-                if (! Str::contains($contents = $this->getComposer(), $neededLine)) {
+                if (!Str::contains($contents = $this->getComposer(), $neededLine)) {
                     return false;
                 }
 
@@ -154,7 +154,7 @@ final class RenameCommand extends Command
     {
         $filePath = $this->app->basePath('composer.json');
 
-        if (! File::exists($filePath)) {
+        if (!File::exists($filePath)) {
             $this->app->abort(400, 'The file composer.json not found');
         }
 
@@ -168,7 +168,7 @@ final class RenameCommand extends Command
     {
         $filePath = $this->app->configPath('app.php');
 
-        if (! File::exists($filePath)) {
+        if (!File::exists($filePath)) {
             $this->app->abort(400, 'The file config/app.php not found');
         }
 

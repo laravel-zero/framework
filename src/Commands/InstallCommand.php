@@ -35,16 +35,16 @@ final class InstallCommand extends Command
      */
     private $components = [
         'console-dusk' => Components\ConsoleDusk\Installer::class,
-        'database' => Components\Database\Installer::class,
-        'dotenv' => Components\Dotenv\Installer::class,
-        'http' => Components\Http\Installer::class,
-        'log' => Components\Log\Installer::class,
-        'logo' => Components\Logo\Installer::class,
-        'menu' => Components\Menu\Installer::class,
-        'queue' => Components\Queue\Installer::class,
-        'redis' => Components\Redis\Installer::class,
-        'self-update' => Components\Updater\Installer::class,
-        'view' => Components\View\Installer::class,
+        'database'     => Components\Database\Installer::class,
+        'dotenv'       => Components\Dotenv\Installer::class,
+        'http'         => Components\Http\Installer::class,
+        'log'          => Components\Log\Installer::class,
+        'logo'         => Components\Logo\Installer::class,
+        'menu'         => Components\Menu\Installer::class,
+        'queue'        => Components\Queue\Installer::class,
+        'redis'        => Components\Redis\Installer::class,
+        'self-update'  => Components\Updater\Installer::class,
+        'view'         => Components\View\Installer::class,
     ];
 
     /**
@@ -59,11 +59,11 @@ final class InstallCommand extends Command
             $choices[$name] = $this->app->make($componentClass)->getDescription();
         }
 
-        if (! $option = $this->argument('component')) {
+        if (!$option = $this->argument('component')) {
             $option = $this->choice($title, $choices);
         }
 
-        if ($option !== null && ! empty($this->components[$option])) {
+        if ($option !== null && !empty($this->components[$option])) {
             $command = tap($this->app[$this->components[$option]])->setLaravel($this->app);
 
             $command->setApplication($this->getApplication());

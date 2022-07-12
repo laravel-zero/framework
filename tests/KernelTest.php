@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 it('binds the output into the container', function () {
-    Artisan::handle(new ArrayInput([]), $output = new NullOutput);
+    Artisan::handle(new ArrayInput([]), $output = new NullOutput());
 
     expect($output)->toEqual(Application::getInstance()->get(OutputInterface::class));
 });

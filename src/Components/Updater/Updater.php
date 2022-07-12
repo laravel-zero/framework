@@ -31,7 +31,7 @@ final class Updater
     /**
      * Updater constructor.
      *
-     * @param  \Humbug\SelfUpdate\Updater  $updater
+     * @param \Humbug\SelfUpdate\Updater $updater
      */
     public function __construct(PharUpdater $updater)
     {
@@ -39,7 +39,8 @@ final class Updater
     }
 
     /**
-     * @param  \Illuminate\Console\OutputStyle  $output
+     * @param \Illuminate\Console\OutputStyle $output
+     *
      * @return void
      */
     public function update(OutputStyle $output): void
@@ -47,10 +48,13 @@ final class Updater
         $result = $this->updater->update();
 
         if ($result) {
-            $output->success(sprintf('Updated from version %s to %s.', $this->updater->getOldVersion(),
-                $this->updater->getNewVersion()));
+            $output->success(sprintf(
+                'Updated from version %s to %s.',
+                $this->updater->getOldVersion(),
+                $this->updater->getNewVersion()
+            ));
             exit(0);
-        } elseif (! $this->updater->getNewVersion()) {
+        } elseif (!$this->updater->getNewVersion()) {
             $output->success('There are no stable versions available.');
         } else {
             $output->success('You have the latest version installed.');

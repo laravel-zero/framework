@@ -106,7 +106,7 @@ class Application extends BaseApplication
             ]
         );
 
-        (new ProviderRepository($this, new Filesystem, $this->getCachedServicesPath()))->load(
+        (new ProviderRepository($this, new Filesystem(), $this->getCachedServicesPath()))->load(
             $providers->collapse()
                 ->toArray()
         );

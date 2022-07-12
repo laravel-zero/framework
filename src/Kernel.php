@@ -73,7 +73,7 @@ class Kernel extends BaseKernel
         \Illuminate\Contracts\Foundation\Application $app,
         \Illuminate\Contracts\Events\Dispatcher $events
     ) {
-        if (! defined('ARTISAN_BINARY')) {
+        if (!defined('ARTISAN_BINARY')) {
             define('ARTISAN_BINARY', basename($_SERVER['SCRIPT_FILENAME']));
         }
 
@@ -122,7 +122,8 @@ class Kernel extends BaseKernel
              * be proxied to the application default command.
              */
             $application->setDefaultCommand(
-                resolve(config('commands.default'))->getName(), true
+                resolve(config('commands.default'))->getName(),
+                true
             );
         }
     }
@@ -184,7 +185,7 @@ class Kernel extends BaseKernel
                 $commands = collect($artisan->all())
                     ->filter(
                         function ($command) use ($toRemoveCommands) {
-                            return ! in_array(get_class($command), $toRemoveCommands, true);
+                            return !in_array(get_class($command), $toRemoveCommands, true);
                         }
                     )
                     ->toArray();

@@ -38,11 +38,11 @@ class Migrator extends BaseMigrator
             ->flatMap(
                 function ($path) {
                     if (Str::endsWith($path, '.php')) {
-                        $finder = (new Finder)->in([dirname($path)])
+                        $finder = (new Finder())->in([dirname($path)])
                             ->files()
                             ->name(basename($path));
                     } else {
-                        $finder = (new Finder)->in([$path])
+                        $finder = (new Finder())->in([$path])
                             ->files();
                     }
 

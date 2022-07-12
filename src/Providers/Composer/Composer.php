@@ -37,7 +37,8 @@ final class Composer implements ComposerContract
     /**
      * Composer constructor.
      *
-     * @param  \Illuminate\Contracts\Foundation\Application  $app
+     * @param \Illuminate\Contracts\Foundation\Application $app
+     *
      * @return void
      */
     public function __construct(Application $app)
