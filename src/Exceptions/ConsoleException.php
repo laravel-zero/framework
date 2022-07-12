@@ -42,7 +42,7 @@ final class ConsoleException extends Exception implements ConsoleExceptionContra
         int $exitCode,
         string $message = null,
         array $headers = [],
-        \Exception $previous = null,
+        Exception $previous = null,
         ?int $code = 0
     ) {
         $this->exitCode = $exitCode;
