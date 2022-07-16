@@ -90,8 +90,8 @@ class Provider extends AbstractComponentProvider
         $this->app->alias('db', \Illuminate\Database\ConnectionResolverInterface::class);
         $this->app->register(\Illuminate\Database\DatabaseServiceProvider::class);
 
-        if (File::exists($this->app->databasePath('seeds'))) {
-            collect(File::files($this->app->databasePath('seeds')))->each(
+        if (File::exists($this->app->databasePath('seeders'))) {
+            collect(File::files($this->app->databasePath('seeders')))->each(
                 function ($file) {
                     File::requireOnce($file);
                 }

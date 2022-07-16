@@ -78,17 +78,17 @@ final class Installer extends AbstractInstaller
         );
 
         $this->task(
-            'Creating seeds folders and files',
+            'Creating seeders folders and files',
             function () {
-                if (File::exists($this->app->databasePath('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php'))) {
+                if (File::exists($this->app->databasePath('seeders'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php'))) {
                     return false;
                 }
 
-                File::makeDirectory($this->app->databasePath('seeds'), 0755, false, true);
+                File::makeDirectory($this->app->databasePath('seeders'), 0755, false, true);
 
                 File::copy(
                     self::SEEDER_FILE,
-                    $this->app->databasePath('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php')
+                    $this->app->databasePath('seeders'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php')
                 );
             }
         );
