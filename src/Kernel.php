@@ -181,7 +181,9 @@ class Kernel extends BaseKernel
         Artisan::starting(
             function ($artisan) use ($toRemoveCommands) {
                 $reflectionClass = new ReflectionClass(Artisan::class);
-                $commands = collect($artisan->all())
+
+                $commandsProperty = $reflectionClass->getParentClass()->getProperty('commands');
+                $commands = collect($commandsProperty->getValue($artisan))
                     ->filter(
                         function ($command) use ($toRemoveCommands) {
                             return ! in_array(get_class($command), $toRemoveCommands, true);
@@ -189,12 +191,22 @@ class Kernel extends BaseKernel
                     )
                     ->toArray();
 
-                $property = $reflectionClass->getParentClass()
-                    ->getProperty('commands');
+                $commandsProperty->setAccessible(true);
+                $commandsProperty->setValue($artisan, $commands);
+                $commandsProperty->setAccessible(false);
 
-                $property->setAccessible(true);
-                $property->setValue($artisan, $commands);
-                $property->setAccessible(false);
+                $commandMapProperty = $reflectionClass->getProperty('commandMap');
+                $commandMap = collect($commandMapProperty->getValue($artisan))
+                    ->filter(
+                        function ($command) use ($toRemoveCommands) {
+                            return ! in_array($command, $toRemoveCommands, true);
+                        }
+                    )
+                    ->toArray();
+
+                $commandMapProperty->setAccessible(true);
+                $commandMapProperty->setValue($artisan, $commandMap);
+                $commandMapProperty->setAccessible(false);
             }
         );
 
