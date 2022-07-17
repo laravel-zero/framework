@@ -38,7 +38,7 @@ it('copies the required stubs', function () {
     expect(File::exists(database_path('database.sqlite')))->toBeTrue();
     expect(File::exists(database_path('migrations')))->toBeTrue();
     expect(File::exists(database_path('factories')))->toBeTrue();
-    expect(File::exists(database_path('seeds'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php')))->toBeTrue();
+    expect(File::exists(database_path('seeders'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php')))->toBeTrue();
 });
 
 it('adds the required lines to the gitignore', function () {
