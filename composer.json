@@ -28,7 +28,7 @@
         "illuminate/filesystem": "^9.0.0",
         "illuminate/support": "^9.0.0",
         "illuminate/testing": "^9.0.0",
-        "laravel-zero/foundation": "^9.0.0",
+        "laravel-zero/foundation": "^9.21",
         "league/flysystem": "^3.0.0",
         "nunomaduro/collision": "^6.0.0",
         "nunomaduro/laravel-console-summary": "^1.8.0",
