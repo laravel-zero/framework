@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com) and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [9.1.2 - 2022-07-19](https://github.com/laravel-zero/framework/compare/v9.1.1...v9.1.2)
+
+### Fixed
+- Resolve path to publish seeders to ([#466](https://github.com/laravel-zero/framework/pull/466))
+- Resolve `$components` property collision ([#467](https://github.com/laravel-zero/framework/pull/467))
+
 ## [9.1.1 - 2022-03-01](https://github.com/laravel-zero/framework/compare/v9.1.0...v9.1.1)
 
 ### Fixed
