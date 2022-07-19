@@ -33,7 +33,7 @@ final class InstallCommand extends Command
      *
      * @var array
      */
-    private $components = [
+    private $componentInstallers = [
         'console-dusk' => Components\ConsoleDusk\Installer::class,
         'database' => Components\Database\Installer::class,
         'dotenv' => Components\Dotenv\Installer::class,
@@ -55,7 +55,7 @@ final class InstallCommand extends Command
         $title = 'Laravel Zero - Component installer';
 
         $choices = [];
-        foreach ($this->components as $name => $componentClass) {
+        foreach ($this->componentInstallers as $name => $componentClass) {
             $choices[$name] = $this->app->make($componentClass)->getDescription();
         }
 
@@ -63,8 +63,8 @@ final class InstallCommand extends Command
             $option = $this->choice($title, $choices);
         }
 
-        if ($option !== null && ! empty($this->components[$option])) {
-            $command = tap($this->app[$this->components[$option]])->setLaravel($this->app);
+        if ($option !== null && ! empty($this->componentInstallers[$option])) {
+            $command = tap($this->app[$this->componentInstallers[$option]])->setLaravel($this->app);
 
             $command->setApplication($this->getApplication());
 
