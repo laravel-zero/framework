@@ -183,9 +183,7 @@ class Kernel extends BaseKernel
                 $reflectionClass = new ReflectionClass(Artisan::class);
                 $commands = collect($artisan->all())
                     ->filter(
-                        function ($command) use ($toRemoveCommands) {
-                            return ! in_array(get_class($command), $toRemoveCommands, true);
-                        }
+                        fn ($command) => ! in_array(get_class($command), $toRemoveCommands, true)
                     )
                     ->toArray();
 
@@ -206,6 +204,8 @@ class Kernel extends BaseKernel
         Artisan::starting(
             function ($artisan) use ($commands) {
                 $artisan->resolveCommands($commands->toArray());
+
+                $artisan->setContainerCommandLoader();
             }
         );
 
