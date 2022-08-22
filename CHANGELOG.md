@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com) and this project adheres to [Semantic Versioning](https://semver.org).
 
-## [9.1.2 - 2022-08-22](https://github.com/laravel-zero/framework/compare/v9.1.2...v9.1.3)
+## [9.1.3 - 2022-08-22](https://github.com/laravel-zero/framework/compare/v9.1.2...v9.1.3)
 
 ### Fixed
 - Resolve hidden commands ([#468](https://github.com/laravel-zero/framework/pull/468))
