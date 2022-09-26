@@ -71,7 +71,7 @@ final class Provider extends AbstractComponentProvider
 
                 $strategy = $this->app['config']->get('updater.strategy', GithubStrategy::class);
 
-                $updater->setStrategyObject(new $strategy);
+                $updater->setStrategyObject($this->app->make($strategy));
 
                 if ($updater->getStrategy() instanceof StrategyInterface) {
                     $updater->getStrategy()->setPackageName($name);
