@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        php: ['8.0', '8.1']
+        php: ['8.0', '8.1', '8.2']
         dependency-version: [lowest, highest]
 
     name: PHP ${{ matrix.php }} - ${{ matrix.os }} - ${{ matrix.dependency-version }}
@@ -32,7 +32,7 @@ jobs:
         echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
     - name: Install PHP dependencies
-      uses: ramsey/composer-install@v1
+      uses: ramsey/composer-install@v2
       with:
         dependency-versions: ${{ matrix.dependency-version }}
         composer-options: "--prefer-dist"
