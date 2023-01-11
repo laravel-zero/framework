@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Components\Queue;
 
-use Illuminate\Contracts\Config\Repository;
 use function class_exists;
+use Illuminate\Contracts\Config\Repository;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
 
 /**
