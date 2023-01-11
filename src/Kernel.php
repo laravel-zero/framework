@@ -33,7 +33,7 @@ class Kernel extends BaseKernel
      *
      * @var string[]
      */
-    protected array $developmentCommands = [
+    protected $developmentCommands = [
         Commands\BuildCommand::class,
         Commands\RenameCommand::class,
         Commands\MakeCommand::class,
@@ -47,7 +47,7 @@ class Kernel extends BaseKernel
      *
      * @var string[]
      */
-    protected array $developmentOnlyCommands = [
+    protected $developmentOnlyCommands = [
         TestCommand::class,
     ];
 

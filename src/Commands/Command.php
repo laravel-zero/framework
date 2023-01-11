@@ -74,7 +74,7 @@ abstract class Command extends BaseCommand
     /**
      * {@inheritdoc}
      */
-    public function call($command, array $arguments = []): int
+    public function call($command, array $arguments = [])
     {
         resolve(CommandRecorderRepository::class)->create($command, $arguments);
 
@@ -84,7 +84,7 @@ abstract class Command extends BaseCommand
     /**
      * {@inheritdoc}
      */
-    public function callSilent($command, array $arguments = []): int
+    public function callSilent($command, array $arguments = [])
     {
         resolve(CommandRecorderRepository::class)->create($command, $arguments, CommandRecorderRepository::MODE_SILENT);
 
