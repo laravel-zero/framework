@@ -18,7 +18,7 @@ it('installs the required packages', function () {
     $composerMock->expects($this->exactly(1))
         ->method('require')
         ->withConsecutive(
-            ['illuminate/view "^9.0"', false],
+            ['illuminate/view "^10.0"', false],
         );
 
     $this->app->instance(ComposerContract::class, $composerMock);
@@ -33,9 +33,9 @@ it('copies the required stubs', function () {
 
     Artisan::call('app:install', ['component' => 'view']);
 
-    expect(File::exists(config_path('view.php')))->toBeTrue();
-    expect(File::exists(base_path('resources')))->toBeTrue();
-    expect(File::exists(base_path('resources/views')))->toBeTrue();
-    expect(File::exists(base_path('storage/app/.gitignore')))->toBeTrue();
-    expect(File::exists(base_path('storage/framework/views/.gitignore')))->toBeTrue();
+    expect(File::exists(config_path('view.php')))->toBeTrue()
+        ->and(File::exists(base_path('resources')))->toBeTrue()
+        ->and(File::exists(base_path('resources/views')))->toBeTrue()
+        ->and(File::exists(base_path('storage/app/.gitignore')))->toBeTrue()
+        ->and(File::exists(base_path('storage/framework/views/.gitignore')))->toBeTrue();
 });

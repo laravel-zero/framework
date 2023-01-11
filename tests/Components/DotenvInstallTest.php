@@ -15,8 +15,8 @@ afterEach(function () {
 it('copies the required stubs', function () {
     Artisan::call('app:install', ['component' => 'dotenv']);
 
-    expect(File::exists(base_path('.env')))->toBeTrue();
-    expect(File::exists(base_path('.env.example')))->toBeTrue();
+    expect(File::exists(base_path('.env')))->toBeTrue()
+        ->and(File::exists(base_path('.env.example')))->toBeTrue();
 });
 
 it('adds the required lines to the gitignore', function () {

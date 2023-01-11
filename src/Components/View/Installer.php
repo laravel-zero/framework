@@ -41,7 +41,7 @@ final class Installer extends AbstractInstaller
      */
     public function install(): void
     {
-        $this->require('illuminate/view "^9.0"');
+        $this->require('illuminate/view "^10.0"');
 
         $this->task(
             'Creating resources/views folder',
@@ -73,8 +73,9 @@ final class Installer extends AbstractInstaller
         $this->task(
             'Creating cache storage folder',
             function () {
-                if (File::exists(base_path('storage/app/.gitignore') &&
-                    File::exists(base_path('storage/framework/views/.gitignore')))) {
+                if (File::exists(base_path('storage/app/.gitignore')) &&
+                    File::exists(base_path('storage/framework/views/.gitignore'))
+                ) {
                     return false;
                 }
 

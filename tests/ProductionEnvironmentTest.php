@@ -16,7 +16,6 @@ afterEach(function () {
 });
 
 it('removes development only commands in production', function () {
-    expect($this->app->environment())->toBe('production');
-
-    expect(Artisan::all())->not->toHaveKey('test');
+    expect($this->app->environment())->toBe('production')
+        ->and(Artisan::all())->not->toHaveKey('test');
 });

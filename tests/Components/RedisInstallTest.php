@@ -10,7 +10,7 @@ it('installs the required packages', function () {
 
     $composerMock->expects($this->once())
         ->method('require')
-        ->with('illuminate/redis "^9.0"', false);
+        ->with('illuminate/redis "^10.0"', false);
 
     $this->app->instance(ComposerContract::class, $composerMock);
 

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Components\Log;
 
+use Illuminate\Contracts\Config\Repository;
 use function class_exists;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
 
@@ -37,6 +38,7 @@ final class Provider extends AbstractComponentProvider
     {
         $this->app->register(\Illuminate\Log\LogServiceProvider::class);
 
+        /** @var Repository $config */
         $config = $this->app['config'];
 
         $config->set('logging.default', $config->get('logging.default') ?: 'default');

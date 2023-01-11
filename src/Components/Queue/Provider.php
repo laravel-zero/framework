@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Components\Queue;
 
+use Illuminate\Contracts\Config\Repository;
 use function class_exists;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
 
@@ -82,6 +83,7 @@ final class Provider extends AbstractComponentProvider
             }
         );
 
+        /** @var Repository $config */
         $config = $this->app['config'];
 
         $config->set('queue.default', $config->get('queue.default') ?: 'default');

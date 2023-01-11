@@ -12,8 +12,8 @@ it('installs the required packages', function () {
     $composerMock->expects($this->exactly(2))
         ->method('require')
         ->withConsecutive(
-            [$this->equalTo('guzzlehttp/guzzle "^7.4"')],
-            [$this->equalTo('illuminate/http "^9.0"')]
+            [$this->equalTo('guzzlehttp/guzzle "^7.5"')],
+            [$this->equalTo('illuminate/http "^10.0"')]
         );
 
     $this->app->instance(ComposerContract::class, $composerMock);
@@ -33,6 +33,6 @@ it('can use the http client', function () {
             && $request->url('https://faked.test');
     });
 
-    expect($response->ok())->toBeTrue();
-    expect($response->body())->toBeEmpty();
+    expect($response->ok())->toBeTrue()
+        ->and($response->body())->toBeEmpty();
 });

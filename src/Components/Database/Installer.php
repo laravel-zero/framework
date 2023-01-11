@@ -47,7 +47,7 @@ final class Installer extends AbstractInstaller
      */
     public function install(): void
     {
-        $this->require('illuminate/database "^9.0"');
+        $this->require('illuminate/database "^10.0"');
         $this->require('fakerphp/faker "^1.9.1"', true);
 
         $this->task(
@@ -59,7 +59,7 @@ final class Installer extends AbstractInstaller
 
                 File::makeDirectory($this->app->databasePath(), 0755, true, true);
 
-                File::put(
+                return File::put(
                     $this->app->databasePath('database.sqlite'),
                     ''
                 );
@@ -73,7 +73,7 @@ final class Installer extends AbstractInstaller
                     return false;
                 }
 
-                File::makeDirectory($this->app->databasePath('migrations'), 0755, true, true);
+                return File::makeDirectory($this->app->databasePath('migrations'), 0755, true, true);
             }
         );
 
@@ -86,7 +86,7 @@ final class Installer extends AbstractInstaller
 
                 File::makeDirectory($this->app->databasePath('seeders'), 0755, false, true);
 
-                File::copy(
+                return File::copy(
                     self::SEEDER_FILE,
                     $this->app->databasePath('seeders'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php')
                 );
@@ -100,7 +100,7 @@ final class Installer extends AbstractInstaller
                     return false;
                 }
 
-                File::makeDirectory($this->app->databasePath('factories'), 0755, true, true);
+                return File::makeDirectory($this->app->databasePath('factories'), 0755, true, true);
             }
         );
 
@@ -110,7 +110,8 @@ final class Installer extends AbstractInstaller
                 if (File::exists(config_path('database.php'))) {
                     return false;
                 }
-                File::copy(
+
+                return File::copy(
                     self::CONFIG_FILE,
                     config_path('database.php')
                 );

@@ -6,11 +6,7 @@ use Illuminate\Support\Facades\Artisan;
 
 it('adds the components commands to the application', function () {
     $commands = collect(Artisan::all())
-        ->map(
-            function ($command) {
-                return get_class($command);
-            }
-        )
+        ->map(fn ($command) => get_class($command))
         ->flip();
 
     collect(

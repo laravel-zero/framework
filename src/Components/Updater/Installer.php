@@ -35,6 +35,6 @@ final class Installer extends AbstractInstaller
      */
     public function install(): void
     {
-        $this->require('laravel-zero/phar-updater "^1.2"');
+        $this->require('laravel-zero/phar-updater "^1.3"');
     }
 }

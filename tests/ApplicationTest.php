@@ -23,16 +23,16 @@ it('can abort', function () {
     } catch (CommandNotFoundException $notFoundException) {
     }
 
-    expect($notFoundException)->toBeInstanceOf(CommandNotFoundException::class);
-    expect($notFoundException->getMessage())->toEqual('Foo');
+    expect($notFoundException)->toBeInstanceOf(CommandNotFoundException::class)
+        ->and($notFoundException->getMessage())->toEqual('Foo');
 
     try {
         abort(200, 'Bar', ['Foo' => 'Bar']);
     } catch (ConsoleExceptionContract $consoleException) {
     }
 
-    expect($consoleException)->toBeInstanceOf(ConsoleExceptionContract::class);
-    expect($consoleException->getExitCode())->toEqual(200);
-    expect($consoleException->getMessage())->toEqual('Bar');
-    expect($consoleException->getHeaders())->toEqual(['Foo' => 'Bar']);
+    expect($consoleException)->toBeInstanceOf(ConsoleExceptionContract::class)
+        ->and($consoleException->getExitCode())->toEqual(200)
+        ->and($consoleException->getMessage())->toEqual('Bar')
+        ->and($consoleException->getHeaders())->toEqual(['Foo' => 'Bar']);
 });

@@ -43,15 +43,15 @@ final class Installer extends AbstractInstaller
     {
         $this->call('app:install', ['component' => 'database']);
 
-        $this->require('illuminate/bus "^9.0"');
-        $this->require('illuminate/queue "^9.0"');
+        $this->require('illuminate/bus "^10.0"');
+        $this->require('illuminate/queue "^10.0"');
 
         $this->task(
             'Creating default queue configuration',
             function () {
                 if (! File::exists(config_path('queue.php'))) {
                     return File::copy(
-                        static::CONFIG_FILE,
+                        self::CONFIG_FILE,
                         $this->app->configPath('queue.php')
                     );
                 }

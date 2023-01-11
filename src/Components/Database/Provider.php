@@ -92,9 +92,7 @@ class Provider extends AbstractComponentProvider
 
         if (File::exists($this->app->databasePath('seeders'))) {
             collect(File::files($this->app->databasePath('seeders')))->each(
-                function ($file) {
-                    File::requireOnce($file);
-                }
+                fn ($file) => File::requireOnce($file)
             );
         }
     }

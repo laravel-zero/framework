@@ -41,7 +41,7 @@ final class Installer extends AbstractInstaller
      */
     public function install(): void
     {
-        $this->require('laminas/laminas-text "^2.9"');
+        $this->require('laminas/laminas-text "^2.10"');
 
         $this->task(
             'Creating default logo configuration',

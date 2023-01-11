@@ -18,7 +18,7 @@ it('installs the required packages', function () {
     $composerMock->expects($this->exactly(2))
         ->method('require')
         ->withConsecutive(
-            ['illuminate/database "^9.0"', false],
+            ['illuminate/database "^10.0"', false],
             ['fakerphp/faker "^1.9.1"', true]
         );
 
@@ -34,11 +34,11 @@ it('copies the required stubs', function () {
 
     Artisan::call('app:install', ['component' => 'database']);
 
-    expect(File::exists(config_path('database.php')))->toBeTrue();
-    expect(File::exists(database_path('database.sqlite')))->toBeTrue();
-    expect(File::exists(database_path('migrations')))->toBeTrue();
-    expect(File::exists(database_path('factories')))->toBeTrue();
-    expect(File::exists(database_path('seeders'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php')))->toBeTrue();
+    expect(File::exists(config_path('database.php')))->toBeTrue()
+        ->and(File::exists(database_path('database.sqlite')))->toBeTrue()
+        ->and(File::exists(database_path('migrations')))->toBeTrue()
+        ->and(File::exists(database_path('factories')))->toBeTrue()
+        ->and(File::exists(database_path('seeders'.DIRECTORY_SEPARATOR.'DatabaseSeeder.php')))->toBeTrue();
 });
 
 it('adds the required lines to the gitignore', function () {

@@ -9,9 +9,9 @@ use App\OtherCommands\FakeOtherCommand;
 use Illuminate\Support\Facades\Artisan;
 
 it('can access the application configuration', function () {
-    expect(Artisan::getName())->toBe('Application');
-    expect($this->app->version())->toBe('Test version');
-    expect($this->app->environment())->toEqual('development');
+    expect(Artisan::getName())->toBe('Application')
+        ->and($this->app->version())->toBe('Test version')
+        ->and($this->app->environment())->toEqual('development');
 });
 
 it('can add commands to the application', function () {
@@ -23,11 +23,7 @@ it('can add commands to the application', function () {
     ];
 
     $appCommands = collect(Artisan::all())
-        ->map(
-            function ($command) {
-                return get_class($command);
-            }
-        )
+        ->map(fn ($command) => get_class($command))
         ->toArray();
 
     foreach ($commands as $command) {

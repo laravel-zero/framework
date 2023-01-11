@@ -48,18 +48,14 @@ class Migrator extends BaseMigrator
 
                     return collect($finder)
                         ->map(
-                            function (SplFileInfo $file) {
-                                return $file->getPathname();
-                            }
+                            fn (SplFileInfo $file) => $file->getPathname()
                         )
                         ->all();
                 }
             )
             ->filter()
             ->sortBy(
-                function ($file) {
-                    return $this->getMigrationName($file);
-                }
+                fn ($file) => $this->getMigrationName($file)
             )
             ->values()
             ->keyBy(

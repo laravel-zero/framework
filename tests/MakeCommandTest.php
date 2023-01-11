@@ -16,8 +16,8 @@ it('can make a new command', function () {
 
     $file = app_path('Commands'.DIRECTORY_SEPARATOR.'FooCommand.php');
 
-    expect(File::exists($file))->toBeTrue();
-    expect(File::get($file))
+    expect(File::exists($file))->toBeTrue()
+        ->and(File::get($file))
         ->toContain('class FooCommand extends Command')
         ->toContain('use LaravelZero\Framework\Commands\Command;');
 });

@@ -7,9 +7,7 @@ use Illuminate\Support\Facades\Artisan;
 it('adds the components commands to the application', function () {
     $commands = collect(Artisan::all())
         ->map(
-            function ($command) {
-                return get_class($command);
-            }
+            fn ($command) => get_class($command)
         )
         ->flip();
 
@@ -27,8 +25,6 @@ it('adds the components commands to the application', function () {
             \Illuminate\Queue\Console\ForgetFailedCommand::class,
         ]
     )->map(
-        function ($commandClass) use ($commands) {
-            expect($commands)->toHaveKey($commandClass);
-        }
+        fn ($commandClass) => expect($commands)->toHaveKey($commandClass)
     );
 });
