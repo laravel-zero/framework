@@ -25,7 +25,7 @@ use Symfony\Component\Console\Exception\CommandNotFoundException;
 class Application extends BaseApplication
 {
     /**
-     * Get the builds path. With, optionally, a path to append to the base path.
+     * Get the `builds` path. With, optionally, a path to append to the base path.
      */
     public function buildsPath(string $path = ''): string
     {
@@ -86,15 +86,13 @@ class Application extends BaseApplication
     }
 
     /**
-     * Register all of the configured providers.
+     * Register all the configured providers.
      */
     public function registerConfiguredProviders(): void
     {
         $providers = Collection::make($this['config']['app.providers'])
             ->partition(
-                function ($provider) {
-                    return Str::startsWith($provider, 'Illuminate\\');
-                }
+                fn ($provider) => Str::startsWith($provider, 'Illuminate\\')
             );
 
         $providers->splice(

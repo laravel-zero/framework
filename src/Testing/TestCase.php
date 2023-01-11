@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Testing;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\Facade;
 use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorderRepository;
@@ -25,6 +26,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function setUp(): void
     {
+        /** @phpstan-ignore-next-line */
         if (! $this->app) {
             $this->refreshApplication();
         }
@@ -37,8 +39,8 @@ abstract class TestCase extends BaseTestCase
 
         Facade::clearResolvedInstances();
 
-        if (class_exists(\Illuminate\Database\Eloquent\Model::class)) {
-            \Illuminate\Database\Eloquent\Model::setEventDispatcher($this->app['events']);
+        if (class_exists(Model::class)) {
+            Model::setEventDispatcher($this->app['events']);
         }
 
         $this->setUpHasRun = true;

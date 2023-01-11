@@ -39,9 +39,8 @@ final class Composer implements ComposerContract
      *
      * @return void
      */
-    public function __construct(Application $app)
+    public function __construct(private readonly Application $app)
     {
-        $this->app = $app;
     }
 
     /**
@@ -69,7 +68,7 @@ final class Composer implements ComposerContract
      */
     public function createProject(string $skeleton, string $projectName, array $options): bool
     {
-        $cmd = collect("composer create-project $skeleton $projectName")
+        $cmd = collect(["composer create-project {$skeleton} {$projectName}"])
             ->merge($options)
             ->implode(' ');
 

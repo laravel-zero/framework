@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\File;
 use Symfony\Component\Console\Command\SignalableCommandInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
@@ -42,21 +43,21 @@ final class BuildCommand extends Command implements SignalableCommandInterface
      *
      * @var string|null
      */
-    private static $config;
+    private static string|null $config = null;
 
     /**
      * Holds the box.json on is original state.
      *
      * @var string|null
      */
-    private static $box;
+    private static string|null $box = null;
 
     /**
      * Holds the command original output.
      *
-     * @var \Symfony\Component\Console\Output\OutputInterface
+     * @var OutputInterface
      */
-    private $originalOutput;
+    private OutputInterface $originalOutput;
 
     /**
      * {@inheritdoc}
@@ -94,7 +95,7 @@ final class BuildCommand extends Command implements SignalableCommandInterface
     /**
      * Builds the application into a single file.
      */
-    private function build(string $name): BuildCommand
+    private function build(string $name): void
     {
         /*
          * We prepare the application for a build, moving it to production. Then,
@@ -108,8 +109,6 @@ final class BuildCommand extends Command implements SignalableCommandInterface
         $this->output->writeln(
             sprintf('    Compiled successfully: <fg=green>%s</>', $this->app->buildsPath($name))
         );
-
-        return $this;
     }
 
     private function compile(string $name): BuildCommand
@@ -128,6 +127,7 @@ final class BuildCommand extends Command implements SignalableCommandInterface
             $this->getTimeout()
         );
 
+        /** @phpstan-ignore-next-line This is an instance of `ConsoleOutputInterface` */
         $section = tap($this->originalOutput->section())->write('');
 
         $progressBar = tap(

@@ -33,7 +33,7 @@ class Kernel extends BaseKernel
      *
      * @var string[]
      */
-    protected $developmentCommands = [
+    protected array $developmentCommands = [
         Commands\BuildCommand::class,
         Commands\RenameCommand::class,
         Commands\MakeCommand::class,
@@ -47,7 +47,7 @@ class Kernel extends BaseKernel
      *
      * @var string[]
      */
-    protected $developmentOnlyCommands = [
+    protected array $developmentOnlyCommands = [
         TestCommand::class,
     ];
 
@@ -151,11 +151,13 @@ class Kernel extends BaseKernel
 
         /*
          * Loads commands paths.
+         *
+         * @phpstan-ignore-next-line
          */
         $this->load($config->get('commands.paths', $this->app->path('Commands')));
 
         /**
-         * Loads configurated commands.
+         * Loads configured commands.
          */
         $commands = collect($config->get('commands.add', []))->merge($config->get('commands.hidden', []));
 

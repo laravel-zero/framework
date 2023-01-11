@@ -21,10 +21,10 @@ use Laminas\Text\Figlet\Figlet;
  */
 final class FigletString
 {
-    private $string;
+    private string $string;
 
     /** @var Figlet */
-    private $figlet;
+    private Figlet $figlet;
 
     public const DEFAULT_FONT = __DIR__.DIRECTORY_SEPARATOR.'fonts'.DIRECTORY_SEPARATOR.'big.flf';
 
@@ -36,7 +36,7 @@ final class FigletString
         $this->parseOptions($options);
     }
 
-    private function parseOptions(array $config)
+    private function parseOptions(array $config): void
     {
         $this
             ->font($config['font'] ?? self::DEFAULT_FONT)
@@ -45,7 +45,7 @@ final class FigletString
             ->rightToLeft($config['rightToLeft'] ?? null);
     }
 
-    private function font(?string $font)
+    private function font(?string $font): self
     {
         if (is_null($font)) {
             return $this;
@@ -56,14 +56,14 @@ final class FigletString
         return $this;
     }
 
-    private function outputWidth(int $outputWidth)
+    private function outputWidth(int $outputWidth): self
     {
         $this->figlet->setOutputWidth($outputWidth);
 
         return $this;
     }
 
-    private function justification(?string $justification)
+    private function justification(?string $justification): self
     {
         switch ($justification) {
             case 'left':
@@ -85,7 +85,7 @@ final class FigletString
         return $this;
     }
 
-    private function rightToLeft(?string $rightToLeft)
+    private function rightToLeft(?string $rightToLeft): void
     {
         switch ($rightToLeft) {
             case 'right-to-left':
@@ -100,14 +100,12 @@ final class FigletString
             default:
                 throw new \InvalidArgumentException('Invalid value given for the `logo.rightToLeft` option');
         }
-
-        return $this;
     }
 
     public function __toString()
     {
         $rendered = $this->figlet->render($this->string);
 
-        return "\n$rendered\n";
+        return "\n{$rendered}\n";
     }
 }
