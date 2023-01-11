@@ -20,7 +20,7 @@ it('can build the application', function () {
 
     $output = new class() extends NullOutput
     {
-        public function section()
+        public function section(): NullOutput
         {
             return new class() extends NullOutput
             {
@@ -33,15 +33,15 @@ it('can build the application', function () {
 
     Artisan::call('app:build', ['--no-interaction' => true], $output);
 
-    expect(File::exists(base_path('builds'.DIRECTORY_SEPARATOR.'application')))->toBeTrue();
+    expect(File::exists(base_path('builds/application')))->toBeTrue();
 
     Artisan::call('app:build', ['name' => 'zonda', '--no-interaction' => true], $output);
 
-    expect(File::exists(base_path('builds'.DIRECTORY_SEPARATOR.'zonda')))->toBeTrue();
+    expect(File::exists(base_path('builds/zonda')))->toBeTrue();
 
     Artisan::call('app:build', ['name' => 'version', '--no-interaction' => true, '--build-version' => 'v0'], $output);
 
-    expect(File::exists(base_path('builds'.DIRECTORY_SEPARATOR.'version')))->toBeTrue();
+    expect(File::exists(base_path('builds/version')))->toBeTrue();
 });
 
 it('reverts the config state after a build', function () {
@@ -52,7 +52,7 @@ it('reverts the config state after a build', function () {
 
     $output = new class() extends NullOutput
     {
-        public function section()
+        public function section(): NullOutput
         {
             return new class() extends NullOutput
             {
@@ -71,8 +71,7 @@ it('reverts the config state after a build', function () {
     } catch (RuntimeException $exception) {
     }
 
-    expect($exception)->toBeInstanceOf(RuntimeException::class);
-    expect($exception->getMessage())->toEqual('Foo bar');
-
-    expect($contents)->toEqual(File::get(config_path('app.php')));
+    expect($exception)->toBeInstanceOf(RuntimeException::class)
+        ->and($exception->getMessage())->toEqual('Foo bar')
+        ->and($contents)->toEqual(File::get(config_path('app.php')));
 })->skip('This test is currently broken (investigating)');
