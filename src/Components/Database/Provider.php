@@ -62,6 +62,7 @@ class Provider extends AbstractComponentProvider
                     \Illuminate\Database\Console\Seeds\SeederMakeCommand::class,
                     \Illuminate\Foundation\Console\ModelMakeCommand::class,
                     \Illuminate\Database\Console\Seeds\SeedCommand::class,
+                    \Illuminate\Database\Console\DumpCommand::class,
                 ]
             );
         }
