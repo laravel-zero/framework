@@ -26,7 +26,7 @@
         "illuminate/contracts": "^10.0",
         "illuminate/events": "^10.0",
         "illuminate/filesystem": "^10.0",
-        "illuminate/process": "10.x-dev",
+        "illuminate/process": "^10.0",
         "illuminate/support": "^10.0",
         "illuminate/testing": "^10.0",
         "laravel-zero/foundation": "^10.0",
