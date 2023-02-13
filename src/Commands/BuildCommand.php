@@ -15,13 +15,14 @@ namespace LaravelZero\Framework\Commands;
 
 use Illuminate\Console\Application as Artisan;
 use Illuminate\Support\Facades\File;
+use Symfony\Component\Console\Command\SignalableCommandInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 
-final class BuildCommand extends Command
+final class BuildCommand extends Command implements SignalableCommandInterface
 {
     /**
      * {@inheritdoc}
@@ -62,10 +63,6 @@ final class BuildCommand extends Command
      */
     public function handle()
     {
-        if ($this->supportsAsyncSignals()) {
-            $this->listenForSignals();
-        }
-
         $this->title('Building process');
 
         $this->build($this->input->getArgument('name') ?? $this->getBinary());
@@ -77,6 +74,21 @@ final class BuildCommand extends Command
     public function run(InputInterface $input, OutputInterface $output): int
     {
         return parent::run($input, $this->originalOutput = $output);
+    }
+
+    /** @return array<int, int> */
+    public function getSubscribedSignals(): array
+    {
+        return [\SIGINT];
+    }
+
+    public function handleSignal(int $signal): void
+    {
+        if ($signal === \SIGINT) {
+            if (self::$config !== null) {
+                $this->clear();
+            }
+        }
     }
 
     /**
@@ -212,30 +224,6 @@ final class BuildCommand extends Command
         $timeout = (float) $this->option('timeout');
 
         return $timeout > 0 ? $timeout : null;
-    }
-
-    /**
-     * Enable and listen to async signals for the process.
-     */
-    private function listenForSignals(): void
-    {
-        pcntl_async_signals(true);
-
-        pcntl_signal(SIGINT, function () {
-            if (static::$config !== null) {
-                $this->clear();
-            }
-
-            exit;
-        });
-    }
-
-    /**
-     * Determine if "async" signals are supported.
-     */
-    private function supportsAsyncSignals(): bool
-    {
-        return extension_loaded('pcntl');
     }
 
     private function getExtraBoxOptions(): array
