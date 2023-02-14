@@ -30,18 +30,12 @@ final class Updater
 
     /**
      * Updater constructor.
-     *
-     * @param  \Humbug\SelfUpdate\Updater  $updater
      */
     public function __construct(PharUpdater $updater)
     {
         $this->updater = $updater;
     }
 
-    /**
-     * @param  \Illuminate\Console\OutputStyle  $output
-     * @return void
-     */
     public function update(OutputStyle $output): void
     {
         $result = $this->updater->update();

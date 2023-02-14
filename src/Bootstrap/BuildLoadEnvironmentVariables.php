@@ -30,8 +30,6 @@ final class BuildLoadEnvironmentVariables implements BoostrapperContract
 
     /**
      * BuildLoadEnvironmentVariables constructor.
-     *
-     * @param  \LaravelZero\Framework\Providers\Build\Build  $build
      */
     public function __construct(Build $build)
     {

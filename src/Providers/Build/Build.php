@@ -30,8 +30,6 @@ class Build
 
     /**
      * Checks if the application is running from a Phar file.
-     *
-     * @return bool
      */
     public function isRunning(): bool
     {
@@ -40,8 +38,6 @@ class Build
 
     /**
      * Returns the directory path from where the Phar is running.
-     *
-     * @return string
      */
     public function getDirectoryPath(): string
     {
@@ -50,8 +46,6 @@ class Build
 
     /**
      * Returns the path from where the Phar is running.
-     *
-     * @return string
      */
     public function getPath(): string
     {
@@ -60,8 +54,6 @@ class Build
 
     /**
      * Returns the .env path with Phar running.
-     *
-     * @return string
      */
     public function environmentFilePath(): string
     {
@@ -70,8 +62,6 @@ class Build
 
     /**
      * Checks if the build is running and there's an available environment file.
-     *
-     * @return bool
      */
     public function shouldUseEnvironmentFile(): bool
     {
@@ -80,8 +70,6 @@ class Build
 
     /**
      * The file for environment file.
-     *
-     * @return string
      */
     public function environmentFile(): string
     {

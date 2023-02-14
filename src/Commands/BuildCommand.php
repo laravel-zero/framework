@@ -200,7 +200,6 @@ final class BuildCommand extends Command
      * Returns a valid timeout value. Non positive values are converted to null,
      * meaning no timeout.
      *
-     * @return float|null
      *
      * @throws \InvalidArgumentException
      */

@@ -38,8 +38,6 @@ abstract class TestCase extends BaseTestCase
 
     /**
      * Creates a new instance of the application.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application
      */
     public function createApplication(): ApplicationContract
     {

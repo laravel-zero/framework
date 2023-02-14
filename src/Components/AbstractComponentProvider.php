@@ -24,8 +24,6 @@ abstract class AbstractComponentProvider extends ServiceProvider
      * Registers the component on the application.
      *
      * Should adapt the service to the console/cli context.
-     *
-     * @return void
      */
     public function register(): void
     {
@@ -34,8 +32,6 @@ abstract class AbstractComponentProvider extends ServiceProvider
 
     /**
      * Checks if the component is available.
-     *
-     * @return bool
      */
     abstract public function isAvailable(): bool;
 }

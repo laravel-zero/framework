@@ -8,9 +8,6 @@ final class GithubStrategy extends \Humbug\SelfUpdate\Strategy\GithubStrategy im
 {
     /**
      * Returns the Download Url.
-     *
-     * @param  array  $package
-     * @return string
      */
     protected function getDownloadUrl(array $package): string
     {

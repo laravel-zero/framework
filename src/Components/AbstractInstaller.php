@@ -59,10 +59,6 @@ abstract class AbstractInstaller extends Command implements InstallerContract
 
     /**
      * Requires the provided package.
-     *
-     * @param  string  $package
-     * @param  bool  $dev
-     * @return \LaravelZero\Framework\Contracts\Commands\Component\InstallerContract
      */
     protected function require(string $package, bool $dev = false): InstallerContract
     {
@@ -78,10 +74,6 @@ abstract class AbstractInstaller extends Command implements InstallerContract
 
     /**
      * Removes the provided package.
-     *
-     * @param  string  $package
-     * @param  bool  $dev
-     * @return \LaravelZero\Framework\Contracts\Commands\Component\InstallerContract
      */
     protected function remove(string $package, bool $dev = false): InstallerContract
     {
