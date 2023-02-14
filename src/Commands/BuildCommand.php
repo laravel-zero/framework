@@ -40,22 +40,16 @@ final class BuildCommand extends Command implements SignalableCommandInterface
 
     /**
      * Holds the configuration on is original state.
-     *
-     * @var string|null
      */
     private static string|null $config = null;
 
     /**
      * Holds the box.json on is original state.
-     *
-     * @var string|null
      */
     private static string|null $box = null;
 
     /**
      * Holds the command original output.
-     *
-     * @var OutputInterface
      */
     private OutputInterface $originalOutput;
 

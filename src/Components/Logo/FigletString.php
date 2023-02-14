@@ -23,7 +23,6 @@ final class FigletString
 {
     private string $string;
 
-    /** @var Figlet */
     private Figlet $figlet;
 
     public const DEFAULT_FONT = __DIR__.DIRECTORY_SEPARATOR.'fonts'.DIRECTORY_SEPARATOR.'big.flf';
