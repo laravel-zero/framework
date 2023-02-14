@@ -28,13 +28,6 @@ use Throwable;
 final class Composer implements ComposerContract
 {
     /**
-     * Holds an instance of the app.
-     *
-     * @var \Illuminate\Contracts\Foundation\Application
-     */
-    private $app;
-
-    /**
      * Composer constructor.
      *
      * @return void
