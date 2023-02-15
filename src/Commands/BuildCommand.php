@@ -22,6 +22,7 @@ use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
+use Throwable;
 
 final class BuildCommand extends Command implements SignalableCommandInterface
 {
@@ -93,9 +94,19 @@ final class BuildCommand extends Command implements SignalableCommandInterface
          * after compile all the code to a single file, we move the built file
          * to the builds folder with the correct permissions.
          */
-        $this->prepare()
-            ->compile($name)
-            ->clear();
+        $exception = null;
+
+        try {
+            $this->prepare()->compile($name);
+        } catch (Throwable $exception) {
+            //
+        }
+
+        $this->clear();
+
+        if ($exception !== null) {
+            throw $exception;
+        }
 
         $this->output->writeln(
             sprintf('    Compiled successfully: <fg=green>%s</>', $this->app->buildsPath($name))

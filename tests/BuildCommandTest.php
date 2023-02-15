@@ -74,4 +74,4 @@ it('reverts the config state after a build', function () {
     expect($exception)->toBeInstanceOf(RuntimeException::class)
         ->and($exception->getMessage())->toEqual('Foo bar')
         ->and($contents)->toEqual(File::get(config_path('app.php')));
-})->skip('This test is currently broken (investigating)');
+});
