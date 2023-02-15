@@ -53,9 +53,6 @@ final class BuildCommand extends Command implements SignalableCommandInterface
      */
     private OutputInterface $originalOutput;
 
-    /**
-     * {@inheritdoc}
-     */
     public function handle()
     {
         $this->title('Building process');
@@ -154,7 +151,7 @@ final class BuildCommand extends Command implements SignalableCommandInterface
     private function prepare(): BuildCommand
     {
         $configFile = $this->app->configPath('app.php');
-        static::$config = File::get($configFile);
+        self::$config = File::get($configFile);
 
         $config = include $configFile;
 
@@ -163,7 +160,7 @@ final class BuildCommand extends Command implements SignalableCommandInterface
         $config['version'] = $version;
 
         $boxFile = $this->app->basePath('box.json');
-        static::$box = File::get($boxFile);
+        self::$box = File::get($boxFile);
 
         $this->task(
             '   1. Moving application to <fg=yellow>production mode</>',
@@ -172,7 +169,7 @@ final class BuildCommand extends Command implements SignalableCommandInterface
             }
         );
 
-        $boxContents = json_decode(static::$box, true);
+        $boxContents = json_decode(self::$box, true);
         $boxContents['main'] = $this->getBinary();
         File::put($boxFile, json_encode($boxContents));
 
@@ -181,17 +178,15 @@ final class BuildCommand extends Command implements SignalableCommandInterface
         return $this;
     }
 
-    private function clear(): BuildCommand
+    private function clear(): void
     {
-        File::put($this->app->configPath('app.php'), static::$config);
+        File::put($this->app->configPath('app.php'), self::$config);
 
-        File::put($this->app->basePath('box.json'), static::$box);
+        File::put($this->app->basePath('box.json'), self::$box);
 
-        static::$config = null;
+        self::$config = null;
 
-        static::$box = null;
-
-        return $this;
+        self::$box = null;
     }
 
     /**
@@ -203,7 +198,7 @@ final class BuildCommand extends Command implements SignalableCommandInterface
     }
 
     /**
-     * Returns a valid timeout value. Non positive values are converted to null,
+     * Returns a valid timeout value. Non-positive values are converted to null,
      * meaning no timeout.
      *
      *
@@ -239,7 +234,7 @@ final class BuildCommand extends Command implements SignalableCommandInterface
      */
     public function __destruct()
     {
-        if (static::$config !== null) {
+        if (self::$config !== null) {
             $this->clear();
         }
     }
