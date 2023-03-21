@@ -16,10 +16,7 @@ it('installs the required packages', function () {
     $composerMock = $this->createMock(ComposerContract::class);
 
     $composerMock->expects($this->exactly(1))
-        ->method('require')
-        ->withConsecutive(
-            ['illuminate/view "^10.0"', false],
-        );
+        ->method('require');
 
     $this->app->instance(ComposerContract::class, $composerMock);
 

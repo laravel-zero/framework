@@ -9,6 +9,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com) and this p
 ### Added
 - `nunomaduro/collision` v7 support
 
+### Chore
+- Bumps dependencies
+
 ## [10.0.1 - 2023-03-18](https://github.com/laravel-zero/framework/releases/tag/v10.0.1)
 
 ### Fixed

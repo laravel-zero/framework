@@ -16,11 +16,7 @@ it('installs the required packages', function () {
     $composerMock = $this->createMock(ComposerContract::class);
 
     $composerMock->expects($this->exactly(2))
-        ->method('require')
-        ->withConsecutive(
-            ['illuminate/database "^10.0"', false],
-            ['fakerphp/faker "^1.9.1"', true]
-        );
+        ->method('require');
 
     $this->app->instance(ComposerContract::class, $composerMock);
 

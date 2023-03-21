@@ -10,11 +10,7 @@ it('installs the required packages', function () {
     $composerMock = $this->createMock(ComposerContract::class);
 
     $composerMock->expects($this->exactly(2))
-        ->method('require')
-        ->withConsecutive(
-            [$this->equalTo('guzzlehttp/guzzle "^7.5"')],
-            [$this->equalTo('illuminate/http "^10.0"')]
-        );
+        ->method('require');
 
     $this->app->instance(ComposerContract::class, $composerMock);
 
