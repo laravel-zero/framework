@@ -75,13 +75,16 @@ final class BuildCommand extends Command implements SignalableCommandInterface
         return [\SIGINT];
     }
 
-    public function handleSignal(int $signal): void
+    /** {@inheritdoc} */
+    public function handleSignal(int $signal): int|false
     {
         if ($signal === \SIGINT) {
             if (self::$config !== null) {
                 $this->clear();
             }
         }
+
+        return self::SUCCESS;
     }
 
     /**
