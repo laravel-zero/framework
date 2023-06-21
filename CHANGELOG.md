@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com) and this p
 ### Changed
 - Update Symfony to 6.3.x ([#476](https://github.com/laravel-zero/framework/pull/476))
 - Update Box to 4.3.x ([#475](https://github.com/laravel-zero/framework/pull/475))
+- Update PHPUnit configuration
 
 ## [10.0.2 - 2023-03-21](https://github.com/laravel-zero/framework/releases/tag/v10.0.2)
 
