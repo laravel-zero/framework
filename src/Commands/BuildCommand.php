@@ -72,6 +72,10 @@ final class BuildCommand extends Command implements SignalableCommandInterface
     /** @return array<int, int> */
     public function getSubscribedSignals(): array
     {
+        if (! extension_loaded('pcntl')) {
+            return [];
+        }
+
         return [\SIGINT];
     }
 
