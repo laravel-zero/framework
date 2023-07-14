@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com) and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [10.1.1 - 2023-07-14](https://github.com/laravel-zero/framework/releases/tag/v10.1.1)
+
+### Fixed
+- Reverts Box to 4.2.x ([803eb0e](https://github.com/laravel-zero/framework/commit/803eb0e9a53a5c0cf8fa128f9356de46d3375061))
+
 ## [10.1.0 - 2023-06-21](https://github.com/laravel-zero/framework/releases/tag/v10.1.0)
 
 ### Changed
