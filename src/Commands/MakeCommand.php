@@ -28,7 +28,7 @@ final class MakeCommand extends ConsoleMakeCommand
      */
     protected function getNameInput(): string
     {
-        return ucfirst(parent::getNameInput());
+        return ucfirst(trim(pathinfo(parent::getNameInput(), PATHINFO_FILENAME)));
     }
 
     /** {@inheritdoc} */
