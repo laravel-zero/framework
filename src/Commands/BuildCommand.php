@@ -72,13 +72,17 @@ final class BuildCommand extends Command implements SignalableCommandInterface
     /** @return array<int, int> */
     public function getSubscribedSignals(): array
     {
-        return [\SIGINT];
+        if (defined('SIGINT')) {
+            return [\SIGINT];
+        }
+
+        return [];
     }
 
     /** {@inheritdoc} */
     public function handleSignal(int $signal): int|false
     {
-        if ($signal === \SIGINT) {
+        if (defined('SIGINT') && $signal === \SIGINT) {
             if (self::$config !== null) {
                 $this->clear();
             }
