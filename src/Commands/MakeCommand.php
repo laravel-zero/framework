@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace LaravelZero\Framework\Commands;
 
 use Illuminate\Foundation\Console\ConsoleMakeCommand;
+
 use function ucfirst;
 
 final class MakeCommand extends ConsoleMakeCommand

@@ -13,11 +13,12 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Bootstrap;
 
-use function class_exists;
 use Dotenv\Dotenv;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables as BaseLoadEnvironmentVariables;
 use LaravelZero\Framework\Application;
 use LaravelZero\Framework\Contracts\BoostrapperContract;
+
+use function class_exists;
 
 /**
  * @internal

@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace LaravelZero\Framework\Commands;
 
 use Illuminate\Foundation\Console\TestMakeCommand as BaseTestMakeCommand;
+
 use function ucfirst;
 
 final class TestMakeCommand extends BaseTestMakeCommand

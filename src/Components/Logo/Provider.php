@@ -13,9 +13,10 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Components\Logo;
 
-use function class_exists;
 use Illuminate\Console\Application as Artisan;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
+
+use function class_exists;
 
 /**
  * @internal

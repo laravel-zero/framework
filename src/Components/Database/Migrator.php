@@ -13,11 +13,12 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Components\Database;
 
-use function collect;
 use Illuminate\Database\Migrations\Migrator as BaseMigrator;
 use Illuminate\Support\Str;
 use SplFileInfo;
 use Symfony\Component\Finder\Finder;
+
+use function collect;
 
 /**
  * @codeCoverageIgnore

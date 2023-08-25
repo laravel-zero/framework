@@ -13,8 +13,9 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Components\Menu;
 
-use function class_exists;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
+
+use function class_exists;
 
 /**
  * @internal

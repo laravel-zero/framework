@@ -13,18 +13,19 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework;
 
-use function collect;
-use function define;
-use function defined;
-use function get_class;
 use Illuminate\Console\Application as Artisan;
 use Illuminate\Foundation\Console\Kernel as BaseKernel;
-use function in_array;
 use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorderRepository;
 use NunoMaduro\Collision\Adapters\Laravel\Commands\TestCommand;
 use ReflectionClass;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
 use Symfony\Component\Console\Output\OutputInterface;
+
+use function collect;
+use function define;
+use function defined;
+use function get_class;
+use function in_array;
 
 class Kernel extends BaseKernel
 {

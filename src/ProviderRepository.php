@@ -13,8 +13,9 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework;
 
-use function array_merge;
 use Illuminate\Foundation\ProviderRepository as BaseProviderRepository;
+
+use function array_merge;
 
 /**
  * @internal
