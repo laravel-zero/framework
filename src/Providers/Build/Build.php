@@ -13,8 +13,9 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Providers\Build;
 
-use function dirname;
 use Phar;
+
+use function dirname;
 
 /**
  * @internal

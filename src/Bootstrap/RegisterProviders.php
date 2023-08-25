@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Bootstrap;
 
-use function collect;
 use Illuminate\Foundation\Bootstrap\RegisterProviders as BaseRegisterProviders;
 use LaravelZero\Framework\Application;
 use LaravelZero\Framework\Components;
@@ -25,6 +24,8 @@ use LaravelZero\Framework\Providers\NullLogger\NullLoggerServiceProvider;
 use NunoMaduro\LaravelConsoleSummary\LaravelConsoleSummaryServiceProvider;
 use NunoMaduro\LaravelConsoleTask\LaravelConsoleTaskServiceProvider;
 use NunoMaduro\LaravelDesktopNotifier\LaravelDesktopNotifierServiceProvider;
+
+use function collect;
 
 /**
  * @internal

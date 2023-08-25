@@ -13,9 +13,10 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Components\Pest;
 
-use function class_exists;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
 use Pest\Laravel\PestServiceProvider;
+
+use function class_exists;
 
 /** @internal */
 final class Provider extends AbstractComponentProvider

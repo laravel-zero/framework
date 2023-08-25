@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Components\Database;
 
-use function class_exists;
-use function collect;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\ConnectionResolverInterface;
 use Illuminate\Database\Console\Factories\FactoryMakeCommand;
@@ -36,9 +34,12 @@ use Illuminate\Database\MigrationServiceProvider;
 use Illuminate\Foundation\Console\ModelMakeCommand;
 use Illuminate\Foundation\Providers\ComposerServiceProvider;
 use Illuminate\Support\Facades\File;
-use function is_array;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
 use SplFileInfo;
+
+use function class_exists;
+use function collect;
+use function is_array;
 
 /**
  * @internal

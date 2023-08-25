@@ -15,6 +15,7 @@ namespace LaravelZero\Framework\Commands;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+
 use function sprintf;
 
 final class RenameCommand extends Command

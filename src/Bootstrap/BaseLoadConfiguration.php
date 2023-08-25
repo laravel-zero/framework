@@ -13,11 +13,12 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Bootstrap;
 
-use function basename;
 use Illuminate\Contracts\Foundation\Application as ApplicationContract;
 use Illuminate\Foundation\Bootstrap\LoadConfiguration;
-use function ksort;
 use Symfony\Component\Finder\Finder;
+
+use function basename;
+use function ksort;
 
 /**
  * @internal
