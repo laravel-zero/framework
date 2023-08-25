@@ -14,10 +14,12 @@ declare(strict_types=1);
 namespace LaravelZero\Framework\Components\Updater;
 
 use Humbug\SelfUpdate\Updater as PharUpdater;
+use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
 use LaravelZero\Framework\Components\Updater\Strategy\GithubStrategy;
 use LaravelZero\Framework\Components\Updater\Strategy\StrategyInterface;
 use LaravelZero\Framework\Providers\Build\Build;
+use Phar;
 
 use function class_exists;
 
@@ -31,7 +33,7 @@ final class Provider extends AbstractComponentProvider
      */
     public function isAvailable(): bool
     {
-        return class_exists(\Humbug\SelfUpdate\Updater::class);
+        return class_exists(PharUpdater::class);
     }
 
     /**
@@ -67,19 +69,27 @@ final class Provider extends AbstractComponentProvider
             $this->app->singleton(Updater::class, function () use ($build) {
                 $updater = new PharUpdater($build->getPath(), false, PharUpdater::STRATEGY_GITHUB);
 
-                $composer = json_decode(file_get_contents(base_path('composer.json')), true);
-                $name = $composer['name'];
+                $composer = json_decode(file_get_contents($this->app->basePath('composer.json')), true);
 
-                $strategy = $this->app['config']->get('updater.strategy', GithubStrategy::class);
+                /** @var ConfigRepository $config */
+                $config = $this->app->make(ConfigRepository::class);
 
-                $updater->setStrategyObject($this->app->make($strategy));
+                $strategyClass = $config->get('updater.strategy', GithubStrategy::class);
 
-                if ($updater->getStrategy() instanceof StrategyInterface) {
-                    $updater->getStrategy()->setPackageName($name);
+                $updater->setStrategyObject($strategy = $this->app->make($strategyClass));
+
+                if ($strategy instanceof StrategyInterface) {
+                    assert(isset($composer['name']), 'Package name has not been set in Composer');
+
+                    $strategy->setPackageName($composer['name']);
                 }
 
-                if (method_exists($updater->getStrategy(), 'setCurrentLocalVersion')) {
-                    $updater->getStrategy()->setCurrentLocalVersion(config('app.version'));
+                if (method_exists($strategy, 'setPharName')) {
+                    $strategy->setPharName($config->get('updater.phar_name') ?? basename(Phar::running()));
+                }
+
+                if (method_exists($strategy, 'setCurrentLocalVersion')) {
+                    $strategy->setCurrentLocalVersion($config->get('app.version'));
                 }
 
                 return new Updater($updater);

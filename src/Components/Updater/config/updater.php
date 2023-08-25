@@ -17,4 +17,19 @@ return [
 
     'strategy' => GithubStrategy::class,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Self-updater Phar Name
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify the name of the Phar file, as stored on GitHub or
+    | GitLab. This can be configured if the Phar name is different to the
+    | name of the Phar file running on the users' machine.
+    |
+    | Default: `null`
+    |
+    */
+
+    'phar_name' => null,
+
 ];
