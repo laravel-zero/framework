@@ -31,7 +31,11 @@ final class LoadEnvironmentVariables implements BoostrapperContract
     public function bootstrap(Application $app): void
     {
         if (class_exists(Dotenv::class)) {
-            $app->make(BaseLoadEnvironmentVariables::class)->bootstrap($app);
+
+            if (file_exists($app->environmentFilePath())) {
+                $app->make(BaseLoadEnvironmentVariables::class)->bootstrap($app);
+            }
+
             $app->make(BuildLoadEnvironmentVariables::class)->bootstrap($app);
         }
     }
