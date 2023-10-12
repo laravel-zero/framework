@@ -16,7 +16,7 @@ jobs:
     steps:
 
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
@@ -37,5 +37,5 @@ jobs:
         dependency-versions: ${{ matrix.dependency-version }}
         composer-options: "--prefer-dist"
 
-    - name: Unit Tests
+    - name: Run Tests
       run: vendor/bin/pest --colors=always
