@@ -16,6 +16,7 @@ namespace LaravelZero\Framework\Commands;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
+use function Laravel\Prompts\text;
 use function sprintf;
 
 final class RenameCommand extends Command
@@ -66,7 +67,7 @@ final class RenameCommand extends Command
     private function asksForApplicationName(): string
     {
         if (empty($name = $this->input->getArgument('name'))) {
-            $name = $this->ask('What is your application name?');
+            $name = text('What is your application name?');
         }
 
         if (empty($name)) {

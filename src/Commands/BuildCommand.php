@@ -18,11 +18,12 @@ use Illuminate\Support\Facades\File;
 use Symfony\Component\Console\Command\SignalableCommandInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 use Throwable;
+
+use function Laravel\Prompts\text;
 
 final class BuildCommand extends Command implements SignalableCommandInterface
 {
@@ -174,7 +175,7 @@ final class BuildCommand extends Command implements SignalableCommandInterface
         $config = include $configFile;
 
         $config['env'] = 'production';
-        $version = $this->option('build-version') ?: $this->ask('Build version?', $config['version']);
+        $version = $this->option('build-version') ?: text('Build version?', $config['version']);
         $config['version'] = $version;
 
         $boxFile = $this->app->basePath('box.json');
