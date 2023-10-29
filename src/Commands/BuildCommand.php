@@ -175,7 +175,7 @@ final class BuildCommand extends Command implements SignalableCommandInterface
         $config = include $configFile;
 
         $config['env'] = 'production';
-        $version = $this->option('build-version') ?: text('Build version?', $config['version']);
+        $version = $this->option('build-version') ?: text('Build version?', default: $config['version']);
         $config['version'] = $version;
 
         $boxFile = $this->app->basePath('box.json');
