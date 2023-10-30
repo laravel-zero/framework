@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com) and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [10.3.0 - 2023-10-30](https://github.com/laravel-zero/framework/releases/tag/v10.3.0)
+
+### Changed
+- Update Box to 4.5.x ([#487](https://github.com/laravel-zero/framework/pull/487))
+
+### Fixed
+- Resolve issue with Laravel Prompts on `app:build` command ([#486](https://github.com/laravel-zero/framework/pull/486))
+
 ## [10.2.0 - 2023-10-12](https://github.com/laravel-zero/framework/releases/tag/v10.2.0)
 
 ### Changed
