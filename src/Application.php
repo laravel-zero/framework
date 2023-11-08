@@ -35,19 +35,6 @@ class Application extends BaseApplication
     /**
      * {@inheritdoc}
      */
-    protected function registerBaseBindings(): void
-    {
-        parent::registerBaseBindings();
-
-        /*
-         * Ignores auto-discovery.
-         */
-        $this->make(PackageManifest::class)->manifest = [];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     protected function registerBaseServiceProviders(): void
     {
         $this->register(new EventServiceProvider($this));
