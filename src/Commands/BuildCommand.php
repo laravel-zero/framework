@@ -21,6 +21,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
+use RuntimeException;
 use Throwable;
 
 use function Laravel\Prompts\text;
@@ -162,7 +163,13 @@ final class BuildCommand extends Command implements SignalableCommandInterface
 
         $this->output->newLine();
 
-        File::move($this->app->basePath($this->getBinary()).'.phar', $this->app->buildsPath($name));
+        $pharPath = $this->app->basePath($this->getBinary()) . '.phar';
+        
+        if (! File::exists($pharPath)) {
+            throw new RuntimeException('Failed to compile the application.');
+        }
+
+        File::move($pharPath, $this->app->buildsPath($name));
 
         return $this;
     }
