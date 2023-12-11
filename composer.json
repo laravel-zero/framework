@@ -60,7 +60,7 @@
         "illuminate/view": "^10.28",
         "laminas/laminas-text": "^2.10",
         "laravel-zero/phar-updater": "^1.4",
-        "laravel/pint": "^1.13.3",
+        "laravel/pint": "^1.13.7",
         "nunomaduro/laravel-console-dusk": "^1.11",
         "nunomaduro/laravel-console-menu": "^3.4",
         "nunomaduro/termwind": "^1.15.1",
