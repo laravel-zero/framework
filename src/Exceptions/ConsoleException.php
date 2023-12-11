@@ -40,9 +40,9 @@ final class ConsoleException extends Exception implements ConsoleExceptionContra
      */
     public function __construct(
         int $exitCode,
-        string $message = null,
+        ?string $message = null,
         array $headers = [],
-        Exception $previous = null,
+        ?Exception $previous = null,
         ?int $code = 0
     ) {
         $this->exitCode = $exitCode;

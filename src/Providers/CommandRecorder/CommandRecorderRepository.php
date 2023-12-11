@@ -29,7 +29,7 @@ final class CommandRecorderRepository
     /**
      * CommandRecorderRepository constructor.
      */
-    public function __construct(Collection $storage = null)
+    public function __construct(?Collection $storage = null)
     {
         $this->storage = $storage ?? collect();
     }
