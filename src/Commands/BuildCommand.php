@@ -15,13 +15,13 @@ namespace LaravelZero\Framework\Commands;
 
 use Illuminate\Console\Application as Artisan;
 use Illuminate\Support\Facades\File;
+use RuntimeException;
 use Symfony\Component\Console\Command\SignalableCommandInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
-use RuntimeException;
 use Throwable;
 
 use function Laravel\Prompts\text;
@@ -163,8 +163,8 @@ final class BuildCommand extends Command implements SignalableCommandInterface
 
         $this->output->newLine();
 
-        $pharPath = $this->app->basePath($this->getBinary()) . '.phar';
-        
+        $pharPath = $this->app->basePath($this->getBinary()).'.phar';
+
         if (! File::exists($pharPath)) {
             throw new RuntimeException('Failed to compile the application.');
         }
