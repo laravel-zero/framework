@@ -25,7 +25,7 @@ class SelfUpdateCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected $description = 'Allows to self-update a build application';
+    protected $description = 'Self-update the installed application';
 
     /**
      * {@inheritdoc}
