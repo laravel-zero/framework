@@ -18,3 +18,7 @@ it('binds the output into the container', function () {
 it('binds the logger into the container', function () {
     expect(app('log'))->toBeInstanceOf(LoggerInterface::class);
 });
+
+it('binds a default request to the container', function () {
+    expect(app('request'))->toBeInstanceOf(\Illuminate\Http\Request::class);
+});
