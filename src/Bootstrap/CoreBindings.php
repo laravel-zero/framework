@@ -14,13 +14,13 @@ declare(strict_types=1);
 namespace LaravelZero\Framework\Bootstrap;
 
 use LaravelZero\Framework\Application;
-use LaravelZero\Framework\Contracts\BoostrapperContract;
+use LaravelZero\Framework\Contracts\BootstrapperContract;
 use LaravelZero\Framework\Providers\GitVersion\GitVersionServiceProvider;
 
 /**
  * @internal
  */
-final class CoreBindings implements BoostrapperContract
+final class CoreBindings implements BootstrapperContract
 {
     /**
      * {@inheritdoc}

@@ -16,14 +16,14 @@ namespace LaravelZero\Framework\Bootstrap;
 use Dotenv\Dotenv;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables as BaseLoadEnvironmentVariables;
 use LaravelZero\Framework\Application;
-use LaravelZero\Framework\Contracts\BoostrapperContract;
+use LaravelZero\Framework\Contracts\BootstrapperContract;
 
 use function class_exists;
 
 /**
  * @internal
  */
-final class LoadEnvironmentVariables implements BoostrapperContract
+final class LoadEnvironmentVariables implements BootstrapperContract
 {
     /**
      * {@inheritdoc}

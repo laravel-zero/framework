@@ -18,7 +18,7 @@ use LaravelZero\Framework\Application;
 /**
  * @internal
  */
-interface BoostrapperContract
+interface BootstrapperContract
 {
     /**
      * Performs a core task that needs to be performed on

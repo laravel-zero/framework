@@ -15,12 +15,12 @@ namespace LaravelZero\Framework\Bootstrap;
 
 use Illuminate\Console\Application as Artisan;
 use LaravelZero\Framework\Application;
-use LaravelZero\Framework\Contracts\BoostrapperContract;
+use LaravelZero\Framework\Contracts\BootstrapperContract;
 
 /**
  * @internal
  */
-final class LoadConfiguration implements BoostrapperContract
+final class LoadConfiguration implements BootstrapperContract
 {
     /**
      * {@inheritdoc}
