@@ -111,7 +111,7 @@ class Application extends BaseApplication
     }
 
     /**
-     * Throw an Console Exception with the given data unless the given condition is true.
+     * Throw a Console Exception with the given data unless the given condition is true.
      */
     public function abort($code, $message = '', array $headers = []): void
     {

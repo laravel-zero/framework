@@ -45,4 +45,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com) and this p
 
 ## [10.0.0 - 2023-02-16](https://github.com/laravel-zero/framework/releases/tag/v10.0.0)
 
-Check the upgrade guide in the [Official Laravel Zero Upgrade Documentation](https://laravel-zero.com/docs/upgrade#upgrade-10.0.0). Also you can see some changes in the [Official Laravel Upgrade Documentation](https://laravel.com/docs/10.x/upgrade).
+Check the upgrade guide in the [Official Laravel Zero Upgrade Documentation](https://laravel-zero.com/docs/upgrade#upgrade-10.0.0). Also, you can see some changes in the [Official Laravel Upgrade Documentation](https://laravel.com/docs/10.x/upgrade).
