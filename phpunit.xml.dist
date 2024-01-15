@@ -6,16 +6,16 @@
 >
     <testsuites>
         <testsuite name="Tests">
-            <directory suffix="Test.php">./tests</directory>
+            <directory>./tests</directory>
         </testsuite>
     </testsuites>
     <source>
         <include>
-            <directory suffix=".php">./src</directory>
+            <directory>./src</directory>
         </include>
         <exclude>
-            <directory suffix=".php">./src/Components/Database/stubs</directory>
-            <directory suffix=".php">./src/Components/Log/stubs</directory>
+            <directory>./src/Components/Database/stubs</directory>
+            <directory>./src/Components/Log/stubs</directory>
         </exclude>
     </source>
 </phpunit>
