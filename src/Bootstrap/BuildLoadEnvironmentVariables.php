@@ -42,7 +42,7 @@ final class BuildLoadEnvironmentVariables implements BoostrapperContract
     public function bootstrap(Application $app): void
     {
         /*
-         * Override environment variables with the environment file along side the Phar file.
+         * Override environment variables with the environment file alongside the Phar file.
          */
         if ($this->build->shouldUseEnvironmentFile()) {
             Dotenv::createMutable($this->build->getDirectoryPath(), $this->build->environmentFile())->load();
