@@ -15,12 +15,12 @@ namespace LaravelZero\Framework\Bootstrap;
 
 use Illuminate\Foundation\Bootstrap\RegisterFacades as BaseRegisterFacades;
 use LaravelZero\Framework\Application;
-use LaravelZero\Framework\Contracts\BoostrapperContract;
+use LaravelZero\Framework\Contracts\BootstrapperContract;
 
 /**
  * @internal
  */
-final class RegisterFacades implements BoostrapperContract
+final class RegisterFacades implements BootstrapperContract
 {
     private $aliases = [
         'App' => \Illuminate\Support\Facades\App::class,

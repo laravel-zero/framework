@@ -15,13 +15,13 @@ namespace LaravelZero\Framework\Bootstrap;
 
 use Dotenv\Dotenv;
 use LaravelZero\Framework\Application;
-use LaravelZero\Framework\Contracts\BoostrapperContract;
+use LaravelZero\Framework\Contracts\BootstrapperContract;
 use LaravelZero\Framework\Providers\Build\Build;
 
 /**
  * @internal
  */
-final class BuildLoadEnvironmentVariables implements BoostrapperContract
+final class BuildLoadEnvironmentVariables implements BootstrapperContract
 {
     /**
      * @var \LaravelZero\Framework\Providers\Build\Build

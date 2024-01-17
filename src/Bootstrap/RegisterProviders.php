@@ -16,7 +16,7 @@ namespace LaravelZero\Framework\Bootstrap;
 use Illuminate\Foundation\Bootstrap\RegisterProviders as BaseRegisterProviders;
 use LaravelZero\Framework\Application;
 use LaravelZero\Framework\Components;
-use LaravelZero\Framework\Contracts\BoostrapperContract;
+use LaravelZero\Framework\Contracts\BootstrapperContract;
 use LaravelZero\Framework\Providers;
 use LaravelZero\Framework\Providers\Collision\CollisionServiceProvider;
 use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorderServiceProvider;
@@ -30,7 +30,7 @@ use function collect;
 /**
  * @internal
  */
-final class RegisterProviders implements BoostrapperContract
+final class RegisterProviders implements BootstrapperContract
 {
     /**
      * Core providers.
