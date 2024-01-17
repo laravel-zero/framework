@@ -1,6 +1,6 @@
 <?php
 
-namespace DummyNamespace;
+namespace {{ namespace }};
 
 use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
@@ -8,14 +8,14 @@ use LaravelZero\Framework\Commands\Command;
 class DummyClass extends Command
 {
     /**
-     * The signature of the command.
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'dummy:command';
+    protected $signature = '{{ command }}';
 
     /**
-     * The description of the command.
+     * The console command description.
      *
      * @var string
      */
