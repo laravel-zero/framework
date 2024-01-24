@@ -16,6 +16,7 @@ namespace LaravelZero\Framework\Components\Database;
 use Illuminate\Database\Migrations\Migrator as BaseMigrator;
 use Illuminate\Support\Str;
 use SplFileInfo;
+use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
 use Symfony\Component\Finder\Finder;
 
 use function collect;
@@ -43,8 +44,12 @@ class Migrator extends BaseMigrator
                             ->files()
                             ->name(basename($path));
                     } else {
-                        $finder = (new Finder)->in([$path])
-                            ->files();
+                        try {
+                            $finder = (new Finder)->in([$path])
+                                ->files();
+                        } catch (DirectoryNotFoundException $e) {
+                            return [];
+                        }
                     }
 
                     return collect($finder)
