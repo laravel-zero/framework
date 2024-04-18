@@ -33,7 +33,7 @@
         "illuminate/process": "^10.28",
         "illuminate/support": "^10.28",
         "illuminate/testing": "^10.28",
-        "laravel-zero/foundation": "^10.48.4",
+        "laravel-zero/foundation": "^10.48.8",
         "league/flysystem": "^3.27.0",
         "nunomaduro/collision": "^6.4.0|^7.10.0",
         "nunomaduro/laravel-console-summary": "^1.11.1",
