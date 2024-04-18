@@ -53,6 +53,31 @@ class Kernel extends BaseKernel
     ];
 
     /**
+     * The application's default hidden commands.
+     *
+     * @var string[]
+     */
+    protected $hiddenCommands = [
+        \NunoMaduro\LaravelConsoleSummary\SummaryCommand::class,
+        \Symfony\Component\Console\Command\DumpCompletionCommand::class,
+        \Symfony\Component\Console\Command\HelpCommand::class,
+        \Illuminate\Console\Scheduling\ScheduleRunCommand::class,
+        \Illuminate\Console\Scheduling\ScheduleListCommand::class,
+        \Illuminate\Console\Scheduling\ScheduleFinishCommand::class,
+        \Illuminate\Foundation\Console\VendorPublishCommand::class,
+        \LaravelZero\Framework\Commands\StubPublishCommand::class,
+
+        // ...
+        Commands\BuildCommand::class,
+        Commands\RenameCommand::class,
+        Commands\MakeCommand::class,
+        Commands\InstallCommand::class,
+        Commands\StubPublishCommand::class,
+        Commands\TestMakeCommand::class,
+        TestCommand::class,
+    ];
+
+    /**
      * The application's bootstrap classes.
      *
      * @var string[]
@@ -160,7 +185,9 @@ class Kernel extends BaseKernel
         /**
          * Loads configured commands.
          */
-        $commands = collect($config->get('commands.add', []))->merge($config->get('commands.hidden', []));
+        $commands = collect($config->get('commands.add', []))->merge(
+            $config->get('commands.hidden', $this->hiddenCommands),
+        );
 
         if ($command = $config->get('commands.default')) {
             $commands->push($command);
@@ -212,11 +239,14 @@ class Kernel extends BaseKernel
             }
         );
 
+
         Artisan::starting(
             function ($artisan) use ($config) {
+                $commands = $config->get('commands.hidden', $this->hiddenCommands);
+
                 collect($artisan->all())->each(
-                    function ($command) use ($config, $artisan) {
-                        if (in_array(get_class($command), $config->get('commands.hidden', []), true)) {
+                    function ($command) use ($config, $artisan, $commands) {
+                        if (in_array(get_class($command), $commands, true)) {
                             $command->setHidden(true);
                         }
 

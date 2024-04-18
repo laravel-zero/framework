@@ -82,7 +82,7 @@ final class BuildCommand extends Command implements SignalableCommandInterface
     }
 
     /** {@inheritdoc} */
-    public function handleSignal(int $signal): int|false
+    public function handleSignal(int $signal, int|false $previousExitCode = 0): int|false
     {
         if (defined('SIGINT') && $signal === \SIGINT) {
             if (self::$config !== null) {

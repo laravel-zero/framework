@@ -16,6 +16,7 @@ namespace LaravelZero\Framework;
 use Illuminate\Events\EventServiceProvider;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Application as BaseApplication;
+use Illuminate\Foundation\Configuration\ApplicationBuilder;
 use Illuminate\Foundation\PackageManifest;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -24,6 +25,34 @@ use Symfony\Component\Console\Exception\CommandNotFoundException;
 
 class Application extends BaseApplication
 {
+    /**
+     * @{@inheritdoc}
+     */
+    public static function configure(?string $basePath = null): ApplicationBuilder
+    {
+        $basePath = match (true) {
+            is_string($basePath) => $basePath,
+            default => static::inferBasePath(),
+        };
+
+        $builder = (new ApplicationBuilder(new static($basePath)));
+
+        $builder->create()->singleton(
+            \Illuminate\Contracts\Console\Kernel::class,
+            \LaravelZero\Framework\Kernel::class
+        );
+
+        $builder->create()->singleton(
+            \Illuminate\Contracts\Debug\ExceptionHandler::class,
+            \Illuminate\Foundation\Exceptions\Handler::class
+        );
+
+        return $builder
+            ->withEvents()
+            ->withCommands()
+            ->withProviders();
+    }
+
     /**
      * Get the `builds` path. With, optionally, a path to append to the base path.
      */

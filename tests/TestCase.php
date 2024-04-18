@@ -8,11 +8,6 @@ use Illuminate\Contracts\Foundation\Application as ApplicationContract;
 use LaravelZero\Framework\Application;
 use LaravelZero\Framework\Testing\TestCase as BaseTestCase;
 
-/**
- * This is the Laravel Zero Framework test case class.
- *
- * @author Nuno Maduro <enunomaduro@gmail.com>
- */
 abstract class TestCase extends BaseTestCase
 {
     /**
