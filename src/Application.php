@@ -35,7 +35,7 @@ class Application extends BaseApplication
             default => static::inferBasePath(),
         };
 
-        $builder = (new ApplicationBuilder(new static($basePath)));
+        $builder = (new ApplicationBuilder(new static($basePath))); // @phpstan-ignore-line
 
         $builder->create()->singleton(
             \Illuminate\Contracts\Console\Kernel::class,
