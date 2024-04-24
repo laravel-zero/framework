@@ -41,7 +41,7 @@ final class Installer extends AbstractInstaller
      */
     public function install(): void
     {
-        $this->require('illuminate/view "^10.0"');
+        $this->require('illuminate/view "^11.5"');
 
         $this->task(
             'Creating resources/views folder',

@@ -35,7 +35,6 @@ final class Installer extends AbstractInstaller
      */
     public function install(): void
     {
-        $this->require('guzzlehttp/guzzle "^7.5"');
-        $this->require('illuminate/http "^10.0"');
+        $this->require('illuminate/http "^11.5"');
     }
 }
