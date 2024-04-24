@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        php: ['8.1', '8.2', '8.3']
+        php: ['8.2', '8.3']
         dependency-version: [lowest, highest]
 
     name: PHP ${{ matrix.php }} - ${{ matrix.os }} - ${{ matrix.dependency-version }}
@@ -38,4 +38,4 @@ jobs:
         composer-options: "--prefer-dist"
 
     - name: Run Tests
-      run: vendor/bin/pest --colors=always
+      run: vendor/bin/pest
