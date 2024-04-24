@@ -14,13 +14,13 @@ declare(strict_types=1);
 namespace LaravelZero\Framework;
 
 use Illuminate\Console\Application as Artisan;
+use Illuminate\Foundation\Console\ConfigPublishCommand;
 use Illuminate\Foundation\Console\Kernel as BaseKernel;
 use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorderRepository;
 use NunoMaduro\Collision\Adapters\Laravel\Commands\TestCommand;
 use ReflectionClass;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
 use Symfony\Component\Console\Output\OutputInterface;
-use Illuminate\Foundation\Console\ConfigPublishCommand;
 
 use function collect;
 use function define;
@@ -228,13 +228,12 @@ class Kernel extends BaseKernel
             }
         );
 
-
         Artisan::starting(
             function ($artisan) use ($config) {
                 $commands = $config->get('commands.hidden', $this->hiddenCommands);
 
                 collect($artisan->all())->each(
-                    function ($command) use ($config, $artisan, $commands) {
+                    function ($command) use ($artisan, $commands) {
                         if (in_array(get_class($command), $commands, true)) {
                             $command->setHidden(true);
                         }

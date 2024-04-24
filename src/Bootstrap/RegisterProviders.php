@@ -14,11 +14,11 @@ declare(strict_types=1);
 namespace LaravelZero\Framework\Bootstrap;
 
 use Illuminate\Console\Scheduling\Schedule;
-use LaravelZero\Framework\Kernel as ConsoleKernel;
 use Illuminate\Foundation\Bootstrap\RegisterProviders as BaseRegisterProviders;
 use LaravelZero\Framework\Application;
 use LaravelZero\Framework\Components;
 use LaravelZero\Framework\Contracts\BootstrapperContract;
+use LaravelZero\Framework\Kernel as ConsoleKernel;
 use LaravelZero\Framework\Providers;
 use LaravelZero\Framework\Providers\Collision\CollisionServiceProvider;
 use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorderServiceProvider;
@@ -103,7 +103,6 @@ final class RegisterProviders implements BootstrapperContract
             );
     }
 
-
     /**
      * Register the console schedule implementation.
      */
@@ -113,5 +112,4 @@ final class RegisterProviders implements BootstrapperContract
             return $app->make(ConsoleKernel::class)->resolveConsoleSchedule();
         });
     }
-
 }
