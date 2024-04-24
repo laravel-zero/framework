@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Bootstrap;
 
-use ReflectionClass;
 use Illuminate\Contracts\Foundation\Application as ApplicationContract;
 use Illuminate\Foundation\Bootstrap\LoadConfiguration;
+use ReflectionClass;
 use Symfony\Component\Finder\Finder;
 
 use function basename;
@@ -64,10 +64,9 @@ final class BaseLoadConfiguration extends LoadConfiguration
         $dir = dirname($declaringClass->getFilename());
 
         foreach (Finder::create()->files()->name('*.php')->in($dir.'/../../../../config') as $file) {
-            $config[basename($file->getRelativePathname(), '.php')] = require ($file->getPath() . '/' . $file->getFilename());
+            $config[basename($file->getRelativePathname(), '.php')] = require $file->getPath().'/'.$file->getFilename();
         }
 
         return $config;
     }
 }
-
