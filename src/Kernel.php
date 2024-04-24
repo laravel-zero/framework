@@ -20,6 +20,7 @@ use NunoMaduro\Collision\Adapters\Laravel\Commands\TestCommand;
 use ReflectionClass;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
 use Symfony\Component\Console\Output\OutputInterface;
+use Illuminate\Foundation\Console\ConfigPublishCommand;
 
 use function collect;
 use function define;
@@ -41,6 +42,10 @@ class Kernel extends BaseKernel
         Commands\InstallCommand::class,
         Commands\StubPublishCommand::class,
         Commands\TestMakeCommand::class,
+
+        // ...
+
+        ConfigPublishCommand::class,
     ];
 
     /**
