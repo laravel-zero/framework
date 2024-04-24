@@ -39,7 +39,6 @@ final class InstallCommand extends Command
         'dotenv' => Components\Dotenv\Installer::class,
         'http' => Components\Http\Installer::class,
         'log' => Components\Log\Installer::class,
-        'logo' => Components\Logo\Installer::class,
         'menu' => Components\Menu\Installer::class,
         'queue' => Components\Queue\Installer::class,
         'redis' => Components\Redis\Installer::class,
