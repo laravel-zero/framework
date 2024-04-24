@@ -10,7 +10,7 @@ it('installs the required packages', function () {
 
     $composerMock->expects($this->once())
         ->method('require')
-        ->with('nunomaduro/laravel-console-menu "^3.4"');
+        ->with('nunomaduro/laravel-console-menu "^3.5"');
 
     $this->app->instance(ComposerContract::class, $composerMock);
 
