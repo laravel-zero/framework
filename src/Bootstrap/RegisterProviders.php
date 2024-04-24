@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Bootstrap;
 
+use Illuminate\Console\Scheduling\Schedule;
+use LaravelZero\Framework\Kernel as ConsoleKernel;
 use Illuminate\Foundation\Bootstrap\RegisterProviders as BaseRegisterProviders;
 use LaravelZero\Framework\Application;
 use LaravelZero\Framework\Components;
@@ -79,6 +81,11 @@ final class RegisterProviders implements BootstrapperContract
             ->bootstrap($app);
 
         /*
+         * Register the console schedule implementation.
+         */
+        $this->registerConsoleSchedule($app);
+
+        /*
          * Then we register Laravel Zero available providers.
          */
         collect($this->providers)
@@ -95,4 +102,16 @@ final class RegisterProviders implements BootstrapperContract
                 }
             );
     }
+
+
+    /**
+     * Register the console schedule implementation.
+     */
+    public function registerConsoleSchedule(Application $app): void
+    {
+        $app->singleton(Schedule::class, function ($app) {
+            return $app->make(ConsoleKernel::class)->resolveConsoleSchedule();
+        });
+    }
+
 }
