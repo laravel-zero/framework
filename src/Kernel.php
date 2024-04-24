@@ -58,23 +58,7 @@ class Kernel extends BaseKernel
      * @var string[]
      */
     protected $hiddenCommands = [
-        \NunoMaduro\LaravelConsoleSummary\SummaryCommand::class,
-        \Symfony\Component\Console\Command\DumpCompletionCommand::class,
-        \Symfony\Component\Console\Command\HelpCommand::class,
-        \Illuminate\Console\Scheduling\ScheduleRunCommand::class,
-        \Illuminate\Console\Scheduling\ScheduleListCommand::class,
-        \Illuminate\Console\Scheduling\ScheduleFinishCommand::class,
-        \Illuminate\Foundation\Console\VendorPublishCommand::class,
-        \LaravelZero\Framework\Commands\StubPublishCommand::class,
-
         // ...
-        Commands\BuildCommand::class,
-        Commands\RenameCommand::class,
-        Commands\MakeCommand::class,
-        Commands\InstallCommand::class,
-        Commands\StubPublishCommand::class,
-        Commands\TestMakeCommand::class,
-        TestCommand::class,
     ];
 
     /**
