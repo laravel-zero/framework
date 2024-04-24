@@ -22,6 +22,7 @@
         "php": "^8.2",
         "ext-json": "*",
         "dragonmantank/cron-expression": "^3.3.3",
+        "guzzlehttp/guzzle": "^7.8.1",
         "illuminate/cache": "^11.5.0",
         "illuminate/collections": "^11.5.0",
         "illuminate/config": "^11.5.0",
@@ -34,11 +35,13 @@
         "illuminate/support": "^11.5.0",
         "illuminate/testing": "^11.5.0",
         "laravel-zero/foundation": "^11.5.0",
+        "laravel/prompts": "^0.1.20",
         "league/flysystem": "^3.27.0",
         "nunomaduro/collision": "^8.1.1",
         "nunomaduro/laravel-console-summary": "^1.12.1",
         "nunomaduro/laravel-console-task": "^1.9",
         "nunomaduro/laravel-desktop-notifier": "^2.8.1",
+        "nunomaduro/termwind": "^2.0.1",
         "psr/log": "^3.0",
         "ramsey/uuid": "^4.7.5",
         "symfony/console": "^7.0.6",
@@ -47,9 +50,7 @@
         "symfony/finder": "^7.0",
         "symfony/process": "^7.0.4",
         "symfony/var-dumper": "^7.0.6",
-        "vlucas/phpdotenv": "^5.6.0",
-        "guzzlehttp/guzzle": "^7.8.1",
-        "nunomaduro/termwind": "^2.0.1"
+        "vlucas/phpdotenv": "^5.6.0"
     },
     "require-dev": {
         "illuminate/bus": "^11.5.0",
