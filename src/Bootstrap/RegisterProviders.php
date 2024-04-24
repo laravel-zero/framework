@@ -58,7 +58,6 @@ final class RegisterProviders implements BootstrapperContract
      */
     protected $components = [
         Components\Log\Provider::class,
-        Components\Logo\Provider::class,
         Components\Pest\Provider::class,
         Components\Queue\Provider::class,
         Components\Updater\Provider::class,
