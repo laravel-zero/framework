@@ -30,7 +30,7 @@ final class TestMakeCommand extends BaseTestMakeCommand
     {
         $suffix = $this->option('unit') ? '.unit.stub' : '.stub';
 
-        $relativePath = $this->option('pest')
+        $relativePath = $this->usingPest()
             ? '/stubs/pest'.$suffix
             : '/stubs/test'.$suffix;
 
