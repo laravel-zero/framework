@@ -16,8 +16,6 @@ namespace LaravelZero\Framework\Components\Log;
 use Illuminate\Contracts\Config\Repository;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
 
-use function class_exists;
-
 /**
  * @internal
  */

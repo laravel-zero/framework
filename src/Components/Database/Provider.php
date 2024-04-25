@@ -39,7 +39,6 @@ use SplFileInfo;
 
 use function class_exists;
 use function collect;
-use function is_array;
 
 /**
  * @internal
