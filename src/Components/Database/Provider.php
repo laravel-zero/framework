@@ -52,7 +52,7 @@ class Provider extends AbstractComponentProvider
     public function isAvailable(): bool
     {
         return class_exists(DatabaseServiceProvider::class)
-            && is_array($this->app['config']->get('database', false))
+            && file_exists($this->app->configPath('database.php'))
             && $this->app['config']->get('database.useDefaultProvider', true) === true;
     }
 
