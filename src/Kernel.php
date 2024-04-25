@@ -63,7 +63,7 @@ class Kernel extends BaseKernel
      * @var string[]
      */
     protected $hiddenCommands = [
-        // ...
+        ConfigPublishCommand::class,
     ];
 
     /**
@@ -230,7 +230,10 @@ class Kernel extends BaseKernel
 
         Artisan::starting(
             function ($artisan) use ($config) {
-                $commands = $config->get('commands.hidden', $this->hiddenCommands);
+                $commands = array_merge(
+                    $config->get('commands.hidden'),
+                    $this->hiddenCommands,
+                );
 
                 collect($artisan->all())->each(
                     function ($command) use ($artisan, $commands) {
