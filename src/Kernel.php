@@ -205,8 +205,17 @@ class Kernel extends BaseKernel
          * command class.
          */
         Artisan::starting(
-            function ($artisan) use ($commands) {
+            function ($artisan) use ($commands, $toRemoveCommands) {
                 $artisan->resolveCommands($commands->toArray());
+
+                $reflectionClass = new ReflectionClass(Artisan::class);
+                $property = $reflectionClass->getProperty('commandMap');
+                $commandMap = collect($property->getValue($artisan))
+                    ->filter(
+                        fn ($command) => ! in_array($command, $toRemoveCommands, true)
+                    )
+                    ->toArray();
+                $property->setValue($artisan, $commandMap);
 
                 $artisan->setContainerCommandLoader();
             }
