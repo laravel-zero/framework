@@ -42,12 +42,12 @@ final class BuildCommand extends Command implements SignalableCommandInterface
     protected $description = 'Build a single file executable';
 
     /**
-     * Holds the configuration on is original state.
+     * Holds the configuration in its original state.
      */
     private static ?string $config = null;
 
     /**
-     * Holds the box.json on is original state.
+     * Holds the box.json in its original state.
      */
     private static ?string $box = null;
 
@@ -208,13 +208,15 @@ final class BuildCommand extends Command implements SignalableCommandInterface
 
     private function clear(): void
     {
-        File::put($this->app->configPath('app.php'), self::$config);
+        if (self::$config !== null) {
+            File::put($this->app->configPath('app.php'), self::$config);
+            self::$config = null;
+        }
 
-        File::put($this->app->basePath('box.json'), self::$box);
-
-        self::$config = null;
-
-        self::$box = null;
+        if (self::$box !== null) {
+            File::put($this->app->basePath('box.json'), self::$box);
+            self::$box = null;
+        }
     }
 
     /**
