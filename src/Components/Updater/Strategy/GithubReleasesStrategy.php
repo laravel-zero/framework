@@ -2,6 +2,4 @@
 
 namespace LaravelZero\Framework\Components\Updater\Strategy;
 
-final class GithubReleasesStrategy extends \Humbug\SelfUpdate\Strategy\GithubStrategy implements StrategyInterface
-{
-}
+final class GithubReleasesStrategy extends \Humbug\SelfUpdate\Strategy\GithubStrategy implements StrategyInterface {}

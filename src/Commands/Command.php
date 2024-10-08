@@ -34,9 +34,7 @@ abstract class Command extends BaseCommand
     /**
      * Define the command's schedule.
      */
-    public function schedule(Schedule $schedule)
-    {
-    }
+    public function schedule(Schedule $schedule) {}
 
     /**
      * @param  Application  $laravel

@@ -143,7 +143,7 @@ final class BuildCommand extends Command implements SignalableCommandInterface
 
         $progressBar = tap(
             new ProgressBar(
-                $this->output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL ? new NullOutput() : $section, 25
+                $this->output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL ? new NullOutput : $section, 25
             )
         )->setProgressCharacter("\xF0\x9F\x8D\xBA");
 
