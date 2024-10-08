@@ -141,13 +141,15 @@ final class BuildCommand extends Command implements SignalableCommandInterface
         /** @phpstan-ignore-next-line This is an instance of `ConsoleOutputInterface` */
         $section = tap($this->originalOutput->section())->write('');
 
-        $progressBar = tap(
-            new ProgressBar(
-                $this->output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL ? new NullOutput : $section, 25
-            )
-        )->setProgressCharacter("\xF0\x9F\x8D\xBA");
+        $progressBar = new ProgressBar(
+            $this->output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL ? new NullOutput : $section, 25
+        );
 
-        foreach (tap($process)->start() as $type => $data) {
+        $progressBar->setProgressCharacter("\xF0\x9F\x8D\xBA");
+
+        $process->start();
+
+        foreach ($process as $type => $data) {
             $progressBar->advance();
 
             if ($this->output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {

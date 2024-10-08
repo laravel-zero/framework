@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace LaravelZero\Framework\Commands;
 
 use LaravelZero\Framework\Components;
+use LaravelZero\Framework\Components\AbstractInstaller;
 use Symfony\Component\Console\Input\ArrayInput;
 
 final class InstallCommand extends Command
@@ -46,9 +47,6 @@ final class InstallCommand extends Command
         'view' => Components\View\Installer::class,
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     public function handle()
     {
         $title = 'Laravel Zero - Component installer';
@@ -63,7 +61,10 @@ final class InstallCommand extends Command
         }
 
         if ($option !== null && ! empty($this->componentInstallers[$option])) {
-            $command = tap($this->app[$this->componentInstallers[$option]])->setLaravel($this->app);
+            /** @var AbstractInstaller $command */
+            $command = $this->app[$this->componentInstallers[$option]];
+
+            $command->setLaravel($this->app);
 
             $command->setApplication($this->getApplication());
 
