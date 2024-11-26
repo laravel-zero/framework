@@ -42,7 +42,7 @@ final class BuildCommand extends Command implements SignalableCommandInterface
     protected $description = 'Build a single file executable';
 
     /**
-     * HHolds the configuration on is original state.
+     * Holds the configuration on is original state.
      */
     private static ?string $config = null;
 
