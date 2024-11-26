@@ -33,9 +33,7 @@ final class Composer implements ComposerContract
      *
      * @return void
      */
-    public function __construct(private readonly Application $app)
-    {
-    }
+    public function __construct(private readonly Application $app) {}
 
     /**
      * {@inheritdoc}

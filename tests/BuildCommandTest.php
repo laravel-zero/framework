@@ -18,15 +18,13 @@ it('can build the application', function () {
     $composerMock = $this->createMock(ComposerContract::class);
     $this->app->instance(ComposerContract::class, $composerMock);
 
-    $output = new class() extends NullOutput
+    $output = new class extends NullOutput
     {
         public function section(): NullOutput
         {
-            return new class() extends NullOutput
+            return new class extends NullOutput
             {
-                public function clear()
-                {
-                }
+                public function clear() {}
             };
         }
     };
@@ -50,11 +48,11 @@ it('reverts the config state after a build', function () {
 
     $contents = File::get(config_path('app.php'));
 
-    $output = new class() extends NullOutput
+    $output = new class extends NullOutput
     {
         public function section(): NullOutput
         {
-            return new class() extends NullOutput
+            return new class extends NullOutput
             {
                 public function clear()
                 {

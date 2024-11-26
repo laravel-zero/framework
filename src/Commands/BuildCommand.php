@@ -131,7 +131,7 @@ final class BuildCommand extends Command implements SignalableCommandInterface
         $boxBinary = windows_os() ? '.\box.bat' : './box';
 
         $process = new Process(
-            [$boxBinary, 'compile', '--working-dir='.base_path(), '--config='.base_path('box.json')] + $this->getExtraBoxOptions(),
+            array_merge([$boxBinary, 'compile', '--working-dir='.base_path(), '--config='.base_path('box.json')], $this->getExtraBoxOptions()),
             dirname(__DIR__, 2).'/bin',
             null,
             null,
@@ -141,13 +141,15 @@ final class BuildCommand extends Command implements SignalableCommandInterface
         /** @phpstan-ignore-next-line This is an instance of `ConsoleOutputInterface` */
         $section = tap($this->originalOutput->section())->write('');
 
-        $progressBar = tap(
-            new ProgressBar(
-                $this->output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL ? new NullOutput() : $section, 25
-            )
-        )->setProgressCharacter("\xF0\x9F\x8D\xBA");
+        $progressBar = new ProgressBar(
+            $this->output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL ? new NullOutput : $section, 25
+        );
 
-        foreach (tap($process)->start() as $type => $data) {
+        $progressBar->setProgressCharacter("\xF0\x9F\x8D\xBA");
+
+        $process->start();
+
+        foreach ($process as $type => $data) {
             $progressBar->advance();
 
             if ($this->output->getVerbosity() > OutputInterface::VERBOSITY_NORMAL) {
