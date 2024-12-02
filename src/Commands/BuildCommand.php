@@ -208,13 +208,15 @@ final class BuildCommand extends Command implements SignalableCommandInterface
 
     private function clear(): void
     {
-        File::put($this->app->configPath('app.php'), self::$config);
+        if (self::$config !== null) {
+            File::put($this->app->configPath('app.php'), self::$config);
+            self::$config = null;
+        }
 
-        File::put($this->app->basePath('box.json'), self::$box);
-
-        self::$config = null;
-
-        self::$box = null;
+        if (self::$box !== null) {
+            File::put($this->app->basePath('box.json'), self::$box);
+            self::$box = null;
+        }
     }
 
     /**
