@@ -2,19 +2,18 @@
 
 namespace LaravelZero\Framework\Components\Updater\Strategy;
 
-use Phar;
+use LaravelZero\Framework\Components\Updater\Strategy\Concerns\UsesPharName;
 
 final class GithubStrategy extends \Humbug\SelfUpdate\Strategy\GithubStrategy implements StrategyInterface
 {
-    /**
-     * Returns the Download Url.
-     */
+    use UsesPharName;
+
     protected function getDownloadUrl(array $package): string
     {
         $downloadUrl = parent::getDownloadUrl($package);
 
         $downloadUrl = str_replace('releases/download', 'raw', $downloadUrl);
 
-        return $downloadUrl.'/builds/'.basename(Phar::running());
+        return "{$downloadUrl}/builds/{$this->getPharName()}";
     }
 }
