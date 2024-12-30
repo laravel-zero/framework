@@ -67,7 +67,7 @@ final class Provider extends AbstractComponentProvider
             $this->app->singleton(Updater::class, function () use ($build) {
                 $updater = new PharUpdater($build->getPath(), false, PharUpdater::STRATEGY_GITHUB);
 
-                $composer = json_decode(file_get_contents(base_path('composer.json')), true);
+                $composer = json_decode(file_get_contents($this->app->basePath('composer.json')), true);
                 $name = $composer['name'];
 
                 $strategy = $this->app['config']->get('updater.strategy', GithubStrategy::class);

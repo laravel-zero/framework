@@ -46,7 +46,7 @@ final class Installer extends AbstractInstaller
         $this->task(
             'Creating default logging configuration',
             function () {
-                if (! File::exists(config_path('logging.php'))) {
+                if (! File::exists($this->app->configPath('logging.php'))) {
                     return File::copy(
                         static::CONFIG_FILE,
                         $this->app->configPath('logging.php')

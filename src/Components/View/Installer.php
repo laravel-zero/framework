@@ -46,8 +46,8 @@ final class Installer extends AbstractInstaller
         $this->task(
             'Creating resources/views folder',
             function () {
-                if (! File::exists(base_path('resources/views'))) {
-                    File::makeDirectory(base_path('resources/views'), 0755, true, true);
+                if (! File::exists($this->app->resourcePath('views'))) {
+                    File::makeDirectory($this->app->resourcePath('views'), 0755, true, true);
 
                     return true;
                 }
@@ -59,7 +59,7 @@ final class Installer extends AbstractInstaller
         $this->task(
             'Creating default view configuration',
             function () {
-                if (! File::exists(config_path('view.php'))) {
+                if (! File::exists($this->app->configPath('view.php'))) {
                     return File::copy(
                         static::CONFIG_FILE,
                         $this->app->configPath('view.php')
@@ -73,26 +73,26 @@ final class Installer extends AbstractInstaller
         $this->task(
             'Creating cache storage folder',
             function () {
-                if (File::exists(base_path('storage/app/.gitignore')) &&
-                    File::exists(base_path('storage/framework/views/.gitignore'))
+                if (File::exists($this->app->storagePath('app/.gitignore')) &&
+                    File::exists($this->app->storagePath('framework/views/.gitignore'))
                 ) {
                     return false;
                 }
 
-                if (! File::exists(base_path('storage/app'))) {
-                    File::makeDirectory(base_path('storage/app'), 0755, true, true);
+                if (! File::exists($this->app->storagePath('app'))) {
+                    File::makeDirectory($this->app->storagePath('app'), 0755, true, true);
                 }
 
-                if (! File::exists(base_path('storage/app/.gitignore'))) {
-                    File::append(base_path('storage/app/.gitignore'), "*\n!.gitignore");
+                if (! File::exists($this->app->storagePath('app/.gitignore'))) {
+                    File::append($this->app->storagePath('app/.gitignore'), "*\n!.gitignore");
                 }
 
-                if (! File::exists(base_path('storage/framework/views'))) {
-                    File::makeDirectory(base_path('storage/framework/views'), 0755, true, true);
+                if (! File::exists($this->app->storagePath('framework/views'))) {
+                    File::makeDirectory($this->app->storagePath('framework/views'), 0755, true, true);
                 }
 
-                if (! File::exists(base_path('storage/framework/views/.gitignore'))) {
-                    File::append(base_path('storage/framework/views/.gitignore'), "*\n!.gitignore");
+                if (! File::exists($this->app->storagePath('framework/views/.gitignore'))) {
+                    File::append($this->app->storagePath('framework/views/.gitignore'), "*\n!.gitignore");
                 }
 
                 return true;
