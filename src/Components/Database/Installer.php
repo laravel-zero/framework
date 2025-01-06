@@ -53,7 +53,7 @@ final class Installer extends AbstractInstaller
         $this->task(
             'Creating a default SQLite database',
             function () {
-                if (File::exists(database_path('database.sqlite'))) {
+                if (File::exists($this->app->databasePath('database.sqlite'))) {
                     return false;
                 }
 
@@ -107,13 +107,13 @@ final class Installer extends AbstractInstaller
         $this->task(
             'Creating default database configuration',
             function () {
-                if (File::exists(config_path('database.php'))) {
+                if (File::exists($this->app->configPath('database.php'))) {
                     return false;
                 }
 
                 return File::copy(
                     self::CONFIG_FILE,
-                    config_path('database.php')
+                    $this->app->configPath('database.php')
                 );
             }
         );
@@ -121,10 +121,13 @@ final class Installer extends AbstractInstaller
         $this->task(
             'Updating .gitignore',
             function () {
-                $gitignorePath = base_path('.gitignore');
+                $gitignorePath = $this->app->basePath('.gitignore');
                 if (File::exists($gitignorePath)) {
                     $contents = File::get($gitignorePath);
-                    $neededLine = '/database/database.sqlite';
+                    $neededLine = strtr($this->app->databasePath('database.sqlite'), [
+                        $this->app->basePath() => '',
+                        '\\' => '/',
+                    ]);
                     if (! Str::contains($contents, $neededLine)) {
                         File::append($gitignorePath, $neededLine.PHP_EOL);
 
