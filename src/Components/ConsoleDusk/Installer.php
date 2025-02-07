@@ -46,7 +46,7 @@ class VisitLaravelZeroCommand extends Command
     {
         $this->browse(function ($browser) {
             $browser->visit("https://laravel-zero.com")
-                ->assertSee("100% Open Source");
+                ->assertSee("Laravel Zero");
         });
     }
 }
