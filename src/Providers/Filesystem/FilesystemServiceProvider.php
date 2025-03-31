@@ -54,4 +54,10 @@ final class FilesystemServiceProvider extends BaseServiceProvider
             ],
         ];
     }
+
+    /** Laravel Zero doesn't support serving files. */
+    protected function shouldServeFiles(array $config)
+    {
+        return false;
+    }
 }

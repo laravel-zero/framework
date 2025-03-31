@@ -60,6 +60,7 @@ final class InstallCommand extends Command
             $option = $this->choice($title, $choices);
         }
 
+        // @phpstan-ignore notIdentical.alwaysTrue
         if ($option !== null && ! empty($this->componentInstallers[$option])) {
             /** @var AbstractInstaller $command */
             $command = $this->app[$this->componentInstallers[$option]];

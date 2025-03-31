@@ -127,6 +127,7 @@ class Application extends BaseApplication
         $providers->splice(
             1,
             0,
+            // @phpstan-ignore argument.type
             [
                 $this->make(PackageManifest::class)
                     ->providers(),
