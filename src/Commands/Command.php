@@ -31,6 +31,9 @@ abstract class Command extends BaseCommand
      */
     protected $app;
 
+    /** {@inheritdoc} */
+    protected $description = '';
+
     /**
      * Define the command's schedule.
      */
