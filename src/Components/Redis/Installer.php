@@ -27,6 +27,6 @@ final class Installer extends AbstractInstaller
     /** {@inheritdoc} */
     public function install(): void
     {
-        $this->require('illuminate/redis "^11.5"');
+        $this->require('illuminate/redis "^12.17"');
     }
 }
