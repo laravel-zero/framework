@@ -1,17 +1,5 @@
 <?php
 
-$app = new LaravelZero\Framework\Application(
-    realpath(dirname(__DIR__))
-);
+use LaravelZero\Framework\Application;
 
-$app->singleton(
-    Illuminate\Contracts\Console\Kernel::class,
-    LaravelZero\Framework\Kernel::class
-);
-
-$app->singleton(
-    Illuminate\Contracts\Debug\ExceptionHandler::class,
-    Illuminate\Foundation\Exceptions\Handler::class
-);
-
-return $app;
+return Application::configure(basePath: dirname(__DIR__))->create();
