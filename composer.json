@@ -34,7 +34,7 @@
         "illuminate/process": "^12.32.5",
         "illuminate/support": "^12.32.5",
         "illuminate/testing": "^12.32.5",
-        "laravel-zero/foundation": "^12.17.1",
+        "laravel-zero/foundation": "^12.32.6",
         "laravel/prompts": "^0.3.7",
         "league/flysystem": "^3.30.0",
         "nunomaduro/collision": "^8.8.2",
