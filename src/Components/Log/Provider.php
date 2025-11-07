@@ -18,6 +18,7 @@ use Illuminate\Contracts\Log\ContextLogProcessor as ContextLogProcessorContract;
 use Illuminate\Log\Context\ContextLogProcessor;
 use Illuminate\Log\LogServiceProvider;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
+use function class_exists;
 
 /**
  * @internal
