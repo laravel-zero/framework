@@ -14,6 +14,9 @@ declare(strict_types=1);
 namespace LaravelZero\Framework\Components\Log;
 
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Log\ContextLogProcessor as ContextLogProcessorContract;
+use Illuminate\Log\Context\ContextLogProcessor;
+use Illuminate\Log\LogServiceProvider;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
 
 /**
@@ -35,7 +38,10 @@ final class Provider extends AbstractComponentProvider
      */
     public function register(): void
     {
-        $this->app->register(\Illuminate\Log\LogServiceProvider::class);
+        $this->app->register(LogServiceProvider::class);
+        if (class_exists(ContextLogProcessor::class)) {
+            $this->app->bind(ContextLogProcessorContract::class, fn () => new ContextLogProcessor());
+        }
 
         /** @var Repository $config */
         $config = $this->app['config'];
