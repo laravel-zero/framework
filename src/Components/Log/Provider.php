@@ -40,7 +40,7 @@ final class Provider extends AbstractComponentProvider
     {
         $this->app->register(LogServiceProvider::class);
         if (class_exists(ContextLogProcessor::class)) {
-            $this->app->bind(ContextLogProcessorContract::class, fn () => new ContextLogProcessor());
+            $this->app->bind(ContextLogProcessorContract::class, fn () => new ContextLogProcessor);
         }
 
         /** @var Repository $config */
