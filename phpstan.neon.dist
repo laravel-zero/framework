@@ -5,5 +5,7 @@ parameters:
     reportUnmatchedIgnoredErrors: false
 
     ignoreErrors:
+    - identifier: class.notFound
+      path: **/stubs/*.php
     - message: '#Class LaravelZero\\Framework\\Providers\\Collision\\CollisionServiceProvider extends @final class NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider#'
       path: src/Providers/Collision/CollisionServiceProvider.php
