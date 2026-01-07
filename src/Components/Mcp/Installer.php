@@ -2,12 +2,11 @@
 
 namespace LaravelZero\Framework\Components\Mcp;
 
-use LaravelZero\Framework\Components\AbstractInstaller;
 use Illuminate\Support\Facades\File;
+use LaravelZero\Framework\Components\AbstractInstaller;
 
 final class Installer extends AbstractInstaller
 {
-
     private const ROUTE_FILE = __DIR__.DIRECTORY_SEPARATOR.'stubs'.DIRECTORY_SEPARATOR.'ai.php';
 
     /**
@@ -29,7 +28,7 @@ final class Installer extends AbstractInstaller
             return $this->require('laravel/mcp');
         });
 
-        $this->task("Publishing MCP route file", function () {
+        $this->task('Publishing MCP route file', function () {
             return File::copy(
                 self::ROUTE_FILE,
                 $this->app->basePath('bootstrap/ai.php')

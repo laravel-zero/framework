@@ -53,7 +53,6 @@ final class Provider extends AbstractComponentProvider
             ]
         );
 
-
         if (file_exists($this->app->basePath('bootstrap'.DIRECTORY_SEPARATOR.'ai.php'))) {
             require $this->app->basePath('bootstrap'.DIRECTORY_SEPARATOR.'ai.php');
         }
