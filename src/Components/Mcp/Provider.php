@@ -13,9 +13,7 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Components\Mcp;
 
-use Illuminate\Contracts\Config\Repository;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
-
 
 use function class_exists;
 
@@ -51,7 +49,7 @@ final class Provider extends AbstractComponentProvider
                 \Laravel\Mcp\Console\Commands\MakeResourceCommand::class,
                 \Laravel\Mcp\Console\Commands\MakeServerCommand::class,
                 \Laravel\Mcp\Console\Commands\MakeToolCommand::class,
-                \Laravel\Mcp\Console\Commands\StartCommand::class
+                \Laravel\Mcp\Console\Commands\StartCommand::class,
             ]
         );
     }

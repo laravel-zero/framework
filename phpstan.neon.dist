@@ -9,3 +9,5 @@ parameters:
       path: **/stubs/*.php
     - message: '#Class LaravelZero\\Framework\\Providers\\Collision\\CollisionServiceProvider extends @final class NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider#'
       path: src/Providers/Collision/CollisionServiceProvider.php
+    - identifier: class.notFound
+      path: src/Components/Mcp/Provider.php
