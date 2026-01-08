@@ -30,9 +30,6 @@ final class Provider extends AbstractComponentProvider
         return class_exists(\Laravel\Mcp\Server\McpServiceProvider::class);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function boot(): void
     {
         if ($this->app->environment() !== 'production') {
@@ -53,8 +50,8 @@ final class Provider extends AbstractComponentProvider
             ]
         );
 
-        if (file_exists($this->app->basePath('bootstrap'.DIRECTORY_SEPARATOR.'ai.php'))) {
-            require $this->app->basePath('bootstrap'.DIRECTORY_SEPARATOR.'ai.php');
+        if (file_exists($this->app->bootstrapPath('ai.php'))) {
+            require $this->app->bootstrapPath('ai.php');
         }
     }
 
