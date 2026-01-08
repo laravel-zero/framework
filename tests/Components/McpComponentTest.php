@@ -15,3 +15,10 @@ it('installs the required packages', function () {
 
     Artisan::call('app:install', ['component' => 'mcp']);
 });
+
+it('publishes the required files', function () {
+    Artisan::call('app:install', ['component' => 'mcp']);
+
+    expect(file_exists($this->app->basePath('bootstrap'.DIRECTORY_SEPARATOR.'ai.php')))
+        ->toBeTrue();
+});
