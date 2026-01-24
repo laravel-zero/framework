@@ -209,9 +209,7 @@ class Kernel extends BaseKernel
                 $property = $reflectionClass->getParentClass()
                     ->getProperty('commands');
 
-                $property->setAccessible(true);
                 $property->setValue($artisan, $commands);
-                $property->setAccessible(false);
             }
         );
 
