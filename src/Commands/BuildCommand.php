@@ -128,10 +128,10 @@ final class BuildCommand extends Command implements SignalableCommandInterface
             File::makeDirectory($this->app->buildsPath());
         }
 
-        $boxBinary = windows_os() ? '.\box.bat' : './box';
+        $boxBinary = dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'box';
 
         $process = new Process(
-            array_merge([$boxBinary, 'compile', '--working-dir='.base_path(), '--config='.base_path('box.json')], $this->getExtraBoxOptions()),
+            array_merge([PHP_BINARY, $boxBinary, 'compile', '--working-dir='.base_path(), '--config='.base_path('box.json')], $this->getExtraBoxOptions()),
             dirname(__DIR__, 2).'/bin',
             null,
             null,
