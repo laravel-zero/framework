@@ -22,7 +22,7 @@ final class CommandRecorderRepository
     /**
      * Holds the called commands.
      *
-     * @var \Illuminate\Support\Collection
+     * @var Collection
      */
     private $storage;
 

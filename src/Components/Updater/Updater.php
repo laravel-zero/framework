@@ -24,7 +24,7 @@ final class Updater
     /**
      * The base updater.
      *
-     * @var \Humbug\SelfUpdate\Updater
+     * @var PharUpdater
      */
     private $updater;
 

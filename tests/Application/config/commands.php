@@ -1,15 +1,20 @@
 <?php
 
+use App\Commands\FakeDefaultCommand;
+use App\Commands\FakeRemovedCommand;
+use App\HiddenCommands\FakeHiddenCommand;
+use App\OtherCommands\FakeOtherCommand;
+
 return [
-    'default' => App\Commands\FakeDefaultCommand::class,
+    'default' => FakeDefaultCommand::class,
     'paths' => [app_path('Commands')],
     'add' => [
-        App\OtherCommands\FakeOtherCommand::class,
+        FakeOtherCommand::class,
     ],
     'hidden' => [
-        App\HiddenCommands\FakeHiddenCommand::class,
+        FakeHiddenCommand::class,
     ],
     'remove' => [
-        App\Commands\FakeRemovedCommand::class,
+        FakeRemovedCommand::class,
     ],
 ];

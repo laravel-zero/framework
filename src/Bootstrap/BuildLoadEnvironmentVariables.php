@@ -24,7 +24,7 @@ use LaravelZero\Framework\Providers\Build\Build;
 final class BuildLoadEnvironmentVariables implements BootstrapperContract
 {
     /**
-     * @var \LaravelZero\Framework\Providers\Build\Build
+     * @var Build
      */
     private $build;
 

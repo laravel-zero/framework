@@ -13,10 +13,12 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework;
 
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Events\EventServiceProvider;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Application as BaseApplication;
 use Illuminate\Foundation\Configuration\ApplicationBuilder;
+use Illuminate\Foundation\Exceptions\Handler;
 use Illuminate\Foundation\PackageManifest;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -39,12 +41,12 @@ class Application extends BaseApplication
 
         $builder->create()->singleton(
             \Illuminate\Contracts\Console\Kernel::class,
-            \LaravelZero\Framework\Kernel::class
+            Kernel::class
         );
 
         $builder->create()->singleton(
-            \Illuminate\Contracts\Debug\ExceptionHandler::class,
-            \Illuminate\Foundation\Exceptions\Handler::class
+            ExceptionHandler::class,
+            Handler::class
         );
 
         return $builder
