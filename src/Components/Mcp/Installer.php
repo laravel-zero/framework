@@ -24,9 +24,7 @@ final class Installer extends AbstractInstaller
      */
     public function install(): void
     {
-        $this->task('Installing MCP package', function () {
-            return $this->require('laravel/mcp');
-        });
+        $this->require('laravel/mcp');
 
         $this->task('Publishing MCP route file', function () {
             return File::copy(
