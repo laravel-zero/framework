@@ -65,6 +65,7 @@ final class RegisterProviders implements BootstrapperContract
         Components\Menu\Provider::class,
         Components\Redis\Provider::class,
         Components\View\Provider::class,
+        Components\Mcp\Provider::class,
     ];
 
     /**

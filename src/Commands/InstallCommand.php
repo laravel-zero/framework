@@ -45,6 +45,7 @@ final class InstallCommand extends Command
         'redis' => Components\Redis\Installer::class,
         'self-update' => Components\Updater\Installer::class,
         'view' => Components\View\Installer::class,
+        'mcp' => Components\Mcp\Installer::class,
     ];
 
     public function handle()
