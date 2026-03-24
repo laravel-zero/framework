@@ -13,6 +13,13 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Components\Mcp;
 
+use Laravel\Mcp\Console\Commands\InspectorCommand;
+use Laravel\Mcp\Console\Commands\MakePromptCommand;
+use Laravel\Mcp\Console\Commands\MakeResourceCommand;
+use Laravel\Mcp\Console\Commands\MakeServerCommand;
+use Laravel\Mcp\Console\Commands\MakeToolCommand;
+use Laravel\Mcp\Console\Commands\StartCommand;
+use Laravel\Mcp\Server\McpServiceProvider;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
 
 use function class_exists;
@@ -27,7 +34,7 @@ final class Provider extends AbstractComponentProvider
      */
     public function isAvailable(): bool
     {
-        return class_exists(\Laravel\Mcp\Server\McpServiceProvider::class);
+        return class_exists(McpServiceProvider::class);
     }
 
     public function boot(): void
@@ -35,18 +42,18 @@ final class Provider extends AbstractComponentProvider
         if ($this->app->environment() !== 'production') {
             $this->commands(
                 [
-                    \Laravel\Mcp\Console\Commands\InspectorCommand::class,
+                    InspectorCommand::class,
                 ]
             );
         }
 
         $this->commands(
             [
-                \Laravel\Mcp\Console\Commands\MakePromptCommand::class,
-                \Laravel\Mcp\Console\Commands\MakeResourceCommand::class,
-                \Laravel\Mcp\Console\Commands\MakeServerCommand::class,
-                \Laravel\Mcp\Console\Commands\MakeToolCommand::class,
-                \Laravel\Mcp\Console\Commands\StartCommand::class,
+                MakePromptCommand::class,
+                MakeResourceCommand::class,
+                MakeServerCommand::class,
+                MakeToolCommand::class,
+                StartCommand::class,
             ]
         );
 
@@ -60,6 +67,6 @@ final class Provider extends AbstractComponentProvider
      */
     public function register(): void
     {
-        $this->app->register(\Laravel\Mcp\Server\McpServiceProvider::class);
+        $this->app->register(McpServiceProvider::class);
     }
 }
