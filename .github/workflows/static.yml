@@ -24,13 +24,13 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2.37.2
         with:
-          php-version: 8.2
+          php-version: 8.3
           extensions: zip
           tools: composer:v2
           coverage: none
 
       - name: Install PHP dependencies
-        uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # v3
+        uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # 4.0.0
         with:
           dependency-versions: highest
           composer-options: "--prefer-dist"
@@ -51,13 +51,13 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2.37.2
       with:
-        php-version: 8.2
+        php-version: 8.3
         extensions: zip
         tools: composer:v2
         coverage: none
 
     - name: Install PHP dependencies
-      uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # v3
+      uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # 4.0.0
       with:
         dependency-versions: highest
         composer-options: "--prefer-dist"
