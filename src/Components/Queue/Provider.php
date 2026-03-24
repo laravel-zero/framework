@@ -13,7 +13,21 @@ declare(strict_types=1);
 
 namespace LaravelZero\Framework\Components\Queue;
 
+use Illuminate\Bus\BusServiceProvider;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Foundation\Console\JobMakeCommand;
+use Illuminate\Queue\Console\FailedTableCommand;
+use Illuminate\Queue\Console\FlushFailedCommand;
+use Illuminate\Queue\Console\ForgetFailedCommand;
+use Illuminate\Queue\Console\ListenCommand;
+use Illuminate\Queue\Console\ListFailedCommand;
+use Illuminate\Queue\Console\RestartCommand;
+use Illuminate\Queue\Console\RetryCommand;
+use Illuminate\Queue\Console\TableCommand;
+use Illuminate\Queue\Console\WorkCommand;
+use Illuminate\Queue\Listener;
+use Illuminate\Queue\QueueServiceProvider;
+use Illuminate\Queue\Worker;
 use LaravelZero\Framework\Components\AbstractComponentProvider;
 
 use function class_exists;
@@ -28,8 +42,8 @@ final class Provider extends AbstractComponentProvider
      */
     public function isAvailable(): bool
     {
-        return class_exists(\Illuminate\Bus\BusServiceProvider::class)
-            && class_exists(\Illuminate\Queue\QueueServiceProvider::class)
+        return class_exists(BusServiceProvider::class)
+            && class_exists(QueueServiceProvider::class)
             && file_exists($this->app->configPath('queue.php'))
             && $this->app['config']->get('queue.useDefaultProvider', true) === true;
     }
@@ -42,22 +56,22 @@ final class Provider extends AbstractComponentProvider
         if ($this->app->environment() !== 'production') {
             $this->commands(
                 [
-                    \Illuminate\Queue\Console\TableCommand::class,
-                    \Illuminate\Queue\Console\FailedTableCommand::class,
-                    \Illuminate\Foundation\Console\JobMakeCommand::class,
+                    TableCommand::class,
+                    FailedTableCommand::class,
+                    JobMakeCommand::class,
                 ]
             );
         }
 
         $this->commands(
             [
-                \Illuminate\Queue\Console\WorkCommand::class,
-                \Illuminate\Queue\Console\RetryCommand::class,
-                \Illuminate\Queue\Console\ListenCommand::class,
-                \Illuminate\Queue\Console\RestartCommand::class,
-                \Illuminate\Queue\Console\ListFailedCommand::class,
-                \Illuminate\Queue\Console\FlushFailedCommand::class,
-                \Illuminate\Queue\Console\ForgetFailedCommand::class,
+                WorkCommand::class,
+                RetryCommand::class,
+                ListenCommand::class,
+                RestartCommand::class,
+                ListFailedCommand::class,
+                FlushFailedCommand::class,
+                ForgetFailedCommand::class,
             ]
         );
     }
@@ -67,18 +81,18 @@ final class Provider extends AbstractComponentProvider
      */
     public function register(): void
     {
-        $this->app->register(\Illuminate\Bus\BusServiceProvider::class);
-        $this->app->register(\Illuminate\Queue\QueueServiceProvider::class);
+        $this->app->register(BusServiceProvider::class);
+        $this->app->register(QueueServiceProvider::class);
 
         $this->app->bind(
-            \Illuminate\Queue\Worker::class,
+            Worker::class,
             function ($app) {
                 return $app['queue.worker'];
             }
         );
 
         $this->app->bind(
-            \Illuminate\Queue\Listener::class,
+            Listener::class,
             function ($app) {
                 return $app['queue.listener'];
             }

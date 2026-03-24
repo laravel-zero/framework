@@ -1,10 +1,12 @@
 <?php
 
+use App\Providers\FakeServiceProvider;
+
 return [
     'name' => 'Application',
     'version' => 'Test version',
     'env' => 'development',
     'providers' => [
-        App\Providers\FakeServiceProvider::class,
+        FakeServiceProvider::class,
     ],
 ];

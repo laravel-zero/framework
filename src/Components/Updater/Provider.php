@@ -31,7 +31,7 @@ final class Provider extends AbstractComponentProvider
      */
     public function isAvailable(): bool
     {
-        return class_exists(\Humbug\SelfUpdate\Updater::class);
+        return class_exists(PharUpdater::class);
     }
 
     /**

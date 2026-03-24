@@ -2,9 +2,10 @@
 
 namespace LaravelZero\Framework\Components\Updater\Strategy;
 
+use Humbug\SelfUpdate\Strategy\GithubStrategy;
 use Phar;
 
-class GitlabStrategy extends \Humbug\SelfUpdate\Strategy\GithubStrategy implements StrategyInterface
+class GitlabStrategy extends GithubStrategy implements StrategyInterface
 {
     /**
      * Returns the Download Url.

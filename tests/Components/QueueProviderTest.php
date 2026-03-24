@@ -2,6 +2,16 @@
 
 declare(strict_types=1);
 
+use Illuminate\Foundation\Console\JobMakeCommand;
+use Illuminate\Queue\Console\FailedTableCommand;
+use Illuminate\Queue\Console\FlushFailedCommand;
+use Illuminate\Queue\Console\ForgetFailedCommand;
+use Illuminate\Queue\Console\ListenCommand;
+use Illuminate\Queue\Console\ListFailedCommand;
+use Illuminate\Queue\Console\RestartCommand;
+use Illuminate\Queue\Console\RetryCommand;
+use Illuminate\Queue\Console\TableCommand;
+use Illuminate\Queue\Console\WorkCommand;
 use Illuminate\Support\Facades\Artisan;
 
 it('adds the components commands to the application', function () {
@@ -13,16 +23,16 @@ it('adds the components commands to the application', function () {
 
     collect(
         [
-            \Illuminate\Queue\Console\TableCommand::class,
-            \Illuminate\Queue\Console\FailedTableCommand::class,
-            \Illuminate\Foundation\Console\JobMakeCommand::class,
-            \Illuminate\Queue\Console\WorkCommand::class,
-            \Illuminate\Queue\Console\RetryCommand::class,
-            \Illuminate\Queue\Console\ListenCommand::class,
-            \Illuminate\Queue\Console\RestartCommand::class,
-            \Illuminate\Queue\Console\ListFailedCommand::class,
-            \Illuminate\Queue\Console\FlushFailedCommand::class,
-            \Illuminate\Queue\Console\ForgetFailedCommand::class,
+            TableCommand::class,
+            FailedTableCommand::class,
+            JobMakeCommand::class,
+            WorkCommand::class,
+            RetryCommand::class,
+            ListenCommand::class,
+            RestartCommand::class,
+            ListFailedCommand::class,
+            FlushFailedCommand::class,
+            ForgetFailedCommand::class,
         ]
     )->map(
         fn ($commandClass) => expect($commands)->toHaveKey($commandClass)

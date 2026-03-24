@@ -14,8 +14,17 @@ declare(strict_types=1);
 namespace LaravelZero\Framework;
 
 use Illuminate\Console\Application as Artisan;
+use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Foundation\Bootstrap\BootProviders;
+use Illuminate\Foundation\Bootstrap\HandleExceptions;
 use Illuminate\Foundation\Console\ConfigPublishCommand;
 use Illuminate\Foundation\Console\Kernel as BaseKernel;
+use LaravelZero\Framework\Bootstrap\CoreBindings;
+use LaravelZero\Framework\Bootstrap\LoadConfiguration;
+use LaravelZero\Framework\Bootstrap\LoadEnvironmentVariables;
+use LaravelZero\Framework\Bootstrap\RegisterFacades;
+use LaravelZero\Framework\Bootstrap\RegisterProviders;
 use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorderRepository;
 use NunoMaduro\Collision\Adapters\Laravel\Commands\TestCommand;
 use ReflectionClass;
@@ -72,21 +81,21 @@ class Kernel extends BaseKernel
      * @var string[]
      */
     protected $bootstrappers = [
-        \LaravelZero\Framework\Bootstrap\CoreBindings::class,
-        \LaravelZero\Framework\Bootstrap\LoadEnvironmentVariables::class,
-        \LaravelZero\Framework\Bootstrap\LoadConfiguration::class,
-        \Illuminate\Foundation\Bootstrap\HandleExceptions::class,
-        \LaravelZero\Framework\Bootstrap\RegisterFacades::class,
-        \LaravelZero\Framework\Bootstrap\RegisterProviders::class,
-        \Illuminate\Foundation\Bootstrap\BootProviders::class,
+        CoreBindings::class,
+        LoadEnvironmentVariables::class,
+        LoadConfiguration::class,
+        HandleExceptions::class,
+        RegisterFacades::class,
+        RegisterProviders::class,
+        BootProviders::class,
     ];
 
     /**
      * Kernel constructor.
      */
     public function __construct(
-        \Illuminate\Contracts\Foundation\Application $app,
-        \Illuminate\Contracts\Events\Dispatcher $events
+        Application $app,
+        Dispatcher $events
     ) {
         if (! defined('ARTISAN_BINARY')) {
             define('ARTISAN_BINARY', basename($_SERVER['SCRIPT_FILENAME']));
