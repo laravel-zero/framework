@@ -10,10 +10,10 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2
 
     - name: Setup PHP
-      uses: shivammathur/setup-php@v2
+      uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2
       with:
         php-version: 7.3
         extensions: zip
@@ -21,7 +21,7 @@ jobs:
         coverage: none
 
     - name: Install PHP dependencies
-      uses: ramsey/composer-install@v1
+      uses: ramsey/composer-install@994bb194a4fefcf39449ccf0f7766a4318f1ac76 # v1
       with:
         dependency-versions: highest
         composer-options: "--prefer-dist"
