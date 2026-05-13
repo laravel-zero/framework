@@ -16,10 +16,10 @@ jobs:
     steps:
 
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
     - name: Setup PHP
-      uses: shivammathur/setup-php@v2
+      uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2
       with:
         php-version: ${{ matrix.php }}
         extensions: zip
@@ -32,7 +32,7 @@ jobs:
         echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
     - name: Install PHP dependencies
-      uses: ramsey/composer-install@v3
+      uses: ramsey/composer-install@a8d0d959dab41457692a5e2041bd9b757a119e3f # v3
       with:
         dependency-versions: ${{ matrix.dependency-version }}
         composer-options: "--prefer-dist"
