@@ -16,7 +16,7 @@ jobs:
           git config --global core.eol lf
 
       - name: Checkout
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Setup PHP
         uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2
@@ -27,7 +27,7 @@ jobs:
           coverage: none
 
       - name: Install PHP dependencies
-        uses: ramsey/composer-install@a8d0d959dab41457692a5e2041bd9b757a119e3f # v3
+        uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # v3
         with:
           dependency-versions: highest
           composer-options: "--prefer-dist"
@@ -43,7 +43,7 @@ jobs:
     steps:
 
     - name: Checkout
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
     - name: Setup PHP
       uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2
@@ -54,7 +54,7 @@ jobs:
         coverage: none
 
     - name: Install PHP dependencies
-      uses: ramsey/composer-install@a8d0d959dab41457692a5e2041bd9b757a119e3f # v3
+      uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # v3
       with:
         dependency-versions: highest
         composer-options: "--prefer-dist"
