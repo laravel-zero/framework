@@ -20,7 +20,7 @@ jobs:
       with:
         php-version: 7.3
         extensions: zip
-        tools: composer
+        tools: composer:v2
         coverage: none
 
     - name: Install PHP dependencies
