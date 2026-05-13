@@ -35,10 +35,7 @@ jobs:
         echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
     - name: Install PHP dependencies
-      uses: ramsey/composer-install@994bb194a4fefcf39449ccf0f7766a4318f1ac76 # v1
-      with:
-        dependency-versions: ${{ matrix.dependency-version }}
-        composer-options: "--prefer-dist"
+      run: composer update --prefer-dist --no-interaction ${{ matrix.dependency-version == 'lowest' && '--prefer-lowest' || '' }}
 
     - name: Unit Tests
       run: vendor/bin/pest --colors=always
