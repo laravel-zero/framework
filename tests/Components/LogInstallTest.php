@@ -15,7 +15,7 @@ it('installs the required packages', function () {
 
     $composerMock->expects($this->once())
         ->method('require')
-        ->with('illuminate/log "^12.17"');
+        ->with('illuminate/log "^13.0"');
 
     $this->app->instance(ComposerContract::class, $composerMock);
 
