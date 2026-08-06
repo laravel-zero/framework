@@ -35,6 +35,6 @@ final class Installer extends AbstractInstaller
      */
     public function install(): void
     {
-        $this->require('illuminate/http "^12.17"');
+        $this->require('illuminate/http "^13.0"');
     }
 }
