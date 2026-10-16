@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Illuminate\Console\Signals;
 use Illuminate\Support\Facades\Artisan;
 use LaravelZero\Framework\Application;
 use Psr\Log\LoggerInterface;
@@ -17,4 +18,11 @@ it('binds the output into the container', function () {
 
 it('binds the logger into the container', function () {
     expect(app('log'))->toBeInstanceOf(LoggerInterface::class);
+});
+
+it('registers the console signals availability resolver', function () {
+    $resolver = (new ReflectionProperty(Signals::class, 'availabilityResolver'))->getValue();
+
+    expect($resolver)->toBeCallable()
+        ->and($resolver())->toBe(! app()->runningUnitTests() && extension_loaded('pcntl'));
 });

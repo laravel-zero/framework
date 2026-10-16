@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace LaravelZero\Framework\Bootstrap;
 
 use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Console\Signals;
 use Illuminate\Foundation\Bootstrap\RegisterProviders as BaseRegisterProviders;
 use LaravelZero\Framework\Application;
 use LaravelZero\Framework\Components;
@@ -28,6 +29,7 @@ use NunoMaduro\LaravelConsoleTask\LaravelConsoleTaskServiceProvider;
 use NunoMaduro\LaravelDesktopNotifier\LaravelDesktopNotifierServiceProvider;
 
 use function collect;
+use function extension_loaded;
 
 /**
  * @internal
@@ -85,6 +87,11 @@ final class RegisterProviders implements BootstrapperContract
         $this->registerConsoleSchedule($app);
 
         /*
+         * Register the console signals availability resolver.
+         */
+        $this->registerConsoleSignals($app);
+
+        /*
          * Then we register Laravel Zero available providers.
          */
         collect($this->providers)
@@ -100,6 +107,21 @@ final class RegisterProviders implements BootstrapperContract
                     $app->register($serviceProviderClass);
                 }
             );
+    }
+
+    /**
+     * Register the console signals availability resolver.
+     *
+     * This is usually registered by the foundation "ArtisanServiceProvider",
+     * which Laravel Zero doesn't use, so commands calling "trap" would fail.
+     */
+    public function registerConsoleSignals(Application $app): void
+    {
+        Signals::resolveAvailabilityUsing(function () use ($app) {
+            return $app->runningInConsole()
+                && ! $app->runningUnitTests()
+                && extension_loaded('pcntl');
+        });
     }
 
     /**
