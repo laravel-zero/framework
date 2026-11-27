@@ -36,6 +36,7 @@ use function define;
 use function defined;
 use function get_class;
 use function in_array;
+use function is_null;
 
 class Kernel extends BaseKernel
 {
@@ -74,6 +75,20 @@ class Kernel extends BaseKernel
     protected $hiddenCommands = [
         ConfigPublishCommand::class,
     ];
+
+    /**
+     * The commands registered through the "commands" configuration.
+     *
+     * @var string[]
+     */
+    protected array $configuredCommands = [];
+
+    /**
+     * The commands that should be removed from the application.
+     *
+     * @var string[]
+     */
+    protected array $removedCommands = [];
 
     /**
      * The application's bootstrap classes.
@@ -204,59 +219,73 @@ class Kernel extends BaseKernel
             $toRemoveCommands = array_merge($toRemoveCommands, $this->developmentOnlyCommands);
         }
 
-        $commands = $commands->diff($toRemoveCommands);
+        $this->configuredCommands = $commands->diff($toRemoveCommands)->values()->all();
 
-        Artisan::starting(
-            function ($artisan) use ($toRemoveCommands) {
-                $reflectionClass = new ReflectionClass(Artisan::class);
-                $commands = collect($artisan->all())
-                    ->filter(
-                        fn ($command) => ! in_array(get_class($command), $toRemoveCommands, true)
-                    )
-                    ->toArray();
+        $this->removedCommands = $toRemoveCommands;
+    }
 
-                $property = $reflectionClass->getParentClass()
-                    ->getProperty('commands');
+    /**
+     * {@inheritdoc}
+     *
+     * Commands loaded through the "load" and "command" methods are resolved
+     * by the base kernel after the "starting" callbacks have been run, so
+     * the configured commands are registered once the console exists.
+     */
+    protected function getArtisan()
+    {
+        if (is_null($this->artisan)) {
+            $this->configureArtisan(parent::getArtisan());
+        }
 
-                $property->setValue($artisan, $commands);
-            }
-        );
+        return $this->artisan;
+    }
+
+    /**
+     * Registers, removes, hides and schedules the application commands.
+     */
+    protected function configureArtisan(Artisan $artisan): void
+    {
+        $artisan->resolveCommands($this->configuredCommands);
 
         /*
-         * Registers a bootstrap callback on the artisan console application
-         * in order to call the schedule method on each Laravel Zero
-         * command class.
+         * Commands with the "AsCommand" attribute are lazily loaded through
+         * the command map, so removed commands are also dropped from it.
          */
-        Artisan::starting(
-            function ($artisan) use ($commands) {
-                $artisan->resolveCommands($commands->toArray());
+        $commandMap = (new ReflectionClass(Artisan::class))->getProperty('commandMap');
 
-                $artisan->setContainerCommandLoader();
-            }
+        $commandMap->setValue($artisan, collect($commandMap->getValue($artisan))
+            ->reject(fn ($command) => in_array($command, $this->removedCommands, true))
+            ->all());
+
+        $artisan->setContainerCommandLoader();
+
+        $commands = collect($artisan->all())
+            ->filter(
+                fn ($command) => ! in_array(get_class($command), $this->removedCommands, true)
+            )
+            ->toArray();
+
+        (new ReflectionClass(Artisan::class))
+            ->getParentClass()
+            ->getProperty('commands')
+            ->setValue($artisan, $commands);
+
+        $hiddenCommands = array_merge(
+            $this->app['config']->get('commands.hidden', []),
+            $this->hiddenCommands,
         );
 
-        Artisan::starting(
-            function ($artisan) use ($config) {
-                $commands = array_merge(
-                    $config->get('commands.hidden'),
-                    $this->hiddenCommands,
-                );
-
-                collect($artisan->all())->each(
-                    function ($command) use ($artisan, $commands) {
-                        if (in_array(get_class($command), $commands, true)) {
-                            $command->setHidden(true);
-                        }
-
-                        $command->setApplication($artisan);
-
-                        if ($command instanceof Commands\Command) {
-                            $this->app->call([$command, 'schedule']);
-                        }
-                    }
-                );
+        foreach ($artisan->all() as $command) {
+            if (in_array(get_class($command), $hiddenCommands, true)) {
+                $command->setHidden(true);
             }
-        );
+
+            $command->setApplication($artisan);
+
+            if ($command instanceof Commands\Command) {
+                $this->app->call([$command, 'schedule']);
+            }
+        }
     }
 
     /**

@@ -6,7 +6,9 @@ use App\Commands\FakeDefaultCommand;
 use App\Commands\FakeFooCommand;
 use App\HiddenCommands\FakeHiddenCommand;
 use App\OtherCommands\FakeOtherCommand;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Artisan;
+use Symfony\Component\Console\Exception\CommandNotFoundException;
 
 it('can access the application configuration', function () {
     expect(Artisan::getName())->toBe('Application')
@@ -35,6 +37,25 @@ it('can hide application commands', function () {
     expect(Artisan::all()['fake:hidden']->isHidden())->toBeTrue();
 });
 
+it('can hide commands loaded from the command paths', function () {
+    expect(Artisan::all()['fake:hidden-path']->isHidden())->toBeTrue();
+});
+
 it('can remove application commands', function () {
     expect(Artisan::all())->not->toHaveKey('fake:removed');
+});
+
+it('can remove lazily loaded application commands', function () {
+    expect(Artisan::all())->not->toHaveKey('fake:removed-lazy')
+        ->and(fn () => Artisan::call('fake:removed-lazy'))->toThrow(CommandNotFoundException::class);
+});
+
+it('can schedule commands loaded from the command paths', function () {
+    Artisan::all();
+
+    $commands = collect(app(Schedule::class)->events())
+        ->map(fn ($event) => $event->command)
+        ->filter(fn ($command) => str_contains((string) $command, 'fake:scheduled'));
+
+    expect($commands)->toHaveCount(1);
 });
